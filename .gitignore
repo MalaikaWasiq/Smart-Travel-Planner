@@ -1,0 +1,18 @@
+**/node_modules/
+**/.expo/
+**/.expo-shared/
+**/dist/
+**/build/
+**/.DS_Store
+**/*.log
+
+# Env files
+backend/.env
+frontend/.env
+
+# Local docs and generated/auxiliary files not meant for GitHub
+documentation/
+tools/
+frontend/reference.tex
+plan.md
+*.pdf

@@ -1,13 +1,14 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity,
-  TextInput, ScrollView, Alert, Animated,
+  TextInput, ScrollView, Alert, Animated, ActivityIndicator, Platform,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 const Tab   = createBottomTabNavigator();
@@ -15,11 +16,12 @@ const Tab   = createBottomTabNavigator();
 // ─── USER CONTEXT ─────────────────────────────────────────────
 const UserContext = createContext(null);
 
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL || 'http://localhost:5000/api';
+const AUTH_TOKEN_KEY = 'smartTravelPlanner.authToken';
+const USE_NATIVE_DRIVER = Platform.OS !== 'web';
+
 // ─── USER DATABASE ────────────────────────────────────────────
-const REGISTERED_USERS = [
-  { fullName: 'Malaika Wasiq', email: 'malaika@gmail.com', password: 'malaika123' },
-  { fullName: 'Amima Masood',  email: 'amima@gmail.com',   password: 'amima123'   },
-];
+// Backend-backed auth is implemented via /api/auth.
 
 function getInitials(name) {
   if (!name) return 'U';
@@ -33,6 +35,25 @@ function isValidEmail(email) {
 }
 
 // ─── CITY DATABASE ────────────────────────────────────────────
+function toAppUser(user) {
+  return user ? { ...user, initials: getInitials(user.fullName) } : null;
+}
+
+async function apiRequest(path, { method = 'GET', token, body } = {}) {
+  const res = await fetch(`${API_BASE_URL}${path}`, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    ...(body ? { body: JSON.stringify(body) } : {}),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.message || 'Request failed');
+  return data;
+}
+
 const CITY_DATA = {
   lahore: {
     name: 'Lahore',
@@ -143,17 +164,22 @@ function generateItinerary(destination, numberOfDays) {
 
 // ─── SPLASH SCREEN ────────────────────────────────────────────
 function SplashScreen({ navigation }) {
+  const { currentUser, authLoading } = useContext(UserContext);
   const scale   = new Animated.Value(0);
   const opacity = new Animated.Value(0);
 
   useEffect(() => {
     Animated.sequence([
-      Animated.spring(scale,   { toValue: 1, friction: 4, tension: 40, useNativeDriver: true }),
-      Animated.timing(opacity, { toValue: 1, duration: 800, useNativeDriver: true }),
+      Animated.spring(scale,   { toValue: 1, friction: 4, tension: 40, useNativeDriver: USE_NATIVE_DRIVER }),
+      Animated.timing(opacity, { toValue: 1, duration: 800, useNativeDriver: USE_NATIVE_DRIVER }),
     ]).start();
-    const t = setTimeout(() => navigation.replace('Login'), 3500);
-    return () => clearTimeout(t);
   }, []);
+
+  useEffect(() => {
+    if (authLoading) return;
+    const t = setTimeout(() => navigation.replace(currentUser ? 'MainApp' : 'Login'), 3500);
+    return () => clearTimeout(t);
+  }, [authLoading, currentUser]);
 
   return (
     <LinearGradient colors={['#0d5c2e', '#1a7a4a', '#25a865']} style={s.splashBg}>
@@ -181,15 +207,18 @@ function SplashScreen({ navigation }) {
 }
 
 // ─── LOGIN SCREEN ─────────────────────────────────────────────
-function LoginScreen({ navigation }) {
-  const { setCurrentUser } = useContext(UserContext);
+function LoginScreen({ navigation, route }) {
+  const { setCurrentUser, setAuthToken } = useContext(UserContext);
+  const successMessage = route?.params?.successMessage;
   const [email,    setEmail]    = useState('');
   const [password, setPassword] = useState('');
+  const [loading,  setLoading]  = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [emailErr, setEmailErr] = useState('');
   const [passErr,  setPassErr]  = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    if (loading) return;
     setEmailErr(''); setPassErr('');
     let ok = true;
     if (!email.trim())              { setEmailErr('Email is required'); ok = false; }
@@ -198,13 +227,24 @@ function LoginScreen({ navigation }) {
     else if (password.length < 6)   { setPassErr('Password must be at least 6 characters'); ok = false; }
     if (!ok) return;
 
-    const user = REGISTERED_USERS.find(
-      u => u.email.toLowerCase() === email.trim().toLowerCase() && u.password === password
-    );
-    if (!user) { setEmailErr('Incorrect email or password'); setPassErr('Incorrect email or password'); return; }
+    setLoading(true);
+    try {
+      const { token, user } = await apiRequest('/auth/login', {
+        method: 'POST',
+        body: { email: email.trim(), password },
+      });
 
-    setCurrentUser({ fullName: user.fullName, email: user.email, initials: getInitials(user.fullName) });
-    navigation.replace('MainApp');
+      await AsyncStorage.setItem(AUTH_TOKEN_KEY, token);
+      setAuthToken(token);
+      setCurrentUser(toAppUser(user));
+      navigation.replace('MainApp');
+    } catch (error) {
+      const msg = error?.message || 'Login failed';
+      setEmailErr(msg);
+      setPassErr(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -217,6 +257,12 @@ function LoginScreen({ navigation }) {
       </LinearGradient>
       <View style={s.authCard}>
         <Text style={s.authCardTitle}>Sign In</Text>
+        {!!successMessage && (
+          <View style={s.successBanner}>
+            <Text style={s.successBannerTitle}>Account created</Text>
+            <Text style={s.successBannerTxt}>{successMessage}</Text>
+          </View>
+        )}
         <Text style={s.lbl}>Email</Text>
         <View style={[s.field, emailErr && s.fieldErr]}>
           <Text style={s.fieldIcon}>✉</Text>
@@ -236,9 +282,9 @@ function LoginScreen({ navigation }) {
 
         <TouchableOpacity style={s.forgotWrap}><Text style={s.forgotTxt}>Forgot Password?</Text></TouchableOpacity>
 
-        <TouchableOpacity style={s.bigBtn} onPress={handleLogin}>
+        <TouchableOpacity style={s.bigBtn} onPress={handleLogin} disabled={loading}>
           <LinearGradient colors={['#1a7a4a', '#25a865']} style={s.bigBtnGrad}>
-            <Text style={s.bigBtnTxt}>LOGIN</Text>
+            {loading ? <ActivityIndicator color="#fff" /> : <Text style={s.bigBtnTxt}>LOGIN</Text>}
           </LinearGradient>
         </TouchableOpacity>
 
@@ -250,9 +296,9 @@ function LoginScreen({ navigation }) {
         </View>
 
         <View style={s.hint}>
-          <Text style={s.hintTitle}>Test Accounts:</Text>
-          <Text style={s.hintTxt}>malaika@gmail.com  /  malaika123</Text>
-          <Text style={s.hintTxt}>amima@gmail.com  /  amima123</Text>
+          <Text style={s.hintTitle}>Backend Login</Text>
+          <Text style={s.hintTxt}>Sign up first, then log in with your email and password.</Text>
+          <Text style={s.hintTxt}>API: {API_BASE_URL}</Text>
         </View>
       </View>
     </ScrollView>
@@ -261,34 +307,47 @@ function LoginScreen({ navigation }) {
 
 // ─── SIGNUP SCREEN ────────────────────────────────────────────
 function SignupScreen({ navigation }) {
-  const { setCurrentUser } = useContext(UserContext);
   const [fullName, setFullName] = useState('');
   const [email,    setEmail]    = useState('');
   const [password, setPassword] = useState('');
   const [confirm,  setConfirm]  = useState('');
+  const [loading,  setLoading]  = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [nameErr,  setNameErr]  = useState('');
   const [emailErr, setEmailErr] = useState('');
   const [passErr,  setPassErr]  = useState('');
   const [confErr,  setConfErr]  = useState('');
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
+    if (loading) return;
     setNameErr(''); setEmailErr(''); setPassErr(''); setConfErr('');
     let ok = true;
     if (!fullName.trim()) { setNameErr('Full name is required'); ok = false; }
     if (!email.trim())    { setEmailErr('Email is required'); ok = false; }
     else if (!isValidEmail(email)) { setEmailErr('Enter a valid email address'); ok = false; }
-    else if (REGISTERED_USERS.find(u => u.email.toLowerCase() === email.trim().toLowerCase())) { setEmailErr('Email already registered'); ok = false; }
     if (!password)              { setPassErr('Password is required'); ok = false; }
     else if (password.length < 6) { setPassErr('Password must be at least 6 characters'); ok = false; }
     if (!confirm)               { setConfErr('Please confirm your password'); ok = false; }
     else if (password !== confirm) { setConfErr('Passwords do not match'); ok = false; }
     if (!ok) return;
 
-    const newUser = { fullName: fullName.trim(), email: email.trim().toLowerCase(), password };
-    REGISTERED_USERS.push(newUser);
-    setCurrentUser({ fullName: newUser.fullName, email: newUser.email, initials: getInitials(newUser.fullName) });
-    Alert.alert('Welcome!', 'Account created!', [{ text: 'Continue', onPress: () => navigation.replace('MainApp') }]);
+    setLoading(true);
+    try {
+      await apiRequest('/auth/signup', {
+        method: 'POST',
+        body: { fullName: fullName.trim(), email: email.trim(), password },
+      });
+
+      navigation.replace('Login', {
+        successMessage: 'Your account was created successfully. Please log in with your email and password.',
+      });
+    } catch (error) {
+      const msg = error?.message || 'Signup failed';
+      setEmailErr(msg);
+      setPassErr(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -332,9 +391,9 @@ function SignupScreen({ navigation }) {
         </View>
         {!!confErr && <Text style={s.errTxt}>⚠  {confErr}</Text>}
 
-        <TouchableOpacity style={s.bigBtn} onPress={handleSignup}>
+        <TouchableOpacity style={s.bigBtn} onPress={handleSignup} disabled={loading}>
           <LinearGradient colors={['#1a7a4a', '#25a865']} style={s.bigBtnGrad}>
-            <Text style={s.bigBtnTxt}>SIGN UP</Text>
+            {loading ? <ActivityIndicator color="#fff" /> : <Text style={s.bigBtnTxt}>SIGN UP</Text>}
           </LinearGradient>
         </TouchableOpacity>
 
@@ -355,13 +414,78 @@ const CITIES    = ['Lahore', 'Islamabad', 'Karachi', 'Hunza', 'Skardu', 'Murree'
 const DAYS_LIST = ['1', '2', '3', '4', '5', '6', '7', '10', '14'];
 
 function HomeScreen({ navigation }) {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, authToken } = useContext(UserContext);
   const [dest,     setDest]     = useState('');
   const [days,     setDays]     = useState('3');
   const [budget,   setBudget]   = useState('');
   const [selected, setSelected] = useState([]);
+  const [weather,  setWeather]  = useState(null);
+  const [forecast, setForecast] = useState([]);
+  const [wLoading, setWLoading] = useState(false);
+  const [wError,   setWError]   = useState('');
+  const [genLoading, setGenLoading] = useState(false);
 
   const toggle = i => setSelected(p => p.includes(i) ? p.filter(x => x !== i) : [...p, i]);
+
+  useEffect(() => {
+    const city = dest.trim();
+    const dayCount = parseInt(days, 10) || 3;
+
+    if (!city) {
+      setWeather(null);
+      setForecast([]);
+      setWError('');
+      return;
+    }
+
+    let cancelled = false;
+    setWLoading(true);
+    setWError('');
+
+    apiRequest(`/weather?city=${encodeURIComponent(city)}&days=${dayCount}`)
+      .then((data) => {
+        if (cancelled) return;
+        setWeather(data.weather || null);
+        setForecast(Array.isArray(data.forecast) ? data.forecast : []);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        setWeather(null);
+        setForecast([]);
+        setWError(err?.message || 'Weather request failed');
+      })
+      .finally(() => {
+        if (cancelled) return;
+        setWLoading(false);
+      });
+
+    return () => { cancelled = true; };
+  }, [dest, days]);
+
+  const handleGenerate = async () => {
+    const city = dest.trim();
+    const dayCount = parseInt(days, 10) || 3;
+    const budgetValue = Number(budget);
+
+    if (!city) { Alert.alert('Missing', 'Please enter a destination'); return; }
+    if (!Number.isFinite(budgetValue) || budgetValue <= 0) { Alert.alert('Missing', 'Please enter a valid budget'); return; }
+    if (!authToken) { Alert.alert('Login Required', 'Please login to generate and save trips.'); navigation.navigate('Login'); return; }
+
+    setGenLoading(true);
+    try {
+      const { trip } = await apiRequest('/trips/generate', {
+        method: 'POST',
+        token: authToken,
+        body: { destination: city, days: dayCount, budget: budgetValue, interests: selected },
+      });
+
+      navigation.navigate('Itinerary', { trip });
+    } catch (error) {
+      Alert.alert('Generate Failed', error?.message || 'Trip generation failed');
+    } finally {
+      setGenLoading(false);
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
@@ -381,6 +505,64 @@ function HomeScreen({ navigation }) {
             </TouchableOpacity>
           ))}
         </ScrollView>
+
+        {wLoading && !!dest.trim() && (
+          <View style={s.sec}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <ActivityIndicator color="#1a7a4a" />
+              <Text style={{ marginLeft: 10, color: '#555', fontSize: 13 }}>Loading weather for {dest.trim()}...</Text>
+            </View>
+          </View>
+        )}
+
+        {!!wError && (
+          <View style={s.sec}>
+            <Text style={s.secTitle}>Weather</Text>
+            <Text style={{ color: '#e53935', fontSize: 13 }}>{wError}</Text>
+            <Text style={{ color: '#888', fontSize: 12, marginTop: 6 }}>Backend: {API_BASE_URL}</Text>
+          </View>
+        )}
+
+        {!wLoading && weather && (
+          <View style={s.sec}>
+            <Text style={s.secTitle}>Weather in {weather.city}</Text>
+            <Text style={{ fontSize: 34, fontWeight: '800', color: '#222' }}>{weather.temp}°C</Text>
+            <Text style={{ fontSize: 13, color: '#555', textTransform: 'capitalize' }}>{weather.description}</Text>
+            <Text style={{ fontSize: 12, color: '#888', marginTop: 6 }}>
+              Humidity {weather.humidity}%  •  Wind {weather.wind} m/s  •  Feels {weather.feelsLike}°C
+            </Text>
+          </View>
+        )}
+
+        {!wLoading && forecast.length > 0 && (
+          <View style={s.sec}>
+            <Text style={s.secTitle}>{forecast.length}-Day Forecast</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {forecast.map((d) => (
+                <View
+                  key={String(d.dayNumber || d.label)}
+                  style={{
+                    backgroundColor: '#f8f8f8',
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor: '#e0e0e0',
+                    paddingVertical: 10,
+                    paddingHorizontal: 12,
+                    marginRight: 10,
+                    minWidth: 110,
+                  }}
+                >
+                  <Text style={{ fontSize: 11, color: '#888', fontWeight: '600' }}>{d.label}</Text>
+                  <Text style={{ fontSize: 20, fontWeight: '800', color: '#1a7a4a', marginTop: 4 }}>{d.temp}°C</Text>
+                  <Text style={{ fontSize: 12, color: '#555', marginTop: 2 }}>{d.main}</Text>
+                </View>
+              ))}
+            </ScrollView>
+            {!!forecast[0]?.advisory && (
+              <Text style={{ fontSize: 12, color: '#1a7a4a', marginTop: 10 }}>{forecast[0].advisory}</Text>
+            )}
+          </View>
+        )}
 
         <View style={s.formCard}>
           <Text style={s.formTitle}>Plan Your Trip</Text>
@@ -415,13 +597,9 @@ function HomeScreen({ navigation }) {
             ))}
           </View>
 
-          <TouchableOpacity style={s.genBtn} onPress={() => {
-            if (!dest)   { Alert.alert('Missing', 'Please enter a destination'); return; }
-            if (!budget) { Alert.alert('Missing', 'Please enter your budget'); return; }
-            navigation.navigate('Itinerary', { destination: dest, numberOfDays: parseInt(days), budget, interests: selected });
-          }}>
+          <TouchableOpacity style={s.genBtn} onPress={handleGenerate} disabled={genLoading}>
             <LinearGradient colors={['#1a7a4a', '#25a865']} style={s.genBtnGrad}>
-              <Text style={s.genBtnTxt}>✨  Generate Itinerary</Text>
+              {genLoading ? <ActivityIndicator color="#fff" /> : <Text style={s.genBtnTxt}>✨  Generate Itinerary</Text>}
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -436,10 +614,16 @@ const T_CLR = { historic: '#1a7a4a', food: '#e65100', nature: '#1565c0', shoppin
 const T_LBL = { historic: 'Historic', food: 'Food', nature: 'Nature', shopping: 'Shopping', culture: 'Culture' };
 
 function ItineraryScreen({ navigation, route }) {
-  const { destination = 'Lahore', numberOfDays = 3, budget = '50000' } = route?.params || {};
-  const itin = generateItinerary(destination, numberOfDays);
+  const { trip, destination = 'Lahore', numberOfDays = 3, budget = '50000' } = route?.params || {};
+
+  const fallback = generateItinerary(destination, numberOfDays);
+  const daysData = Array.isArray(trip?.itinerary) && trip.itinerary.length ? trip.itinerary : fallback.days;
+  const cityName = trip?.destination || fallback.cityName;
+  const dayCount = trip?.days || numberOfDays;
+  const budgetValue = trip?.budget ?? budget;
+
   const [day, setDay] = useState(1);
-  const cur = itin.days.find(d => d.day === day);
+  const cur = daysData.find(d => d.day === day) || daysData[0];
 
   return (
     <View style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
@@ -448,14 +632,14 @@ function ItineraryScreen({ navigation, route }) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={s.backTxt}>← Back</Text>
         </TouchableOpacity>
-        <Text style={s.itinTitle}>{itin.cityName} Trip</Text>
-        <Text style={s.itinSub}>{numberOfDays} Days  •  {numberOfDays * 6} Activities</Text>
-        <View style={s.budgBadge}><Text style={s.budgBadgeTxt}>Budget: PKR {Number(budget).toLocaleString()}</Text></View>
+        <Text style={s.itinTitle}>{cityName} Trip</Text>
+        <Text style={s.itinSub}>{dayCount} Days  •  {dayCount * 5} Activities</Text>
+        <View style={s.budgBadge}><Text style={s.budgBadgeTxt}>Budget: PKR {Number(budgetValue).toLocaleString()}</Text></View>
       </LinearGradient>
 
       <View style={{ backgroundColor: '#fff', paddingVertical: 10 }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingHorizontal: 12 }}>
-          {itin.days.map(d => (
+          {daysData.map(d => (
             <TouchableOpacity key={d.day} style={[s.dayTab, day === d.day && s.dayTabOn]} onPress={() => setDay(d.day)}>
               <Text style={[s.dayTabTxt, day === d.day && s.dayTabTxtOn]}>Day {d.day}</Text>
             </TouchableOpacity>
@@ -466,8 +650,13 @@ function ItineraryScreen({ navigation, route }) {
       <ScrollView style={{ padding: 16 }} showsVerticalScrollIndicator={false}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 14 }}>
           <Text style={s.dayTitle}>{cur.title}</Text>
-          <Text style={{ fontSize: 12, color: '#888' }}>Day {day} of {numberOfDays}</Text>
+          <Text style={{ fontSize: 12, color: '#888' }}>Day {day} of {dayCount}</Text>
         </View>
+        {!!cur.weatherNote && (
+          <View style={[s.sec, { marginHorizontal: 0 }]}>
+            <Text style={{ fontSize: 12, color: '#555' }}>{cur.weatherNote}</Text>
+          </View>
+        )}
         {cur.activities.map((a, i) => (
           <View key={i} style={s.actRow}>
             <View style={s.tlCol}>
@@ -487,7 +676,7 @@ function ItineraryScreen({ navigation, route }) {
           <TouchableOpacity style={{ opacity: day === 1 ? 0.3 : 1 }} onPress={() => day > 1 && setDay(day - 1)}>
             <Text style={s.navTxt}>← Previous Day</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ opacity: day === numberOfDays ? 0.3 : 1 }} onPress={() => day < numberOfDays && setDay(day + 1)}>
+          <TouchableOpacity style={{ opacity: day === dayCount ? 0.3 : 1 }} onPress={() => day < dayCount && setDay(day + 1)}>
             <Text style={s.navTxt}>Next Day →</Text>
           </TouchableOpacity>
         </View>
@@ -651,7 +840,35 @@ function BudgetScreen() {
 
 // ─── PROFILE SCREEN ───────────────────────────────────────────
 function ProfileScreen({ navigation }) {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser, authToken, setAuthToken } = useContext(UserContext);
+  const [trips, setTrips] = useState([]);
+  const [tLoading, setTLoading] = useState(false);
+  const [tError, setTError] = useState('');
+
+  const loadTrips = async () => {
+    if (!authToken) return;
+    setTLoading(true);
+    setTError('');
+    try {
+      const data = await apiRequest('/trips', { token: authToken });
+      setTrips(Array.isArray(data.trips) ? data.trips : []);
+    } catch (error) {
+      setTrips([]);
+      setTError(error?.message || 'Failed to load trips');
+    } finally {
+      setTLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadTrips();
+    const unsubscribe = navigation.addListener('focus', loadTrips);
+    return unsubscribe;
+  }, [authToken, navigation]);
+
+  const tripCount = trips.length;
+  const totalDays = trips.reduce((sum, trip) => sum + (Number(trip.days) || 0), 0);
+  const cityCount = new Set(trips.map((t) => t.destination)).size;
   return (
     <View style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
       <StatusBar style="light" />
@@ -663,26 +880,52 @@ function ProfileScreen({ navigation }) {
       </LinearGradient>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <View style={s.statsRow}>
-          <View style={s.statItem}><Text style={s.statVal}>0</Text><Text style={s.statLbl}>Trips</Text></View>
+          <View style={s.statItem}><Text style={s.statVal}>{tripCount}</Text><Text style={s.statLbl}>Trips</Text></View>
           <View style={s.statDiv} />
-          <View style={s.statItem}><Text style={s.statVal}>0</Text><Text style={s.statLbl}>Days</Text></View>
+          <View style={s.statItem}><Text style={s.statVal}>{totalDays}</Text><Text style={s.statLbl}>Days</Text></View>
           <View style={s.statDiv} />
-          <View style={s.statItem}><Text style={s.statVal}>0</Text><Text style={s.statLbl}>Cities</Text></View>
+          <View style={s.statItem}><Text style={s.statVal}>{cityCount}</Text><Text style={s.statLbl}>Cities</Text></View>
         </View>
         <View style={s.sec}>
           <Text style={s.secTitle}>Account Info</Text>
           <View style={s.infoRow}><Text style={s.infoLbl}>Full Name</Text><Text style={s.infoVal}>{currentUser?.fullName}</Text></View>
           <View style={s.infoRow}><Text style={s.infoLbl}>Email</Text><Text style={s.infoVal}>{currentUser?.email}</Text></View>
-          <View style={s.infoRow}><Text style={s.infoLbl}>Member Since</Text><Text style={s.infoVal}>2025</Text></View>
+          <View style={s.infoRow}><Text style={s.infoLbl}>Member Since</Text><Text style={s.infoVal}>{currentUser?.createdAt ? new Date(currentUser.createdAt).getFullYear() : '2026'}</Text></View>
         </View>
         <View style={s.sec}>
           <Text style={s.secTitle}>My Trips</Text>
-          <Text style={{ fontSize: 13, color: '#aaa', textAlign: 'center', paddingVertical: 20 }}>No trips yet. Generate your first itinerary!</Text>
+          {tLoading && (
+            <View style={{ paddingVertical: 14, alignItems: 'center' }}>
+              <ActivityIndicator color="#1a7a4a" />
+              <Text style={{ fontSize: 12, color: '#888', marginTop: 8 }}>Loading trips...</Text>
+            </View>
+          )}
+          {!tLoading && !!tError && (
+            <Text style={{ fontSize: 13, color: '#e53935', textAlign: 'center', paddingVertical: 10 }}>{tError}</Text>
+          )}
+          {!tLoading && !tError && trips.length === 0 && (
+            <Text style={{ fontSize: 13, color: '#aaa', textAlign: 'center', paddingVertical: 20 }}>No trips yet. Generate your first itinerary!</Text>
+          )}
+          {!tLoading && trips.length > 0 && trips.map((trip) => (
+            <TouchableOpacity
+              key={trip._id}
+              style={[s.infoRow, { borderBottomColor: '#f0f0f0' }]}
+              onPress={() => navigation.navigate('Itinerary', { trip })}
+            >
+              <Text style={[s.infoLbl, { color: '#222' }]}>{trip.destination}</Text>
+              <Text style={s.infoVal}>{trip.days} days</Text>
+            </TouchableOpacity>
+          ))}
         </View>
         <TouchableOpacity style={s.logoutBtn} onPress={() =>
           Alert.alert('Logout', 'Are you sure?', [
             { text: 'Cancel', style: 'cancel' },
-            { text: 'Logout', style: 'destructive', onPress: () => { setCurrentUser(null); navigation.replace('Login'); } },
+            { text: 'Logout', style: 'destructive', onPress: () => {
+              AsyncStorage.removeItem(AUTH_TOKEN_KEY).catch(() => {});
+              setAuthToken(null);
+              setCurrentUser(null);
+              navigation.replace('Login');
+            } },
           ])
         }>
           <Text style={s.logoutTxt}>Logout</Text>
@@ -718,8 +961,37 @@ function MainApp() {
 // ─── ROOT ─────────────────────────────────────────────────────
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
+  const [authToken, setAuthToken] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const token = await AsyncStorage.getItem(AUTH_TOKEN_KEY);
+        if (!token) {
+          if (!cancelled) setAuthLoading(false);
+          return;
+        }
+
+        const data = await apiRequest('/auth/me', { token });
+        if (cancelled) return;
+
+        setAuthToken(token);
+        setCurrentUser(toAppUser(data.user));
+      } catch (error) {
+        await AsyncStorage.removeItem(AUTH_TOKEN_KEY).catch(() => {});
+      } finally {
+        if (!cancelled) setAuthLoading(false);
+      }
+    })();
+
+    return () => { cancelled = true; };
+  }, []);
+
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+    <UserContext.Provider value={{ currentUser, setCurrentUser, authToken, setAuthToken, authLoading, setAuthLoading }}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Splash"    component={SplashScreen}    />
@@ -764,6 +1036,9 @@ const s = StyleSheet.create({
   fieldInput:     { flex: 1, fontSize: 14, color: '#333' },
   showHide:       { fontSize: 13, color: '#1a7a4a', fontWeight: '600' },
   errTxt:         { fontSize: 12, color: '#e53935', marginTop: 5, marginLeft: 4 },
+  successBanner:  { backgroundColor: '#ecfdf3', borderRadius: 12, padding: 12, borderWidth: 1, borderColor: '#b7ebc6', marginBottom: 18 },
+  successBannerTitle: { color: '#0d5c2e', fontSize: 14, fontWeight: '800', marginBottom: 3 },
+  successBannerTxt: { color: '#25613c', fontSize: 13, lineHeight: 18 },
   forgotWrap:     { alignItems: 'flex-end', marginTop: 8 },
   forgotTxt:      { fontSize: 13, color: '#1a7a4a', fontWeight: '500' },
   bigBtn:         { marginTop: 24, borderRadius: 12, overflow: 'hidden' },

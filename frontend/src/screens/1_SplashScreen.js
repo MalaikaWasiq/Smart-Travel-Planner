@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { View, Text, StyleSheet, Animated, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
+
+const USE_NATIVE_DRIVER = Platform.OS !== 'web';
 
 export default function SplashScreen({ navigation }) {
   const logoScale   = new Animated.Value(0);
@@ -13,12 +15,12 @@ export default function SplashScreen({ navigation }) {
   useEffect(() => {
     Animated.sequence([
       Animated.parallel([
-        Animated.spring(logoScale, { toValue: 1, friction: 4, tension: 40, useNativeDriver: true }),
-        Animated.timing(logoOpacity, { toValue: 1, duration: 600, useNativeDriver: true }),
+        Animated.spring(logoScale, { toValue: 1, friction: 4, tension: 40, useNativeDriver: USE_NATIVE_DRIVER }),
+        Animated.timing(logoOpacity, { toValue: 1, duration: 600, useNativeDriver: USE_NATIVE_DRIVER }),
       ]),
-      Animated.timing(textOpacity, { toValue: 1, duration: 500, useNativeDriver: true }),
-      Animated.timing(subOpacity,  { toValue: 1, duration: 400, useNativeDriver: true }),
-      Animated.timing(tagOpacity,  { toValue: 1, duration: 400, useNativeDriver: true }),
+      Animated.timing(textOpacity, { toValue: 1, duration: 500, useNativeDriver: USE_NATIVE_DRIVER }),
+      Animated.timing(subOpacity,  { toValue: 1, duration: 400, useNativeDriver: USE_NATIVE_DRIVER }),
+      Animated.timing(tagOpacity,  { toValue: 1, duration: 400, useNativeDriver: USE_NATIVE_DRIVER }),
     ]).start();
 
     const timer = setTimeout(() => navigation.replace('Login'), 3500);
