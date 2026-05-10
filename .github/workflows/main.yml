@@ -2,27 +2,37 @@ name: Smart Travel Planner CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22' # Latest stable version use kar rahe hain
 
-      - name: Install Dependencies
-        run: npm install
+    # Frontend Steps
+    - name: Install Frontend Dependencies
+      working-directory: ./frontend # Yeh line ensure karti hai ke folder sahi mile
+      run: npm install
 
-      - name: Build Project
-        run: npm run build
+    - name: Build Frontend
+      working-directory: ./frontend
+      run: npm run build --if-present
+
+    # Backend Steps
+    - name: Install Backend Dependencies
+      working-directory: ./backend
+      run: npm install
+
+    - name: Run Backend Tests
+      working-directory: ./backend
+      run: npm test --if-present
