@@ -2,14 +2,15 @@ name: Smart Travel Planner CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -17,5 +18,8 @@ jobs:
         with:
           node-version: 18
 
+      - name: Show Files
+        run: ls
+
       - name: Install Dependencies
-        run: npm install
+        run: npm install --force
