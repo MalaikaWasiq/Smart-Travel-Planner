@@ -18,8 +18,14 @@ jobs:
         with:
           node-version: 18
 
-      - name: Show Files
-        run: ls
+      # Backend Install
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm install
 
-      - name: Install Dependencies
-        run: npm install --force
+      # Frontend Install
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm install
