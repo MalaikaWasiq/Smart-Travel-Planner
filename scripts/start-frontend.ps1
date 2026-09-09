@@ -12,6 +12,9 @@ if (-not $env:EXPO_PUBLIC_API_BASE_URL) {
 
 Write-Host "EXPO_PUBLIC_API_BASE_URL=$env:EXPO_PUBLIC_API_BASE_URL"
 
-npm install
+if (-not (Test-Path -LiteralPath "node_modules")) {
+  Write-Host "Installing frontend dependencies from package-lock.json..." -ForegroundColor Yellow
+  npm ci
+  if ($LASTEXITCODE -ne 0) { throw "Frontend dependency installation failed." }
+}
 npm start
-

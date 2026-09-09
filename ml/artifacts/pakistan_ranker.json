@@ -1,0 +1,75 @@
+{
+  "modelVersion": "pakistan-content-v1.0.0",
+  "modelType": "content_cold_start",
+  "trainedWith": "real Pakistan attraction metadata plus labeled semi-synthetic archetype interactions",
+  "finalEvaluationClaim": "No Pakistan accuracy claim; real benchmark metrics are reported separately",
+  "generatorSeed": 20260810,
+  "archetypeTypeMeans": {
+    "adventure": {
+      "adventure": 4.5833,
+      "culture": 2.7571,
+      "food": 3.0,
+      "history": 2.9431,
+      "nature": 4.1765,
+      "shopping": 2.8636
+    },
+    "budget": {
+      "adventure": 2.9167,
+      "culture": 3.6571,
+      "food": 2.6923,
+      "history": 4.122,
+      "nature": 4.3235,
+      "shopping": 2.9545
+    },
+    "family": {
+      "adventure": 2.75,
+      "culture": 3.8857,
+      "food": 2.6923,
+      "history": 3.5366,
+      "nature": 4.1275,
+      "shopping": 2.7955
+    },
+    "food": {
+      "adventure": 2.7292,
+      "culture": 3.4857,
+      "food": 4.6923,
+      "history": 2.7967,
+      "nature": 2.7059,
+      "shopping": 3.7727
+    },
+    "history": {
+      "adventure": 2.8333,
+      "culture": 4.0,
+      "food": 3.2308,
+      "history": 4.5366,
+      "nature": 2.6863,
+      "shopping": 2.7955
+    },
+    "luxury": {
+      "adventure": 2.6875,
+      "culture": 3.7571,
+      "food": 4.1538,
+      "history": 2.8049,
+      "nature": 2.6961,
+      "shopping": 4.1818
+    },
+    "nature": {
+      "adventure": 3.8333,
+      "culture": 2.7857,
+      "food": 2.7692,
+      "history": 2.7398,
+      "nature": 4.6078,
+      "shopping": 2.7273
+    }
+  },
+  "categories": [
+    "adventure",
+    "culture",
+    "food",
+    "history",
+    "nature",
+    "shopping"
+  ],
+  "catalogSize": 30,
+  "semiSyntheticRows": 2800
+}

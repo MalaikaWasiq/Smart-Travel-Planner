@@ -1,5 +1,6 @@
 param(
   [int]$BackendPort = 5000,
+  [int]$MlPort = 8000,
   [string]$ApiBaseUrl = "",
   [switch]$NoNewWindows
 )
@@ -26,30 +27,41 @@ function Get-FreePort([int]$PreferredPort) {
 $repoRoot = $PSScriptRoot
 $backendScript = Join-Path $repoRoot "scripts\\start-backend.ps1"
 $frontendScript = Join-Path $repoRoot "scripts\\start-frontend.ps1"
+$mlScript = Join-Path $repoRoot "scripts\\start-ml.ps1"
+$venvPython = Join-Path $repoRoot ".venv\\Scripts\\python.exe"
 
 if (-not (Test-Path -LiteralPath $backendScript)) { throw "Missing script: $backendScript" }
 if (-not (Test-Path -LiteralPath $frontendScript)) { throw "Missing script: $frontendScript" }
+if (-not (Test-Path -LiteralPath $mlScript)) { throw "Missing script: $mlScript" }
 
 $portToUse = Get-FreePort $BackendPort
+$mlPortToUse = Get-FreePort $MlPort
 $apiToUse = if ($ApiBaseUrl -and $ApiBaseUrl.Trim()) { $ApiBaseUrl.Trim() } else { "http://localhost:$portToUse/api" }
+$mlUrl = "http://127.0.0.1:$mlPortToUse"
+$env:ML_SERVICE_URL = $mlUrl
 
 Write-Host "Starting backend on port $portToUse"
 Write-Host "Frontend API base URL: $apiToUse"
+Write-Host "Recommendation service: $mlUrl"
 
 if ($NoNewWindows) {
-  # Run backend in a background process, frontend in this window.
+  # Run backend and recommendations in background processes, frontend in this window.
+  $python = if (Test-Path -LiteralPath $venvPython) { $venvPython } elseif (Get-Command python -ErrorAction SilentlyContinue) { (Get-Command python).Source } else { throw "Python is required. Run .\\setup_fresh_pc.ps1 first." }
   $env:PORT = "$portToUse"
+  $env:ML_SERVICE_URL = $mlUrl
+  $mlProc = Start-Process -FilePath $python -ArgumentList @("-m", "uvicorn", "app:app", "--host", "127.0.0.1", "--port", "$mlPortToUse") -WorkingDirectory (Join-Path $repoRoot "ml") -PassThru -WindowStyle Hidden
   $backendProc = Start-Process -FilePath node -ArgumentList "src\\server.js" -WorkingDirectory (Join-Path $repoRoot "backend") -PassThru -WindowStyle Hidden
   try {
     Start-Sleep -Seconds 2
     & $frontendScript -ApiBaseUrl $apiToUse
   } finally {
     if ($backendProc -and -not $backendProc.HasExited) { Stop-Process -Id $backendProc.Id -Force }
+    if ($mlProc -and -not $mlProc.HasExited) { Stop-Process -Id $mlProc.Id -Force }
   }
   exit 0
 }
 
-# Default: open two PowerShell windows so logs are visible and each stays running.
+# Default: open three PowerShell windows so logs are visible and each stays running.
 # Use -Command with quoted paths because this project path contains a space.
 $backendCommand = @"
 try {
@@ -71,6 +83,22 @@ try {
 }
 "@
 
+$mlCommand = @"
+try {
+  & '$mlScript' -Port $mlPortToUse
+} catch {
+  Write-Host ''
+  Write-Host "Recommendation service failed: `$(`$_.Exception.Message)" -ForegroundColor Red
+  Read-Host 'Press Enter to close'
+}
+"@
+
+Start-Process -FilePath powershell -WorkingDirectory $repoRoot -ArgumentList @(
+  "-NoExit",
+  "-ExecutionPolicy", "Bypass",
+  "-Command", $mlCommand
+)
+
 Start-Process -FilePath powershell -WorkingDirectory $repoRoot -ArgumentList @(
   "-NoExit",
   "-ExecutionPolicy", "Bypass",
@@ -83,4 +111,4 @@ Start-Process -FilePath powershell -WorkingDirectory $repoRoot -ArgumentList @(
   "-Command", $frontendCommand
 )
 
-Write-Host "Done. Two windows were opened (backend + frontend)."
+Write-Host "Done. Three windows were opened (recommendations + backend + frontend)."
