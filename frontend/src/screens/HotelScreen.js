@@ -1,57 +1,120 @@
 import React, { useState } from 'react';
-import { Alert, Image, ScrollView, StyleSheet, Pressable as TouchableOpacity, View } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
-import ScreenHeader from '../components/ScreenHeader';
-import EmptyTrip from '../components/EmptyTrip';
-import { useApp } from '../context/AppContext';
-import { colors, shadow } from '../theme';
-import Text from '../components/AppText';
 
-export default function HotelScreen({ navigation }) {
-  const { currentTrip, selectHotel } = useApp();
-  const [savingId, setSavingId] = useState(null);
-  if (!currentTrip) return <View style={styles.page}><ScreenHeader title="Hotels" subtitle="Curated planning estimates" /><EmptyTrip /></View>;
-  const hotels = currentTrip.hotelSuggestions || currentTrip.hotels || [];
+const HOTELS = [
+  { id: 1, name: 'Serena Hotel Islamabad',   location: 'Islamabad', price: 15000, rating: 5, tag: 'Luxury'   },
+  { id: 2, name: 'Avari Towers Lahore',      location: 'Lahore',    price: 12000, rating: 4, tag: 'Popular'  },
+  { id: 3, name: 'Pearl Continental Lahore', location: 'Lahore',    price: 13000, rating: 5, tag: 'Top Rated'},
+  { id: 4, name: 'Shangrila Resort Skardu',  location: 'Skardu',    price: 8000,  rating: 4, tag: 'Scenic'   },
+  { id: 5, name: 'PC Bhurban Murree',        location: 'Murree',    price: 9000,  rating: 4, tag: 'Hill Top' },
+  { id: 6, name: 'Hotel One Lahore',         location: 'Lahore',    price: 5500,  rating: 3, tag: 'Budget'   },
+];
 
-  async function choose(hotel) {
-    setSavingId(hotel.id);
-    try { await selectHotel(hotel.id); }
-    catch (error) { Alert.alert('Could not select hotel', error.message); }
-    finally { setSavingId(null); }
-  }
+const FILTERS = ['All', '3 Star', '4 Star', '5 Star', 'Budget'];
+
+export default function HotelScreen() {
+  const [filter,   setFilter]   = useState('All');
+  const [selected, setSelected] = useState(null);
+
+  const filtered = filter === 'All' ? HOTELS : HOTELS.filter(h => {
+    if (filter === 'Budget') return h.price < 7000;
+    if (filter === '3 Star') return h.rating === 3;
+    if (filter === '4 Star') return h.rating === 4;
+    if (filter === '5 Star') return h.rating === 5;
+    return true;
+  });
 
   return (
-    <View style={styles.page}>
+    <View style={styles.container}>
       <StatusBar style="light" />
-      <ScreenHeader title="Hotel options" subtitle={`${currentTrip.destination}, prices are estimates`} />
-      {hotels.length === 0 ? <EmptyTrip message="No curated hotels are available for this destination yet. The trip remains usable without a hotel selection." /> : (
-        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-          {hotels.map((hotel) => {
-            const selected = currentTrip.selectedHotel?.id === hotel.id;
-            return (
-              <View key={hotel.id} style={[styles.card, selected && styles.cardSelected]}>
-                {hotel.imageUrl ? <Image source={{ uri: hotel.imageUrl }} style={styles.image} /> : <View style={[styles.image, styles.placeholder]}><Text style={styles.placeholderText}>{hotel.name[0]}</Text></View>}
-                <View style={styles.info}>
-                  <View style={styles.top}><Text style={styles.name}>{hotel.name}</Text><Text style={styles.rating}>{hotel.rating.toFixed(1)} / 5</Text></View>
-                  <Text style={styles.city}>{hotel.city}, {hotel.nights} night{hotel.nights === 1 ? '' : 's'}</Text>
-                  <Text style={styles.amenities}>{(hotel.amenities || []).join(' | ')}</Text>
-                  <View style={styles.bottom}>
-                    <View><Text style={styles.price}>PKR {Number(hotel.pricePerNight).toLocaleString()}</Text><Text style={styles.perNight}>per night, estimated</Text></View>
-                    <View style={{ flexDirection: 'row', gap: 7 }}><TouchableOpacity style={styles.details} onPress={() => navigation.navigate('HotelDetail', { hotel })}><Text style={styles.detailsText}>Details</Text></TouchableOpacity><TouchableOpacity disabled={selected || savingId === hotel.id} style={[styles.select, selected && styles.selected]} onPress={() => choose(hotel)}><Text style={[styles.selectText, selected && styles.selectedText]}>{savingId === hotel.id ? 'Saving...' : selected ? 'Selected' : 'Select'}</Text></TouchableOpacity></View>
-                  </View>
-                  <Text style={styles.disclaimer}>{hotel.priceDisclaimer}</Text>
+
+      <LinearGradient colors={['#0d5c2e', '#25a865']} style={styles.header}>
+        <Text style={styles.headerTitle}>Select Hotel</Text>
+        <Text style={styles.headerSub}>Best stays for your trip</Text>
+      </LinearGradient>
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
+        {FILTERS.map(f => (
+          <TouchableOpacity
+            key={f}
+            style={[styles.filterChip, filter === f && styles.filterActive]}
+            onPress={() => setFilter(f)}
+          >
+            <Text style={[styles.filterText, filter === f && styles.filterTextActive]}>{f}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
+      <ScrollView style={styles.hotelScroll} showsVerticalScrollIndicator={false}>
+        {filtered.map(hotel => (
+          <View key={hotel.id} style={[styles.hotelCard, selected === hotel.id && styles.hotelCardSelected]}>
+            <LinearGradient colors={['#1a7a4a', '#25a865']} style={styles.hotelImage}>
+              <Text style={styles.hotelImageText}>{hotel.name[0]}</Text>
+            </LinearGradient>
+            <View style={styles.hotelInfo}>
+              <View style={styles.hotelTopRow}>
+                <Text style={styles.hotelName}>{hotel.name}</Text>
+                <View style={styles.tagBadge}>
+                  <Text style={styles.tagText}>{hotel.tag}</Text>
                 </View>
               </View>
-            );
-          })}
-        </ScrollView>
-      )}
+              <Text style={styles.hotelLocation}>📍 {hotel.location}</Text>
+              <Text style={styles.hotelRating}>{'★'.repeat(hotel.rating)}{'☆'.repeat(5 - hotel.rating)}</Text>
+              <View style={styles.hotelBottom}>
+                <Text style={styles.hotelPrice}>
+                  PKR {hotel.price.toLocaleString()}
+                  <Text style={styles.perNight}>/night</Text>
+                </Text>
+                <TouchableOpacity
+                  style={[styles.selectBtn, selected === hotel.id && styles.selectBtnActive]}
+                  onPress={() => {
+                    setSelected(hotel.id);
+                    Alert.alert('Hotel Selected', hotel.name + ' added to your trip!');
+                  }}
+                >
+                  <Text style={[styles.selectBtnText, selected === hotel.id && styles.selectBtnTextActive]}>
+                    {selected === hotel.id ? 'Selected' : 'Select'}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        ))}
+        <View style={{ height: 20 }} />
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  page: { flex: 1, backgroundColor: colors.cream }, content: { padding: 14, paddingBottom: 34 },
-  card: { ...shadow, backgroundColor: colors.paper, borderRadius: 20, overflow: 'hidden', marginBottom: 15, borderWidth: 2, borderColor: 'transparent' }, cardSelected: { borderColor: colors.green }, image: { width: '100%', height: 145, backgroundColor: colors.mint }, placeholder: { alignItems: 'center', justifyContent: 'center' }, placeholderText: { fontSize: 40, color: colors.forest, fontWeight: '900' },
-  info: { padding: 16 }, top: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }, name: { flex: 1, color: colors.ink, fontSize: 18, fontWeight: '900', marginRight: 8 }, rating: { color: colors.amber, fontWeight: '900', fontSize: 12 }, city: { color: colors.muted, marginTop: 5 }, amenities: { color: colors.green, fontSize: 12, marginTop: 8 }, bottom: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 14 }, price: { color: colors.ink, fontSize: 17, fontWeight: '900' }, perNight: { color: colors.muted, fontSize: 10, marginTop: 2 }, select: { borderWidth: 1, borderColor: colors.forest, borderRadius: 11, paddingHorizontal: 13, paddingVertical: 10 }, details: { borderRadius: 11, backgroundColor: colors.mint, paddingHorizontal: 12, paddingVertical: 11 }, detailsText: { color: colors.forest, fontWeight: '900', fontSize: 11 }, selected: { backgroundColor: colors.forest }, selectText: { color: colors.forest, fontWeight: '900' }, selectedText: { color: '#fff' }, disclaimer: { color: colors.muted, fontSize: 10, lineHeight: 14, marginTop: 12 },
+  container:          { flex: 1, backgroundColor: '#f5f5f5' },
+  header:             { paddingTop: 56, paddingBottom: 20, paddingHorizontal: 20 },
+  headerTitle:        { fontSize: 24, color: '#fff', fontWeight: '800' },
+  headerSub:          { fontSize: 13, color: 'rgba(255,255,255,0.8)', marginTop: 2 },
+  filterScroll:       { paddingHorizontal: 16, paddingVertical: 10, backgroundColor: '#fff', maxHeight: 55 },
+  filterChip:         { paddingHorizontal: 16, paddingVertical: 7, borderRadius: 20, borderWidth: 1, borderColor: '#e0e0e0', marginRight: 8, backgroundColor: '#f8f8f8' },
+  filterActive:       { backgroundColor: '#1a7a4a', borderColor: '#1a7a4a' },
+  filterText:         { fontSize: 13, color: '#666' },
+  filterTextActive:   { color: '#fff', fontWeight: '600' },
+  hotelScroll:        { flex: 1, padding: 12 },
+  hotelCard:          { flexDirection: 'row', backgroundColor: '#fff', borderRadius: 14, marginBottom: 12, overflow: 'hidden', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.07, shadowRadius: 6, elevation: 3 },
+  hotelCardSelected:  { borderWidth: 2, borderColor: '#1a7a4a' },
+  hotelImage:         { width: 90, alignItems: 'center', justifyContent: 'center' },
+  hotelImageText:     { fontSize: 32, color: '#fff', fontWeight: '800' },
+  hotelInfo:          { flex: 1, padding: 12 },
+  hotelTopRow:        { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
+  hotelName:          { fontSize: 14, fontWeight: '700', color: '#222', flex: 1, marginRight: 8 },
+  tagBadge:           { backgroundColor: '#e8f5e9', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 2 },
+  tagText:            { fontSize: 10, color: '#1a7a4a', fontWeight: '600' },
+  hotelLocation:      { fontSize: 12, color: '#888', marginTop: 3 },
+  hotelRating:        { fontSize: 12, color: '#f4a61d', marginTop: 3 },
+  hotelBottom:        { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 },
+  hotelPrice:         { fontSize: 15, fontWeight: '800', color: '#1a7a4a' },
+  perNight:           { fontSize: 11, fontWeight: '400', color: '#888' },
+  selectBtn:          { backgroundColor: '#e8f5e9', paddingHorizontal: 14, paddingVertical: 6, borderRadius: 10 },
+  selectBtnActive:    { backgroundColor: '#1a7a4a' },
+  selectBtnText:      { fontSize: 13, color: '#1a7a4a', fontWeight: '600' },
+  selectBtnTextActive:{ color: '#fff' },
 });

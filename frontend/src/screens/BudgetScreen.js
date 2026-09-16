@@ -1,52 +1,121 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Pressable as TouchableOpacity, View } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
-import ScreenHeader from '../components/ScreenHeader';
-import EmptyTrip from '../components/EmptyTrip';
-import { useApp } from '../context/AppContext';
-import { colors, shadow } from '../theme';
-import Text from '../components/AppText';
-import MarkdownText from '../components/MarkdownText';
 
-const categories = [
-  ['Hotels', 'hotels', colors.green], ['Food', 'food', colors.amber], ['Transport', 'transport', colors.blue],
-  ['Activities', 'activities', '#76548b'], ['Contingency', 'misc', '#8b6b4d'],
+const CATEGORIES = [
+  { name: 'Hotels',     color: '#1a7a4a', spent: 13000 },
+  { name: 'Food',       color: '#f57c00', spent: 8000  },
+  { name: 'Transport',  color: '#1565c0', spent: 4000  },
+  { name: 'Activities', color: '#6a1b9a', spent: 5000  },
 ];
 
-export default function BudgetScreen({ navigation }) {
-  const { currentTrip } = useApp();
-  if (!currentTrip) return <View style={styles.page}><ScreenHeader title="Budget" subtitle="Trip cost estimate" /><EmptyTrip /></View>;
-  const breakdown = currentTrip.budgetBreakdown || {};
-  const used = Number(breakdown.totalEstimated || 0);
-  const budget = Number(currentTrip.budget || 0);
-  const percentage = Math.max(0, Number(breakdown.percentUsed ?? (budget ? Math.round((used / budget) * 100) : 0)));
+const DAILY = [
+  { day: 'Day 1', date: 'Oct 26', total: 7000 },
+  { day: 'Day 2', date: 'Oct 27', total: 5000 },
+  { day: 'Day 3', date: 'Oct 28', total: 5000 },
+];
+
+export default function BudgetScreen() {
+  const totalBudget  = 50000;
+  const totalSpent   = CATEGORIES.reduce((s, c) => s + c.spent, 0);
+  const remaining    = totalBudget - totalSpent;
+  const spentPercent = Math.round((totalSpent / totalBudget) * 100);
 
   return (
-    <View style={styles.page}>
+    <View style={styles.container}>
       <StatusBar style="light" />
-      <ScreenHeader title="Budget estimate" subtitle={`${currentTrip.destination}, ${breakdown.currency || 'PKR'}`} />
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <View style={styles.heroCard}>
-          <Text style={styles.eyebrow}>PLANNED TOTAL</Text><Text style={styles.total}>PKR {used.toLocaleString()}</Text>
-          <Text style={[styles.remaining, breakdown.exceeded && styles.over]}>{breakdown.exceeded ? `Over by PKR ${Number(breakdown.overBy || 0).toLocaleString()}` : `PKR ${Number(breakdown.remaining || 0).toLocaleString()} remaining`}</Text>
-          <View style={styles.track}><View style={[styles.fill, { width: `${Math.min(percentage, 100)}%` }, percentage > 100 && styles.fillOver]} /></View>
-          <Text style={styles.percent}>{percentage}% of PKR {budget.toLocaleString()}</Text>
+
+      <LinearGradient colors={['#0d5c2e', '#25a865']} style={styles.header}>
+        <Text style={styles.headerTitle}>Budget Tracker</Text>
+        <Text style={styles.headerSub}>Stay within your limits</Text>
+      </LinearGradient>
+
+      <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
+
+        <View style={styles.summaryCards}>
+          <View style={[styles.summaryCard, { backgroundColor: '#e8f5e9' }]}>
+            <Text style={styles.summaryLabel}>Total Budget</Text>
+            <Text style={[styles.summaryValue, { color: '#1a7a4a' }]}>PKR {totalBudget.toLocaleString()}</Text>
+          </View>
+          <View style={[styles.summaryCard, { backgroundColor: '#fff3e0' }]}>
+            <Text style={styles.summaryLabel}>Total Spent</Text>
+            <Text style={[styles.summaryValue, { color: '#e65100' }]}>PKR {totalSpent.toLocaleString()}</Text>
+          </View>
+          <View style={[styles.summaryCard, { backgroundColor: '#e3f2fd' }]}>
+            <Text style={styles.summaryLabel}>Remaining</Text>
+            <Text style={[styles.summaryValue, { color: '#1565c0' }]}>PKR {remaining.toLocaleString()}</Text>
+          </View>
         </View>
-        <View style={styles.card}>
-          <Text style={styles.title}>Cost breakdown</Text>
-          {categories.map(([label, key, color]) => {
-            const value = Number(breakdown[key] || 0);
-            return <View key={key} style={styles.row}><View style={[styles.dot, { backgroundColor: color }]} /><Text style={styles.label}>{label}</Text><View style={styles.miniTrack}><View style={[styles.miniFill, { backgroundColor: color, width: `${used ? Math.min(100, Math.round((value / used) * 100)) : 0}%` }]} /></View><Text style={styles.value}>{value.toLocaleString()}</Text></View>;
-          })}
+
+        <View style={styles.section}>
+          <View style={styles.progressTop}>
+            <Text style={styles.progressLabel}>Spent {spentPercent}% of budget</Text>
+            <Text style={styles.progressPercent}>{spentPercent}%</Text>
+          </View>
+          <View style={styles.progressBar}>
+            <View style={[styles.progressFill, { width: spentPercent + '%', backgroundColor: spentPercent > 80 ? '#e53935' : '#1a7a4a' }]} />
+          </View>
         </View>
-        <View style={styles.actualCard}><View><Text style={styles.title}>Actual spending</Text><Text style={styles.actual}>PKR {Number(breakdown.actualSpent || 0).toLocaleString()}</Text><Text style={[styles.remaining, breakdown.actualExceeded && styles.over]}>{breakdown.actualExceeded ? `Over by PKR ${Number(breakdown.actualOverBy || 0).toLocaleString()}` : `PKR ${Number(breakdown.actualRemaining ?? budget).toLocaleString()} left`}</Text></View><TouchableOpacity style={styles.expenseButton} onPress={() => navigation.navigate('ExpenseHistory')}><Text style={styles.expenseText}>TRACK EXPENSES</Text></TouchableOpacity></View>
-        <View style={styles.note}><MarkdownText compact variant="caption" color={colors.muted}>{breakdown.note || 'These figures are planning estimates and are not booking quotes.'}</MarkdownText></View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Spending by Category</Text>
+          {CATEGORIES.map(cat => (
+            <View key={cat.name} style={styles.catRow}>
+              <View style={[styles.catDot, { backgroundColor: cat.color }]} />
+              <Text style={styles.catName}>{cat.name}</Text>
+              <View style={styles.catBarWrap}>
+                <View style={[styles.catBar, { width: Math.round((cat.spent / totalSpent) * 100) + '%', backgroundColor: cat.color }]} />
+              </View>
+              <Text style={styles.catAmount}>PKR {cat.spent.toLocaleString()}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Daily Spending</Text>
+          {DAILY.map((d, idx) => (
+            <View key={idx} style={styles.dailyRow}>
+              <View>
+                <Text style={styles.dailyDay}>{d.day}</Text>
+                <Text style={styles.dailyDate}>{d.date}</Text>
+              </View>
+              <Text style={styles.dailyTotal}>PKR {d.total.toLocaleString()}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={{ height: 20 }} />
       </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  page: { flex: 1, backgroundColor: colors.cream }, content: { padding: 16, paddingBottom: 34 }, heroCard: { ...shadow, backgroundColor: colors.forest, borderRadius: 22, padding: 21 }, eyebrow: { color: '#aedaBD', fontSize: 10, fontWeight: '900', letterSpacing: 1.3 }, total: { color: '#fff', fontSize: 32, fontWeight: '900', marginTop: 5 }, remaining: { color: '#cce7d7', fontWeight: '800', marginTop: 4 }, over: { color: '#ffd2cd' }, track: { height: 9, borderRadius: 6, backgroundColor: 'rgba(255,255,255,0.18)', overflow: 'hidden', marginTop: 18 }, fill: { height: '100%', backgroundColor: '#7fd3a3' }, fillOver: { backgroundColor: '#ee8177' }, percent: { color: '#dff3e8', fontSize: 11, marginTop: 7 }, card: { ...shadow, backgroundColor: colors.paper, borderRadius: 20, padding: 18, marginTop: 15 }, title: { color: colors.ink, fontSize: 20, fontWeight: '900', marginBottom: 8 }, row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 11, borderTopWidth: 1, borderColor: colors.line }, dot: { width: 9, height: 9, borderRadius: 5, marginRight: 8 }, label: { width: 75, color: colors.ink, fontWeight: '700', fontSize: 12 }, miniTrack: { flex: 1, height: 6, borderRadius: 4, overflow: 'hidden', backgroundColor: '#e9ece7', marginHorizontal: 8 }, miniFill: { height: '100%' }, value: { width: 68, textAlign: 'right', color: colors.ink, fontSize: 12, fontWeight: '800' }, note: { padding: 12 },
-  actualCard: { ...shadow, backgroundColor: colors.blue, borderRadius: 20, padding: 18, marginTop: 15, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }, actual: { color: '#fff', fontSize: 25, fontWeight: '900' }, expenseButton: { backgroundColor: '#fff', borderRadius: 11, paddingHorizontal: 12, paddingVertical: 11 }, expenseText: { color: colors.blue, fontWeight: '900', fontSize: 10 },
+  container:      { flex: 1, backgroundColor: '#f5f5f5' },
+  header:         { paddingTop: 56, paddingBottom: 20, paddingHorizontal: 20 },
+  headerTitle:    { fontSize: 24, color: '#fff', fontWeight: '800' },
+  headerSub:      { fontSize: 13, color: 'rgba(255,255,255,0.8)', marginTop: 2 },
+  scroll:         { flex: 1, padding: 14 },
+  summaryCards:   { flexDirection: 'row', gap: 8, marginBottom: 12 },
+  summaryCard:    { flex: 1, borderRadius: 12, padding: 12, alignItems: 'center' },
+  summaryLabel:   { fontSize: 11, color: '#666', marginBottom: 4 },
+  summaryValue:   { fontSize: 13, fontWeight: '800' },
+  section:        { backgroundColor: '#fff', borderRadius: 14, padding: 16, marginBottom: 12, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4, elevation: 2 },
+  progressTop:    { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
+  progressLabel:  { fontSize: 13, color: '#555' },
+  progressPercent:{ fontSize: 13, fontWeight: '700', color: '#1a7a4a' },
+  progressBar:    { height: 10, backgroundColor: '#e0e0e0', borderRadius: 5, overflow: 'hidden' },
+  progressFill:   { height: '100%', borderRadius: 5 },
+  sectionTitle:   { fontSize: 15, fontWeight: '700', color: '#222', marginBottom: 14 },
+  catRow:         { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
+  catDot:         { width: 10, height: 10, borderRadius: 5, marginRight: 8 },
+  catName:        { width: 80, fontSize: 13, color: '#555' },
+  catBarWrap:     { flex: 1, height: 8, backgroundColor: '#f0f0f0', borderRadius: 4, overflow: 'hidden', marginHorizontal: 8 },
+  catBar:         { height: '100%', borderRadius: 4 },
+  catAmount:      { fontSize: 12, fontWeight: '600', color: '#333', width: 80, textAlign: 'right' },
+  dailyRow:       { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10, borderBottomWidth: 0.5, borderBottomColor: '#f0f0f0' },
+  dailyDay:       { fontSize: 14, fontWeight: '700', color: '#222' },
+  dailyDate:      { fontSize: 12, color: '#888' },
+  dailyTotal:     { fontSize: 14, fontWeight: '700', color: '#1a7a4a' },
 });

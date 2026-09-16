@@ -1,20 +1,29 @@
 const mongoose = require('mongoose');
 
 async function connectDb() {
-  const uri = process.env.LOCAL_MONGODB_URI;
+  const uri = process.env.MONGODB_URI;
 
   if (!uri) {
-    console.warn('LOCAL_MONGODB_URI is not set. Database-backed routes will fail.');
-    return false;
+    console.warn('MONGODB_URI is not set. API will start, but database-backed routes will fail.');
+    return {
+      ready: false,
+      error: 'MONGODB_URI is not set',
+    };
   }
 
   try {
     await mongoose.connect(uri);
     console.log('MongoDB connected');
-    return true;
+    return {
+      ready: true,
+      error: null,
+    };
   } catch (error) {
     console.error('MongoDB connection failed:', error.message);
-    return false;
+    return {
+      ready: false,
+      error: error.message,
+    };
   }
 }
 

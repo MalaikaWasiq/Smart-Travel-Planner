@@ -22,9 +22,6 @@ const userSchema = new mongoose.Schema(
       defaultBudget: Number,
       interests: [String],
       preferredHotelType: String,
-      dataConsent: { type: Boolean, default: true },
-      reducedMotion: { type: Boolean, default: false },
-      largeText: { type: Boolean, default: false },
     },
   },
   { timestamps: true }
