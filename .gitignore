@@ -1,18 +1,24 @@
+# Dependencies
 **/node_modules/
+.venv/
+__pycache__/
+**/*.pyc
+**/.pytest_cache/
+
+# Expo / Build
 **/.expo/
 **/.expo-shared/
 **/dist/
 **/build/
-**/.DS_Store
-**/*.log
 
-# Env files
+# Environment and Secrets (CRITICAL: Do not commit API keys or JWT secrets)
+.env
+*.env
 backend/.env
 frontend/.env
+ml/.env
 
-# Local docs and generated/auxiliary files not meant for GitHub
-documentation/
-tools/
-frontend/reference.tex
-plan.md
-*.pdf
+# Logs and system files
+**/*.log
+**/.DS_Store
+Thumbs.db

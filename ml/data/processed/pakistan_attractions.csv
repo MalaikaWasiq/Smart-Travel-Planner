@@ -1,0 +1,31 @@
+attractionId,name,city,type,estimatedCost,source
+lahore-fort,Lahore Fort,Lahore,history,800,curated_from_existing_app_and_wikipedia_names
+badshahi-mosque,Badshahi Mosque,Lahore,history,200,curated_from_existing_app_and_wikipedia_names
+lahore-museum,Lahore Museum,Lahore,culture,500,curated_from_existing_app_and_wikipedia_names
+shalimar-gardens,Shalimar Gardens,Lahore,nature,500,curated_from_existing_app_and_wikipedia_names
+anarkali-bazaar,Anarkali Bazaar,Lahore,shopping,0,curated_from_existing_app_and_wikipedia_names
+faisal-mosque,Faisal Mosque,Islamabad,history,0,curated_from_existing_app_and_wikipedia_names
+pakistan-monument,Pakistan Monument,Islamabad,culture,500,curated_from_existing_app_and_wikipedia_names
+lok-virsa,Lok Virsa Museum,Islamabad,culture,500,curated_from_existing_app_and_wikipedia_names
+margalla-hills,Margalla Hills,Islamabad,nature,0,curated_from_existing_app_and_wikipedia_names
+rawal-lake,Rawal Lake,Islamabad,nature,300,curated_from_existing_app_and_wikipedia_names
+mohatta-palace,Mohatta Palace,Karachi,culture,500,curated_from_existing_app_and_wikipedia_names
+mazar-e-quaid,Quaid-e-Azam Mausoleum,Karachi,history,0,curated_from_existing_app_and_wikipedia_names
+clifton-beach,Clifton Beach,Karachi,nature,0,curated_from_existing_app_and_wikipedia_names
+frere-hall,Frere Hall,Karachi,history,0,curated_from_existing_app_and_wikipedia_names
+burns-road,Burns Road Food Street,Karachi,food,1800,curated_from_existing_app_and_wikipedia_names
+baltit-fort,Baltit Fort,Hunza,history,1200,curated_from_existing_app_and_wikipedia_names
+altit-fort,Altit Fort,Hunza,history,1000,curated_from_existing_app_and_wikipedia_names
+attabad-lake,Attabad Lake,Hunza,nature,1500,curated_from_existing_app_and_wikipedia_names
+passu-cones,Passu Cones,Hunza,adventure,500,curated_from_existing_app_and_wikipedia_names
+karimabad-bazaar,Karimabad Bazaar,Hunza,shopping,0,curated_from_existing_app_and_wikipedia_names
+shigar-fort,Shigar Fort,Skardu,history,1200,curated_from_existing_app_and_wikipedia_names
+upper-kachura,Upper Kachura Lake,Skardu,nature,800,curated_from_existing_app_and_wikipedia_names
+satpara-lake,Satpara Lake,Skardu,nature,500,curated_from_existing_app_and_wikipedia_names
+cold-desert,Sarfaranga Cold Desert,Skardu,adventure,1200,curated_from_existing_app_and_wikipedia_names
+mall-road,Mall Road,Murree,shopping,0,curated_from_existing_app_and_wikipedia_names
+patriata,Patriata Chair Lift,Murree,adventure,2500,curated_from_existing_app_and_wikipedia_names
+malam-jabba,Malam Jabba,Swat,adventure,2500,curated_from_existing_app_and_wikipedia_names
+swat-museum,Swat Museum,Swat,culture,500,curated_from_existing_app_and_wikipedia_names
+peshawar-museum,Peshawar Museum,Peshawar,culture,500,curated_from_existing_app_and_wikipedia_names
+bala-hisar,Bala Hisar Fort,Peshawar,history,500,curated_from_existing_app_and_wikipedia_names
