@@ -2026,46 +2026,6 @@ export default function TripPlanningScreen({ navigation, route }) {
     setHotelAdjustmentDismissed(false);
   }, [destination]);
 
-  // Compute destination-specific activities dynamically and prioritize by user interests
-  const currentActivitiesList = useMemo(() => {
-    const rawList = getActivitiesForDestination(destination, category);
-    if (!rawList || !rawList.length) return [];
-    const activeInterests = (selectedInterests && selectedInterests.length > 0)
-      ? selectedInterests
-      : (user?.preferences?.interests || []);
-
-    return [...rawList].sort((a, b) => {
-      const matchA = matchInterestWithActivity(a, activeInterests);
-      const matchB = matchInterestWithActivity(b, activeInterests);
-      if (matchA && !matchB) return -1;
-      if (!matchA && matchB) return 1;
-      return 0;
-    }).map((act) => ({
-      ...act,
-      matchedInterest: matchInterestWithActivity(act, activeInterests),
-    }));
-  }, [destination, category, selectedInterests, user?.preferences?.interests]);
-
-  // Compute destination-specific extra experiences ("Make Your Trip More Special!") dynamically and prioritize by user interests
-  const currentExtraExperiences = useMemo(() => {
-    const rawList = getCityExtraExperiences(destination, category);
-    if (!rawList || !rawList.length) return [];
-    const activeInterests = (selectedInterests && selectedInterests.length > 0)
-      ? selectedInterests
-      : (user?.preferences?.interests || []);
-
-    return [...rawList].sort((a, b) => {
-      const matchA = matchInterestWithActivity(a, activeInterests);
-      const matchB = matchInterestWithActivity(b, activeInterests);
-      if (matchA && !matchB) return -1;
-      if (!matchA && matchB) return 1;
-      return 0;
-    }).map((exp) => ({
-      ...exp,
-      matchedInterest: matchInterestWithActivity(exp, activeInterests),
-    }));
-  }, [destination, category, selectedInterests, user?.preferences?.interests]);
-
   // Reset selected optional activities & extra experiences when destination changes so no mismatched activities remain selected
   useEffect(() => {
     setSelectedOptionalActivities([]);
@@ -2450,6 +2410,46 @@ export default function TripPlanningScreen({ navigation, route }) {
       }
     }
   }, [user?.preferences?.defaultBudget, user?.preferences?.interests]);
+
+  // Compute destination-specific activities dynamically and prioritize by user interests
+  const currentActivitiesList = useMemo(() => {
+    const rawList = getActivitiesForDestination(destination, category);
+    if (!rawList || !rawList.length) return [];
+    const activeInterests = (selectedInterests && selectedInterests.length > 0)
+      ? selectedInterests
+      : (user?.preferences?.interests || []);
+
+    return [...rawList].sort((a, b) => {
+      const matchA = matchInterestWithActivity(a, activeInterests);
+      const matchB = matchInterestWithActivity(b, activeInterests);
+      if (matchA && !matchB) return -1;
+      if (!matchA && matchB) return 1;
+      return 0;
+    }).map((act) => ({
+      ...act,
+      matchedInterest: matchInterestWithActivity(act, activeInterests),
+    }));
+  }, [destination, category, selectedInterests, user?.preferences?.interests]);
+
+  // Compute destination-specific extra experiences ("Make Your Trip More Special!") dynamically and prioritize by user interests
+  const currentExtraExperiences = useMemo(() => {
+    const rawList = getCityExtraExperiences(destination, category);
+    if (!rawList || !rawList.length) return [];
+    const activeInterests = (selectedInterests && selectedInterests.length > 0)
+      ? selectedInterests
+      : (user?.preferences?.interests || []);
+
+    return [...rawList].sort((a, b) => {
+      const matchA = matchInterestWithActivity(a, activeInterests);
+      const matchB = matchInterestWithActivity(b, activeInterests);
+      if (matchA && !matchB) return -1;
+      if (!matchA && matchB) return 1;
+      return 0;
+    }).map((exp) => ({
+      ...exp,
+      matchedInterest: matchInterestWithActivity(exp, activeInterests),
+    }));
+  }, [destination, category, selectedInterests, user?.preferences?.interests]);
 
   // In-App Hotel State
   const [hotels, setHotels] = useState([]);
