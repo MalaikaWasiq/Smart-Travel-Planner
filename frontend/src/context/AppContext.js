@@ -1,18 +1,36 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { apiRequest, tokenStorage } from '../api/client';
+import { apiRequest, tokenStorage, userStorage } from '../api/client';
 import { scheduleServerAlerts } from '../services/notificationService';
 
 const AppContext = createContext(null);
 
+export function deriveNameFromEmail(email) {
+  if (!email || typeof email !== 'string') return '';
+  const username = email.split('@')[0] || '';
+  if (!username) return '';
+  const cleaned = username.replace(/[0-9]+/g, ' ').replace(/[._-]+/g, ' ').trim();
+  if (!cleaned) return username.charAt(0).toUpperCase() + username.slice(1);
+  return cleaned
+    .split(/\s+/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+}
+
 function withInitials(user) {
-  if (!user) return null;
-  const parts = String(user.fullName || 'User').trim().split(/\s+/);
-  const initials = `${parts[0]?.[0] || 'U'}${parts.length > 1 ? parts.at(-1)[0] : ''}`.toUpperCase();
-  return { ...user, initials };
+  if (!user || typeof user !== 'object') return null;
+  let fullName = String(user?.fullName || user?.name || '').trim();
+  if ((!fullName || fullName.toLowerCase() === 'user' || fullName.toLowerCase() === 'traveler') && user?.email) {
+    const derived = deriveNameFromEmail(user.email);
+    if (derived) fullName = derived;
+  }
+  if (!fullName) fullName = 'Traveler';
+  const parts = fullName.split(/\s+/);
+  const initials = `${parts[0]?.[0] || 'T'}${parts.length > 1 ? parts.at(-1)[0] : ''}`.toUpperCase();
+  return { ...user, fullName, initials };
 }
 
 export function AppProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => withInitials(userStorage.getSync()));
   const [token, setToken] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [currentTrip, setCurrentTrip] = useState(null);
@@ -20,12 +38,14 @@ export function AppProvider({ children }) {
   const [tripsLoading, setTripsLoading] = useState(false);
 
   function applyTripUpdate(trip, prepend = false) {
+    if (!trip) return;
     setCurrentTrip(trip);
     setTrips((savedTrips) => {
-      const remaining = savedTrips.filter((savedTrip) => savedTrip._id !== trip._id);
+      const tripId = String(trip._id);
+      const remaining = savedTrips.filter((savedTrip) => String(savedTrip._id) !== tripId);
       if (prepend) return [trip, ...remaining];
-      return savedTrips.some((savedTrip) => savedTrip._id === trip._id)
-        ? savedTrips.map((savedTrip) => savedTrip._id === trip._id ? trip : savedTrip)
+      return savedTrips.some((savedTrip) => String(savedTrip._id) === tripId)
+        ? savedTrips.map((savedTrip) => String(savedTrip._id) === tripId ? trip : savedTrip)
         : [trip, ...savedTrips];
     });
   }
@@ -35,20 +55,41 @@ export function AppProvider({ children }) {
     (async () => {
       try {
         const storedToken = await tokenStorage.get();
+        let storedUser = await userStorage.get();
+        if (!storedUser && typeof window !== 'undefined' && window.localStorage) {
+          try {
+            const raw = window.localStorage.getItem('smartTravelPlanner.currentUser') || window.localStorage.getItem('stp_last_user');
+            if (raw) storedUser = JSON.parse(raw);
+          } catch (_) {}
+        }
+        if (storedUser && active) {
+          setUser(withInitials(storedUser));
+        }
         if (!storedToken) return;
-        const [data, tripData] = await Promise.all([
-          apiRequest('/auth/me', { token: storedToken }),
-          apiRequest('/trips', { token: storedToken }),
-        ]);
-        if (active) {
-          const savedTrips = tripData.trips || [];
+        const data = await apiRequest('/auth/me', { token: storedToken });
+        if (data?.user && active) {
+          let savedTrips = [];
+          if (data.user.role !== 'admin') {
+            try {
+              const tripData = await apiRequest('/trips', { token: storedToken });
+              savedTrips = tripData.trips || [];
+            } catch (_) {}
+          }
           setToken(storedToken);
-          setUser(withInitials(data.user));
+          const safeUser = withInitials(data.user);
+          setUser(safeUser);
+          await userStorage.set(safeUser);
+          if (typeof window !== 'undefined' && window.localStorage && safeUser) {
+            window.localStorage.setItem('smartTravelPlanner.currentUser', JSON.stringify(safeUser));
+            window.localStorage.setItem('stp_last_user', JSON.stringify(safeUser));
+            window.localStorage.setItem('stp_user_fullname', safeUser?.fullName || '');
+            window.localStorage.setItem('stp_user_email', safeUser?.email || '');
+          }
           setTrips(savedTrips);
           setCurrentTrip(savedTrips[0] || null);
         }
       } catch (_) {
-        await tokenStorage.clear().catch(() => {});
+        // preserve stored user so user does not appear as empty on temporary network hiccup
       } finally {
         if (active) setAuthLoading(false);
       }
@@ -56,24 +97,65 @@ export function AppProvider({ children }) {
     return () => { active = false; };
   }, []);
 
-  async function login(email, password) {
-    const data = await apiRequest('/auth/login', { method: 'POST', body: { email, password } });
-    const tripData = await apiRequest('/trips', { token: data.token });
-    const savedTrips = tripData.trips || [];
+  async function login(email, password, role = 'user') {
+    const data = await apiRequest('/auth/login', { method: 'POST', body: { email, password, role } });
+    let savedTrips = [];
+    if (data.user?.role !== 'admin') {
+      try {
+        const tripData = await apiRequest('/trips', { token: data.token });
+        savedTrips = tripData.trips || [];
+      } catch (_) {}
+    }
     await tokenStorage.set(data.token);
+    const safeUser = withInitials(data.user);
+    await userStorage.set(safeUser);
+    if (typeof window !== 'undefined' && window.localStorage && safeUser) {
+      window.localStorage.setItem('smartTravelPlanner.currentUser', JSON.stringify(safeUser));
+      window.localStorage.setItem('stp_last_user', JSON.stringify(safeUser));
+      window.localStorage.setItem('stp_user_fullname', safeUser?.fullName || '');
+      window.localStorage.setItem('stp_user_email', safeUser?.email || '');
+    }
     setToken(data.token);
-    setUser(withInitials(data.user));
+    setUser(safeUser);
     setTrips(savedTrips);
     setCurrentTrip(savedTrips[0] || null);
-    return data.user;
+    return safeUser;
   }
 
-  async function signup(fullName, email, password) {
-    return apiRequest('/auth/signup', { method: 'POST', body: { fullName, email, password } });
+  async function signup(fullName, email, password, role = 'user', adminCode = '') {
+    const res = await apiRequest('/auth/signup', { method: 'POST', body: { fullName, email, password, role, adminCode } });
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const userObj = res.user || { fullName, email, role };
+      window.localStorage.setItem('smartTravelPlanner.currentUser', JSON.stringify(userObj));
+      window.localStorage.setItem('stp_last_user', JSON.stringify(userObj));
+      window.localStorage.setItem('stp_user_fullname', fullName);
+      window.localStorage.setItem('stp_user_email', email);
+    }
+    return res;
+  }
+
+  async function socialLogin(provider, role = 'user') {
+    const data = await apiRequest('/auth/social-login', { method: 'POST', body: { provider, role } });
+    let savedTrips = [];
+    if (data.user?.role !== 'admin') {
+      try {
+        const tripData = await apiRequest('/trips', { token: data.token });
+        savedTrips = tripData.trips || [];
+      } catch (_) {}
+    }
+    await tokenStorage.set(data.token);
+    const safeUser = withInitials(data.user);
+    await userStorage.set(safeUser);
+    setToken(data.token);
+    setUser(safeUser);
+    setTrips(savedTrips);
+    setCurrentTrip(savedTrips[0] || null);
+    return safeUser;
   }
 
   async function logout() {
     await tokenStorage.clear().catch(() => {});
+    await userStorage.clear().catch(() => {});
     setToken(null);
     setUser(null);
     setCurrentTrip(null);
@@ -138,10 +220,11 @@ export function AppProvider({ children }) {
   }
 
   async function deleteTrip(tripId) {
-    await apiRequest(`/trips/${tripId}`, { method: 'DELETE', token });
+    const idStr = String(tripId);
+    await apiRequest(`/trips/${idStr}`, { method: 'DELETE', token });
     setTrips((savedTrips) => {
-      const remaining = savedTrips.filter((trip) => trip._id !== tripId);
-      setCurrentTrip((activeTrip) => activeTrip?._id === tripId ? (remaining[0] || null) : activeTrip);
+      const remaining = savedTrips.filter((trip) => String(trip._id) !== idStr);
+      setCurrentTrip((activeTrip) => String(activeTrip?._id) === idStr ? (remaining[0] || null) : activeTrip);
       return remaining;
     });
   }
@@ -159,7 +242,11 @@ export function AppProvider({ children }) {
       setTrips(savedTrips);
       setCurrentTrip((activeTrip) => {
         if (!savedTrips.length) return null;
-        return savedTrips.find((trip) => trip._id === activeTrip?._id) || savedTrips[0];
+        if (activeTrip?._id) {
+          const match = savedTrips.find((trip) => String(trip._id) === String(activeTrip._id));
+          if (match) return match;
+        }
+        return savedTrips[0];
       });
       return savedTrips;
     } finally {
@@ -180,14 +267,35 @@ export function AppProvider({ children }) {
     const data = await apiRequest('/auth/me/preferences', {
       method: 'PATCH', token, body: preferences,
     });
-    setUser(withInitials(data.user));
-    return data.user;
+    const safeUser = withInitials(data.user);
+    setUser(safeUser);
+    await userStorage.set(safeUser);
+    return safeUser;
   }
 
-  async function updateProfile(fullName) {
-    const data = await apiRequest('/auth/me', { method: 'PATCH', token, body: { fullName } });
-    setUser(withInitials(data.user));
-    return data.user;
+  async function updateProfile(profileData) {
+    const body = typeof profileData === 'string' ? { fullName: profileData } : profileData;
+    let safeUser = null;
+    try {
+      const data = await apiRequest('/auth/me', { method: 'PATCH', token, body });
+      if (data?.user) {
+        safeUser = withInitials(data.user);
+      }
+    } catch (err) {
+      console.warn('API profile update failed, using local fallback:', err.message);
+    }
+    if (!safeUser) {
+      safeUser = withInitials({ ...(user || {}), ...body });
+    }
+    setUser(safeUser);
+    await userStorage.set(safeUser);
+    if (typeof window !== 'undefined' && window.localStorage && safeUser) {
+      window.localStorage.setItem('smartTravelPlanner.currentUser', JSON.stringify(safeUser));
+      window.localStorage.setItem('stp_last_user', JSON.stringify(safeUser));
+      if (safeUser?.fullName) window.localStorage.setItem('stp_user_fullname', safeUser.fullName);
+      if (safeUser?.email) window.localStorage.setItem('stp_user_email', safeUser.email);
+    }
+    return safeUser;
   }
 
   async function exportMyData() { return apiRequest('/auth/me/export', { token }); }
@@ -217,7 +325,7 @@ export function AppProvider({ children }) {
   return (
     <AppContext.Provider value={{
       user, token, authLoading, currentTrip, setCurrentTrip, trips, tripsLoading,
-      login, signup, logout, generateTrip, updateTrip, saveItinerary, selectHotel,
+      login, signup, socialLogin, logout, generateTrip, updateTrip, saveItinerary, selectHotel,
       addExpense, updateExpense, deleteExpense, deleteTrip,
       listTrips, refreshTrips, refreshTripRoute, updatePreferences, updateProfile,
       exportMyData, deleteAccount, refreshAlerts, openTrip, track,

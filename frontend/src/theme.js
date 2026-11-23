@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 export const colors = {
   forest: '#174f36',
   green: '#26845b',
@@ -19,6 +21,7 @@ export const fonts = {
   display: 'Fraunces_600SemiBold',
   displayBold: 'Fraunces_700Bold',
   body: 'Manrope_400Regular',
+  regular: 'Manrope_400Regular',
   medium: 'Manrope_500Medium',
   semibold: 'Manrope_600SemiBold',
   bold: 'Manrope_700Bold',
@@ -67,4 +70,3 @@ export const shadowSoft = Platform.select({
     elevation: 2,
   },
 });
-import { Platform } from 'react-native';

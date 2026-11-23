@@ -45,7 +45,7 @@ export default function TravelPreferencesScreen({ navigation }) {
         <View style={styles.card}>
           <View style={styles.titleRow}><View style={styles.icon}><AppIcon name="wallet-outline" color={colors.forest} /></View><View><AppText variant="heading">Default budget</AppText><AppText variant="caption" color={colors.muted}>Used as a starting value for new trips</AppText></View></View>
           <AppText variant="label" style={styles.label}>BUDGET IN PKR</AppText>
-          <TextInput value={budget} onChangeText={setBudget} keyboardType="numeric" placeholder="75000" placeholderTextColor="#96a29b" style={styles.input} />
+          <TextInput id="travel-pref-budget-input" nativeID="travel-pref-budget-input" name="travelPrefBudget" accessibilityLabel="Budget in PKR" value={budget} onChangeText={setBudget} keyboardType="numeric" placeholder="75000" placeholderTextColor="#96a29b" style={styles.input} />
         </View>
         <View style={styles.card}><AppText variant="heading">Privacy and accessibility</AppText>{[["Share recommendation interactions",dataConsent,setDataConsent,"Used only for pseudonymous recommendation research."],["Reduce motion",reducedMotion,setReducedMotion,"Avoid optional staged animations."],["Prefer larger text",largeText,setLargeText,"Records your accessibility preference for future scaling."]].map(([label,value,setter,help])=><View key={label} style={styles.switchRow}><View style={{flex:1}}><AppText variant="bodyStrong">{label}</AppText><AppText variant="caption" color={colors.muted}>{help}</AppText></View><Switch accessibilityLabel={label} value={value} onValueChange={setter} trackColor={{true:colors.green}} /></View>)}</View>
 

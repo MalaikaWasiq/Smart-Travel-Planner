@@ -6,11 +6,16 @@ import { colors, fonts } from '../theme';
 import AppText from './AppText';
 import AppIcon from './AppIcon';
 
-export default function ScreenHeader({ title, subtitle, onBack, children }) {
+export default function ScreenHeader({ title, subtitle, onBack, children, gradientColors }) {
   const insets = useSafeAreaInsets();
   return (
-    <LinearGradient colors={[colors.forest, colors.green]} style={[styles.header, { paddingTop: Math.max(20, insets.top + 14) }]}>
-      {onBack ? <TouchableOpacity accessibilityRole="button" accessibilityLabel="Go back" onPress={onBack} style={styles.back}><AppIcon name="chevron-back" color={colors.mint} size={19} /><AppText variant="label" color={colors.mint}>Back</AppText></TouchableOpacity> : null}
+    <LinearGradient colors={gradientColors || ['#155E43', '#21845D']} style={[styles.header, { paddingTop: Math.max(20, insets.top + 14) }]}>
+      {onBack ? (
+        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Go back" onPress={onBack} style={styles.back}>
+          <AppIcon name="chevron-back" color="#ffffff" size={20} />
+          <AppText variant="label" color="#ffffff" style={{ fontWeight: '800', fontSize: 14, marginLeft: 2 }}>Back</AppText>
+        </TouchableOpacity>
+      ) : null}
       <View>
         <AppText variant="title" color={colors.white} style={styles.title}>{title}</AppText>
         {subtitle ? <AppText variant="caption" color={colors.mint} style={styles.subtitle}>{subtitle}</AppText> : null}

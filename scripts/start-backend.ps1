@@ -18,7 +18,14 @@ if (-not (Test-Path -LiteralPath ".env")) {
       catch { throw "Local MongoDB is configured but its Windows service could not be started: $($_.Exception.Message)" }
     }
     if ($mongoService) { Write-Host "Local MongoDB service: $($mongoService.Status)" -ForegroundColor Green }
-    else { Write-Host "LOCAL_MONGODB_URI is configured. Ensure a local MongoDB server is running." -ForegroundColor Yellow }
+    else {
+      $mongoScript = Join-Path $PSScriptRoot "start-mongo.ps1"
+      if (Test-Path -LiteralPath $mongoScript) {
+        & $mongoScript
+      } else {
+        Write-Host "LOCAL_MONGODB_URI is configured. Ensure a local MongoDB server is running." -ForegroundColor Yellow
+      }
+    }
   } else {
     Write-Host "LOCAL_MONGODB_URI is not configured in backend/.env" -ForegroundColor Yellow
   }

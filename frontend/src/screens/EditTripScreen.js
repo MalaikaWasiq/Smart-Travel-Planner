@@ -27,9 +27,9 @@ export default function EditTripScreen({ navigation }) {
     ]);
   }
   return <View style={styles.page}><ScreenHeader title="Edit trip" subtitle="Regenerate dependent planning data" onBack={() => navigation.goBack()} /><ScrollView contentContainerStyle={styles.content}>
-    <AppText variant="caption" color={colors.muted}>DESTINATION</AppText><TextInput style={styles.input} value={destination} onChangeText={setDestination} />
-    <AppText variant="caption" color={colors.muted}>DAYS (1-14)</AppText><TextInput style={styles.input} value={days} onChangeText={setDays} keyboardType="number-pad" />
-    <AppText variant="caption" color={colors.muted}>TOTAL BUDGET (PKR)</AppText><TextInput style={styles.input} value={budget} onChangeText={setBudget} keyboardType="number-pad" />
+    <AppText variant="caption" color={colors.muted}>DESTINATION</AppText><TextInput id="edit-trip-input-1824" nativeID="edit-trip-input-1824" name="tripField" style={styles.input} value={destination} onChangeText={setDestination} />
+    <AppText variant="caption" color={colors.muted}>DAYS (1-14)</AppText><TextInput id="edit-trip-input-1983" nativeID="edit-trip-input-1983" name="tripField" style={styles.input} value={days} onChangeText={setDays} keyboardType="number-pad" />
+    <AppText variant="caption" color={colors.muted}>TOTAL BUDGET (PKR)</AppText><TextInput id="edit-trip-input-2161" nativeID="edit-trip-input-2161" name="tripField" style={styles.input} value={budget} onChangeText={setBudget} keyboardType="number-pad" />
     <AppText variant="caption" color={colors.muted}>INTERESTS</AppText><View style={styles.wrap}>{interests.map((item) => <TouchableOpacity key={item} onPress={() => setSelected((old) => old.includes(item) ? old.filter((x) => x !== item) : [...old, item])} style={[styles.chip, selected.includes(item) && styles.chipOn]}><AppText variant="label" color={selected.includes(item) ? colors.white : colors.ink}>{item}</AppText></TouchableOpacity>)}</View>
     <PrimaryButton title="REGENERATE TRIP" onPress={submit} loading={loading} />
   </ScrollView></View>;

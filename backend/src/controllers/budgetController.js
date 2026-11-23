@@ -7,7 +7,16 @@ function calculate(req, res, next) {
     if (!Number.isFinite(Number(budget)) || Number(budget) <= 0) {
       throw httpError(400, 'A positive budget is required');
     }
-    res.json({ budgetBreakdown: calculateBudget({ budget, days, itinerary, route, selectedHotel, hotelSuggestions }) });
+    const breakdown = calculateBudget({ budget, days, itinerary, route, selectedHotel, hotelSuggestions });
+    if (req.user?.role !== 'admin') {
+      delete breakdown.companyProfit;
+      delete breakdown.safetyMargin;
+      if (breakdown.allocation) {
+        delete breakdown.allocation.companyProfit;
+        delete breakdown.allocation.safetyMargin;
+      }
+    }
+    res.json({ budgetBreakdown: breakdown });
   } catch (error) {
     next(error);
   }

@@ -1,15 +1,41 @@
 const getFetch = require('../utils/fetch');
 
 const fallbackWeatherByCity = {
-  lahore: { temp: 34, feelsLike: 37, humidity: 55, wind: 3.2, description: 'hazy sunshine', main: 'Haze' },
-  islamabad: { temp: 26, feelsLike: 25, humidity: 60, wind: 4.1, description: 'partly cloudy', main: 'Clouds' },
-  karachi: { temp: 32, feelsLike: 36, humidity: 70, wind: 5.5, description: 'humid and hot', main: 'Clear' },
-  hunza: { temp: 14, feelsLike: 11, humidity: 45, wind: 2.8, description: 'clear and cold', main: 'Clear' },
-  skardu: { temp: 8, feelsLike: 5, humidity: 40, wind: 3.0, description: 'cold and clear', main: 'Clear' },
-  murree: { temp: 18, feelsLike: 16, humidity: 68, wind: 4.4, description: 'light rain', main: 'Rain' },
-  swat: { temp: 22, feelsLike: 21, humidity: 50, wind: 3.6, description: 'mostly clear', main: 'Clear' },
-  peshawar: { temp: 30, feelsLike: 33, humidity: 48, wind: 2.9, description: 'sunny and warm', main: 'Clear' },
+  lahore: { temp: 32, feelsLike: 35, humidity: 62, wind: 3.2, description: 'warm with seasonal haze', main: 'Haze' },
+  islamabad: { temp: 25, feelsLike: 24, humidity: 58, wind: 3.8, description: 'mild and partly cloudy', main: 'Clouds' },
+  rawalpindi: { temp: 25, feelsLike: 24, humidity: 58, wind: 3.8, description: 'mild and partly cloudy', main: 'Clouds' },
+  karachi: { temp: 31, feelsLike: 36, humidity: 74, wind: 5.5, description: 'humid coastal sea breeze', main: 'Clear' },
+  hunza: { temp: 14, feelsLike: 11, humidity: 42, wind: 2.8, description: 'clear and cold mountain breeze', main: 'Clear' },
+  skardu: { temp: 8, feelsLike: 5, humidity: 38, wind: 3.0, description: 'cold alpine weather', main: 'Clear' },
+  gilgit: { temp: 18, feelsLike: 17, humidity: 44, wind: 3.1, description: 'clear northern sky', main: 'Clear' },
+  murree: { temp: 16, feelsLike: 15, humidity: 72, wind: 4.4, description: 'cool with periodic mountain mist', main: 'Clouds' },
+  swat: { temp: 21, feelsLike: 20, humidity: 55, wind: 3.6, description: 'pleasant valley climate', main: 'Clear' },
+  kalam: { temp: 15, feelsLike: 13, humidity: 58, wind: 3.4, description: 'cool valley temperature', main: 'Clear' },
+  naran: { temp: 11, feelsLike: 9, humidity: 50, wind: 3.9, description: 'crisp alpine temperature', main: 'Clear' },
+  'malam jabba': { temp: 12, feelsLike: 10, humidity: 48, wind: 3.5, description: 'cool pine mountain climate', main: 'Clear' },
+  babusar: { temp: 4, feelsLike: 0, humidity: 45, wind: 5.2, description: 'freezing pass winds', main: 'Clear' },
+  'fairy meadows': { temp: 7, feelsLike: 4, humidity: 42, wind: 3.8, description: 'freezing alpine basecamp', main: 'Clear' },
+  neelum: { temp: 15, feelsLike: 13, humidity: 65, wind: 3.2, description: 'cool river valley breeze', main: 'Clear' },
+  gwadar: { temp: 29, feelsLike: 33, humidity: 70, wind: 5.1, description: 'warm coastal sea breeze', main: 'Clear' },
+  'kund malir': { temp: 28, feelsLike: 31, humidity: 68, wind: 4.8, description: 'sunny coastal highway', main: 'Clear' },
+  peshawar: { temp: 29, feelsLike: 31, humidity: 46, wind: 2.9, description: 'sunny and dry', main: 'Clear' },
+  multan: { temp: 34, feelsLike: 37, humidity: 52, wind: 2.7, description: 'warm sunshine', main: 'Clear' },
+  faisalabad: { temp: 31, feelsLike: 34, humidity: 60, wind: 2.6, description: 'hazy and warm', main: 'Haze' },
+  bahawalpur: { temp: 33, feelsLike: 36, humidity: 48, wind: 3.0, description: 'warm and clear skies', main: 'Clear' },
+  quetta: { temp: 19, feelsLike: 17, humidity: 35, wind: 4.0, description: 'cool and dry mountain air', main: 'Clear' },
+  ziarat: { temp: 13, feelsLike: 11, humidity: 40, wind: 3.5, description: 'cool juniper forest breeze', main: 'Clear' },
+  chitral: { temp: 16, feelsLike: 14, humidity: 42, wind: 3.2, description: 'mild highland weather', main: 'Clear' },
+  abbottabad: { temp: 22, feelsLike: 21, humidity: 58, wind: 3.0, description: 'pleasant pine climate', main: 'Clear' },
+  muzaffarabad: { temp: 24, feelsLike: 24, humidity: 60, wind: 3.3, description: 'clear valley weather', main: 'Clear' },
 };
+
+function findFallbackWeather(cityName) {
+  const q = String(cityName || '').toLowerCase();
+  for (const [key, val] of Object.entries(fallbackWeatherByCity)) {
+    if (q.includes(key) || key.includes(q)) return val;
+  }
+  return fallbackWeatherByCity.islamabad;
+}
 
 function normalizeCity(city) {
   return String(city || '').trim();
@@ -36,14 +62,7 @@ function advisoryFor(day) {
 }
 
 function buildFallbackForecast(city, days) {
-  const base = fallbackWeatherByCity[city.toLowerCase()] || {
-    temp: 26,
-    feelsLike: 25,
-    humidity: 55,
-    wind: 3.5,
-    description: 'partly cloudy',
-    main: 'Clouds',
-  };
+  const base = findFallbackWeather(city);
 
   return Array.from({ length: days }, (_, index) => {
     const dayNumber = index + 1;
@@ -136,7 +155,7 @@ async function getWeather(cityInput, requestedDays = 3) {
     return {
       weather: {
         city,
-        ...(fallbackWeatherByCity[city.toLowerCase()] || fallbackWeatherByCity.islamabad),
+        ...findFallbackWeather(city),
         source: 'fallback',
       },
       forecast,
@@ -158,7 +177,7 @@ async function getWeather(cityInput, requestedDays = 3) {
     return {
       weather: {
         city,
-        ...(fallbackWeatherByCity[city.toLowerCase()] || fallbackWeatherByCity.islamabad),
+        ...findFallbackWeather(city),
         source: 'fallback-after-openweather-error',
       },
       forecast: fallbackForecast,

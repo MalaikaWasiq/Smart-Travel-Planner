@@ -29,6 +29,34 @@ Implemented in this milestone:
 - Saved-trip restoration across login sessions, account-wide chatbot context, and saved-trip selection on the map.
 - Destination-aware route geocoding validation that rejects wrong-country matches.
 - Helmet security headers, API rate limiting, sanitized errors, and external-data caching.
+- **Dedicated Category Destinations & Seasons Screen (`CategoryCitiesScreen`)**: Full-page interactive destination explorer with category hero banners, ratings, top attractions, and explicit **Best Visiting Months** badges (e.g. *"May to October"*, *"December to February"*) replacing dropdowns.
+- **Dual Journey Planning Modes**:
+  - `Mode A: Customized Trip Plan`: Granular user control over vehicle, hotel, food, and activities. Opted-out items (Own Car, No Hotel, Self-arranged food, unselected activities) cost PKR 0 and are NOT cut from the budget.
+  - `Mode B: Company Tour Services`: Commercial all-inclusive tour package bundling verified lodging, dedicated chauffeur vehicle, fuel, highway tolls, daily breakfast & dinner buffets, and emergency support.
+- **Supervisor Smart Expense Controller (35/35/15/10/5 Budget Allocation)**:
+  - Transport (35%), Hotel/Stay (35%), Food & Dining (15%), Activities & Sights (10%), Safety Margin (5%).
+- **Transport Breakdown (Own Car vs. Rental)**:
+  - `Own Car`: Vehicle rental cost = **PKR 0** (explicitly preserved in remaining budget). Optional mountain driver (+PKR 2,000/day vs PKR 0 self-drive).
+  - `Rental Car`: Vehicle auto-selected and filtered by passenger capacity (1-3p Alto/WagonR, 3-4p Civic/Corolla, 4-6p Prado/Fortuner 4x4, 7-12p HiAce Grand Cabin, 13-22p Coaster Salon) + mountain driver allowance.
+- **Highway & Scenic Route Selection**:
+  - Category-curated highways and mountain passes (Hazara Motorway M-15 + KKH, Babusar Pass, Makran Coastal Highway N-10, M-2, Swat Expressway M-16) with custom mountain pass text input.
+- **Smart Hotel Expense Controller**:
+  - Hotel toggle: No Hotel Required = **PKR 0** deduction.
+  - Smart Filter Rule 1: Daily hotel budget `< PKR 3,000/night` hides 4★/5★ luxury resorts and presents verified budget guest houses.
+  - Smart Filter Rule 2: Daily hotel budget `≥ PKR 7,000/night` unlocks 4★ and 5★ luxury suites and resorts.
+- **Food Policy Controller**:
+  - In-Package (complimentary hotel breakfast + fixed-menu dinner) vs Self-Arranged Meals (PKR 0 deduction).
+- **Optional High-Cost Activities Checklist**:
+  - Checkbox selection for Lake Boating (PKR 1,500/p), Mountain Chairlifts (PKR 1,200/p), 4x4 Jeep Safari (PKR 6,000/group), White Water Rafting (PKR 2,500/p), Heritage Passes (PKR 800/p). Unselected activities cost PKR 0.
+- **4-Block Sequential Daily Schedules**:
+  - Morning (Highway drive + Sightseeing stop), Afternoon (Lunch break), Evening (Sunset view + photography), Night (Hotel check-in + dinner).
+- **Bookme.pk Tour Package Summary with 4 Pillars & Connectivity**:
+  - Total package cost and price per person.
+  - 1. Room Pillar (VIP Luxury Suite / Deluxe Room with lodging location).
+  - 2. Vehicle Pillar (Own Car PKR 0 vs Dedicated Tour Car + Driver status).
+  - 3. Food Pillar (Breakfast + Dinner policy).
+  - 4. Connectivity Banner (Telenor 300 Tourist SIM Pack: 30GB 4G High-Speed Data + 100 All-Network Minutes).
+  - Comprehensive package inclusions & audit checklist.
 
 ## Project Structure
 
@@ -47,6 +75,95 @@ Travel planner/
 ```
 
 Release version is stored in `VERSION`. The source is `v1.0.0` for the completed laptop-demonstration scope. Physical-device and human usability acceptance remain external activities.
+
+## Customized vs. Company Tour Services Workflow
+
+```mermaid
+flowchart TD
+    subgraph S1["1. Category Selection"]
+        Cat["Categories: Northern Areas, Adventure & Nature, Cultural & Historical, Coastal"]
+    end
+
+    subgraph S2["2. Category Cities Screen"]
+        Banner["Hero Banner & Description"]
+        Grid["City Cards with Best Visiting Months & Quick 'Plan a Trip' CTA"]
+    end
+
+    subgraph S3["3. Trip Planning Wizard"]
+        Mode{"Choose Planning Mode"}
+        ModeCustom["Customized Trip Plan (User Opt-in/Opt-out)"]
+        ModeCompany["Company Tour Services (All-Inclusive Package)"]
+        StepB["Budget & Group Size (No. of persons × Budget/person)"]
+        StepT["Transport: Own Car (PKR 0 rent) vs Rental Car + Driver"]
+        StepR["Highway & Scenic Route Selection"]
+        StepH["Hotel: Required (Yes/No) + Smart Expense Controller"]
+        StepF["Food: In-Package (Breakfast+Dinner) vs Self-Arranged (PKR 0)"]
+        StepA["Optional Activities: Boating, Chairlift, 4x4 Safari, Rafting, Passes"]
+    end
+
+    subgraph S4["4. Route-Aligned Itinerary & Final Package"]
+        Sched["4 Sequential Daily Blocks:<br/>• Morning: Highway drive + Sightseeing<br/>• Afternoon: Lunch break<br/>• Evening: Sunset view + photography<br/>• Night: Hotel check-in + dinner"]
+        Pkg["Final Tour Package Card:<br/>• Room, Vehicle, Food Pillars<br/>• Connectivity: Telenor 300 (30GB Data + 100 Calls)<br/>• Audit Checklist & Budget Savings"]
+    end
+
+    Cat --> Banner --> Grid --> Mode
+    Mode -->|Customized| ModeCustom --> StepB --> StepT --> StepR --> StepH --> StepF --> StepA --> Sched --> Pkg
+    Mode -->|Company Services| ModeCompany --> StepB --> Sched --> Pkg
+```
+
+### Smart Expense Controller Formulas & Rules
+
+1. **Budget Distribution Formulas**:
+   $$\text{Total Budget} = \text{Persons} \times \text{Budget Per Person}$$
+   - **Mode A: Customized Trip**:
+     - Transport: $35\%$
+     - Hotel/Stay: $35\%$
+     - Food: $15\%$
+     - Activities & Sights: $10\%$
+     - Contingency Safety Margin: $5\%$
+   - **Mode B: Company Tour Package**:
+     - **Company Profit Deduction**: $\text{Company Profit} = \text{Total Budget} \times 10\%$
+     - Hotel/Stay: $35\%$
+     - Transport: $30\%$
+     - Food: $15\%$
+     - Activities & Sights: $5\%$
+     - Contingency Safety Margin: $5\%$
+
+2. **Transport Cost Logic**:
+   - **Own Car**: Car rental cost = $\text{PKR } 0$ (not deducted from budget). Optional mountain driver toggle: $+\text{PKR } 2,000/\text{day}$ if requested, else $\text{PKR } 0$ for self-drive.
+   - **Rental Car**: Matched to group size:
+     - 1–3 persons: Suzuki Alto / WagonR ($\text{PKR } 3,500/\text{day}$ rent $+ \text{PKR } 3,000/\text{day}$ fuel)
+     - 3–4 persons: Honda Civic / Toyota Corolla ($\text{PKR } 6,000/\text{day}$ rent $+ \text{PKR } 4,000/\text{day}$ fuel)
+     - 4–6 persons: Toyota Prado / Fortuner 4x4 ($\text{PKR } 11,000/\text{day}$ rent $+ \text{PKR } 6,500/\text{day}$ fuel)
+     - 7–12 persons: Toyota HiAce Grand Cabin ($\text{PKR } 14,000/\text{day}$ rent $+ \text{PKR } 8,000/\text{day}$ fuel)
+     - 13–22 persons: Toyota Coaster Salon ($\text{PKR } 22,000/\text{day}$ rent $+ \text{PKR } 12,000/\text{day}$ fuel)
+     - Driver allowance: $\text{PKR } 2,000/\text{day}$ when driver toggle is YES.
+
+3. **Hotel Smart Filter Rules**:
+   - $\text{Daily Hotel Budget} = \frac{\text{Budget} \times 0.35}{\text{Nights}}$
+   - **Rule 1 ($\text{Daily Hotel Budget} < \text{PKR } 3,000$):** Hides 4★ and 5★ luxury hotels. Presents clean budget guest houses, motels, and family lodges.
+   - **Rule 2 ($\text{Daily Hotel Budget} \ge \text{PKR } 7,000$):** Unlocks 4★ and 5★ luxury suites, resorts, and panoramic VIP rooms.
+   - **No Hotel Toggle:** If user chooses *Hotel Required = NO*, hotel cost is $\text{PKR } 0$ and is not deducted from budget.
+
+4. **Food & Meal Policy**:
+   - **In Package:** Morning breakfast complimentary with hotel room stay + nightly warm fixed-menu dinner ($\text{PKR } 1,400/\text{person}/\text{night}$). Lunch self-paid at roadside eateries.
+   - **Self-Arranged:** Food cost = $\text{PKR } 0$ deducted from budget.
+
+5. **Optional Activities Controller**:
+   - Standard sightseeing and heritage viewpoint stops are included free.
+   - Only selected high-cost paid adventures are deducted:
+     - Lake Boating & Jet Ski: $\text{PKR } 1,500/\text{person}$
+     - Mountain Chairlift & Cable Car: $\text{PKR } 1,200/\text{person}$
+     - 4x4 Mountain Jeep Safari: $\text{PKR } 6,000/\text{group}$
+     - White Water River Rafting: $\text{PKR } 2,500/\text{person}$
+     - UNESCO Heritage & Park Passes: $\text{PKR } 800/\text{person}$
+   - Unchecked activities cost $\text{PKR } 0$ and leave budget intact.
+
+6. **Bookme.pk Tour Package with 4 Pillars & Connectivity**:
+   - **Pillar 1 (Room):** Room category (VIP Suite, Deluxe, or Self-Arranged), hotel name & destination location.
+   - **Pillar 2 (Vehicle):** Own Car vs dedicated rental car with chauffeur and fuel status.
+   - **Pillar 3 (Food):** Breakfast & Dinner policy.
+   - **Pillar 4 (Connectivity):** Telenor 300 Tourist SIM Pack (30GB 4G High-Speed Data + 100 All-Network Minutes).
 
 ## New Machine Setup
 

@@ -4,6 +4,7 @@ const messageSchema = new mongoose.Schema({
   role: { type: String, enum: ['user', 'assistant'], required: true },
   content: { type: String, required: true, maxlength: 4000 },
   suggestedActions: [String],
+  recommendedDestinations: [mongoose.Schema.Types.Mixed],
   model: String,
   fallbackUsed: { type: Boolean, default: false },
 }, { timestamps: true });
@@ -11,7 +12,7 @@ const messageSchema = new mongoose.Schema({
 const chatSessionSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
   tripId: { type: mongoose.Schema.Types.ObjectId, ref: 'Trip', index: true },
-  title: { type: String, trim: true, maxlength: 100, default: 'Travel assistant' },
+  title: { type: String, trim: true, maxlength: 100, default: 'SafarSaathi AI Chat' },
   messages: [messageSchema],
 }, { timestamps: true });
 

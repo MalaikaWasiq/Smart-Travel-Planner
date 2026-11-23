@@ -165,9 +165,9 @@ async function buildAppContext({ user, activeTripId, currentSessionId }) {
         interactionHistoryEnabled: includeInteractions,
       },
       user: {
-        fullName: user.fullName,
-        preferences: user.preferences || {},
-        memberSince: user.createdAt,
+        fullName: user?.fullName || '',
+        preferences: user?.preferences || {},
+        memberSince: user?.createdAt,
       },
       portfolio: portfolioSummary(trips),
       activeTrip: compactActiveTrip(activeTrip),

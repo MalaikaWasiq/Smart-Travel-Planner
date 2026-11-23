@@ -1,12 +1,13 @@
 const express = require('express');
 
-const { signup, login, me, updatePreferences, updateProfile, exportMyData, deleteMyData } = require('../controllers/authController');
+const { signup, login, socialLogin, me, updatePreferences, updateProfile, exportMyData, deleteMyData } = require('../controllers/authController');
 const requireAuth = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
 router.post('/signup', signup);
 router.post('/login', login);
+router.post('/social-login', socialLogin);
 router.get('/me', requireAuth, me);
 router.patch('/me/preferences', requireAuth, updatePreferences);
 router.patch('/me', requireAuth, updateProfile);

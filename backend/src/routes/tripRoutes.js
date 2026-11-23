@@ -1,6 +1,6 @@
 const express = require('express');
 
-const requireAuth = require('../middleware/authMiddleware');
+const { requireAuth, optionalAuth } = require('../middleware/authMiddleware');
 const {
   generateTrip, updateTrip, updateItinerary, listTrips, getTrip, selectHotel, deleteTrip,
   addExpense, updateExpense, deleteExpense,
@@ -9,11 +9,12 @@ const {
 
 const router = express.Router();
 
+router.post('/generate', optionalAuth, generateTrip);
+router.get('/:id', optionalAuth, getTrip);
+
 router.use(requireAuth);
 
-router.post('/generate', generateTrip);
 router.get('/', listTrips);
-router.get('/:id', getTrip);
 router.patch('/:id', updateTrip);
 router.patch('/:id/itinerary', updateItinerary);
 router.patch('/:id/route', refreshRoute);

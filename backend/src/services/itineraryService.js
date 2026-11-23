@@ -139,33 +139,75 @@ function buildBudgetBreakdown(itinerary, budget) {
   };
 }
 
-function generateRuleBasedItinerary({ destination, days, budget, interests = [], forecast = [] }) {
+function generateRuleBasedItinerary({ destination, days, budget, interests = [], forecast = [], startLocation = 'Lahore' }) {
   const city = cityFor(destination);
-  const used = { historic: 0, food: 0, nature: 0, shopping: 0, culture: 0 };
   const totalDays = Math.min(Math.max(Number(days) || 1, 1), 14);
 
   const itinerary = Array.from({ length: totalDays }, (_, index) => {
+    const dayNum = index + 1;
     const forecastDay = forecast[index] || {};
-    const types = preferredTypesForWeather(forecastDay);
 
-    const activities = types.map((type, activityIndex) => {
-      const pool = city[type] || city.historic;
-      const place = pool[used[type] % pool.length];
-      used[type] += 1;
+    const sightseeingPool = [...(city.nature || []), ...(city.historic || []), ...(city.culture || [])];
+    const morningSight = sightseeingPool[(index * 2) % sightseeingPool.length] || 'Scenic Viewpoint';
+    const eveningSight = sightseeingPool[(index * 2 + 1) % sightseeingPool.length] || 'Sunset Point';
+    const foodPool = city.food || ['Local Traditional Restaurant', 'Heritage Food Street', 'Riverside Cafe'];
+    const lunchSpot = foodPool[index % foodPool.length] || 'Highway Restaurant';
+    const dinnerSpot = foodPool[(index + 1) % foodPool.length] || 'Hotel Restaurant';
 
-      return {
-        time: timeSlots[activityIndex],
-        place,
-        type,
-        description: `${place} is planned for ${city.name} based on ${interests.length ? interests.join(', ') : 'general travel'} preferences.`,
-        estimatedCost: typeCosts[type] || 800,
-      };
-    });
+    // Supervisor's Exact 4 Daily Blocks:
+    // Morning -> Highway drive + Sightseeing stop.
+    // Afternoon -> Break for lunch.
+    // Evening -> Sunset view + photograph.
+    // Night -> Hotel check-in + dinner.
+    const activities = [
+      {
+        time: '8:30 AM',
+        timeBlock: 'Morning',
+        place: dayNum === 1 ? `Highway drive from ${startLocation} & ${morningSight}` : `Scenic excursion: ${morningSight}`,
+        type: 'historic',
+        mealPolicy: 'Breakfast included with hotel room stay',
+        description: dayNum === 1
+          ? `Departure from ${startLocation} via highway route with scenic morning drive and stop at ${morningSight}.`
+          : `Morning tour to ${morningSight} with guided exploration and scenic stops.`,
+        estimatedCost: 600,
+      },
+      {
+        time: '1:00 PM',
+        timeBlock: 'Afternoon',
+        place: `Lunch Break at ${lunchSpot}`,
+        type: 'food',
+        mealPolicy: 'Lunch self-paid (highway dhaba / scenic spot)',
+        description: 'Midday relaxation break for lunch featuring local Pakistani cuisine (self-paid).',
+        estimatedCost: 900,
+      },
+      {
+        time: '5:00 PM',
+        timeBlock: 'Evening',
+        place: `Sunset View & Photography at ${eveningSight}`,
+        type: 'nature',
+        mealPolicy: null,
+        description: `Golden hour sunset panorama and photography session at ${eveningSight}.`,
+        estimatedCost: 400,
+      },
+      {
+        time: '8:00 PM',
+        timeBlock: 'Night',
+        place: `Hotel check-in & Dinner at ${dinnerSpot}`,
+        type: 'food',
+        mealPolicy: 'Dinner fixed menu included in tour package',
+        description: 'Check-in at hotel, freshen up, followed by a warm dinner (fixed menu included in package).',
+        estimatedCost: 1400,
+      },
+    ];
 
     return {
-      day: index + 1,
-      title: dayTitles[index % dayTitles.length],
-      weatherNote: forecastDay.advisory || 'Balanced indoor and outdoor planning is suitable.',
+      day: dayNum,
+      title: dayNum === 1
+        ? `Departure from ${startLocation} ➔ ${city.name}`
+        : dayNum === totalDays
+          ? `Sightseeing & Return Journey`
+          : `Exploring ${city.name} Highlights`,
+      weatherNote: forecastDay.advisory || 'Optimal travel conditions expected. Wear comfortable footwear.',
       activities,
     };
   });
@@ -177,21 +219,25 @@ function generateRuleBasedItinerary({ destination, days, budget, interests = [],
   };
 }
 
-function buildPrompt({ destination, days, budget, interests = [], weather, forecast = [], attractions = [] }) {
+function buildPrompt({ destination, days, budget, interests = [], weather, forecast = [], attractions = [], startLocation = 'Islamabad' }) {
   return [
     {
       role: 'system',
       content: [
-        'You are an expert Pakistan travel planner.',
+        'You are an expert Pakistan travel planner designing a professional structured tour itinerary.',
         'Return only valid JSON. Do not include markdown, code fences, or explanations.',
-        'Use realistic local places, timings, travel pacing, weather awareness, and PKR estimated costs.',
-        'Keep activity types limited to: historic, food, nature, shopping, culture, adventure, transport, rest.',
+        'CRITICAL RULE: For every single day, structure the activities into exactly 4 sequential time blocks matching standard commercial tours:',
+        '1. Morning (08:30 AM): Highway drive / scenic transit from departure city + Sightseeing stop.',
+        '2. Afternoon (01:00 PM): Break for lunch (self-paid local dining stop).',
+        '3. Evening (05:00 PM): Sunset view + photography session at a scenic viewpoint.',
+        '4. Night (08:00 PM): Hotel check-in + dinner (fixed menu included in tour package).',
+        'Use realistic local places in Pakistan, accurate timings, and PKR estimated costs.',
       ].join(' '),
     },
     {
       role: 'user',
       content: JSON.stringify({
-        task: 'Generate a personalized travel itinerary.',
+        task: 'Generate a structured tour package itinerary.',
         requiredResponseShape: {
           cityName: 'string',
           itinerary: [
@@ -223,16 +269,15 @@ function buildPrompt({ destination, days, budget, interests = [], weather, forec
         },
         constraints: {
           exactDaysRequired: Number(days),
-          activitiesPerDay: '4 to 6',
+          activitiesPerDay: 'exactly 4 sequential blocks: Morning, Afternoon, Evening, Night',
+          departureCity: startLocation,
+          destinationCity: destination,
           currency: 'PKR',
-          budgetMustBeConsidered: true,
           preferProvidedAttractions: attractions.length > 0,
-          noMarkdown: true,
-          noExtraKeysRequired: true,
-          coordinatesPolicy: 'Use coordinates supplied with Wikipedia attractions when matching a place. Otherwise return null; never invent coordinates.',
         },
         userInput: {
           destination,
+          startLocation,
           days: Number(days),
           budget: Number(budget),
           interests,
@@ -337,25 +382,46 @@ function validateGeneratedItinerary(data, expectedDays) {
   }
 }
 
-function normalizeGeneratedItinerary(data) {
+function normalizeGeneratedItinerary(data, requestedDestination = '') {
+  const canonicalCity = requestedDestination && requestedDestination.trim()
+    ? requestedDestination.trim()
+    : String(data.cityName || '').trim();
+
   return {
-    cityName: data.cityName.trim(),
+    cityName: canonicalCity,
     itinerary: data.itinerary.map((day, dayIndex) => ({
       day: Number(day.day) || dayIndex + 1,
       title: String(day.title).trim(),
       weatherNote: String(day.weatherNote || 'Plan is balanced for the expected weather.').trim(),
-      activities: day.activities.map((activity) => ({
-        time: String(activity.time).trim(),
-        place: String(activity.place).trim(),
-        type: String(activity.type).trim().toLowerCase(),
-        description: String(activity.description).trim(),
-        estimatedCost: Math.max(0, Math.round(Number(activity.estimatedCost))),
-        ...(activity.latitude !== null && activity.latitude !== undefined
-          && activity.longitude !== null && activity.longitude !== undefined
-          && isFiniteNumber(activity.latitude) && isFiniteNumber(activity.longitude)
-          ? { latitude: Number(activity.latitude), longitude: Number(activity.longitude) }
-          : {}),
-      })),
+      activities: day.activities.map((activity, actIdx) => {
+        let defaultBlock = 'Morning';
+        let defaultMeal = 'Breakfast included with hotel room stay';
+        if (actIdx === 1) {
+          defaultBlock = 'Afternoon';
+          defaultMeal = 'Lunch self-paid (highway dhaba / scenic spot)';
+        } else if (actIdx === 2) {
+          defaultBlock = 'Evening';
+          defaultMeal = null;
+        } else if (actIdx >= 3) {
+          defaultBlock = 'Night';
+          defaultMeal = 'Dinner fixed menu included in tour package';
+        }
+
+        return {
+          time: String(activity.time).trim(),
+          timeBlock: activity.timeBlock || defaultBlock,
+          mealPolicy: activity.mealPolicy !== undefined ? activity.mealPolicy : defaultMeal,
+          place: String(activity.place).trim(),
+          type: String(activity.type).trim().toLowerCase(),
+          description: String(activity.description).trim(),
+          estimatedCost: Math.max(0, Math.round(Number(activity.estimatedCost))),
+          ...(activity.latitude !== null && activity.latitude !== undefined
+            && activity.longitude !== null && activity.longitude !== undefined
+            && isFiniteNumber(activity.latitude) && isFiniteNumber(activity.longitude)
+            ? { latitude: Number(activity.latitude), longitude: Number(activity.longitude) }
+            : {}),
+        };
+      }),
     })),
     budgetBreakdown: {
       hotels: Math.round(Number(data.budgetBreakdown.hotels)),
@@ -372,14 +438,13 @@ async function generateAiItinerary(input) {
   const messages = buildPrompt(input);
   const content = await createChatCompletion({
     messages,
-    maxTokens: 6000,
+    maxTokens: 4000,
     responseFormat: { type: 'json_object' },
-    reasoningEffort: 'none',
   });
   const parsed = parseJsonObject(content);
   const expectedDays = Math.min(Math.max(Number(input.days) || 1, 1), 14);
   validateGeneratedItinerary(parsed, expectedDays);
-  return normalizeGeneratedItinerary(parsed);
+  return normalizeGeneratedItinerary(parsed, input.destination);
 }
 
 async function generateItinerary(input) {

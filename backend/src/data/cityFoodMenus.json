@@ -1,0 +1,2319 @@
+[
+  {
+    "cityKey": "islamabad",
+    "cityName": "Islamabad & Rawalpindi",
+    "cuisineType": "Capital & Potohar Fusion",
+    "aliases": [
+      "islamabad",
+      "rawalpindi",
+      "margalla",
+      "monal",
+      "daman-e-koh",
+      "saidpur",
+      "f-6",
+      "f-7",
+      "blue area",
+      "kartarpura"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Capital Sunrise & Kartarpura Nashta",
+        "averagePricePerPerson": 550,
+        "items": [
+          {
+            "id": "isb_b_1",
+            "name": "Fresh Halwa Puri & Chana Tarkari",
+            "price": 450,
+            "desc": "Crispy puris with sweet suji halwa, aloo bhujia and spiced chickpea curry",
+            "isSignature": true
+          },
+          {
+            "id": "isb_b_2",
+            "name": "Kartarpura Siri Paye & Kulcha",
+            "price": 650,
+            "desc": "Slow-simmered rich mutton bone broth served with hot tandoori roghani kulcha"
+          },
+          {
+            "id": "isb_b_3",
+            "name": "Stuffed Aloo & Cheese Paratha with Zeera Raita",
+            "price": 420,
+            "desc": "Golden pan-fried whole-wheat flatbread stuffed with spiced potatoes and cheese"
+          },
+          {
+            "id": "isb_b_4",
+            "name": "Karak Doodh Patti / Peshawari Cardamom Kehwa",
+            "price": 180,
+            "desc": "Rich boiled whole-milk tea brewed with green cardamom pods"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Monal Margalla Hills Panoramic Lunch",
+        "averagePricePerPerson": 980,
+        "items": [
+          {
+            "id": "isb_l_1",
+            "name": "Monal Special Chicken Karahi with Garlic Naan",
+            "price": 950,
+            "desc": "Fresh tender chicken cooked in wok with tomatoes, ginger, and green chilies",
+            "isSignature": true
+          },
+          {
+            "id": "isb_l_2",
+            "name": "Cheena Dum Pukht Chicken Pulao",
+            "price": 820,
+            "desc": "Aromatic basmati rice cooked on slow steam with tender spiced bone-in chicken"
+          },
+          {
+            "id": "isb_l_3",
+            "name": "Creamy Daal Makhani with Steamed Zeera Rice",
+            "price": 600,
+            "desc": "Slow-cooked black lentils in butter gravy served with fragrant cumin rice"
+          },
+          {
+            "id": "isb_l_4",
+            "name": "Fresh Kachumber Salad & Mint Raita",
+            "price": 200,
+            "desc": "Finely diced cucumbers, tomatoes, and red onions with cumin mint yogurt"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Saidpur Village Heritage BBQ Dinner",
+        "averagePricePerPerson": 1450,
+        "items": [
+          {
+            "id": "isb_d_1",
+            "name": "Charcoal Chicken Malai Boti & Reshmi Kabab",
+            "price": 1100,
+            "desc": "Velvety cream-marinated boneless chicken skewers grilled over coals",
+            "isSignature": true
+          },
+          {
+            "id": "isb_d_2",
+            "name": "Claypot Mutton Handi with Roghani Naan",
+            "price": 1480,
+            "desc": "Tender boneless mutton slow-cooked in sealed clay pot with cashews and fresh cream"
+          },
+          {
+            "id": "isb_d_3",
+            "name": "Warm Shahi Kheer & Pistachio Gulab Jamun",
+            "price": 380,
+            "desc": "Reduced milk rice pudding topped with silver foil and hot syrup dumplings"
+          },
+          {
+            "id": "isb_d_4",
+            "name": "Cardamom Green Tea / Kahwa with Gurr",
+            "price": 160,
+            "desc": "Digestive hot green tea brewed with cardamom and organic jaggery"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "gwadar",
+    "cityName": "Gwadar & Makran Coast",
+    "cuisineType": "Authentic Coastal Balochi & Arabian Sea Catch",
+    "aliases": [
+      "gwadar",
+      "ormara",
+      "kund malir",
+      "pasni",
+      "jiwani",
+      "astola",
+      "hingol",
+      "hammerhead",
+      "marine drive",
+      "makran"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Gwadar Fishermen Port Breakfast",
+        "averagePricePerPerson": 520,
+        "items": [
+          {
+            "id": "gwd_b_1",
+            "name": "Balochi Kaak Bread with Omelette & Makrani Honey",
+            "price": 420,
+            "desc": "Traditional crusty bread baked around hot river stones served with spiced egg",
+            "isSignature": true
+          },
+          {
+            "id": "gwd_b_2",
+            "name": "Coastal Anda Paratha with Spicy Fish Keema",
+            "price": 460,
+            "desc": "Crispy pan-fried paratha stuffed with freshly minced coastal fish and herbs"
+          },
+          {
+            "id": "gwd_b_3",
+            "name": "Doodh Patti with Gwadar Cardamom & Cinnamon",
+            "price": 160,
+            "desc": "Creamy harbor tea brewed with coastal crushed spices"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Gwadar Fresh Ocean Catch & Fishery Lunch",
+        "averagePricePerPerson": 1250,
+        "items": [
+          {
+            "id": "gwd_l_1",
+            "name": "Fresh Fried Gwadar Pomfret / Red Snapper",
+            "price": 1250,
+            "desc": "Locally caught whole Arabian Sea fish marinated in lemon, carom seeds and garlic",
+            "isSignature": true
+          },
+          {
+            "id": "gwd_l_2",
+            "name": "Pishikan Coastal Tiger Shrimp Masala with Naan",
+            "price": 1350,
+            "desc": "Succulent ocean prawns sauteed in rich tomato gravy, coriander, and coastal spices"
+          },
+          {
+            "id": "gwd_l_3",
+            "name": "Traditional Balochi Fishery Biryani",
+            "price": 880,
+            "desc": "Fragrant basmati rice cooked with fresh kingfish cuts and dried limes"
+          },
+          {
+            "id": "gwd_l_4",
+            "name": "Coastal Tamarind Salad & Herb Chutney",
+            "price": 180,
+            "desc": "Fresh salad tossed with sweet and tangy date-tamarind dressing"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Marine Drive Ocean Deck Seafood Feast & Sajji",
+        "averagePricePerPerson": 1680,
+        "items": [
+          {
+            "id": "gwd_d_1",
+            "name": "Charcoal Grilled Arabian Sea Red Snapper",
+            "price": 1650,
+            "desc": "Jumbo ocean fish grilled over tamarind wood coals with Balochi rub",
+            "isSignature": true
+          },
+          {
+            "id": "gwd_d_2",
+            "name": "Authentic Balochi Lamb/Chicken Sajji with Spiced Rice",
+            "price": 1400,
+            "desc": "Whole cut skewered and slow-roasted beside open fire pit with spiced basmati rice"
+          },
+          {
+            "id": "gwd_d_3",
+            "name": "Makrani Date Halwa with Crushed Almonds",
+            "price": 350,
+            "desc": "Traditional sweet halwa made from fresh Turbat dates and pure desi ghee"
+          },
+          {
+            "id": "gwd_d_4",
+            "name": "Sulaimani Green Tea with Lemon & Fresh Mint",
+            "price": 160,
+            "desc": "Light digestive kehwa served after seafood feasts"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "karachi",
+    "cityName": "Karachi",
+    "cuisineType": "Iconic Karachi Street & Seaside Dining",
+    "aliases": [
+      "karachi",
+      "clifton",
+      "hawksbay",
+      "french beach",
+      "burns road",
+      "sindh coast",
+      "port grand",
+      "do darya",
+      "saddar",
+      "manora",
+      "sea view"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Burns Road Heritage Breakfast",
+        "averagePricePerPerson": 520,
+        "items": [
+          {
+            "id": "khi_b_1",
+            "name": "Javed Famous Beef Nihari with Sheermal & Naan",
+            "price": 580,
+            "desc": "Slow-stewed beef shank in spicy marrow gravy garnished with ginger and lemon",
+            "isSignature": true
+          },
+          {
+            "id": "khi_b_2",
+            "name": "Authentic Burns Road Halwa Puri & Tarkari",
+            "price": 420,
+            "desc": "Hot flaky puris served with sweet suji halwa and spiced chickpea curry"
+          },
+          {
+            "id": "khi_b_3",
+            "name": "Karachi Cheese Anda Paratha",
+            "price": 380,
+            "desc": "Golden fried paratha stuffed with spicy beaten eggs and cheddar cheese"
+          },
+          {
+            "id": "khi_b_4",
+            "name": "Karak Burns Road Doodh Patti Chai",
+            "price": 160,
+            "desc": "Simmered rich milk tea with crushed green cardamom"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Karachi Student Biryani & Coastal Wok",
+        "averagePricePerPerson": 1050,
+        "items": [
+          {
+            "id": "khi_l_1",
+            "name": "Authentic Karachi Chicken/Beef Dum Biryani",
+            "price": 780,
+            "desc": "Double-dum fragrant basmati rice with spiced meat, golden potatoes, and prunes",
+            "isSignature": true
+          },
+          {
+            "id": "khi_l_2",
+            "name": "Burns Road Style Chicken White Karahi",
+            "price": 950,
+            "desc": "Chicken cooked in pure yoghurt, butter, white pepper and fresh ginger slivers"
+          },
+          {
+            "id": "khi_l_3",
+            "name": "Crispy Fried Pomfret with Tartar Chutney",
+            "price": 1150,
+            "desc": "Pan-fried coastal pomfret with spicy garlic and coriander dip"
+          },
+          {
+            "id": "khi_l_4",
+            "name": "Kachumber Salad & Zeera Mint Raita",
+            "price": 180,
+            "desc": "Fresh cucumbers, onions, tomatoes with seasoned cumin yogurt"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Do Darya Seaside Deck BBQ Feast",
+        "averagePricePerPerson": 1550,
+        "items": [
+          {
+            "id": "khi_d_1",
+            "name": "Charcoal Chicken Malai Tikka & Bihari Beef Boti",
+            "price": 1200,
+            "desc": "Tender beef ribbons and chicken cubes marinated in raw papaya and cream",
+            "isSignature": true
+          },
+          {
+            "id": "khi_d_2",
+            "name": "Seafood Kat-a-Kat with Hot Naan",
+            "price": 1350,
+            "desc": "Fresh ocean fish, prawns and brain cooked on flat iron tawa with hot spices"
+          },
+          {
+            "id": "khi_d_3",
+            "name": "Matka Kheer & Hot Gulab Jamun",
+            "price": 350,
+            "desc": "Creamy chilled rice pudding served in earthen clay cups"
+          },
+          {
+            "id": "khi_d_4",
+            "name": "Karachi Sulaimani Kehwa with Lemon Slice",
+            "price": 160,
+            "desc": "Golden clear tea with fresh mint leaves and lemon"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "lahore",
+    "cityName": "Lahore",
+    "cuisineType": "Mughlai & Punjabi Gastronomy",
+    "aliases": [
+      "lahore",
+      "androon",
+      "anarkali",
+      "gawalmandi",
+      "gulberg",
+      "punjab",
+      "fort road",
+      "dha lahore",
+      "faisalabad",
+      "sialkot",
+      "gujranwala",
+      "harappa"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Androon Shehar Shahi Nashta",
+        "averagePricePerPerson": 580,
+        "items": [
+          {
+            "id": "lhr_b_1",
+            "name": "Phajja Siri Paye with Roghani Kulcha",
+            "price": 680,
+            "desc": "Legendary slow-stewed mutton trotters broth served with sesame seed kulchas",
+            "isSignature": true
+          },
+          {
+            "id": "lhr_b_2",
+            "name": "Mohammadi / Waris Famous Beef Nihari with Nalli",
+            "price": 650,
+            "desc": "Rich slow-cooked beef shank curry topped with melted bone marrow"
+          },
+          {
+            "id": "lhr_b_3",
+            "name": "Anarkali Halwa Puri & Chana with Meethi Lassi",
+            "price": 460,
+            "desc": "Piping hot puris, spicy chickpeas, and sweet yoghurt drink with malai top"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Gawalmandi & Lakshmi Chowk Food Walk",
+        "averagePricePerPerson": 1100,
+        "items": [
+          {
+            "id": "lhr_l_1",
+            "name": "Butt Chicken Karahi in Pure Desi Ghee",
+            "price": 1100,
+            "desc": "World-famous chicken karahi simmered strictly in organic butter with green chilies",
+            "isSignature": true
+          },
+          {
+            "id": "lhr_l_2",
+            "name": "Lahori Tawa Chicken with Mint Chutney & Naan",
+            "price": 850,
+            "desc": "Spicy chicken pieces fried on giant cast-iron tawa with yogurt and lemon"
+          },
+          {
+            "id": "lhr_l_3",
+            "name": "Daal Chawal with Shami Kabab & Achar",
+            "price": 550,
+            "desc": "Comforting yellow lentil stew over basmati rice with pan-fried beef shami"
+          },
+          {
+            "id": "lhr_l_4",
+            "name": "Onion Ring Salad & Mint Raita",
+            "price": 180,
+            "desc": "Crisp red onion rings with vinegar and roasted cumin yogurt"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Fort Road Food Street Royal Banquet",
+        "averagePricePerPerson": 1600,
+        "items": [
+          {
+            "id": "lhr_d_1",
+            "name": "Lahori Chargha with Spiced French Fries",
+            "price": 1250,
+            "desc": "Deep-steamed and crisp fried whole chicken dusted with secret spice blend",
+            "isSignature": true
+          },
+          {
+            "id": "lhr_d_2",
+            "name": "Mutton Mian Ji Seekh Kabab & Boti Tikka",
+            "price": 1450,
+            "desc": "Finely minced mutton skewers barbecued over glowing coal pits"
+          },
+          {
+            "id": "lhr_d_3",
+            "name": "Shahi Firni in Kasora & Warm Gulab Jamun",
+            "price": 380,
+            "desc": "Ground rice dessert set in clay pots topped with crushed almonds"
+          },
+          {
+            "id": "lhr_d_4",
+            "name": "Special Kashmiri Chai (Pink Tea) with Crushed Pistachios",
+            "price": 220,
+            "desc": "Brewed green tea leaves with milk, salt, cardamom and almonds"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "hunza",
+    "cityName": "Hunza Valley & Nagar",
+    "cuisineType": "Traditional Karakoram Organic Mountain Cuisine",
+    "aliases": [
+      "hunza",
+      "karimabad",
+      "passu",
+      "attabad",
+      "aliabad",
+      "nagar",
+      "khunjerab",
+      "duikar",
+      "ganish"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Hunzakuts Alpine Mountain Breakfast",
+        "averagePricePerPerson": 600,
+        "items": [
+          {
+            "id": "hnz_b_1",
+            "name": "Quroot Bread with Apricot Jam & Kernel Oil",
+            "price": 460,
+            "desc": "Warm stone-baked local bread with organic wild mountain apricot spread",
+            "isSignature": true
+          },
+          {
+            "id": "hnz_b_2",
+            "name": "Buckwheat Gyaling Pancakes with Honey & Pure Butter",
+            "price": 480,
+            "desc": "Traditional soft crepe-like bread layered with mountain butter and raw wildflower honey"
+          },
+          {
+            "id": "hnz_b_3",
+            "name": "Hunza Herbal Mountain Tea (Tumuro Kehwa)",
+            "price": 200,
+            "desc": "Wild thyme and mountain herbs tea renowned for altitude wellness"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Attabad Lake & Passu Glacier Feast",
+        "averagePricePerPerson": 1200,
+        "items": [
+          {
+            "id": "hnz_l_1",
+            "name": "Fresh Attabad Emerald Coldwater Trout Fish",
+            "price": 1350,
+            "desc": "Glacial river trout pan-fried in butter with local mountain herbs and lemon",
+            "isSignature": true
+          },
+          {
+            "id": "hnz_l_2",
+            "name": "Baltit Chapshoro (Hunza Meat Pizza)",
+            "price": 850,
+            "desc": "Crusty baked flatbread stuffed with seasoned minced beef, onions, coriander and chilies"
+          },
+          {
+            "id": "hnz_l_3",
+            "name": "Burutz Berikutz (Cheese & Herb Pastry)",
+            "price": 750,
+            "desc": "Layers of thin flatbread with homemade cottage cheese, mint, and apricot oil"
+          },
+          {
+            "id": "hnz_l_4",
+            "name": "Walnut & Green Salad with Dried Apricot Dressing",
+            "price": 250,
+            "desc": "Fresh crisp valley greens with roasted walnuts and dried mountain apricots"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Passu Cones Campfire Dinner",
+        "averagePricePerPerson": 1550,
+        "items": [
+          {
+            "id": "hnz_d_1",
+            "name": "Hunza Apricot Chicken Karahi with Roti",
+            "price": 1350,
+            "desc": "Tender chicken cooked with sundried Hunza apricots, walnuts, and subtle mountain spices",
+            "isSignature": true
+          },
+          {
+            "id": "hnz_d_2",
+            "name": "Mountain Herb Mutton Stew (Harissa)",
+            "price": 1450,
+            "desc": "Slow-simmered tender mutton with cracked wheat and clarified apricot oil"
+          },
+          {
+            "id": "hnz_d_3",
+            "name": "Hunza Famous Walnut Cake with Organic Honey",
+            "price": 450,
+            "desc": "Rich and nutty cake made from valley walnuts and unrefined mountain honey"
+          },
+          {
+            "id": "hnz_d_4",
+            "name": "Steaming Green Kehwa with Dried Mulberries",
+            "price": 180,
+            "desc": "Served with organic dried sweet white mulberries"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "skardu",
+    "cityName": "Skardu & Baltistan",
+    "cuisineType": "Balti Tibetan & Karakoram Mountain Cuisine",
+    "aliases": [
+      "skardu",
+      "shigar",
+      "khaplu",
+      "deosai",
+      "kachura",
+      "shangrila",
+      "baltistan",
+      "cold desert",
+      "katpana",
+      "mantoka"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Balti Sunrise & Mountain Porridge",
+        "averagePricePerPerson": 580,
+        "items": [
+          {
+            "id": "skd_b_1",
+            "name": "Prapoo (Handmade Wheat Noodles in Walnut Paste)",
+            "price": 480,
+            "desc": "Hand-rolled noodles tossed in roasted walnut paste, herbs and apricot oil",
+            "isSignature": true
+          },
+          {
+            "id": "skd_b_2",
+            "name": "Steamed Balti Mamtu (Beef Dumplings - 6 pcs)",
+            "price": 550,
+            "desc": "Delicate steamed dumplings stuffed with spiced minced meat, onions, and black pepper"
+          },
+          {
+            "id": "skd_b_3",
+            "name": "Balti Noon Chai (Salted Butter Tea with Walnuts)",
+            "price": 220,
+            "desc": "Traditional pink mountain tea churned with yak butter, salt, and crushed nuts"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Shangrila & Kachura Lake Trout Feast",
+        "averagePricePerPerson": 1250,
+        "items": [
+          {
+            "id": "skd_l_1",
+            "name": "Pan-Fried Upper Kachura Lake Trout",
+            "price": 1350,
+            "desc": "Fresh coldwater trout lightly dusted with spice flour and pan-seared in fresh butter",
+            "isSignature": true
+          },
+          {
+            "id": "skd_l_2",
+            "name": "Balti Gyaling Crepe with Apricot Kernel Oil",
+            "price": 650,
+            "desc": "Wholesome soft wheat flatbread drizzled with fragrant organic apricot oil"
+          },
+          {
+            "id": "skd_l_3",
+            "name": "Balti Vegetable & Bean Stew with Brown Rice",
+            "price": 700,
+            "desc": "Local kidney beans and highland vegetables simmered in aromatic broth"
+          },
+          {
+            "id": "skd_l_4",
+            "name": "Mountain Mint Chutney & Fresh Radish Salad",
+            "price": 200,
+            "desc": "Crisp mountain radishes with freshly ground mint and wild thyme dip"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Shigar Fort Heritage Feast",
+        "averagePricePerPerson": 1550,
+        "items": [
+          {
+            "id": "skd_d_1",
+            "name": "Balti Apricot Chicken Karahi with Sesame Naan",
+            "price": 1380,
+            "desc": "Succulent chicken braised with tangy sweet dried Balti apricots and mild spices",
+            "isSignature": true
+          },
+          {
+            "id": "skd_d_2",
+            "name": "Marzan (Traditional Barley Stew with Melted Butter)",
+            "price": 950,
+            "desc": "Ancient royal Balti dish made with roasted barley flour and molten desi butter"
+          },
+          {
+            "id": "skd_d_3",
+            "name": "Sweet Balti Apricot Halwa with Crushed Walnuts",
+            "price": 420,
+            "desc": "Warm slow-cooked halwa made from pure dried apricot pulp and ghee"
+          },
+          {
+            "id": "skd_d_4",
+            "name": "Digestive Mountain Herbal Tea with Pine Nuts",
+            "price": 200,
+            "desc": "Brewed with high-altitude medicinal herbs and dry fruits"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "swat",
+    "cityName": "Swat Valley & Malam Jabba",
+    "cuisineType": "Alpine Swati & Pashtun Mountain Cuisine",
+    "aliases": [
+      "swat",
+      "malam jabba",
+      "mingora",
+      "marghazar",
+      "fizagat",
+      "saidu sharif",
+      "bahrain",
+      "white palace"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Swat Valley Alpine Breakfast",
+        "averagePricePerPerson": 520,
+        "items": [
+          {
+            "id": "swt_b_1",
+            "name": "Crispy Walnut Paratha with Farm Honey",
+            "price": 420,
+            "desc": "Flaky paratha layered with crushed Swat walnuts and pure mountain honey",
+            "isSignature": true
+          },
+          {
+            "id": "swt_b_2",
+            "name": "Free-Range Fried Eggs with Desi Butter",
+            "price": 350,
+            "desc": "Two farm-fresh eggs fried in desi ghee with black pepper and sea salt"
+          },
+          {
+            "id": "swt_b_3",
+            "name": "Cardamom Doodh Patti Chai",
+            "price": 160,
+            "desc": "Rich and creamy mountain tea brewed with green cardamom"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Swat River Trout & Chapli Kabab Lunch",
+        "averagePricePerPerson": 1180,
+        "items": [
+          {
+            "id": "swt_l_1",
+            "name": "Fresh Swat River Brown Trout Meal",
+            "price": 1300,
+            "desc": "Pan-fried coldwater river trout with herb butter, french fries and lemon wedge",
+            "isSignature": true
+          },
+          {
+            "id": "swt_l_2",
+            "name": "Famous Swati Chapli Kabab with Roghani Naan",
+            "price": 780,
+            "desc": "Pan-fried beef mince patty with pomegranate seeds, tomato and green chilies"
+          },
+          {
+            "id": "swt_l_3",
+            "name": "Swat Kabuli Pulao with Raisins & Carrots",
+            "price": 820,
+            "desc": "Fragrant long-grain rice topped with sweet caramelised carrots and raisins"
+          },
+          {
+            "id": "swt_l_4",
+            "name": "Fresh Garden Salad & Garlic Mint Chutney",
+            "price": 180,
+            "desc": "Crisp cucumbers and tomatoes with spicy wild garlic dip"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Malam Jabba Pine Ridge BBQ Dinner",
+        "averagePricePerPerson": 1480,
+        "items": [
+          {
+            "id": "swt_d_1",
+            "name": "Swat Shinwari Mutton Karahi in Lamb Fat",
+            "price": 1450,
+            "desc": "Fresh mountain mutton cooked in lamb fat with whole tomatoes and green chilies",
+            "isSignature": true
+          },
+          {
+            "id": "swt_d_2",
+            "name": "Charcoal Chicken Tikka Skewers with Fresh Naan",
+            "price": 950,
+            "desc": "Tender chicken leg and breast quarters grilled over wood embers"
+          },
+          {
+            "id": "swt_d_3",
+            "name": "Swati Rice Kheer with Crushed Walnuts",
+            "price": 350,
+            "desc": "Traditional rice pudding flavored with green cardamom and mountain walnuts"
+          },
+          {
+            "id": "swt_d_4",
+            "name": "Peshawari Green Kehwa with Saffron & Cardamom",
+            "price": 160,
+            "desc": "Digestive green tea brewed with whole green cardamom and rock sugar"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "kalam",
+    "cityName": "Kalam Valley & Ushu",
+    "cuisineType": "High Altitude Pashtun & Coldwater River Dining",
+    "aliases": [
+      "kalam",
+      "ushu",
+      "matiltan",
+      "mahodand",
+      "kundol",
+      "gabral",
+      "jalban"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Kalam Pine Forest Sunrise Nashta",
+        "averagePricePerPerson": 500,
+        "items": [
+          {
+            "id": "klm_b_1",
+            "name": "Desi Ghee Lacha Paratha with Aloo Tarkari",
+            "price": 380,
+            "desc": "Multi-layered crisp paratha cooked in fresh butter with spicy potato curry",
+            "isSignature": true
+          },
+          {
+            "id": "klm_b_2",
+            "name": "Omelette with Wild Herbs & Local Apple Jam",
+            "price": 350,
+            "desc": "Farm fresh eggs with spring herbs served with artisan Kalam apple preserves"
+          },
+          {
+            "id": "klm_b_3",
+            "name": "Hot Cardamom Doodh Patti Chai",
+            "price": 160,
+            "desc": "Steaming mountain milk tea"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Ushu Riverbank Trout & BBQ Lunch",
+        "averagePricePerPerson": 1250,
+        "items": [
+          {
+            "id": "klm_l_1",
+            "name": "Fresh Ushu River Fried Trout Fish",
+            "price": 1350,
+            "desc": "Catch of the day coldwater river trout pan-fried crisp with special spice coat",
+            "isSignature": true
+          },
+          {
+            "id": "klm_l_2",
+            "name": "Kalam Beef Chapli Kabab with Tandoori Naan",
+            "price": 780,
+            "desc": "Juicy beef patties with crushed coriander and diced tomatoes"
+          },
+          {
+            "id": "klm_l_3",
+            "name": "Steamed Zeera Basmati Rice & Dal Mash",
+            "price": 550,
+            "desc": "White lentils in butter gravy with cumin rice"
+          },
+          {
+            "id": "klm_l_4",
+            "name": "Local Mountain Salad & Mint Dip",
+            "price": 180,
+            "desc": "Crisp seasonal vegetables with fresh mint yogurt"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Kalam Campfire Shinwari Karahi",
+        "averagePricePerPerson": 1500,
+        "items": [
+          {
+            "id": "klm_d_1",
+            "name": "Kalam Shinwari Mutton Karahi with Afghani Naan",
+            "price": 1480,
+            "desc": "Tender mountain mutton cooked in cast iron with whole tomatoes, salt, and chilies",
+            "isSignature": true
+          },
+          {
+            "id": "klm_d_2",
+            "name": "Charcoal Chicken Boti Skewers",
+            "price": 950,
+            "desc": "Succulent chicken cubes marinated in garlic, yogurt, and subtle spices"
+          },
+          {
+            "id": "klm_d_3",
+            "name": "Warm Walnut Suji Halwa",
+            "price": 350,
+            "desc": "Rich semolina dessert prepared in desi ghee with crushed walnuts"
+          },
+          {
+            "id": "klm_d_4",
+            "name": "Wild Mint Kehwa with Honey",
+            "price": 160,
+            "desc": "Fresh riverbank mint leaves steeped in hot water with honey"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "naran",
+    "cityName": "Naran, Kaghan & Babusar",
+    "cuisineType": "Alpine Valley River & Shinwari Gastronomy",
+    "aliases": [
+      "naran",
+      "kaghan",
+      "babusar",
+      "saiful malook",
+      "lulusar",
+      "shogran",
+      "siri paye",
+      "kunhar",
+      "jalkhad"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Kaghan Alpine Morning Breakfast",
+        "averagePricePerPerson": 520,
+        "items": [
+          {
+            "id": "nrn_b_1",
+            "name": "Crispy Lacha Paratha with Fried Eggs & Butter",
+            "price": 420,
+            "desc": "Golden fried multi-layered bread with two sunny-side eggs and fresh butter",
+            "isSignature": true
+          },
+          {
+            "id": "nrn_b_2",
+            "name": "Spiced Aloo Bhujia & Tandoori Roti",
+            "price": 360,
+            "desc": "Homestyle potato curry with fresh tandoori whole-wheat flatbread"
+          },
+          {
+            "id": "nrn_b_3",
+            "name": "Hot Karak Chai with Cardamom",
+            "price": 160,
+            "desc": "Rich piping-hot tea for chilly valley mornings"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Kunhar Riverbank Trout Special Lunch",
+        "averagePricePerPerson": 1250,
+        "items": [
+          {
+            "id": "nrn_l_1",
+            "name": "Deep-Fried Kunhar River Trout with French Fries",
+            "price": 1350,
+            "desc": "Freshly caught trout fish coated in lemon, carom seeds and crisp batter",
+            "isSignature": true
+          },
+          {
+            "id": "nrn_l_2",
+            "name": "Naran Bazaar Beef Chapli Kababs (2 pcs)",
+            "price": 800,
+            "desc": "Pan-fried minced beef patties with tomatoes, green chilies, and naan"
+          },
+          {
+            "id": "nrn_l_3",
+            "name": "Chicken Yakhni Pulao with Raita",
+            "price": 780,
+            "desc": "Aromatic basmati rice cooked in rich chicken broth with whole spices"
+          },
+          {
+            "id": "nrn_l_4",
+            "name": "Fresh Kachumber Salad & Mint Chutney",
+            "price": 180,
+            "desc": "Chopped cucumbers and onions in lemon juice"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Naran Bazaar Campfire BBQ & Karahi",
+        "averagePricePerPerson": 1520,
+        "items": [
+          {
+            "id": "nrn_d_1",
+            "name": "Naran Shinwari Mutton Karahi with Hot Naan",
+            "price": 1500,
+            "desc": "Cooked fresh in cast-iron wok with tomatoes, ginger, and green chilies",
+            "isSignature": true
+          },
+          {
+            "id": "nrn_d_2",
+            "name": "Charcoal Chicken Tikka & Seekh Kababs",
+            "price": 1100,
+            "desc": "Barbecued chicken skewers seasoned with mountain spices"
+          },
+          {
+            "id": "nrn_d_3",
+            "name": "Warm Gulab Jamun with Crushed Almonds",
+            "price": 350,
+            "desc": "Syrup dumplings served hot"
+          },
+          {
+            "id": "nrn_d_4",
+            "name": "Steaming Cardamom Kehwa with Gurr",
+            "price": 160,
+            "desc": "Sweet jaggery green tea brewed with crushed cardamoms"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "peshawar",
+    "cityName": "Peshawar & KPK",
+    "cuisineType": "Legendary Pashtun Meat & Shinwari Cuisine",
+    "aliases": [
+      "peshawar",
+      "mardan",
+      "charsadda",
+      "kohat",
+      "kpk",
+      "namak mandi",
+      "taru jabba",
+      "qissa khwani"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Qissa Khwani Historic Morning Nashta",
+        "averagePricePerPerson": 480,
+        "items": [
+          {
+            "id": "psh_b_1",
+            "name": "Peshawari Chana with Fresh Afghani Naan",
+            "price": 380,
+            "desc": "Tender chickpea gravy slow-cooked with cumin served with giant clay-oven naan",
+            "isSignature": true
+          },
+          {
+            "id": "psh_b_2",
+            "name": "Peshawari Siri Paye with Roghani Roti",
+            "price": 650,
+            "desc": "Traditional broth simmered overnight with bone marrow and whole spices"
+          },
+          {
+            "id": "psh_b_3",
+            "name": "Famous Peshawari Qahwa with Cardamom & Saffron",
+            "price": 150,
+            "desc": "Golden digestive green tea brewed in brass samovars"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Taru Jabba Chapli Kabab & Charsadda Rice",
+        "averagePricePerPerson": 1050,
+        "items": [
+          {
+            "id": "psh_l_1",
+            "name": "Authentic Charsadda Motay Chawal with Beef",
+            "price": 950,
+            "desc": "Signature thick brown rice cooked in rich beef bone stock with tender beef chunks",
+            "isSignature": true
+          },
+          {
+            "id": "psh_l_2",
+            "name": "Taru Jabba World-Famous Beef Chapli Kabab",
+            "price": 850,
+            "desc": "Large minced beef kababs fried in animal fat with tomatoes, coriander, and pomegranate seeds"
+          },
+          {
+            "id": "psh_l_3",
+            "name": "Afghani Chicken Tikka with Plum Chutney & Naan",
+            "price": 880,
+            "desc": "Lightly salted chicken grilled on charcoal skewers with sour plum dip"
+          },
+          {
+            "id": "psh_l_4",
+            "name": "Diced Radish & Onion Salad with Fresh Mint Dip",
+            "price": 160,
+            "desc": "Crisp white radishes with yogurt mint sauce"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Namak Mandi Dumba Karahi & Shinwari Tikka",
+        "averagePricePerPerson": 1650,
+        "items": [
+          {
+            "id": "psh_d_1",
+            "name": "Namak Mandi Dumba Mutton Karahi with Hot Naan",
+            "price": 1650,
+            "desc": "Succulent fatty tail lamb cooked in its own rendered fat with salt and whole tomatoes",
+            "isSignature": true
+          },
+          {
+            "id": "psh_d_2",
+            "name": "Shinwari Lamb Chops & Tikka Boti",
+            "price": 1450,
+            "desc": "Tender mutton pieces on skewers seasoned purely with rock salt and grilled over embers"
+          },
+          {
+            "id": "psh_d_3",
+            "name": "Peshawari Falooda with Rabri & Kulfi",
+            "price": 420,
+            "desc": "Handmade dense clotted cream kulfi with vermicelli, rose syrup and basil seeds"
+          },
+          {
+            "id": "psh_d_4",
+            "name": "Pesh-e-Pista Kehwa with Rock Candy (Nabaat)",
+            "price": 180,
+            "desc": "Green tea with roasted pistachios, cardamoms, and saffron"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "chitral",
+    "cityName": "Chitral & Kalash Valley",
+    "cuisineType": "Hindukush Mountain & Ancient Kalasha Cuisine",
+    "aliases": [
+      "chitral",
+      "kalash",
+      "bumburet",
+      "rumboor",
+      "birir",
+      "lowari",
+      "tirich mir",
+      "garam chashma",
+      "ayun"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Traditional Chitrali & Kalash Nashta",
+        "averagePricePerPerson": 550,
+        "items": [
+          {
+            "id": "cht_b_1",
+            "name": "Ghalmandi (Flatbread with Cottage Cheese & Walnut Oil)",
+            "price": 480,
+            "desc": "Layered flatbread filled with homemade sour cottage cheese, fresh coriander, and wild walnut oil",
+            "isSignature": true
+          },
+          {
+            "id": "cht_b_2",
+            "name": "Kadu Tikki with Mountain Butter & Eggs",
+            "price": 420,
+            "desc": "Sweet pumpkin patties pan-cooked in desi butter served with boiled eggs"
+          },
+          {
+            "id": "cht_b_3",
+            "name": "Traditional Chitrali Salted Butter Tea",
+            "price": 200,
+            "desc": "Wholesome tea brewed with rock salt and churned goat butter"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Kalash Valley River Trout & Sanabachi",
+        "averagePricePerPerson": 1200,
+        "items": [
+          {
+            "id": "cht_l_1",
+            "name": "Chitral River Fresh Brown Trout",
+            "price": 1350,
+            "desc": "Pan-seared river trout with wild mountain herbs, garlic, and walnut relish",
+            "isSignature": true
+          },
+          {
+            "id": "cht_l_2",
+            "name": "Sanabachi (Buckwheat Herb Crepes)",
+            "price": 650,
+            "desc": "Highland buckwheat pancakes wrapped with cooked greens and onions"
+          },
+          {
+            "id": "cht_l_3",
+            "name": "Chitrali Mutton Kalia with Shuroo Bread",
+            "price": 1200,
+            "desc": "Tender mountain mutton braised with onions, garlic, and wild coriander"
+          },
+          {
+            "id": "cht_l_4",
+            "name": "Fresh Herb & Walnut Salad",
+            "price": 220,
+            "desc": "Seasonal local greens tossed with crushed walnuts and mountain vinegar"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Tirich Mir Valley Campfire Dinner",
+        "averagePricePerPerson": 1520,
+        "items": [
+          {
+            "id": "cht_d_1",
+            "name": "Chitrali Mutton Karahi in Walnut Paste Gravy",
+            "price": 1480,
+            "desc": "Rich and nutty mutton stew cooked in ground walnut sauce with fresh ginger",
+            "isSignature": true
+          },
+          {
+            "id": "cht_d_2",
+            "name": "Charcoal Grilled Hindukush Lamb Skewers",
+            "price": 1350,
+            "desc": "Boneless lamb marinated with salt and wild thyme grilled on willow skewers"
+          },
+          {
+            "id": "cht_d_3",
+            "name": "Warm Honey & Walnut Cake",
+            "price": 420,
+            "desc": "Classic Chitrali cake baked with valley walnuts and wild mountain honey"
+          },
+          {
+            "id": "cht_d_4",
+            "name": "Chitrali Herbal Kehwa with Wild Mint",
+            "price": 180,
+            "desc": "Fragrant digestive tea brewed with mountain-picked mint leaves"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "kumrat",
+    "cityName": "Kumrat Valley & Dir",
+    "cuisineType": "Deodar Forest Alpine & Pashtun Meat Feast",
+    "aliases": [
+      "kumrat",
+      "dir",
+      "thal",
+      "panjkora",
+      "jandrai",
+      "dojanga",
+      "katora lake"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Kumrat Deodar Woods Morning Breakfast",
+        "averagePricePerPerson": 480,
+        "items": [
+          {
+            "id": "kmr_b_1",
+            "name": "Tandoori Wood-Fired Paratha with Fried Eggs",
+            "price": 380,
+            "desc": "Crisp flaky bread baked in underground clay oven served with fresh butter",
+            "isSignature": true
+          },
+          {
+            "id": "kmr_b_2",
+            "name": "Wild Forest Honey with Homemade Cream & Bread",
+            "price": 420,
+            "desc": "Pure dark honey harvested from pine forests with thick clotted milk"
+          },
+          {
+            "id": "kmr_b_3",
+            "name": "Cardamom Doodh Patti Chai",
+            "price": 160,
+            "desc": "Piping-hot whole milk tea"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Panjkora River Trout & Chapli Lunch",
+        "averagePricePerPerson": 1180,
+        "items": [
+          {
+            "id": "kmr_l_1",
+            "name": "Fresh Panjkora River Trout Fish Meal",
+            "price": 1300,
+            "desc": "Coldwater trout freshly harvested from river Panjkora, pan-fried with salt and herbs",
+            "isSignature": true
+          },
+          {
+            "id": "kmr_l_2",
+            "name": "Thal Bazaar Famous Chapli Kababs (2 pcs)",
+            "price": 780,
+            "desc": "Juicy beef kababs with pomegranate seeds and fresh coriander served with naan"
+          },
+          {
+            "id": "kmr_l_3",
+            "name": "Dir Shinwari Chicken Karahi with Roti",
+            "price": 920,
+            "desc": "Simmered chicken with whole tomatoes and green chilies"
+          },
+          {
+            "id": "kmr_l_4",
+            "name": "Kachumber Salad & Garlic Mint Raita",
+            "price": 180,
+            "desc": "Fresh cucumbers, onions, and garlic-infused yogurt"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Kumrat Riverbank Campfire BBQ",
+        "averagePricePerPerson": 1480,
+        "items": [
+          {
+            "id": "kmr_d_1",
+            "name": "Kumrat Shinwari Dumba Mutton Karahi",
+            "price": 1480,
+            "desc": "Mountain mutton cooked in sheep tail fat with tomatoes and sea salt",
+            "isSignature": true
+          },
+          {
+            "id": "kmr_d_2",
+            "name": "Charcoal Grilled Lamb Chops & Chicken Tikka",
+            "price": 1250,
+            "desc": "Tender chops seasoned with rock salt and grilled over pine wood coals"
+          },
+          {
+            "id": "kmr_d_3",
+            "name": "Warm Desi Ghee Suji Halwa",
+            "price": 320,
+            "desc": "Semolina halwa cooked in clarified butter with almonds"
+          },
+          {
+            "id": "kmr_d_4",
+            "name": "Steaming Green Kehwa with Fresh Mint & Cardamom",
+            "price": 160,
+            "desc": "Digestive tea served around the forest campfire"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "fairy_meadows",
+    "cityName": "Fairy Meadows & Astore",
+    "cuisineType": "Nanga Parbat High Altitude Expedition Dining",
+    "aliases": [
+      "fairy meadows",
+      "astore",
+      "raikot",
+      "rama meadows",
+      "tattu",
+      "beyal camp",
+      "nanga parbat",
+      "chilam",
+      "deyan"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Nanga Parbat Sunrise Breakfast",
+        "averagePricePerPerson": 580,
+        "items": [
+          {
+            "id": "fm_b_1",
+            "name": "Buckwheat Pancakes with Mountain Butter & Honey",
+            "price": 460,
+            "desc": "Hearty stone-ground buckwheat pancakes served with churned butter and wild honey",
+            "isSignature": true
+          },
+          {
+            "id": "fm_b_2",
+            "name": "Two Boiled/Fried Eggs with Warm Stonebread",
+            "price": 400,
+            "desc": "Fresh eggs with traditional dense alpine travel bread"
+          },
+          {
+            "id": "fm_b_3",
+            "name": "Hot Tibetan Butter Tea / Sweet Mountain Chai",
+            "price": 220,
+            "desc": "Rich salted butter tea to keep body temperature warm at high altitude"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Raikot Valley Trekker Lunch",
+        "averagePricePerPerson": 1100,
+        "items": [
+          {
+            "id": "fm_l_1",
+            "name": "Hot Chicken Yakhni Soup & Steam Rice",
+            "price": 850,
+            "desc": "Rich bone broth seasoned with mountain herbs and peppercorns",
+            "isSignature": true
+          },
+          {
+            "id": "fm_l_2",
+            "name": "Dal Mash Makhani with Hot Tandoori Roti",
+            "price": 680,
+            "desc": "Thick white lentils tempered with garlic and butter"
+          },
+          {
+            "id": "fm_l_3",
+            "name": "Chicken Handi with Fresh Flatbread",
+            "price": 950,
+            "desc": "Boneless chicken curry with tomatoes, ginger, and green chilies"
+          },
+          {
+            "id": "fm_l_4",
+            "name": "Spicy Mint Chutney & Pickled Onions",
+            "price": 180,
+            "desc": "Tangy pickled side dish"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Fairy Meadows Stargazing Campfire Feast",
+        "averagePricePerPerson": 1550,
+        "items": [
+          {
+            "id": "fm_d_1",
+            "name": "Alpine Campfire Mutton Stew with Hot Roti",
+            "price": 1450,
+            "desc": "Slow-cooked mountain mutton with potatoes, garlic and whole spices in iron pot",
+            "isSignature": true
+          },
+          {
+            "id": "fm_d_2",
+            "name": "Charcoal Skewered Chicken Tikka Boti",
+            "price": 1100,
+            "desc": "Tender chicken barbecued beside the bonfire under the Milky Way"
+          },
+          {
+            "id": "fm_d_3",
+            "name": "Warm Rice Kheer with Crushed Nuts",
+            "price": 380,
+            "desc": "Rich milk pudding flavored with cardamoms"
+          },
+          {
+            "id": "fm_d_4",
+            "name": "Stargazer Cardamom Kehwa with Honey",
+            "price": 180,
+            "desc": "Herbal digestive tea served beside the crackling pine logs"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "neelum",
+    "cityName": "Neelum Valley & Azad Kashmir",
+    "cuisineType": "Traditional Kashmiri Wazwan & Alpine River Specialties",
+    "aliases": [
+      "neelum",
+      "sharda",
+      "keran",
+      "arang kel",
+      "kutton",
+      "taobat",
+      "kashmir",
+      "ratti gali",
+      "jagran",
+      "athmuqam"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Kashmiri Shahi Nashta & Bakarkhani",
+        "averagePricePerPerson": 550,
+        "items": [
+          {
+            "id": "nlm_b_1",
+            "name": "Kashmiri Baqarkhani & Kulcha with Salted Pink Noon Chai",
+            "price": 450,
+            "desc": "Flaky layered pastry bread served with traditional pink salted butter tea and crushed almonds",
+            "isSignature": true
+          },
+          {
+            "id": "nlm_b_2",
+            "name": "Desi Omelette with Kashmiri Chili & Paratha",
+            "price": 400,
+            "desc": "Farm eggs with sweet red Kashmiri chilies, fresh coriander, and crisp paratha"
+          },
+          {
+            "id": "nlm_b_3",
+            "name": "Kashmiri Kahwa with Saffron, Almonds & Honey",
+            "price": 250,
+            "desc": "Golden royal brew infused with pure saffron strands and cinnamon"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Neelum River Trout & Gushtaba Lunch",
+        "averagePricePerPerson": 1250,
+        "items": [
+          {
+            "id": "nlm_l_1",
+            "name": "Fresh Neelum River Pan-Fried Trout",
+            "price": 1350,
+            "desc": "Crispy skin river trout pan-fried in butter with local mountain herbs",
+            "isSignature": true
+          },
+          {
+            "id": "nlm_l_2",
+            "name": "Traditional Kashmiri Gushtaba in Yoghurt Gravy",
+            "price": 1200,
+            "desc": "Velvety minced mutton meatballs simmered in rich saffron-yogurt sauce"
+          },
+          {
+            "id": "nlm_l_3",
+            "name": "Kashmiri Chicken Dum Pulao with Walnuts",
+            "price": 850,
+            "desc": "Fragrant basmati rice infused with fennel, ginger powder, and chicken"
+          },
+          {
+            "id": "nlm_l_4",
+            "name": "Walnut & Mint Chutney with Fresh Radish Salad",
+            "price": 200,
+            "desc": "Creamy walnut-yogurt dip with crisp local radishes"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Sharda Valley Kashmiri Wazwan Banquet",
+        "averagePricePerPerson": 1650,
+        "items": [
+          {
+            "id": "nlm_d_1",
+            "name": "Authentic Kashmiri Mutton Roghan Josh",
+            "price": 1550,
+            "desc": "Tender lamb cooked in aromatic red chili gravy flavored with ratan jot and maval flowers",
+            "isSignature": true
+          },
+          {
+            "id": "nlm_d_2",
+            "name": "Kashmiri Rista (Pounded Meatballs in Saffron Gravy)",
+            "price": 1350,
+            "desc": "Soft handmade mutton balls cooked in fiery red saffron and cardamon sauce"
+          },
+          {
+            "id": "nlm_d_3",
+            "name": "Nadru Karahi (Crispy Lotus Stem in Spiced Masala)",
+            "price": 850,
+            "desc": "Thinly sliced lotus root stir-fried with onions, tomatoes, and dried Kashmiri mint"
+          },
+          {
+            "id": "nlm_d_4",
+            "name": "Shahi Firni in Kasora with Pistachios",
+            "price": 380,
+            "desc": "Silky ground rice pudding set in chilled earthenware pots"
+          },
+          {
+            "id": "nlm_d_5",
+            "name": "Kashmiri Kehwa with Crushed Green Cardamom",
+            "price": 180,
+            "desc": "Steaming aromatic saffron tea to end the royal feast"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "muzaffarabad",
+    "cityName": "Muzaffarabad & Pir Chinasi",
+    "cuisineType": "Pahari Kashmiri & Jhelum River Specialties",
+    "aliases": [
+      "muzaffarabad",
+      "pir chinasi",
+      "neelum-jhelum",
+      "red fort",
+      "kohala",
+      "chehla"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Muzaffarabad City Center Morning Nashta",
+        "averagePricePerPerson": 500,
+        "items": [
+          {
+            "id": "mzd_b_1",
+            "name": "Fresh Tandoori Kulcha with Chana & Halwa",
+            "price": 420,
+            "desc": "Crisp sesame kulcha served with spiced chickpeas and sweet suji halwa",
+            "isSignature": true
+          },
+          {
+            "id": "mzd_b_2",
+            "name": "Kashmiri Bakarkhani with Pink Salted Noon Chai",
+            "price": 380,
+            "desc": "Layered flaky puff pastry with traditional pink tea and walnuts"
+          },
+          {
+            "id": "mzd_b_3",
+            "name": "Desi Anda Paratha with Cardamom Chai",
+            "price": 360,
+            "desc": "Hot butter paratha with farm-fresh fried egg"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Pir Chinasi Peak Panoramic Lunch",
+        "averagePricePerPerson": 1150,
+        "items": [
+          {
+            "id": "mzd_l_1",
+            "name": "Muzaffarabad Desi Murgh Karahi with Roghani Naan",
+            "price": 1100,
+            "desc": "Free-range local chicken cooked in wok with tomatoes, ginger, and green chilies",
+            "isSignature": true
+          },
+          {
+            "id": "mzd_l_2",
+            "name": "Kashmiri Chicken Yakhni Pulao",
+            "price": 820,
+            "desc": "Fragrant rice cooked in seasoned chicken broth with saffron and whole spices"
+          },
+          {
+            "id": "mzd_l_3",
+            "name": "Daal Chawal with Desi Shami Kabab",
+            "price": 620,
+            "desc": "Yellow lentils with steamed basmati rice and crisp fried kababs"
+          },
+          {
+            "id": "mzd_l_4",
+            "name": "Fresh Cucumber Salad & Mint Raita",
+            "price": 180,
+            "desc": "Crisp salad with seasoned yogurt dip"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Red Fort River View Kashmiri Dinner",
+        "averagePricePerPerson": 1500,
+        "items": [
+          {
+            "id": "mzd_d_1",
+            "name": "Kashmiri Mutton Harissa with Naan",
+            "price": 1450,
+            "desc": "Rich slow-cooked mutton, rice and lentils pounded into a smooth savory paste topped with sizzling ghee",
+            "isSignature": true
+          },
+          {
+            "id": "mzd_d_2",
+            "name": "Charcoal Chicken Boti & Mutton Seekh Kababs",
+            "price": 1100,
+            "desc": "Tender skewered meats barbecued over glowing coals"
+          },
+          {
+            "id": "mzd_d_3",
+            "name": "Warm Gulab Jamun & Suji Halwa",
+            "price": 350,
+            "desc": "Traditional sweet dumplings served with hot syrup"
+          },
+          {
+            "id": "mzd_d_4",
+            "name": "Pir Chinasi Pine Kehwa with Green Cardamom",
+            "price": 160,
+            "desc": "Digestive herbal tea"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "rawalakot",
+    "cityName": "Rawalakot & Banjosa Lake",
+    "cuisineType": "Poonch Kashmiri & Pine Forest Cuisine",
+    "aliases": [
+      "rawalakot",
+      "banjosa",
+      "tolipeer",
+      "poonch",
+      "hajira",
+      "goyain"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Banjosa Lake Misty Morning Nashta",
+        "averagePricePerPerson": 480,
+        "items": [
+          {
+            "id": "rwk_b_1",
+            "name": "Crispy Lacha Paratha with Fried Eggs & Honey",
+            "price": 380,
+            "desc": "Golden fried layered paratha with farm-fresh eggs and local honey",
+            "isSignature": true
+          },
+          {
+            "id": "rwk_b_2",
+            "name": "Kashmiri Kulcha with Pink Noon Chai",
+            "price": 350,
+            "desc": "Traditional dry sesame biscuits with salted pink tea"
+          },
+          {
+            "id": "rwk_b_3",
+            "name": "Hot Doodh Patti Chai",
+            "price": 160,
+            "desc": "Rich and creamy cardamom milk tea"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Toli Peer Alpine Meadow Lunch",
+        "averagePricePerPerson": 1080,
+        "items": [
+          {
+            "id": "rwk_l_1",
+            "name": "Poonch Chicken Handi in Desi Ghee",
+            "price": 1050,
+            "desc": "Creamy boneless chicken cooked in clay pot with butter and green chilies",
+            "isSignature": true
+          },
+          {
+            "id": "rwk_l_2",
+            "name": "Mutton Yakhni Pulao with Mint Raita",
+            "price": 920,
+            "desc": "Aromatic long-grain rice boiled in mutton bone stock with subtle spices"
+          },
+          {
+            "id": "rwk_l_3",
+            "name": "Dal Makhani with Hot Tandoori Naan",
+            "price": 580,
+            "desc": "Creamy black lentils served with fresh clay oven bread"
+          },
+          {
+            "id": "rwk_l_4",
+            "name": "Fresh Green Salad & Mint Chutney",
+            "price": 180,
+            "desc": "Crisp seasonal vegetables"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Banjosa Lakeside Campfire Feast",
+        "averagePricePerPerson": 1450,
+        "items": [
+          {
+            "id": "rwk_d_1",
+            "name": "Bonfire Mutton Shinwari Karahi",
+            "price": 1450,
+            "desc": "Fresh mutton cooked over wood fire with tomatoes, salt and whole green chilies",
+            "isSignature": true
+          },
+          {
+            "id": "rwk_d_2",
+            "name": "Charcoal Chicken Tikka Skewers with Naan",
+            "price": 980,
+            "desc": "Marinated chicken quarters grilled over hot pine embers"
+          },
+          {
+            "id": "rwk_d_3",
+            "name": "Warm Rice Kheer with Crushed Pistachios",
+            "price": 350,
+            "desc": "Classic slow-reduced rice pudding"
+          },
+          {
+            "id": "rwk_d_4",
+            "name": "Kashmiri Kehwa with Cinnamon & Cardamom",
+            "price": 160,
+            "desc": "Golden herbal tea"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "murree",
+    "cityName": "Murree & Galyat",
+    "cuisineType": "Hill Station Comfort & Galyat Forest BBQ",
+    "aliases": [
+      "murree",
+      "galyat",
+      "nathia gali",
+      "ayubia",
+      "bhurban",
+      "patriata",
+      "changla gali",
+      "dunga gali",
+      "mall road"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Mall Road Misty Morning Breakfast",
+        "averagePricePerPerson": 520,
+        "items": [
+          {
+            "id": "mre_b_1",
+            "name": "Crispy Lacha Paratha with Fried Eggs & Butter",
+            "price": 420,
+            "desc": "Flaky hot paratha with double fried eggs, butter block, and pickle",
+            "isSignature": true
+          },
+          {
+            "id": "mre_b_2",
+            "name": "Mall Road Chana Kulcha & Halwa",
+            "price": 380,
+            "desc": "Piping hot chickpeas curry with toasted sesame kulchas and sweet suji halwa"
+          },
+          {
+            "id": "mre_b_3",
+            "name": "Hot Kashmiri Pink Chai with Crushed Pistachios",
+            "price": 200,
+            "desc": "Steaming hot pink tea topped with crushed almonds"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Nathia Gali Famous Red Fried Chicken Feast",
+        "averagePricePerPerson": 1100,
+        "items": [
+          {
+            "id": "mre_l_1",
+            "name": "Famous Nathia Gali Patakha Fried Chicken with Fries",
+            "price": 1150,
+            "desc": "Legendary whole chicken marinated in red Kashmiri chili, deep-fried ultra crispy",
+            "isSignature": true
+          },
+          {
+            "id": "mre_l_2",
+            "name": "Murree Hills Chicken Karahi with Garlic Naan",
+            "price": 980,
+            "desc": "Fresh chicken wok-cooked with tomatoes, fresh ginger, and coriander"
+          },
+          {
+            "id": "mre_l_3",
+            "name": "Daal Makhani with Steamed Basmati Rice",
+            "price": 620,
+            "desc": "Rich butter lentils with aromatic cumin rice"
+          },
+          {
+            "id": "mre_l_4",
+            "name": "Mall Road Roasted Sweet Corn on Cob",
+            "price": 200,
+            "desc": "Fresh mountain corn roasted over coals with lemon and masala"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Bhurban Valley Pine Terrace BBQ Dinner",
+        "averagePricePerPerson": 1520,
+        "items": [
+          {
+            "id": "mre_d_1",
+            "name": "Claypot Mutton Handi with Roghani Naan",
+            "price": 1480,
+            "desc": "Tender boneless mutton slow-simmered in clay pot with rich cream and almonds",
+            "isSignature": true
+          },
+          {
+            "id": "mre_d_2",
+            "name": "Charcoal Chicken Malai Boti & Seekh Kabab Platter",
+            "price": 1150,
+            "desc": "Skewered chicken and beef kebabs grilled over hot wood embers"
+          },
+          {
+            "id": "mre_d_3",
+            "name": "Hot Gulab Jamun & Shahi Tukray",
+            "price": 380,
+            "desc": "Piping hot syrup dumplings and fried royal bread dessert"
+          },
+          {
+            "id": "mre_d_4",
+            "name": "Green Cardamom Kehwa with Gurr",
+            "price": 160,
+            "desc": "Sweet digestive jaggery tea"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "abbottabad",
+    "cityName": "Abbottabad & Thandiani",
+    "cuisineType": "Hazara Foothills & Pine Ridge Dining",
+    "aliases": [
+      "abbottabad",
+      "thandiani",
+      "havelian",
+      "shimla hill",
+      "mandian",
+      "cantt abbottabad"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Abbottabad Cantt Fresh Nashta",
+        "averagePricePerPerson": 480,
+        "items": [
+          {
+            "id": "abt_b_1",
+            "name": "Halwa Puri with Chana & Achar",
+            "price": 380,
+            "desc": "Hot fluffy puris with sweet semolina halwa and spicy chickpea curry",
+            "isSignature": true
+          },
+          {
+            "id": "abt_b_2",
+            "name": "Aloo & Methi Paratha with Fresh Mint Yogurt",
+            "price": 380,
+            "desc": "Golden fried paratha stuffed with fenugreek leaves and spiced potatoes"
+          },
+          {
+            "id": "abt_b_3",
+            "name": "Special Hazara Cardamom Chai",
+            "price": 160,
+            "desc": "Strong milk tea with green cardamom"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Havelian Famous Chapli Kabab Lunch",
+        "averagePricePerPerson": 1050,
+        "items": [
+          {
+            "id": "abt_l_1",
+            "name": "Havelian Famous Beef Chapli Kababs (2 pcs)",
+            "price": 820,
+            "desc": "Large crispy minced beef patties with tomatoes, fried in fat and served with hot naans",
+            "isSignature": true
+          },
+          {
+            "id": "abt_l_2",
+            "name": "Abbottabad Chicken Shinwari Karahi",
+            "price": 950,
+            "desc": "Wok-cooked chicken with whole tomatoes, ginger, and green chilies"
+          },
+          {
+            "id": "abt_l_3",
+            "name": "Chicken Yakhni Pulao with Zeera Raita",
+            "price": 780,
+            "desc": "Fragrant rice simmered in chicken stock"
+          },
+          {
+            "id": "abt_l_4",
+            "name": "Fresh Kachumber Salad & Plum Chutney",
+            "price": 180,
+            "desc": "Crisp vegetable salad with tangy plum dip"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Thandiani Peak Pine Ridge BBQ & Handi",
+        "averagePricePerPerson": 1450,
+        "items": [
+          {
+            "id": "abt_d_1",
+            "name": "Hazara Desi Chicken Sajji with Spiced Rice",
+            "price": 1350,
+            "desc": "Whole chicken slow-roasted beside glowing coal fire served with fragrant rice",
+            "isSignature": true
+          },
+          {
+            "id": "abt_d_2",
+            "name": "Creamy Chicken Handi with Garlic Roghani Naan",
+            "price": 1100,
+            "desc": "Tender boneless chicken in mild cashew and butter sauce"
+          },
+          {
+            "id": "abt_d_3",
+            "name": "Hot Suji Halwa with Crushed Almonds",
+            "price": 350,
+            "desc": "Warm semolina pudding made in pure butter"
+          },
+          {
+            "id": "abt_d_4",
+            "name": "Thandiani Green Kehwa with Lemon & Mint",
+            "price": 160,
+            "desc": "Hot digestive herbal tea for cold mountain evenings"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "gilgit",
+    "cityName": "Gilgit, Ghizer & Phander",
+    "cuisineType": "Shina & Pamir Mountain Heritage Cuisine",
+    "aliases": [
+      "gilgit",
+      "ghizer",
+      "phander",
+      "yasin",
+      "naltar",
+      "punial",
+      "gupis",
+      "khalti"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Gilgiti Heritage Morning Nashta",
+        "averagePricePerPerson": 550,
+        "items": [
+          {
+            "id": "glt_b_1",
+            "name": "Diram Fitti (Stone-Ground Wheat Bread with Apricot Paste)",
+            "price": 460,
+            "desc": "Wholesome sweet bread made from sprouted wheat flour cooked in pure apricot oil",
+            "isSignature": true
+          },
+          {
+            "id": "glt_b_2",
+            "name": "Desi Ghee Paratha with Fried Mountain Eggs",
+            "price": 400,
+            "desc": "Multi-layered paratha with free-range eggs and rock salt"
+          },
+          {
+            "id": "glt_b_3",
+            "name": "Gilgiti Salted Butter Tea (Noon Chai)",
+            "price": 200,
+            "desc": "Warm pink mountain tea with churned butter and walnuts"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Phander Lake World-Famous Trout Feast",
+        "averagePricePerPerson": 1250,
+        "items": [
+          {
+            "id": "glt_l_1",
+            "name": "Fresh Phander Coldwater River Trout",
+            "price": 1350,
+            "desc": "Pristine glacial trout pan-seared with herbs and butter, served with rice and lemon",
+            "isSignature": true
+          },
+          {
+            "id": "glt_l_2",
+            "name": "Gilgiti Chapshoro Meat Flatbread",
+            "price": 820,
+            "desc": "Crusty baked flatbread stuffed with spiced minced meat, onions and green herbs"
+          },
+          {
+            "id": "glt_l_3",
+            "name": "Highland Bean & Vegetable Stew with Roti",
+            "price": 680,
+            "desc": "Local beans and seasonal greens simmered in aromatic broth"
+          },
+          {
+            "id": "glt_l_4",
+            "name": "Wild Mountain Herb Salad",
+            "price": 200,
+            "desc": "Fresh valley herbs with sliced radishes and vinegar"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Naltar Valley Pine Forest Feast",
+        "averagePricePerPerson": 1520,
+        "items": [
+          {
+            "id": "glt_d_1",
+            "name": "Gilgiti Mutton Harisa with Melted Butter & Naan",
+            "price": 1480,
+            "desc": "Traditional slow-cooked porridge of wheat and shredded tender mutton seasoned with local spices",
+            "isSignature": true
+          },
+          {
+            "id": "glt_d_2",
+            "name": "Charcoal Skewered Mountain Lamb Tikka",
+            "price": 1350,
+            "desc": "Tender lamb cubes seasoned with rock salt and grilled over wood embers"
+          },
+          {
+            "id": "glt_d_3",
+            "name": "Sweet Dried Apricot Halwa with Walnuts",
+            "price": 400,
+            "desc": "Rich dessert made from local dried apricots and desi ghee"
+          },
+          {
+            "id": "glt_d_4",
+            "name": "Wild Thyme Herbal Kehwa (Tumuro)",
+            "price": 180,
+            "desc": "Aromatic mountain herb tea for digestion and altitude wellness"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "quetta",
+    "cityName": "Quetta & Ziarat",
+    "cuisineType": "Authentic Balochi & Pashtun Meat Gastronomy",
+    "aliases": [
+      "quetta",
+      "ziarat",
+      "pishin",
+      "hannah lake",
+      "chaman",
+      "bolan",
+      "juniper forest"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Prince Road Quetta Morning Nashta",
+        "averagePricePerPerson": 520,
+        "items": [
+          {
+            "id": "qta_b_1",
+            "name": "Balochi Kaak Bread with Omelette & Fresh Cream",
+            "price": 440,
+            "desc": "Stone-baked round bread served with spicy double egg and clotted cream",
+            "isSignature": true
+          },
+          {
+            "id": "qta_b_2",
+            "name": "Quetta Style Nihari with Kandahari Naan",
+            "price": 620,
+            "desc": "Slow-cooked beef stew with thick oblong sesame clay-oven bread"
+          },
+          {
+            "id": "qta_b_3",
+            "name": "Sulaimani Green Tea with Mint & Green Cardamom",
+            "price": 160,
+            "desc": "Golden sweet digestive tea"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Famous Quetta Namkeen Rosh & Landhi",
+        "averagePricePerPerson": 1250,
+        "items": [
+          {
+            "id": "qta_l_1",
+            "name": "Famous Quetta Mutton Namkeen Rosh in Bone Broth",
+            "price": 1450,
+            "desc": "Large mutton joint slow-cooked in its own rich broth with whole potatoes, garlic and black pepper",
+            "isSignature": true
+          },
+          {
+            "id": "qta_l_2",
+            "name": "Kandahari Tikka with Fresh Tandoori Naan",
+            "price": 980,
+            "desc": "Tender skewered lamb chunks seasoned with rock salt"
+          },
+          {
+            "id": "qta_l_3",
+            "name": "Pishin Kabuli Pulao with Raisins & Carrots",
+            "price": 820,
+            "desc": "Aromatic basmati rice topped with sweet caramelised carrots and raisins"
+          },
+          {
+            "id": "qta_l_4",
+            "name": "Fresh Onion & Tomato Salad with Lemon Dressing",
+            "price": 180,
+            "desc": "Crisp salad"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Ziarat Juniper Forest Balochi Sajji Feast",
+        "averagePricePerPerson": 1650,
+        "items": [
+          {
+            "id": "qta_d_1",
+            "name": "Authentic Balochi Whole Mutton/Chicken Sajji with Rice",
+            "price": 1550,
+            "desc": "Traditional Sajji slow-roasted vertically beside open wood coals with spiced rice",
+            "isSignature": true
+          },
+          {
+            "id": "qta_d_2",
+            "name": "Quetta Shinwari Mutton Karahi with Naan",
+            "price": 1450,
+            "desc": "Tender mountain mutton cooked in cast iron with whole tomatoes and green chilies"
+          },
+          {
+            "id": "qta_d_3",
+            "name": "Ziarat Fresh Apple & Cherry Pie / Halwa",
+            "price": 420,
+            "desc": "Delicious dessert prepared from world-famous Ziarat valley apples and cherries"
+          },
+          {
+            "id": "qta_d_4",
+            "name": "Quetta Green Kehwa with Nabaat (Rock Candy)",
+            "price": 180,
+            "desc": "Clear green tea served with crystalline rock sugar"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "multan",
+    "cityName": "Multan & Bahawalpur",
+    "cuisineType": "Saraiki & Cholistan Desert Gastronomy",
+    "aliases": [
+      "multan",
+      "bahawalpur",
+      "cholistan",
+      "derawar",
+      "south punjab",
+      "lodhran",
+      "muzaffargarh"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Multani Shahi Nashta & Sohan Halwa",
+        "averagePricePerPerson": 520,
+        "items": [
+          {
+            "id": "mlt_b_1",
+            "name": "Multani Chanay with Tandoori Roghani Kulcha",
+            "price": 400,
+            "desc": "Slow-simmered chickpeas in dark aromatic spices with buttered sesame bread",
+            "isSignature": true
+          },
+          {
+            "id": "mlt_b_2",
+            "name": "Sweet Malai Lassi & Freshly Made Sohan Halwa",
+            "price": 420,
+            "desc": "Thick creamy yoghurt drink served with famous Hafiz Multani Sohan Halwa"
+          },
+          {
+            "id": "mlt_b_3",
+            "name": "Hot Doodh Patti Chai with Green Cardamom",
+            "price": 160,
+            "desc": "Rich milk tea"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Multani Beef Pulao & Shahi Karahi",
+        "averagePricePerPerson": 1080,
+        "items": [
+          {
+            "id": "mlt_l_1",
+            "name": "Multani Shahi Beef Yakhni Pulao",
+            "price": 880,
+            "desc": "Rich aromatic basmati rice cooked in seasoned beef bone stock with tender meat cuts",
+            "isSignature": true
+          },
+          {
+            "id": "mlt_l_2",
+            "name": "Multani Desi Murgh Karahi with Fresh Naan",
+            "price": 1050,
+            "desc": "Chicken cooked in desi ghee with roasted spices, tomatoes, and ginger"
+          },
+          {
+            "id": "mlt_l_3",
+            "name": "Dal Makhani in Clay Pot with Zeera Rice",
+            "price": 620,
+            "desc": "Creamy black lentils simmered with butter and whole cumin"
+          },
+          {
+            "id": "mlt_l_4",
+            "name": "Fresh Kachumber Salad & Zeera Raita",
+            "price": 180,
+            "desc": "Crisp cucumber, onion, and mint yogurt"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Cholistan Desert Camp BBQ & Sajji",
+        "averagePricePerPerson": 1520,
+        "items": [
+          {
+            "id": "mlt_d_1",
+            "name": "Cholistani Mutton Sajji with Fragrant Rice",
+            "price": 1480,
+            "desc": "Slow-roasted whole mutton cuts beside open fire pit in the desert style",
+            "isSignature": true
+          },
+          {
+            "id": "mlt_d_2",
+            "name": "Charcoal Chicken Boti & Mutton Seekh Kabab",
+            "price": 1100,
+            "desc": "Skewered meats barbecued over glowing desert wood embers"
+          },
+          {
+            "id": "mlt_d_3",
+            "name": "Famous Hafiz Multani Sohan Halwa with Cream",
+            "price": 420,
+            "desc": "Rich caramelized milk dessert with pistachios, almonds, and desi ghee"
+          },
+          {
+            "id": "mlt_d_4",
+            "name": "Cardamom Green Kehwa with Mint",
+            "price": 160,
+            "desc": "Digestive tea"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "cityKey": "hyderabad",
+    "cityName": "Hyderabad & Sindh Interior",
+    "cuisineType": "Traditional Sindhi & Indus River Heritage Cuisine",
+    "aliases": [
+      "hyderabad",
+      "sukkur",
+      "larkana",
+      "thatta",
+      "mohenjo-daro",
+      "kotri",
+      "sehwan",
+      "sindh",
+      "jamshoro"
+    ],
+    "meals": {
+      "breakfast": {
+        "title": "Shahi Bazaar Hyderabad Morning Nashta",
+        "averagePricePerPerson": 480,
+        "items": [
+          {
+            "id": "hyd_b_1",
+            "name": "Sindhi Halwa Puri & Chana Tarkari",
+            "price": 380,
+            "desc": "Crispy puris with sweet suji halwa, aloo sabzi and spiced chickpeas",
+            "isSignature": true
+          },
+          {
+            "id": "hyd_b_2",
+            "name": "Seyun Patata (Sweet Vermicelli with Crispy Spiced Potatoes)",
+            "price": 420,
+            "desc": "Traditional Sindhi breakfast of sweetened vermicelli paired with savory potatoes"
+          },
+          {
+            "id": "hyd_b_3",
+            "name": "Karak Doodh Patti Chai with Rabri",
+            "price": 180,
+            "desc": "Rich boiled milk tea sweetened with famous condensed milk rabri"
+          }
+        ]
+      },
+      "lunch": {
+        "title": "Famous Sindhi Biryani & Indus Palla Fish",
+        "averagePricePerPerson": 1150,
+        "items": [
+          {
+            "id": "hyd_l_1",
+            "name": "Authentic Sindhi Chicken/Mutton Biryani",
+            "price": 850,
+            "desc": "Spicy fragrant basmati rice cooked with prunes, golden potatoes, and tender meat",
+            "isSignature": true
+          },
+          {
+            "id": "hyd_l_2",
+            "name": "Fresh Fried Indus River Palla Fish",
+            "price": 1350,
+            "desc": "World-famous Hilsa (Palla) fish from river Indus marinated in salt and spices, pan-fried to crisp perfection"
+          },
+          {
+            "id": "hyd_l_3",
+            "name": "Sindhi Kadhi with Steamed Basmati Rice",
+            "price": 620,
+            "desc": "Tangy chickpea flour gravy loaded with okra, lotus root, potatoes, and tomatoes"
+          },
+          {
+            "id": "hyd_l_4",
+            "name": "Fresh Kachumber Salad & Zeera Raita",
+            "price": 180,
+            "desc": "Crisp diced vegetables with mint-cumin yogurt"
+          }
+        ]
+      },
+      "dinner": {
+        "title": "Jamshoro Riverfront Indus Feast",
+        "averagePricePerPerson": 1500,
+        "items": [
+          {
+            "id": "hyd_d_1",
+            "name": "Sindhi Mutton Karahi with Fresh Roghani Naan",
+            "price": 1450,
+            "desc": "Tender goat meat cooked in clay pot with garlic, tomatoes and dried coriander",
+            "isSignature": true
+          },
+          {
+            "id": "hyd_d_2",
+            "name": "Charcoal Indus River Grilled Fish & Chicken Boti",
+            "price": 1250,
+            "desc": "Skewered river fish and chicken grilled over open wood coals"
+          },
+          {
+            "id": "hyd_d_3",
+            "name": "Famous Bombay Bakery Macaroon / Coffee Cake Slice",
+            "price": 380,
+            "desc": "World-renowned legendary Hyderabad bakery cake"
+          },
+          {
+            "id": "hyd_d_4",
+            "name": "Sulaimani Kehwa with Lemon & Mint",
+            "price": 160,
+            "desc": "Light digestive tea"
+          }
+        ]
+      }
+    }
+  }
+]

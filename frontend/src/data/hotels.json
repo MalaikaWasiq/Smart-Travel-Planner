@@ -1,0 +1,4614 @@
+[
+  {
+    "id": "lahore-avari",
+    "name": "Avari Hotel Lahore",
+    "city": "Lahore",
+    "rating": 4.5,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 28500,
+    "latitude": 31.5581,
+    "longitude": 74.3284,
+    "amenities": [
+      "High-Speed Wi-Fi",
+      "Complimentary Breakfast",
+      "Outdoor Pool",
+      "Fitness Center",
+      "Spa"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "avari-std",
+        "name": "Standard Deluxe Room",
+        "price": 28500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "avari-exec",
+        "name": "Executive Club Suite",
+        "price": 42000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King + Lounge"
+      },
+      {
+        "id": "avari-fam",
+        "name": "Family Two-Bedroom",
+        "price": 55000,
+        "capacity": 4,
+        "available": 1,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "lahore-pc",
+    "name": "Pearl Continental Lahore",
+    "city": "Lahore",
+    "rating": 4.6,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 34000,
+    "latitude": 31.5514,
+    "longitude": 74.337,
+    "amenities": [
+      "Wi-Fi",
+      "Breakfast",
+      "Gym",
+      "Concierge",
+      "Valet Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=900&q=80",
+    "rooms": [
+      {
+        "id": "pc-deluxe",
+        "name": "Pearl Superior Room",
+        "price": 34000,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "pc-suite",
+        "name": "Mughal Heritage Suite",
+        "price": 58000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 Royal Bed"
+      }
+    ]
+  },
+  {
+    "id": "lahore-heritage-inn",
+    "name": "Lahore Heritage Residency",
+    "city": "Lahore",
+    "rating": 4.1,
+    "comfortLevel": "Normal",
+    "pricePerNight": 14500,
+    "latitude": 31.582,
+    "longitude": 74.316,
+    "amenities": [
+      "Free Wi-Fi",
+      "Traditional Breakfast",
+      "Roof Terrace",
+      "24/7 Reception"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "her-std",
+        "name": "Classic Queen Room",
+        "price": 14500,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "her-fam",
+        "name": "Family Triple Room",
+        "price": 21000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 Double + 1 Single"
+      }
+    ]
+  },
+  {
+    "id": "lahore-budget-stay",
+    "name": "Gulberg Travelers Lodge",
+    "city": "Lahore",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 7500,
+    "latitude": 31.52,
+    "longitude": 74.35,
+    "amenities": [
+      "Wi-Fi",
+      "Hot Water",
+      "Room Service"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "gul-std",
+        "name": "Standard Budget Twin",
+        "price": 7500,
+        "capacity": 2,
+        "available": 6,
+        "bed": "2 Twin Beds"
+      }
+    ]
+  },
+  {
+    "id": "skardu-shangrila",
+    "name": "Shangrila Resort Skardu",
+    "city": "Skardu",
+    "rating": 4.7,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 36000,
+    "latitude": 35.427,
+    "longitude": 75.454,
+    "amenities": [
+      "Lake View Balcony",
+      "Breakfast Buffet",
+      "Boating Access",
+      "Restaurant",
+      "Garden"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "shan-lake",
+        "name": "Lakeside Pagoda Room",
+        "price": 36000,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "shan-fam",
+        "name": "Swiss Cottage Suite",
+        "price": 54000,
+        "capacity": 4,
+        "available": 1,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "skardu-shigar",
+    "name": "Serena Shigar Fort",
+    "city": "Skardu",
+    "rating": 4.8,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 44000,
+    "latitude": 35.423,
+    "longitude": 75.734,
+    "amenities": [
+      "Heritage Ambiance",
+      "Orchard Garden",
+      "Wi-Fi",
+      "Fine Dining",
+      "Museum Access"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=900&q=80",
+    "rooms": [
+      {
+        "id": "shig-royal",
+        "name": "Raja Suite Heritage Room",
+        "price": 44000,
+        "capacity": 2,
+        "available": 2,
+        "bed": "1 Royal Carved Bed"
+      },
+      {
+        "id": "shig-std",
+        "name": "Garden Pavilion Room",
+        "price": 32000,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 King Bed"
+      }
+    ]
+  },
+  {
+    "id": "skardu-indus-view",
+    "name": "Indus View Heights Skardu",
+    "city": "Skardu",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 16500,
+    "latitude": 35.301,
+    "longitude": 75.612,
+    "amenities": [
+      "Wi-Fi",
+      "Mountain Panorama",
+      "Hot Water",
+      "Heaters",
+      "Local Restaurant"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=900&q=80",
+    "rooms": [
+      {
+        "id": "ind-std",
+        "name": "Valley View Deluxe",
+        "price": 16500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "ind-fam",
+        "name": "Family Triple Suite",
+        "price": 24000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "skardu-backpackers",
+    "name": "Baltistan Backpacker Inn",
+    "city": "Skardu",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 6500,
+    "latitude": 35.295,
+    "longitude": 75.625,
+    "amenities": [
+      "Free Wi-Fi",
+      "Warm Blankets",
+      "Hot Showers",
+      "Travel Desk"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "bal-dorm",
+        "name": "Standard Twin Room",
+        "price": 6500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "2 Single Beds"
+      }
+    ]
+  },
+  {
+    "id": "skardu-fully-booked-demo",
+    "name": "K2 Peak Horizon Hotel",
+    "city": "Skardu",
+    "rating": 4.5,
+    "comfortLevel": "Normal",
+    "pricePerNight": 22000,
+    "latitude": 35.31,
+    "longitude": 75.64,
+    "amenities": [
+      "Wi-Fi",
+      "Balcony View",
+      "Restaurant"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "k2-std",
+        "name": "Peak View Deluxe",
+        "price": 22000,
+        "capacity": 2,
+        "available": 0,
+        "bed": "1 King Bed"
+      }
+    ]
+  },
+  {
+    "id": "hunza-luxus",
+    "name": "Luxus Hunza Attabad Lake Resort",
+    "city": "Hunza",
+    "rating": 4.8,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 39000,
+    "latitude": 36.318,
+    "longitude": 74.87,
+    "amenities": [
+      "Turquoise Lakefront",
+      "Breakfast",
+      "Floor-to-Ceiling Glass",
+      "Heating",
+      "Speedboat"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "lux-water",
+        "name": "Waterfront Chalet",
+        "price": 39000,
+        "capacity": 2,
+        "available": 2,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "lux-fam",
+        "name": "Presidential Lake Villa",
+        "price": 65000,
+        "capacity": 4,
+        "available": 1,
+        "bed": "2 King Beds"
+      }
+    ]
+  },
+  {
+    "id": "hunza-serena",
+    "name": "Hunza Serena Inn",
+    "city": "Hunza",
+    "rating": 4.7,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 32000,
+    "latitude": 36.324,
+    "longitude": 74.654,
+    "amenities": [
+      "Ultar Peak Views",
+      "Orchard Dining",
+      "Wi-Fi",
+      "Fireplace",
+      "Cultural Tours"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "ser-hun-std",
+        "name": "Traditional Deluxe Room",
+        "price": 32000,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 King Bed"
+      }
+    ]
+  },
+  {
+    "id": "hunza-eagles-nest",
+    "name": "Hunza Eagles Nest Hotel",
+    "city": "Hunza",
+    "rating": 4.5,
+    "comfortLevel": "Normal",
+    "pricePerNight": 21500,
+    "latitude": 36.302,
+    "longitude": 74.649,
+    "amenities": [
+      "Panoramic Viewpoint",
+      "Buffet Breakfast",
+      "Hiking Trail Access",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=900&q=80",
+    "rooms": [
+      {
+        "id": "eag-valley",
+        "name": "Summit View Deluxe",
+        "price": 21500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "eag-fam",
+        "name": "Family Room",
+        "price": 31000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "hunza-old-inn",
+    "name": "Old Hunza Inn & Cafe",
+    "city": "Hunza",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 8500,
+    "latitude": 36.315,
+    "longitude": 74.652,
+    "amenities": [
+      "Warm Beds",
+      "Hot Water",
+      "Apricot Cafe",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "old-std",
+        "name": "Classic Mountain Twin",
+        "price": 8500,
+        "capacity": 2,
+        "available": 3,
+        "bed": "2 Single Beds"
+      }
+    ]
+  },
+  {
+    "id": "naran-pine-park",
+    "name": "Pine Park Resort Naran",
+    "city": "Naran & Kaghan",
+    "rating": 4.3,
+    "comfortLevel": "Normal",
+    "pricePerNight": 19500,
+    "latitude": 34.908,
+    "longitude": 73.652,
+    "amenities": [
+      "River Views",
+      "Lush Lawn",
+      "Bonfire Area",
+      "Breakfast Included",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=900&q=80",
+    "rooms": [
+      {
+        "id": "pine-deluxe",
+        "name": "Riverfront Deluxe Room",
+        "price": 19500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "pine-fam",
+        "name": "Family Cottage Suite",
+        "price": 29000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "naran-saif-inn",
+    "name": "Saif-ul-Malook Luxury Resort",
+    "city": "Naran & Kaghan",
+    "rating": 4.6,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 31000,
+    "latitude": 34.912,
+    "longitude": 73.66,
+    "amenities": [
+      "Heated Rooms",
+      "Fine Dining",
+      "Balcony",
+      "Wi-Fi",
+      "4x4 Jeep Arrangement"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "saif-deluxe",
+        "name": "Valley View Suite",
+        "price": 31000,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 King Bed"
+      }
+    ]
+  },
+  {
+    "id": "naran-riverside-budget",
+    "name": "Kunhar Riverside Lodge",
+    "city": "Naran & Kaghan",
+    "rating": 3.8,
+    "comfortLevel": "Basic",
+    "pricePerNight": 7000,
+    "latitude": 34.9,
+    "longitude": 73.645,
+    "amenities": [
+      "Hot Water",
+      "River Sound",
+      "Basic Breakfast"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "kun-std",
+        "name": "Standard Double",
+        "price": 7000,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      }
+    ]
+  },
+  {
+    "id": "malam-jabba-pearl",
+    "name": "Pearl Continental Malam Jabba",
+    "city": "Malam Jabba",
+    "rating": 4.7,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 42000,
+    "latitude": 34.799,
+    "longitude": 72.571,
+    "amenities": [
+      "Ski-in/Ski-out",
+      "Chairlift Access",
+      "Heated Floors",
+      "Spa",
+      "Mountain Panorama"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=900&q=80",
+    "rooms": [
+      {
+        "id": "pc-malam-std",
+        "name": "Snow Peak View Room",
+        "price": 42000,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "pc-malam-fam",
+        "name": "Ski Chalet Suite",
+        "price": 62000,
+        "capacity": 4,
+        "available": 1,
+        "bed": "2 King Beds"
+      }
+    ]
+  },
+  {
+    "id": "murree-pc-bhurban",
+    "name": "Pearl Continental Bhurban",
+    "city": "Murree & Galyat",
+    "rating": 4.6,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 41000,
+    "latitude": 33.955,
+    "longitude": 73.452,
+    "amenities": [
+      "Pine Valley Views",
+      "Heated Pool",
+      "Golf Course",
+      "Gym & Spa",
+      "Fine Dining"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "bhur-std",
+        "name": "Valley View Room",
+        "price": 41000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "bhur-fam",
+        "name": "Royal Pine Suite",
+        "price": 66000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "murree-lockwood",
+    "name": "Lockwood Hotel Murree",
+    "city": "Murree & Galyat",
+    "rating": 4.1,
+    "comfortLevel": "Normal",
+    "pricePerNight": 19000,
+    "latitude": 33.907,
+    "longitude": 73.394,
+    "amenities": [
+      "Colonial Charm",
+      "Central Heating",
+      "Mall Road Walkable",
+      "Restaurant"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=900&q=80",
+    "rooms": [
+      {
+        "id": "lock-std",
+        "name": "Heritage Double Room",
+        "price": 19000,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 Queen Bed"
+      }
+    ]
+  },
+  {
+    "id": "murree-pine-budget",
+    "name": "Green Valley Pines Lodge",
+    "city": "Murree & Galyat",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 8000,
+    "latitude": 33.91,
+    "longitude": 73.39,
+    "amenities": [
+      "Hot Water",
+      "Heater (on request)",
+      "Free Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "green-std",
+        "name": "Standard Forest View",
+        "price": 8000,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      }
+    ]
+  },
+  {
+    "id": "swat-serena",
+    "name": "Swat Serena Hotel",
+    "city": "Swat Valley",
+    "rating": 4.6,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 31000,
+    "latitude": 34.745,
+    "longitude": 72.357,
+    "amenities": [
+      "Royal Gardens",
+      "Outdoor Swimming Pool",
+      "Buffet Breakfast",
+      "Craft Shop",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=900&q=80",
+    "rooms": [
+      {
+        "id": "swat-ser-std",
+        "name": "Deluxe Garden Room",
+        "price": 31000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "swat-ser-suite",
+        "name": "Royal Swat Suite",
+        "price": 48000,
+        "capacity": 3,
+        "available": 1,
+        "bed": "1 King + Balcony"
+      }
+    ]
+  },
+  {
+    "id": "swat-rock-city",
+    "name": "Rock City Resort Fizagat",
+    "city": "Swat Valley",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 17500,
+    "latitude": 34.789,
+    "longitude": 72.361,
+    "amenities": [
+      "Swat River View",
+      "Terrace Dining",
+      "Wi-Fi",
+      "Barbecue Facility"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "rock-deluxe",
+        "name": "Riverfront Deluxe Room",
+        "price": 17500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      }
+    ]
+  },
+  {
+    "id": "karachi-movenpick",
+    "name": "Movenpick Hotel Karachi",
+    "city": "Karachi",
+    "rating": 4.5,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 39000,
+    "latitude": 24.8479,
+    "longitude": 67.0331,
+    "amenities": [
+      "Swimming Pool",
+      "Tennis Court",
+      "Multiple Fine-Dining",
+      "Airport Shuttle",
+      "Fitness Hub"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=900&q=80",
+    "rooms": [
+      {
+        "id": "mov-exec",
+        "name": "Classic King Room",
+        "price": 39000,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "mov-suite",
+        "name": "Executive Club Suite",
+        "price": 58000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King Bed"
+      }
+    ]
+  },
+  {
+    "id": "karachi-clifton-inn",
+    "name": "Clifton Seaside Suites",
+    "city": "Karachi",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 18000,
+    "latitude": 24.805,
+    "longitude": 67.03,
+    "amenities": [
+      "Arabian Sea Breeze",
+      "Complimentary Breakfast",
+      "High-Speed Wi-Fi",
+      "Beach Access"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "clif-sea",
+        "name": "Sea View Deluxe",
+        "price": 18000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "clif-fam",
+        "name": "Family Coastal Suite",
+        "price": 28000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "karachi-city-budget",
+    "name": "Saddar Express Inn",
+    "city": "Karachi",
+    "rating": 3.8,
+    "comfortLevel": "Basic",
+    "pricePerNight": 8000,
+    "latitude": 24.858,
+    "longitude": 67.018,
+    "amenities": [
+      "Air Conditioning",
+      "Wi-Fi",
+      "24/7 Security"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "sad-std",
+        "name": "Standard Single/Twin",
+        "price": 8000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Double Bed"
+      }
+    ]
+  },
+  {
+    "id": "gwadar-pc",
+    "name": "Zaver Pearl Continental Gwadar",
+    "city": "Gwadar",
+    "rating": 4.7,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 38000,
+    "latitude": 25.11,
+    "longitude": 62.33,
+    "amenities": [
+      "Koh-e-Batil Cliff Top",
+      "Arabian Sea View",
+      "Infinity Pool",
+      "Fresh Seafood",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "gwad-cliff",
+        "name": "Ocean Cliff Deluxe",
+        "price": 38000,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "gwad-suite",
+        "name": "Pearl Horizon Suite",
+        "price": 55000,
+        "capacity": 3,
+        "available": 1,
+        "bed": "1 King Bed"
+      }
+    ]
+  },
+  {
+    "id": "gwadar-coastal-lodge",
+    "name": "Gwadar Marine Bay Resort",
+    "city": "Gwadar",
+    "rating": 4.1,
+    "comfortLevel": "Normal",
+    "pricePerNight": 17000,
+    "latitude": 25.13,
+    "longitude": 62.31,
+    "amenities": [
+      "Beachfront Access",
+      "Balcony Sea View",
+      "Local Fish Dining",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80",
+    "rooms": [
+      {
+        "id": "gmar-std",
+        "name": "Coastal King Room",
+        "price": 17000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      }
+    ]
+  },
+  {
+    "id": "kund-malir-resort",
+    "name": "Hingol Coastal Glamping & Resort",
+    "city": "Kund Malir & Hingol",
+    "rating": 4.4,
+    "comfortLevel": "Normal",
+    "pricePerNight": 15000,
+    "latitude": 25.503,
+    "longitude": 65.513,
+    "amenities": [
+      "Desert Dunes View",
+      "Stargazing Deck",
+      "Private Beachfront Tents & Rooms",
+      "Bonfire Nights"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=900&q=80",
+    "rooms": [
+      {
+        "id": "kund-tent",
+        "name": "Luxury Desert-Beach Tent",
+        "price": 15000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "kund-chalet",
+        "name": "Family Ocean Chalet",
+        "price": 22000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "fairy-meadows-cottages",
+    "name": "Raikot Serai Fairy Meadows",
+    "city": "Fairy Meadows",
+    "rating": 4.6,
+    "comfortLevel": "Normal",
+    "pricePerNight": 16000,
+    "latitude": 35.385,
+    "longitude": 74.577,
+    "amenities": [
+      "Direct Nanga Parbat View",
+      "Wooden Alpine Cabins",
+      "Traditional Dining",
+      "Campfire Gathering"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "fm-cabin",
+        "name": "Wooden Alpine Cabin",
+        "price": 16000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "2 Single Beds"
+      },
+      {
+        "id": "fm-fam",
+        "name": "Family Log Cottage",
+        "price": 24000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "lhr-budget-gh",
+    "name": "Anarkali Travelers Guest House",
+    "city": "Lahore",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2400,
+    "latitude": 31.572,
+    "longitude": 74.312,
+    "amenities": [
+      "Clean Bedding",
+      "Hot Water",
+      "Free Wi-Fi",
+      "Complimentary Breakfast"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "lhr-b-1",
+        "name": "Economy Double Room",
+        "price": 2400,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "lhr-b-quad",
+        "name": "Family Quad 4-Bed Room",
+        "price": 3000,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "skd-budget-inn",
+    "name": "Karakoram Budget Rest House",
+    "city": "Skardu",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2500,
+    "latitude": 35.305,
+    "longitude": 75.63,
+    "amenities": [
+      "Heater on Request",
+      "Hot Shower",
+      "Breakfast Included",
+      "Mountain View"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "skd-b-1",
+        "name": "Standard Mountain View Room",
+        "price": 2500,
+        "capacity": 2,
+        "available": 6,
+        "bed": "2 Twin Beds"
+      },
+      {
+        "id": "skd-b-quad",
+        "name": "Family Quad Mountain Room (4-Bed)",
+        "price": 3000,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds / 4 Single Beds"
+      }
+    ]
+  },
+  {
+    "id": "hnz-budget-lodge",
+    "name": "Karimabad Alpine Budget Lodge",
+    "city": "Hunza",
+    "rating": 4.1,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2600,
+    "latitude": 36.328,
+    "longitude": 74.664,
+    "amenities": [
+      "Balcony View",
+      "Hot Water",
+      "Traditional Breakfast",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "hnz-b-1",
+        "name": "Valley View Budget Room",
+        "price": 2600,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "hnz-b-quad",
+        "name": "Family Quad Alpine Room (4-Bed)",
+        "price": 3200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "nrn-budget-pods",
+    "name": "Naran River Economy Inn",
+    "city": "Naran & Kaghan",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2500,
+    "latitude": 34.908,
+    "longitude": 73.652,
+    "amenities": [
+      "River View",
+      "Hot Water",
+      "Breakfast Included"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "nrn-b-1",
+        "name": "Economy Room",
+        "price": 2500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "nrn-b-quad",
+        "name": "Family Quad Riverside Room (4-Bed)",
+        "price": 3000,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "swat-budget-gh",
+    "name": "Swat Valley Budget Rest House",
+    "city": "Swat Valley",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2300,
+    "latitude": 35.22,
+    "longitude": 72.42,
+    "amenities": [
+      "Hot Water",
+      "Free Wi-Fi",
+      "Breakfast Included"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "swat-b-1",
+        "name": "Standard Double",
+        "price": 2300,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "swat-b-quad",
+        "name": "Family Quad Rest Room (4-Bed)",
+        "price": 2800,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "mur-budget-stay",
+    "name": "Murree Pines Budget Lodge",
+    "city": "Murree & Galyat",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2700,
+    "latitude": 33.906,
+    "longitude": 73.391,
+    "amenities": [
+      "Pine Forest View",
+      "Hot Water",
+      "Breakfast Included"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "mur-b-1",
+        "name": "Economy Queen",
+        "price": 2700,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "mur-b-quad",
+        "name": "Family Quad Pines Room (4-Bed)",
+        "price": 3200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "isb-budget-inn",
+    "name": "Islamabad Travelers Rest Inn",
+    "city": "Islamabad",
+    "rating": 4.1,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2800,
+    "latitude": 33.71,
+    "longitude": 73.05,
+    "amenities": [
+      "Wi-Fi",
+      "AC / Heating",
+      "Breakfast Included"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "isb-b-1",
+        "name": "Standard Budget Room",
+        "price": 2800,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "isb-b-quad",
+        "name": "Family Quad Suite (4-Bed)",
+        "price": 3200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "khi-budget-lodge",
+    "name": "Saddar Coastal Travelers Lodge",
+    "city": "Karachi",
+    "rating": 3.8,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2500,
+    "latitude": 24.86,
+    "longitude": 67.01,
+    "amenities": [
+      "AC Room",
+      "Wi-Fi",
+      "Breakfast Included"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "khi-b-1",
+        "name": "Standard Double",
+        "price": 2500,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "khi-b-quad",
+        "name": "Family Quad Coastal Room (4-Bed)",
+        "price": 3000,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "gwd-budget-stay",
+    "name": "Gwadar Harbor View Guest House",
+    "city": "Gwadar",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2600,
+    "latitude": 25.12,
+    "longitude": 62.32,
+    "amenities": [
+      "Sea Breeze",
+      "Hot Water",
+      "Breakfast Included"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "gwd-b-1",
+        "name": "Economy Sea View",
+        "price": 2600,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "gwd-b-quad",
+        "name": "Family Quad Sea View Room (4-Bed)",
+        "price": 3200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "fm-budget-pods",
+    "name": "Fairy Meadows Alpine Wooden Pods",
+    "city": "Fairy Meadows",
+    "rating": 4.2,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2800,
+    "latitude": 35.38,
+    "longitude": 74.58,
+    "amenities": [
+      "Nanga Parbat View",
+      "Wooden Heating",
+      "Bonfire & Breakfast"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "fm-b-1",
+        "name": "Alpine Wooden Pod",
+        "price": 2800,
+        "capacity": 2,
+        "available": 3,
+        "bed": "2 Single Beds"
+      },
+      {
+        "id": "fm-b-quad",
+        "name": "Family Quad Wooden Pod (4-Bed)",
+        "price": 3400,
+        "capacity": 4,
+        "available": 4,
+        "bed": "4 Single Bunk Beds"
+      }
+    ]
+  },
+  {
+    "id": "mj-budget-lodge",
+    "name": "Malam Jabba Skiers Economy Lodge",
+    "city": "Malam Jabba",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2700,
+    "latitude": 34.8,
+    "longitude": 72.57,
+    "amenities": [
+      "Ski Slope Proximity",
+      "Heater",
+      "Breakfast Included"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "mj-b-1",
+        "name": "Standard Lodge Room",
+        "price": 2700,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "mj-b-quad",
+        "name": "Family Quad Skiers Room (4-Bed)",
+        "price": 3200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "km-budget-camp",
+    "name": "Kund Malir Coastal Beach Camp",
+    "city": "Kund Malir & Hingol",
+    "rating": 4.1,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2400,
+    "latitude": 25.48,
+    "longitude": 65.48,
+    "amenities": [
+      "Beachside Tents / Rooms",
+      "Fresh Water",
+      "Breakfast Included"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "km-b-1",
+        "name": "Beach Eco Room",
+        "price": 2400,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "km-b-quad",
+        "name": "Family Quad Beach Tent (4-Bed)",
+        "price": 3000,
+        "capacity": 4,
+        "available": 4,
+        "bed": "4 Camp Mattresses"
+      }
+    ]
+  },
+  {
+    "id": "babusar-top-alpine",
+    "name": "Babusar Top Alpine Rest House & Glamping",
+    "city": "Babusar Top",
+    "rating": 4.6,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2800,
+    "latitude": 35.1483,
+    "longitude": 74.0489,
+    "amenities": [
+      "Panoramic Pass View",
+      "Hot Water",
+      "Bonfire",
+      "Free Parking",
+      "Heated Bedding"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "babusar-std",
+        "name": "Standard Alpine Room",
+        "price": 2800,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "babusar-quad",
+        "name": "Family Quad Alpine Room (4-Bed)",
+        "price": 3200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds / 4 Single Beds"
+      }
+    ]
+  },
+  {
+    "id": "babusar-pass-lodge",
+    "name": "Babusar Pass Cloud View Lodge",
+    "city": "Babusar Top",
+    "rating": 4.4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3500,
+    "latitude": 35.145,
+    "longitude": 74.052,
+    "amenities": [
+      "13,691 ft Mountain View",
+      "Hot Tea & Kahwa",
+      "Solar Heating",
+      "Restaurant"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "babusar-cloud-std",
+        "name": "Cloud View Room",
+        "price": 3500,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "babusar-cloud-quad",
+        "name": "Family Quad View Room (4-Bed)",
+        "price": 3800,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "babusar-batakundi-resort",
+    "name": "Batakundi & Babusar Heights Resort",
+    "city": "Babusar Top",
+    "rating": 4.3,
+    "comfortLevel": "Normal",
+    "pricePerNight": 4500,
+    "latitude": 35.08,
+    "longitude": 73.85,
+    "amenities": [
+      "River & Valley View",
+      "Wi-Fi",
+      "Room Service",
+      "Dining Hall",
+      "Power Backup"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=900&q=80",
+    "rooms": [
+      {
+        "id": "batakundi-std",
+        "name": "Deluxe Mountain Valley Room",
+        "price": 4500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "batakundi-fam",
+        "name": "Family Executive Suite (4-Bed)",
+        "price": 6500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 King Beds"
+      }
+    ]
+  },
+  {
+    "id": "babusar-lulusar-cabins",
+    "name": "Lulusar Lake & Babusar Eco Cabins",
+    "city": "Babusar Top",
+    "rating": 4.5,
+    "comfortLevel": "Normal",
+    "pricePerNight": 3800,
+    "latitude": 35.12,
+    "longitude": 73.95,
+    "amenities": [
+      "Lake View",
+      "Wooden Alpine Pods",
+      "Heating",
+      "BBQ Grill",
+      "Telescope Stargazing"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=900&q=80",
+    "rooms": [
+      {
+        "id": "lulusar-std",
+        "name": "Eco Lake Pod",
+        "price": 3800,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "lulusar-quad",
+        "name": "Family Eco Pod (4-Bed)",
+        "price": 4200,
+        "capacity": 4,
+        "available": 2,
+        "bed": "4 Single Mattresses"
+      }
+    ]
+  },
+  {
+    "id": "gilgit-serena",
+    "name": "Gilgit Serena Hotel",
+    "city": "Gilgit",
+    "rating": 4.7,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 24000,
+    "latitude": 35.92,
+    "longitude": 74.31,
+    "amenities": [
+      "Luxury Gardens",
+      "Free Wi-Fi",
+      "Buffet Breakfast",
+      "Airport Shuttle",
+      "Heated Rooms"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "gil-ser-std",
+        "name": "Executive Deluxe Room",
+        "price": 24000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      }
+    ]
+  },
+  {
+    "id": "gilgit-karakoram-lodge",
+    "name": "Gilgit Karakoram Budget Lodge",
+    "city": "Gilgit",
+    "rating": 4.2,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2600,
+    "latitude": 35.91,
+    "longitude": 74.32,
+    "amenities": [
+      "Free Parking",
+      "Hot Water",
+      "River View",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "gil-b-std",
+        "name": "Standard River Room",
+        "price": 2600,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "gil-b-quad",
+        "name": "Family Quad Room (4-Bed)",
+        "price": 3200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "neelum-river-resort",
+    "name": "Neelum River View Resort Keran",
+    "city": "Neelum Valley",
+    "rating": 4.5,
+    "comfortLevel": "Normal",
+    "pricePerNight": 5500,
+    "latitude": 34.65,
+    "longitude": 73.95,
+    "amenities": [
+      "Riverfront Lawn",
+      "Kashmir Dining",
+      "Bonfire",
+      "Wi-Fi",
+      "Hot Showers"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "neel-deluxe",
+        "name": "Riverside Deluxe Room",
+        "price": 5500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "neel-fam",
+        "name": "Family Riverside Suite (4-Bed)",
+        "price": 7500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "neelum-budget-gh",
+    "name": "Sharda & Neelum Alpine Budget Guest House",
+    "city": "Neelum Valley",
+    "rating": 4.2,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2500,
+    "latitude": 34.79,
+    "longitude": 74.18,
+    "amenities": [
+      "Historic Sharda Ruins View",
+      "Hot Water",
+      "Traditional Meals",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "neel-b-std",
+        "name": "Economy Mountain Room",
+        "price": 2500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "neel-b-quad",
+        "name": "Family Quad Valley Room (4-Bed)",
+        "price": 3000,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "kalam-forest-resort",
+    "name": "Kalam Pine Forest Resort",
+    "city": "Kalam Valley",
+    "rating": 4.4,
+    "comfortLevel": "Normal",
+    "pricePerNight": 5200,
+    "latitude": 35.48,
+    "longitude": 72.58,
+    "amenities": [
+      "Pine Forest View",
+      "Swat River Trout Dining",
+      "Hot Showers",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "kalam-std",
+        "name": "Pine Forest Deluxe",
+        "price": 5200,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "kalam-quad",
+        "name": "Family Quad Suite (4-Bed)",
+        "price": 6800,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 King Beds"
+      }
+    ]
+  },
+  {
+    "id": "kalam-budget-inn",
+    "name": "Kalam Riverside Budget Rest House",
+    "city": "Kalam Valley",
+    "rating": 4.1,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2400,
+    "latitude": 35.47,
+    "longitude": 72.57,
+    "amenities": [
+      "River Walk",
+      "Hot Water",
+      "Free Parking",
+      "Local Food"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "kalam-b-std",
+        "name": "Standard River Room",
+        "price": 2400,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "kalam-b-quad",
+        "name": "Family Quad 4-Bed Room",
+        "price": 2800,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "peshawar-heritage-inn",
+    "name": "Peshawar Old City Travelers Inn",
+    "city": "Peshawar",
+    "rating": 4.2,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2800,
+    "latitude": 34.01,
+    "longitude": 71.57,
+    "amenities": [
+      "Qissa Khwani Bazaar Access",
+      "Wi-Fi",
+      "Air Conditioning",
+      "Shinwari BBQ"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "pesh-b-std",
+        "name": "Standard Economy Room",
+        "price": 2800,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "pesh-b-quad",
+        "name": "Family Quad Room (4-Bed)",
+        "price": 3400,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "multan-continental-gh",
+    "name": "Multan Saints City Guest House",
+    "city": "Multan",
+    "rating": 4.2,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2600,
+    "latitude": 30.19,
+    "longitude": 71.46,
+    "amenities": [
+      "Shrine Access",
+      "Air Conditioning",
+      "Free Wi-Fi",
+      "Traditional Breakfast"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "mul-b-std",
+        "name": "Standard Double Room",
+        "price": 2600,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "mul-b-quad",
+        "name": "Family Quad 4-Bed Room",
+        "price": 3200,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "rawalpindi-potohar-inn",
+    "name": "Rawalpindi Saddar Travelers Inn",
+    "city": "Rawalpindi",
+    "rating": 4.1,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2700,
+    "latitude": 33.59,
+    "longitude": 73.05,
+    "amenities": [
+      "Metro Bus Access",
+      "Air Conditioning",
+      "Free Wi-Fi",
+      "Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "rwp-b-std",
+        "name": "Standard Room",
+        "price": 2700,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "rwp-b-quad",
+        "name": "Family Quad Room (4-Bed)",
+        "price": 3200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "thandiani-pine-lodge",
+    "name": "Thandiani Hilltop Pines Lodge",
+    "city": "Abbottabad & Thandiani",
+    "rating": 4.3,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2800,
+    "latitude": 34.25,
+    "longitude": 73.35,
+    "amenities": [
+      "High Altitude Forest View",
+      "Bonfire",
+      "Hot Showers",
+      "Heater"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "than-b-std",
+        "name": "Pine View Room",
+        "price": 2800,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "than-b-quad",
+        "name": "Family Quad Pine Room (4-Bed)",
+        "price": 3400,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "chitral-mountain-lodge",
+    "name": "Chitral & Kalash Valley Alpine Pods",
+    "city": "Chitral & Kalash",
+    "rating": 4.4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 2900,
+    "latitude": 35.85,
+    "longitude": 71.78,
+    "amenities": [
+      "Tirich Mir Mountain View",
+      "Kalash Culture Tour",
+      "Hot Water",
+      "Traditional Walnut Tea"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=900&q=80",
+    "rooms": [
+      {
+        "id": "cht-b-std",
+        "name": "Alpine Wooden Pod",
+        "price": 2900,
+        "capacity": 2,
+        "available": 4,
+        "bed": "2 Single Beds"
+      },
+      {
+        "id": "cht-b-quad",
+        "name": "Family Quad Alpine Pod (4-Bed)",
+        "price": 3500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "4 Single Beds"
+      }
+    ]
+  },
+  {
+    "id": "bahawalpur-hotel-one",
+    "name": "Hotel One Bahawalpur",
+    "city": "Bahawalpur",
+    "rating": 4.4,
+    "comfortLevel": "Normal",
+    "pricePerNight": 13500,
+    "latitude": 29.3956,
+    "longitude": 71.6836,
+    "amenities": [
+      "Free Wi-Fi",
+      "Complimentary Breakfast",
+      "AC",
+      "24/7 Room Service",
+      "Power Backup"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "bw-one-std",
+        "name": "Deluxe Room",
+        "price": 13500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "bw-one-exec",
+        "name": "Executive Suite",
+        "price": 18500,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King Bed + Sofa"
+      },
+      {
+        "id": "bw-one-fam",
+        "name": "Family Room",
+        "price": 22000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "bahawalpur-grand-regency",
+    "name": "Grand Regency Hotel Bahawalpur",
+    "city": "Bahawalpur",
+    "rating": 4.6,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 23500,
+    "latitude": 29.3872,
+    "longitude": 71.6912,
+    "amenities": [
+      "Fine Dining Restaurant",
+      "Swimming Pool",
+      "Fitness Club",
+      "Free Wi-Fi",
+      "Concierge"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "bw-reg-dlx",
+        "name": "Royal Executive Room",
+        "price": 23500,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "bw-reg-suite",
+        "name": "Nawab Presidential Suite",
+        "price": 36000,
+        "capacity": 4,
+        "available": 1,
+        "bed": "2 King Beds"
+      }
+    ]
+  },
+  {
+    "id": "bahawalpur-victoria-lodge",
+    "name": "Victoria Tourist Lodge Bahawalpur",
+    "city": "Bahawalpur",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 4200,
+    "latitude": 29.3921,
+    "longitude": 71.6789,
+    "amenities": [
+      "Free Wi-Fi",
+      "Air Cooling / AC",
+      "Car Parking",
+      "24/7 Desk"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "bw-vic-std",
+        "name": "Standard Room",
+        "price": 4200,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "bw-vic-quad",
+        "name": "Family Economy Quad",
+        "price": 5800,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "taxila-ptdc-motel",
+    "name": "PTDC Motel & Tourist Village Taxila",
+    "city": "Taxila",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 6500,
+    "latitude": 33.7463,
+    "longitude": 72.8397,
+    "amenities": [
+      "Garden View",
+      "Traditional Restaurant",
+      "Free Parking",
+      "Museum Shuttle"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "tax-ptdc-std",
+        "name": "Deluxe Heritage Room",
+        "price": 6500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "tax-ptdc-fam",
+        "name": "Family Quad Room",
+        "price": 8500,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "taxila-gandhara-resort",
+    "name": "Gandhara Castle Heritage Resort Taxila",
+    "city": "Taxila",
+    "rating": 4.7,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 16500,
+    "latitude": 33.7512,
+    "longitude": 72.845,
+    "amenities": [
+      "Historical Architecture",
+      "Fine Dining",
+      "Courtyard Gardens",
+      "Free Wi-Fi",
+      "Spa"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "tax-gan-dlx",
+        "name": "Ancient Ashoka Deluxe",
+        "price": 16500,
+        "capacity": 2,
+        "available": 3,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "tax-gan-suite",
+        "name": "Gandhara Royal Suite",
+        "price": 26000,
+        "capacity": 4,
+        "available": 1,
+        "bed": "2 King Beds"
+      }
+    ]
+  },
+  {
+    "id": "taxila-heritage-inn",
+    "name": "Taxila Ruins Budget Inn",
+    "city": "Taxila",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3500,
+    "latitude": 33.7401,
+    "longitude": 72.8311,
+    "amenities": [
+      "Free Parking",
+      "Hot Water",
+      "Wi-Fi",
+      "Room Service"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "tax-inn-std",
+        "name": "Standard Room",
+        "price": 3500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "tax-inn-quad",
+        "name": "Economy Quad (4-Bed)",
+        "price": 4800,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "rohtas-tulip-riverside",
+    "name": "Tulip Riverside Hotel Jhelum",
+    "city": "Rohtas Fort",
+    "rating": 4.5,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 15500,
+    "latitude": 32.9344,
+    "longitude": 73.7271,
+    "amenities": [
+      "River Jhelum View",
+      "Multi-Cuisine Restaurant",
+      "Gym",
+      "Free Wi-Fi",
+      "Banquet Hall"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "roh-tulip-std",
+        "name": "River View Deluxe",
+        "price": 15500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "roh-tulip-suite",
+        "name": "Executive Riverside Suite",
+        "price": 24000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King + Living Room"
+      }
+    ]
+  },
+  {
+    "id": "rohtas-heritage-resort",
+    "name": "Rohtas Fort Heritage Tourist Lodge",
+    "city": "Rohtas Fort",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 7500,
+    "latitude": 32.9667,
+    "longitude": 73.5833,
+    "amenities": [
+      "Fort View",
+      "Courtyard Dining",
+      "Tour Guide Service",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "roh-lodge-std",
+        "name": "Historic Deluxe Room",
+        "price": 7500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "roh-lodge-fam",
+        "name": "Fort Family Suite",
+        "price": 10500,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "rohtas-dina-inn",
+    "name": "Dina Rohtas Tourist Rest House",
+    "city": "Rohtas Fort",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3600,
+    "latitude": 32.981,
+    "longitude": 73.6012,
+    "amenities": [
+      "Free Parking",
+      "Hot Water",
+      "Desi Breakfast",
+      "24/7 Desk"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "roh-dina-std",
+        "name": "Budget Double Room",
+        "price": 3600,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "roh-dina-quad",
+        "name": "Budget Quad Room",
+        "price": 4600,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "mohenjo-sambara-inn",
+    "name": "Sambara Inn Larkana",
+    "city": "Mohenjo-daro",
+    "rating": 4.3,
+    "comfortLevel": "Normal",
+    "pricePerNight": 8500,
+    "latitude": 27.559,
+    "longitude": 68.212,
+    "amenities": [
+      "AC Rooms",
+      "Sindhi Traditional Food",
+      "Free Wi-Fi",
+      "Archaeological Tour Desk"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "moh-sam-std",
+        "name": "Executive Room",
+        "price": 8500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "moh-sam-fam",
+        "name": "Family Room",
+        "price": 12000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "mohenjo-ptdc-motel",
+    "name": "PTDC Motel Mohenjo-daro",
+    "city": "Mohenjo-daro",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 4000,
+    "latitude": 27.3292,
+    "longitude": 68.1389,
+    "amenities": [
+      "Direct Site Access",
+      "Lush Gardens",
+      "Restaurant",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "moh-ptdc-std",
+        "name": "Standard Site Room",
+        "price": 4000,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "moh-ptdc-quad",
+        "name": "Family Room",
+        "price": 5500,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "thatta-keenjhar-resort",
+    "name": "Keenjhar Lake Water Resort Thatta",
+    "city": "Thatta & Makli",
+    "rating": 4.3,
+    "comfortLevel": "Normal",
+    "pricePerNight": 7800,
+    "latitude": 24.9333,
+    "longitude": 68.05,
+    "amenities": [
+      "Lake View",
+      "Boating Dock",
+      "Fish BBQ Restaurant",
+      "Lawn Area"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "tha-lake-std",
+        "name": "Lake View Deluxe Hut",
+        "price": 7800,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "tha-lake-fam",
+        "name": "Family Lakeside Cottage",
+        "price": 12500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "thatta-heritage-lodge",
+    "name": "Makli Necropolis Tourist Lodge",
+    "city": "Thatta & Makli",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3500,
+    "latitude": 24.7461,
+    "longitude": 67.9239,
+    "amenities": [
+      "Historic Site Access",
+      "Traditional Sindhi Food",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "tha-mak-std",
+        "name": "Standard Room",
+        "price": 3500,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "tha-mak-quad",
+        "name": "Budget Quad",
+        "price": 4500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "deosai-wilderness-camps",
+    "name": "Deosai Glamping & Wilderness Eco Resort",
+    "city": "Deosai National Park",
+    "rating": 4.8,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 19500,
+    "latitude": 35.0303,
+    "longitude": 75.4419,
+    "amenities": [
+      "Heated Luxury Domes",
+      "Stargazing Telescopes",
+      "Gourmet Meals Included",
+      "Solar Heating",
+      "Oxygen Support"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "deo-dome-dlx",
+        "name": "Stargazer Luxury Dome",
+        "price": 19500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "deo-dome-fam",
+        "name": "Family Wilderness Dome",
+        "price": 28000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "deosai-sheosar-lodge",
+    "name": "Sheosar Lake Adventure Campsite",
+    "city": "Deosai National Park",
+    "rating": 4.3,
+    "comfortLevel": "Normal",
+    "pricePerNight": 8500,
+    "latitude": 34.9961,
+    "longitude": 75.2472,
+    "amenities": [
+      "Lake View Tents",
+      "Campfire & BBQ",
+      "Hot Sleeping Bags",
+      "Local Mountain Guide"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "deo-sheo-std",
+        "name": "Alpine Safari Tent",
+        "price": 8500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "deo-sheo-fam",
+        "name": "Family Group Tent",
+        "price": 12000,
+        "capacity": 4,
+        "available": 3,
+        "bed": "4 Single Beds"
+      }
+    ]
+  },
+  {
+    "id": "deosai-bara-pani-hut",
+    "name": "Bara Pani Alpine Base Camp",
+    "city": "Deosai National Park",
+    "rating": 4.1,
+    "comfortLevel": "Basic",
+    "pricePerNight": 4000,
+    "latitude": 35.05,
+    "longitude": 75.48,
+    "amenities": [
+      "River Crossing Point",
+      "Hot Tea & Meals",
+      "Basic Sleeping Mats",
+      "Emergency Radio"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "deo-bara-std",
+        "name": "Alpine Base Tent",
+        "price": 4000,
+        "capacity": 2,
+        "available": 8,
+        "bed": "2 Sleeping Beds"
+      },
+      {
+        "id": "deo-bara-quad",
+        "name": "Quad Trekker Tent",
+        "price": 5500,
+        "capacity": 4,
+        "available": 4,
+        "bed": "4 Trekker Mats"
+      }
+    ]
+  },
+  {
+    "id": "naltar-ski-resort",
+    "name": "Naltar Pine Ski & Mountain Resort",
+    "city": "Naltar Valley",
+    "rating": 4.7,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 21000,
+    "latitude": 36.1333,
+    "longitude": 74.1833,
+    "amenities": [
+      "Ski Slope Access",
+      "Pine Forest View",
+      "Heated Wooden Cottages",
+      "Central Heating",
+      "Gourmet Kitchen"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "nal-ski-dlx",
+        "name": "Pine Wooden Chalet",
+        "price": 21000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "nal-ski-fam",
+        "name": "Alpine Family Chalet",
+        "price": 32000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 King Beds"
+      }
+    ]
+  },
+  {
+    "id": "naltar-heights-inn",
+    "name": "Naltar Lakes Tourist Inn",
+    "city": "Naltar Valley",
+    "rating": 4.3,
+    "comfortLevel": "Normal",
+    "pricePerNight": 8500,
+    "latitude": 36.15,
+    "longitude": 74.2,
+    "amenities": [
+      "Color Lakes Jeep Shuttle",
+      "Local Trout Fish",
+      "Bonfire Night",
+      "Hot Water"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "nal-lake-std",
+        "name": "Deluxe Pine Room",
+        "price": 8500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "nal-lake-fam",
+        "name": "Family Room",
+        "price": 11500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "naltar-mehmood-lodge",
+    "name": "Mehmood Rest House Naltar Bala",
+    "city": "Naltar Valley",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3800,
+    "latitude": 36.125,
+    "longitude": 74.175,
+    "amenities": [
+      "Mountain View",
+      "Hot Water Buckets",
+      "Local Chai & Food",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "nal-meh-std",
+        "name": "Standard Room",
+        "price": 3800,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "nal-meh-quad",
+        "name": "Budget Quad (4-Bed)",
+        "price": 4800,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "khunjerab-silk-route-lodge",
+    "name": "Silk Route Luxury Lodge Sost",
+    "city": "Khunjerab Pass",
+    "rating": 4.6,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 16500,
+    "latitude": 36.6853,
+    "longitude": 74.8211,
+    "amenities": [
+      "Border Highway View",
+      "Central Heating",
+      "Chinese & Pakistani Cuisine",
+      "Free Wi-Fi",
+      "Oxygen Facility"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "khu-silk-dlx",
+        "name": "Border View Deluxe",
+        "price": 16500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "khu-silk-fam",
+        "name": "Silk Route Family Suite",
+        "price": 24000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "khunjerab-sost-embassy",
+    "name": "Sost Embassy Hotel & Tourist Point",
+    "city": "Khunjerab Pass",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 7500,
+    "latitude": 36.68,
+    "longitude": 74.815,
+    "amenities": [
+      "Free Parking",
+      "Warm Rooms",
+      "Restaurant",
+      "Currency Exchange"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "khu-emb-std",
+        "name": "Standard Heated Room",
+        "price": 7500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "khu-emb-fam",
+        "name": "Family Room",
+        "price": 10500,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "khunjerab-border-inn",
+    "name": "Khunjerab National Park Tourist Inn",
+    "city": "Khunjerab Pass",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 4200,
+    "latitude": 36.7,
+    "longitude": 74.84,
+    "amenities": [
+      "Scenic Mountain Backdrop",
+      "Warm Bedding",
+      "Hot Tea & Meals",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "khu-inn-std",
+        "name": "Budget Double",
+        "price": 4200,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "khu-inn-quad",
+        "name": "Budget Quad (4-Bed)",
+        "price": 5500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "kumrat-glamping-resort",
+    "name": "Kumrat Valley River Glamping & Pods",
+    "city": "Kumrat Valley",
+    "rating": 4.8,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 16500,
+    "latitude": 35.5342,
+    "longitude": 72.2156,
+    "amenities": [
+      "Panjkora River View",
+      "Heated Luxury Pods",
+      "Campfire & Trout BBQ",
+      "Wi-Fi",
+      "Solar Power"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "kum-glamp-std",
+        "name": "Riverfront Glamping Pod",
+        "price": 16500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "kum-glamp-fam",
+        "name": "Family Riverside Chalet",
+        "price": 24000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "kumrat-panjkora-lodge",
+    "name": "Panjkora River View Hotel Kumrat",
+    "city": "Kumrat Valley",
+    "rating": 4.3,
+    "comfortLevel": "Normal",
+    "pricePerNight": 7500,
+    "latitude": 35.52,
+    "longitude": 72.2,
+    "amenities": [
+      "Forest Setting",
+      "Hot Water",
+      "Traditional Food",
+      "Jeep Hire Service"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "kum-pan-std",
+        "name": "Deluxe Forest Room",
+        "price": 7500,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "kum-pan-fam",
+        "name": "Family Quad Room",
+        "price": 10500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "kumrat-forest-inn",
+    "name": "Thal & Kumrat Tourist Rest House",
+    "city": "Kumrat Valley",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3500,
+    "latitude": 35.505,
+    "longitude": 72.185,
+    "amenities": [
+      "Free Parking",
+      "Hot Water",
+      "Campfire Area",
+      "Local Cuisine"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "kum-for-std",
+        "name": "Budget Forest Room",
+        "price": 3500,
+        "capacity": 2,
+        "available": 8,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "kum-for-quad",
+        "name": "Budget Quad (4-Bed)",
+        "price": 4600,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "clifton-beach-luxury",
+    "name": "Beach Luxury Hotel Karachi",
+    "city": "Clifton & Sea View",
+    "rating": 4.5,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 26000,
+    "latitude": 24.8428,
+    "longitude": 66.9961,
+    "amenities": [
+      "Creek Waterfront View",
+      "Outdoor Swimming Pool",
+      "Seafood Restaurant",
+      "High-Speed Wi-Fi",
+      "Spa"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "clif-lux-std",
+        "name": "Waterfront Executive",
+        "price": 26000,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "clif-lux-suite",
+        "name": "Creek Presidential Suite",
+        "price": 42000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 King Beds"
+      }
+    ]
+  },
+  {
+    "id": "clifton-sea-view-inn",
+    "name": "Sea View Promenade Hotel",
+    "city": "Clifton & Sea View",
+    "rating": 4.1,
+    "comfortLevel": "Normal",
+    "pricePerNight": 11000,
+    "latitude": 24.795,
+    "longitude": 67.03,
+    "amenities": [
+      "Arabian Sea Breeze",
+      "AC",
+      "Breakfast Included",
+      "Free Wi-Fi",
+      "Beach Access"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "clif-view-std",
+        "name": "Ocean View Room",
+        "price": 11000,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "clif-view-fam",
+        "name": "Family Beach Suite",
+        "price": 16500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "clifton-budget-lodge",
+    "name": "Clifton Coast Tourist Lodge",
+    "city": "Clifton & Sea View",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 5200,
+    "latitude": 24.81,
+    "longitude": 67.025,
+    "amenities": [
+      "Free Wi-Fi",
+      "AC",
+      "24/7 Desk",
+      "Room Service"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "clif-bud-std",
+        "name": "Standard Room",
+        "price": 5200,
+        "capacity": 2,
+        "available": 7,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "clif-bud-quad",
+        "name": "Family Quad",
+        "price": 7200,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "hawksbay-beach-chalets",
+    "name": "Hawksbay Coastal Chalets & Huts",
+    "city": "French Beach & Hawksbay",
+    "rating": 4.6,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 24000,
+    "latitude": 24.8561,
+    "longitude": 66.8622,
+    "amenities": [
+      "Direct Sand Beachfront",
+      "Private BBQ Terrace",
+      "Generator Power Backup",
+      "Kitchen Facility",
+      "Caretaker"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "hawk-chalet-std",
+        "name": "Private Beach Chalet",
+        "price": 24000,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 King Beds"
+      },
+      {
+        "id": "hawk-chalet-large",
+        "name": "VIP Double Beach Villa",
+        "price": 38000,
+        "capacity": 8,
+        "available": 1,
+        "bed": "4 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "french-beach-residency",
+    "name": "French Beach Tourist Huts",
+    "city": "French Beach & Hawksbay",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 12500,
+    "latitude": 24.845,
+    "longitude": 66.84,
+    "amenities": [
+      "Rocky Beach View",
+      "Snorkeling Access",
+      "Seafood Catering",
+      "Private Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "fren-hut-std",
+        "name": "Beachfront Hut",
+        "price": 12500,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      },
+      {
+        "id": "fren-hut-fam",
+        "name": "Deluxe Extended Hut",
+        "price": 18000,
+        "capacity": 6,
+        "available": 2,
+        "bed": "3 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "hawksbay-budget-huts",
+    "name": "Mauripur Coast Tourist Huts",
+    "city": "French Beach & Hawksbay",
+    "rating": 3.8,
+    "comfortLevel": "Basic",
+    "pricePerNight": 5500,
+    "latitude": 24.86,
+    "longitude": 66.87,
+    "amenities": [
+      "Beach Access",
+      "Fresh Water",
+      "Parking",
+      "Day & Night Stay"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "hawk-bud-hut",
+        "name": "Standard Beach Hut",
+        "price": 5500,
+        "capacity": 4,
+        "available": 5,
+        "bed": "2 Charpoys + Mattresses"
+      }
+    ]
+  },
+  {
+    "id": "ormara-beach-resort",
+    "name": "Ormara Turtle Beach Resort",
+    "city": "Ormara Beach",
+    "rating": 4.6,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 16500,
+    "latitude": 25.2078,
+    "longitude": 64.6364,
+    "amenities": [
+      "Makran Coastal Highway View",
+      "Private Arabian Sea Beach",
+      "Seafood Dining",
+      "Campfire Nights",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "orm-res-dlx",
+        "name": "Oceanfront Eco Chalet",
+        "price": 16500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "orm-res-fam",
+        "name": "Family Coastal Villa",
+        "price": 24000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "ormara-hammerhead-inn",
+    "name": "Hammerhead View Tourist Inn Ormara",
+    "city": "Ormara Beach",
+    "rating": 4.1,
+    "comfortLevel": "Normal",
+    "pricePerNight": 7500,
+    "latitude": 25.2,
+    "longitude": 64.62,
+    "amenities": [
+      "Hammerhead Cliff View",
+      "Hot Water",
+      "Desi & Balochi Cuisine",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "orm-ham-std",
+        "name": "Standard Room",
+        "price": 7500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "orm-ham-quad",
+        "name": "Family Quad Room",
+        "price": 10500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "ormara-coastal-lodge",
+    "name": "Ormara Coastal Rest House",
+    "city": "Ormara Beach",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3800,
+    "latitude": 25.195,
+    "longitude": 64.61,
+    "amenities": [
+      "Beach Access",
+      "Power Backup",
+      "Local Chai & Food",
+      "Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "orm-coa-std",
+        "name": "Budget Double",
+        "price": 3800,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "orm-coa-quad",
+        "name": "Budget Quad (4-Bed)",
+        "price": 4800,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "astola-eco-resort",
+    "name": "Astola Eco-Island Expedition Camp",
+    "city": "Astola Island",
+    "rating": 4.8,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 19500,
+    "latitude": 25.1219,
+    "longitude": 63.8475,
+    "amenities": [
+      "Island Glamping Tents",
+      "Snorkeling & Scuba Gear",
+      "Deep Sea Fishing",
+      "Boat Transport Included",
+      "Fresh Seafood Chef"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "ast-eco-dlx",
+        "name": "Coral Bay Safari Tent",
+        "price": 19500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "ast-eco-quad",
+        "name": "Expedition Quad Tent",
+        "price": 26000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "4 Single Mats"
+      }
+    ]
+  },
+  {
+    "id": "astola-pasni-lodge",
+    "name": "Pasni Harbour Transit Tourist Lodge",
+    "city": "Astola Island",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3800,
+    "latitude": 25.2631,
+    "longitude": 63.4692,
+    "amenities": [
+      "Harbour View",
+      "Astola Boat Booking",
+      "Hot Water",
+      "Desi Fish Restaurant"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "ast-pas-std",
+        "name": "Standard Room",
+        "price": 3800,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "ast-pas-quad",
+        "name": "Family Quad",
+        "price": 5000,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "faisalabad-serena",
+    "name": "Faisalabad Serena Hotel",
+    "city": "Faisalabad",
+    "rating": 4.7,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 28500,
+    "latitude": 31.4187,
+    "longitude": 73.0791,
+    "amenities": [
+      "5-Star Luxury",
+      "Swimming Pool",
+      "Health Club & Spa",
+      "Executive Lounge",
+      "Multiple Restaurants"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "fsd-ser-dlx",
+        "name": "Deluxe King Room",
+        "price": 28500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "fsd-ser-suite",
+        "name": "Serena Executive Suite",
+        "price": 45000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King + Living Room"
+      }
+    ]
+  },
+  {
+    "id": "faisalabad-hotel-one",
+    "name": "Hotel One Faisalabad",
+    "city": "Faisalabad",
+    "rating": 4.3,
+    "comfortLevel": "Normal",
+    "pricePerNight": 13500,
+    "latitude": 31.425,
+    "longitude": 73.085,
+    "amenities": [
+      "Complimentary Breakfast",
+      "Free High-Speed Wi-Fi",
+      "Gym",
+      "Restaurant",
+      "Airport Shuttle"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "fsd-one-std",
+        "name": "Deluxe Room",
+        "price": 13500,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "fsd-one-fam",
+        "name": "Family Room",
+        "price": 18500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "faisalabad-heritage-inn",
+    "name": "Clock Tower Tourist Inn Faisalabad",
+    "city": "Faisalabad",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 4200,
+    "latitude": 31.415,
+    "longitude": 73.075,
+    "amenities": [
+      "City Center",
+      "AC",
+      "Free Wi-Fi",
+      "24/7 Room Service"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "fsd-inn-std",
+        "name": "Standard Room",
+        "price": 4200,
+        "capacity": 2,
+        "available": 8,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "fsd-inn-quad",
+        "name": "Economy Quad",
+        "price": 5800,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "sialkot-javson-hotel",
+    "name": "Javson Hotel Sialkot",
+    "city": "Sialkot",
+    "rating": 4.6,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 22000,
+    "latitude": 32.502,
+    "longitude": 74.536,
+    "amenities": [
+      "Executive Business Rooms",
+      "Swimming Pool",
+      "Multi-Cuisine Buffet",
+      "Fitness Center",
+      "Valet Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "skt-jav-dlx",
+        "name": "Executive Deluxe Room",
+        "price": 22000,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "skt-jav-suite",
+        "name": "Presidential Suite",
+        "price": 35000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King + Living Lounge"
+      }
+    ]
+  },
+  {
+    "id": "sialkot-hotel-one",
+    "name": "Hotel One Sialkot",
+    "city": "Sialkot",
+    "rating": 4.3,
+    "comfortLevel": "Normal",
+    "pricePerNight": 13000,
+    "latitude": 32.495,
+    "longitude": 74.528,
+    "amenities": [
+      "Buffet Breakfast",
+      "Free Wi-Fi",
+      "AC",
+      "Room Service",
+      "Airport Pick & Drop"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "skt-one-std",
+        "name": "Deluxe Room",
+        "price": 13000,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "skt-one-fam",
+        "name": "Family Room",
+        "price": 17500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "sialkot-premier-lodge",
+    "name": "Sialkot Cantt Tourist Lodge",
+    "city": "Sialkot",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3900,
+    "latitude": 32.51,
+    "longitude": 74.54,
+    "amenities": [
+      "Safe Location",
+      "AC",
+      "Free Wi-Fi",
+      "24/7 Desk"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "skt-prem-std",
+        "name": "Standard Room",
+        "price": 3900,
+        "capacity": 2,
+        "available": 7,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "skt-prem-quad",
+        "name": "Economy Quad",
+        "price": 5200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "harappa-sahiwal-hotel-one",
+    "name": "Hotel One Sahiwal",
+    "city": "Harappa",
+    "rating": 4.3,
+    "comfortLevel": "Normal",
+    "pricePerNight": 11500,
+    "latitude": 30.6682,
+    "longitude": 73.1114,
+    "amenities": [
+      "Free Wi-Fi",
+      "Complimentary Breakfast",
+      "AC",
+      "Restaurant",
+      "Harappa Tour Desk"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "har-one-std",
+        "name": "Deluxe King",
+        "price": 11500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "har-one-fam",
+        "name": "Family Suite",
+        "price": 16000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "harappa-archaeology-rest-house",
+    "name": "Harappa Museum Archaeological Rest House",
+    "city": "Harappa",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3500,
+    "latitude": 30.63,
+    "longitude": 72.86,
+    "amenities": [
+      "Direct Ruins Walk",
+      "Lawn & Gardens",
+      "Traditional Food",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "har-arc-std",
+        "name": "Heritage Double",
+        "price": 3500,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "har-arc-quad",
+        "name": "Heritage Quad",
+        "price": 4600,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "khewra-salt-resort",
+    "name": "Khewra Salt Range Tourist Resort",
+    "city": "Katas Raj & Khewra",
+    "rating": 4.4,
+    "comfortLevel": "Normal",
+    "pricePerNight": 7800,
+    "latitude": 32.65,
+    "longitude": 73.01,
+    "amenities": [
+      "Salt Mine View",
+      "Restaurant",
+      "AC",
+      "Wi-Fi",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "kat-khe-std",
+        "name": "Salt Range Deluxe",
+        "price": 7800,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "kat-khe-fam",
+        "name": "Family Quad",
+        "price": 10500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "katas-raj-heritage-inn",
+    "name": "Katas Raj Sacred Pond Guest House",
+    "city": "Katas Raj & Khewra",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3400,
+    "latitude": 32.7275,
+    "longitude": 72.9556,
+    "amenities": [
+      "Temple View",
+      "Lush Hills",
+      "Desi Food",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "kat-inn-std",
+        "name": "Standard Room",
+        "price": 3400,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "kat-inn-quad",
+        "name": "Budget Quad",
+        "price": 4500,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "hyderabad-indus-hotel",
+    "name": "Indus Hotel Hyderabad",
+    "city": "Hyderabad",
+    "rating": 4.5,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 18500,
+    "latitude": 25.396,
+    "longitude": 68.3578,
+    "amenities": [
+      "Fine Dining Restaurant",
+      "AC",
+      "Free High-Speed Wi-Fi",
+      "Gym",
+      "Banquet Services"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "hyd-ind-dlx",
+        "name": "Executive Deluxe",
+        "price": 18500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "hyd-ind-suite",
+        "name": "Royal Indus Suite",
+        "price": 28000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King + Living Room"
+      }
+    ]
+  },
+  {
+    "id": "hyderabad-city-gate",
+    "name": "City Gate Hotel Hyderabad",
+    "city": "Hyderabad",
+    "rating": 4.1,
+    "comfortLevel": "Normal",
+    "pricePerNight": 8500,
+    "latitude": 25.385,
+    "longitude": 68.365,
+    "amenities": [
+      "Central City Location",
+      "AC",
+      "Breakfast Included",
+      "Free Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "hyd-gate-std",
+        "name": "Deluxe Room",
+        "price": 8500,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "hyd-gate-fam",
+        "name": "Family Room",
+        "price": 12000,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "hyderabad-budget-inn",
+    "name": "Sindh Heritage Budget Inn Hyderabad",
+    "city": "Hyderabad",
+    "rating": 3.8,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3900,
+    "latitude": 25.39,
+    "longitude": 68.37,
+    "amenities": [
+      "Free Parking",
+      "AC",
+      "24/7 Desk",
+      "Room Service"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "hyd-bud-std",
+        "name": "Standard Room",
+        "price": 3900,
+        "capacity": 2,
+        "available": 7,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "hyd-bud-quad",
+        "name": "Economy Quad",
+        "price": 5200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "sukkur-hotel-one",
+    "name": "Hotel One Sukkur",
+    "city": "Sukkur",
+    "rating": 4.4,
+    "comfortLevel": "Normal",
+    "pricePerNight": 13500,
+    "latitude": 27.7052,
+    "longitude": 68.8574,
+    "amenities": [
+      "Buffet Breakfast",
+      "Airport Shuttle",
+      "Free Wi-Fi",
+      "AC",
+      "Lansdowne Bridge Tour Desk"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "suk-one-std",
+        "name": "Deluxe Room",
+        "price": 13500,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "suk-one-fam",
+        "name": "Family Suite",
+        "price": 18000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "sukkur-indus-hotel",
+    "name": "Indus Hotel Sukkur",
+    "city": "Sukkur",
+    "rating": 4.5,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 19000,
+    "latitude": 27.712,
+    "longitude": 68.865,
+    "amenities": [
+      "River Indus View",
+      "Swimming Pool",
+      "Multi-Cuisine Dining",
+      "Free Wi-Fi",
+      "Fitness Center"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "suk-ind-dlx",
+        "name": "Riverfront Deluxe",
+        "price": 19000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "suk-ind-suite",
+        "name": "Executive Suite",
+        "price": 29000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King + Living Lounge"
+      }
+    ]
+  },
+  {
+    "id": "sukkur-forum-inn",
+    "name": "Forum Inn Tourist Lodge Sukkur",
+    "city": "Sukkur",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 4200,
+    "latitude": 27.7,
+    "longitude": 68.85,
+    "amenities": [
+      "Central Location",
+      "AC",
+      "Desi Breakfast",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "suk-for-std",
+        "name": "Standard Room",
+        "price": 4200,
+        "capacity": 2,
+        "available": 7,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "suk-for-quad",
+        "name": "Economy Quad",
+        "price": 5600,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "manora-marina-resort",
+    "name": "Manora Marina Waterfront Resort",
+    "city": "Manora Island",
+    "rating": 4.5,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 19500,
+    "latitude": 24.795,
+    "longitude": 66.973,
+    "amenities": [
+      "Private Beach Promenade",
+      "Harbour Ferry Access",
+      "Seafood Grill",
+      "Lighthouse View",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "man-res-dlx",
+        "name": "Waterfront Chalet",
+        "price": 19500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "man-res-fam",
+        "name": "Family Beach Villa",
+        "price": 28000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "manora-lighthouse-lodge",
+    "name": "Manora Lighthouse Tourist Rest House",
+    "city": "Manora Island",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 4500,
+    "latitude": 24.79,
+    "longitude": 66.97,
+    "amenities": [
+      "Sea View",
+      "Ferry Point Walking Distance",
+      "Local Fish Dhaba",
+      "Terrace"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "man-lig-std",
+        "name": "Standard Room",
+        "price": 4500,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "man-lig-quad",
+        "name": "Family Quad",
+        "price": 6200,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "quetta-serena-hotel",
+    "name": "Quetta Serena Hotel",
+    "city": "Quetta",
+    "rating": 4.7,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 29500,
+    "latitude": 30.1798,
+    "longitude": 67.0011,
+    "amenities": [
+      "5-Star Luxury",
+      "Heated Outdoor Pool",
+      "Tennis Courts",
+      "Traditional Balochi Sajji",
+      "Spa & Health Club"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "qta-ser-dlx",
+        "name": "Executive Deluxe",
+        "price": 29500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "qta-ser-suite",
+        "name": "Ziarat Suite",
+        "price": 46000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King + Sitting Area"
+      },
+      {
+        "id": "qta-ser-fam",
+        "name": "Family Executive Suite",
+        "price": 54000,
+        "capacity": 4,
+        "available": 1,
+        "bed": "2 King Beds"
+      }
+    ]
+  },
+  {
+    "id": "quetta-bloom-star",
+    "name": "Bloom Star Hotel Quetta",
+    "city": "Quetta",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 9500,
+    "latitude": 30.185,
+    "longitude": 67.012,
+    "amenities": [
+      "Lush Garden",
+      "Traditional Food",
+      "Heating / AC",
+      "Free Wi-Fi",
+      "Secure Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80",
+    "rooms": [
+      {
+        "id": "qta-bloom-std",
+        "name": "Deluxe Garden Room",
+        "price": 9500,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "qta-bloom-fam",
+        "name": "Family Garden Suite",
+        "price": 13500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "quetta-lourdes-hotel",
+    "name": "Lourdes Hotel Quetta",
+    "city": "Quetta",
+    "rating": 4.1,
+    "comfortLevel": "Normal",
+    "pricePerNight": 8000,
+    "latitude": 30.19,
+    "longitude": 67.015,
+    "amenities": [
+      "Historic Property",
+      "Spacious Lawns",
+      "Traditional Restaurant",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "qta-lour-std",
+        "name": "Deluxe Classic Room",
+        "price": 8000,
+        "capacity": 2,
+        "available": 6,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "qta-lour-fam",
+        "name": "Family Room",
+        "price": 11000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "quetta-budget-inn",
+    "name": "Chaman Highway Tourist Rest House Quetta",
+    "city": "Quetta",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3800,
+    "latitude": 30.17,
+    "longitude": 67.005,
+    "amenities": [
+      "Free Parking",
+      "Warm Bedding",
+      "Hot Water",
+      "Desi Tea & Food"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "qta-bud-std",
+        "name": "Budget Double",
+        "price": 3800,
+        "capacity": 2,
+        "available": 8,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "qta-bud-quad",
+        "name": "Budget Quad (4-Bed)",
+        "price": 4800,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "ziarat-juniper-resort",
+    "name": "Juniper View Alpine Resort Ziarat",
+    "city": "Ziarat",
+    "rating": 4.6,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 16500,
+    "latitude": 30.3833,
+    "longitude": 67.7333,
+    "amenities": [
+      "Juniper Forest Panoramic View",
+      "Central Heating",
+      "Balochi Sajji & Barbeque",
+      "Free Wi-Fi",
+      "Campfire"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "zia-jun-dlx",
+        "name": "Juniper Chalet",
+        "price": 16500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "zia-jun-fam",
+        "name": "Family Pine Suite",
+        "price": 24000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "ziarat-ptdc-motel",
+    "name": "PTDC Motel Ziarat",
+    "city": "Ziarat",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 7500,
+    "latitude": 30.38,
+    "longitude": 67.728,
+    "amenities": [
+      "Near Quaid-e-Azam Residency",
+      "Heaters",
+      "Lush Pine Lawns",
+      "Traditional Food"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "zia-ptdc-std",
+        "name": "Deluxe Pine Room",
+        "price": 7500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "zia-ptdc-fam",
+        "name": "Family Quad Room",
+        "price": 10500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "ziarat-residency-inn",
+    "name": "Ziarat Valley Budget Rest House",
+    "city": "Ziarat",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3800,
+    "latitude": 30.375,
+    "longitude": 67.72,
+    "amenities": [
+      "Mountain View",
+      "Hot Water",
+      "Warm Blankets",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "zia-bud-std",
+        "name": "Budget Double",
+        "price": 3800,
+        "capacity": 2,
+        "available": 7,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "zia-bud-quad",
+        "name": "Budget Quad (4-Bed)",
+        "price": 4800,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "astore-rama-resort",
+    "name": "Rama Green Valley Resort & Lake Lodge",
+    "city": "Astore & Rama Meadows",
+    "rating": 4.7,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 15500,
+    "latitude": 35.3667,
+    "longitude": 74.9,
+    "amenities": [
+      "Nanga Parbat Peak View",
+      "Heated Wooden Cabins",
+      "Bonfire Nights",
+      "Trout Fish",
+      "Rama Lake Guide"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "ast-ram-dlx",
+        "name": "Nanga Parbat View Cabin",
+        "price": 15500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "ast-ram-fam",
+        "name": "Meadow Family Chalet",
+        "price": 23000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "astore-valley-inn",
+    "name": "Astore Heights Tourist Inn",
+    "city": "Astore & Rama Meadows",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 7000,
+    "latitude": 35.35,
+    "longitude": 74.885,
+    "amenities": [
+      "River View",
+      "Hot Water",
+      "Traditional Food",
+      "Jeep Hire Service"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "ast-val-std",
+        "name": "Deluxe View Room",
+        "price": 7000,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "ast-val-fam",
+        "name": "Family Quad Room",
+        "price": 9500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "astore-wazir-lodge",
+    "name": "Wazir Alpine Rest House Astore",
+    "city": "Astore & Rama Meadows",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3500,
+    "latitude": 35.34,
+    "longitude": 74.87,
+    "amenities": [
+      "Mountain View",
+      "Hot Water Buckets",
+      "Desi Chai & Food",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "ast-waz-std",
+        "name": "Standard Room",
+        "price": 3500,
+        "capacity": 2,
+        "available": 8,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "ast-waz-quad",
+        "name": "Budget Quad (4-Bed)",
+        "price": 4600,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "khaplu-serena-palace",
+    "name": "Serena Khaplu Palace Heritage Hotel",
+    "city": "Khaplu & Shigar",
+    "rating": 4.8,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 32000,
+    "latitude": 35.1583,
+    "longitude": 76.3333,
+    "amenities": [
+      "19th-Century Royal Palace",
+      "Lush Apricot Orchards",
+      "Organic Dining",
+      "Balti Cultural Museum",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "khp-ser-dlx",
+        "name": "Royal Heritage Deluxe",
+        "price": 32000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "khp-ser-suite",
+        "name": "Raja Royal Suite",
+        "price": 48000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King + Royal Lounge"
+      }
+    ]
+  },
+  {
+    "id": "shigar-serena-fort",
+    "name": "Serena Shigar Fort - Fong-Khar",
+    "city": "Khaplu & Shigar",
+    "rating": 4.9,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 34000,
+    "latitude": 35.4267,
+    "longitude": 75.7333,
+    "amenities": [
+      "400-Year-Old Palace on the Rock",
+      "Stream Side Dining",
+      "Balti Heritage Rooms",
+      "Gourmet Organic Food",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "shg-ser-dlx",
+        "name": "Historic Fort Deluxe",
+        "price": 34000,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "shg-ser-suite",
+        "name": "Amacha Garden Suite",
+        "price": 52000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King + Sitting Terrace"
+      }
+    ]
+  },
+  {
+    "id": "shigar-karakoram-view",
+    "name": "Karakoram View Tourist Inn Shigar",
+    "city": "Khaplu & Shigar",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 8500,
+    "latitude": 35.42,
+    "longitude": 75.725,
+    "amenities": [
+      "Fruit Orchard View",
+      "Hot Water",
+      "Balti Food",
+      "Jeep Rental Desk"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "shg-kar-std",
+        "name": "Deluxe Orchard Room",
+        "price": 8500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "shg-kar-fam",
+        "name": "Family Quad Room",
+        "price": 11500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "khaplu-budget-lodge",
+    "name": "Khaplu Valley Budget Rest House",
+    "city": "Khaplu & Shigar",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 4000,
+    "latitude": 35.15,
+    "longitude": 76.325,
+    "amenities": [
+      "Mountain View",
+      "Hot Water",
+      "Desi Tea & Food",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "khp-bud-std",
+        "name": "Standard Room",
+        "price": 4000,
+        "capacity": 2,
+        "available": 7,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "khp-bud-quad",
+        "name": "Budget Quad (4-Bed)",
+        "price": 5200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "phander-lake-resort",
+    "name": "Phander Lake Holiday Resort & Cabins",
+    "city": "Ghizer & Phander Lake",
+    "rating": 4.7,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 16500,
+    "latitude": 36.1772,
+    "longitude": 72.9378,
+    "amenities": [
+      "Phander Cobalt Lake View",
+      "Trout Fishing",
+      "Heated Wooden Cabins",
+      "Campfire & BBQ",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "pha-res-dlx",
+        "name": "Cobalt Lakefront Cabin",
+        "price": 16500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "pha-res-fam",
+        "name": "Family Lakeside Villa",
+        "price": 24000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "phander-ptdc-motel",
+    "name": "PTDC Motel Phander Ghizer",
+    "city": "Ghizer & Phander Lake",
+    "rating": 4.3,
+    "comfortLevel": "Normal",
+    "pricePerNight": 8000,
+    "latitude": 36.18,
+    "longitude": 72.94,
+    "amenities": [
+      "Valley River View",
+      "Trout Dining",
+      "Free Parking",
+      "Hot Water"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "pha-ptdc-std",
+        "name": "Deluxe Lake View",
+        "price": 8000,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "pha-ptdc-fam",
+        "name": "Family Quad Room",
+        "price": 11000,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "ghizer-river-inn",
+    "name": "Ghizer River Tourist Rest House",
+    "city": "Ghizer & Phander Lake",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3600,
+    "latitude": 36.165,
+    "longitude": 72.92,
+    "amenities": [
+      "River Sound",
+      "Hot Water Buckets",
+      "Local Chai & Food",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "ghi-inn-std",
+        "name": "Budget Double",
+        "price": 3600,
+        "capacity": 2,
+        "available": 7,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "ghi-inn-quad",
+        "name": "Budget Quad (4-Bed)",
+        "price": 4800,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "muzaffarabad-pc-hotel",
+    "name": "Pearl Continental Hotel Muzaffarabad",
+    "city": "Muzaffarabad & Pir Chinasi",
+    "rating": 4.8,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 27500,
+    "latitude": 34.37,
+    "longitude": 73.4711,
+    "amenities": [
+      "Hilltop Panoramic View",
+      "5-Star Luxury",
+      "Multi-Cuisine Restaurants",
+      "Fitness Center",
+      "Spa & Heated Jacuzzi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    "rooms": [
+      {
+        "id": "muz-pc-dlx",
+        "name": "Deluxe Mountain View",
+        "price": 27500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "muz-pc-suite",
+        "name": "Kashmir Executive Suite",
+        "price": 44000,
+        "capacity": 3,
+        "available": 2,
+        "bed": "1 King + Living Lounge"
+      },
+      {
+        "id": "muz-pc-fam",
+        "name": "Family Suite",
+        "price": 52000,
+        "capacity": 4,
+        "available": 1,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "pir-chinasi-heights-resort",
+    "name": "Pir Chinasi Panoramic Heights Resort",
+    "city": "Muzaffarabad & Pir Chinasi",
+    "rating": 4.4,
+    "comfortLevel": "Normal",
+    "pricePerNight": 10500,
+    "latitude": 34.385,
+    "longitude": 73.535,
+    "amenities": [
+      "Cloud View at 9,500ft",
+      "Heated Rooms",
+      "Campfire & BBQ",
+      "Wi-Fi",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "pir-chi-std",
+        "name": "Deluxe Cloud Room",
+        "price": 10500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "pir-chi-fam",
+        "name": "Family Cloud Suite",
+        "price": 14500,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "muzaffarabad-neelum-view",
+    "name": "Neelum View Tourist Rest House Muzaffarabad",
+    "city": "Muzaffarabad & Pir Chinasi",
+    "rating": 4,
+    "comfortLevel": "Basic",
+    "pricePerNight": 4000,
+    "latitude": 34.36,
+    "longitude": 73.46,
+    "amenities": [
+      "River Neelum View",
+      "Hot Water",
+      "Kashmiri Cuisine",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "muz-nee-std",
+        "name": "Standard Room",
+        "price": 4000,
+        "capacity": 2,
+        "available": 7,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "muz-nee-quad",
+        "name": "Budget Quad (4-Bed)",
+        "price": 5200,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  },
+  {
+    "id": "banjosa-lake-resort",
+    "name": "Banjosa Lake Pine Resort & Cabins",
+    "city": "Rawalakot & Banjosa Lake",
+    "rating": 4.6,
+    "comfortLevel": "Luxury",
+    "pricePerNight": 17500,
+    "latitude": 33.8058,
+    "longitude": 73.8189,
+    "amenities": [
+      "Direct Lakeside Wooden Cabins",
+      "Dense Pine Forests",
+      "Boating Dock",
+      "Bonfire & BBQ",
+      "Wi-Fi"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80",
+    "rooms": [
+      {
+        "id": "ban-lake-dlx",
+        "name": "Lakeside Pine Chalet",
+        "price": 17500,
+        "capacity": 2,
+        "available": 4,
+        "bed": "1 King Bed"
+      },
+      {
+        "id": "ban-lake-fam",
+        "name": "Family Lake Villa",
+        "price": 25000,
+        "capacity": 4,
+        "available": 2,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "toli-peer-tourist-inn",
+    "name": "Toli Peer Green Heights Tourist Inn",
+    "city": "Rawalakot & Banjosa Lake",
+    "rating": 4.2,
+    "comfortLevel": "Normal",
+    "pricePerNight": 8500,
+    "latitude": 33.89,
+    "longitude": 73.86,
+    "amenities": [
+      "Panoramic Meadow View",
+      "Hot Water",
+      "Kashmiri Chai & BBQ",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80",
+    "rooms": [
+      {
+        "id": "tol-peer-std",
+        "name": "Deluxe Meadow Room",
+        "price": 8500,
+        "capacity": 2,
+        "available": 5,
+        "bed": "1 Queen Bed"
+      },
+      {
+        "id": "tol-peer-fam",
+        "name": "Family Quad Room",
+        "price": 11500,
+        "capacity": 4,
+        "available": 3,
+        "bed": "2 Queen Beds"
+      }
+    ]
+  },
+  {
+    "id": "rawalakot-green-lodge",
+    "name": "Rawalakot Valley Tourist Rest House",
+    "city": "Rawalakot & Banjosa Lake",
+    "rating": 3.9,
+    "comfortLevel": "Basic",
+    "pricePerNight": 3800,
+    "latitude": 33.85,
+    "longitude": 73.76,
+    "amenities": [
+      "Valley View",
+      "Hot Water",
+      "Desi Food",
+      "Free Parking"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80",
+    "rooms": [
+      {
+        "id": "raw-lod-std",
+        "name": "Standard Room",
+        "price": 3800,
+        "capacity": 2,
+        "available": 7,
+        "bed": "1 Double Bed"
+      },
+      {
+        "id": "raw-lod-quad",
+        "name": "Budget Quad (4-Bed)",
+        "price": 4900,
+        "capacity": 4,
+        "available": 4,
+        "bed": "2 Double Beds"
+      }
+    ]
+  }
+]

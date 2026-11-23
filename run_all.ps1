@@ -28,11 +28,17 @@ $repoRoot = $PSScriptRoot
 $backendScript = Join-Path $repoRoot "scripts\\start-backend.ps1"
 $frontendScript = Join-Path $repoRoot "scripts\\start-frontend.ps1"
 $mlScript = Join-Path $repoRoot "scripts\\start-ml.ps1"
+$mongoScript = Join-Path $repoRoot "scripts\\start-mongo.ps1"
 $venvPython = Join-Path $repoRoot ".venv\\Scripts\\python.exe"
 
 if (-not (Test-Path -LiteralPath $backendScript)) { throw "Missing script: $backendScript" }
 if (-not (Test-Path -LiteralPath $frontendScript)) { throw "Missing script: $frontendScript" }
 if (-not (Test-Path -LiteralPath $mlScript)) { throw "Missing script: $mlScript" }
+
+if (Test-Path -LiteralPath $mongoScript) {
+  Write-Host "Ensuring local MongoDB daemon is running..." -ForegroundColor Cyan
+  & $mongoScript
+}
 
 $portToUse = Get-FreePort $BackendPort
 $mlPortToUse = Get-FreePort $MlPort

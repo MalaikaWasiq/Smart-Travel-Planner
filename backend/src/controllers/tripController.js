@@ -5,6 +5,21 @@ const { buildTripRoutes } = require('../services/routeService');
 const { calculateBudget } = require('../services/budgetService');
 const { syncTripAlerts } = require('../services/alertService');
 
+function sanitizeTripForUser(tripDoc, role) {
+  if (!tripDoc) return tripDoc;
+  const trip = tripDoc.toObject ? tripDoc.toObject() : JSON.parse(JSON.stringify(tripDoc));
+  if (role === 'admin') return trip;
+
+  // Protect internal company financial calculations, markups, and cost allocation trees from customers
+  if (trip.budgetBreakdown) {
+    delete trip.budgetBreakdown.companyProfit;
+    delete trip.budgetBreakdown.safetyMargin;
+    delete trip.budgetBreakdown.allocation;
+  }
+  delete trip.budgetAllocation;
+  return trip;
+}
+
 function requireDatabase(req) {
   if (!req.app.locals.dbReady) throw httpError(503, 'Database is not configured');
 }
@@ -12,14 +27,127 @@ function requireDatabase(req) {
 function normalizeTripInput(input, current = {}) {
   const destination = String(input.destination ?? current.destination ?? '').trim();
   const days = Math.min(Math.max(Number(input.days ?? current.days), 1), 14);
-  const budget = Number(input.budget ?? current.budget);
   const interests = Array.isArray(input.interests ?? current.interests)
-    ? (input.interests ?? current.interests).map((value) => String(value).trim()).filter(Boolean).slice(0, 10)
+    ? (input.interests ?? current.interests).map((value) => String(value).trim()).filter(Boolean).slice(0, 15)
     : [];
+  const travelType = ['Solo', 'Family', 'Group', 'Tour Company'].includes(input.travelType ?? current.travelType)
+    ? (input.travelType ?? current.travelType)
+    : 'Solo';
+  const transportation = String(input.transportation ?? current.transportation ?? 'Private Car').trim();
+  const comfortLevel = ['Basic', 'Normal', 'Luxury'].includes(input.comfortLevel ?? current.comfortLevel)
+    ? (input.comfortLevel ?? current.comfortLevel)
+    : 'Normal';
+  const hotelRequired = input.hotelRequired !== undefined
+    ? Boolean(input.hotelRequired)
+    : (current.hotelRequired !== undefined ? Boolean(current.hotelRequired) : true);
+  const selectedHotelId = input.selectedHotelId || current.selectedHotel?.id || undefined;
+  const selectedRoomId = input.selectedRoomId || current.selectedHotel?.selectedRoom?.id || undefined;
+  const startLocation = String(input.startLocation ?? current.startLocation ?? 'Islamabad').trim() || 'Islamabad';
+  const startDate = String(input.startDate ?? current.startDate ?? new Date().toISOString().split('T')[0]).trim();
+  const category = String(input.category ?? current.category ?? '').trim();
+
+  let endDate = input.endDate ?? current.endDate;
+  if (!endDate && startDate) {
+    const sDate = new Date(startDate);
+    if (!isNaN(sDate.getTime())) {
+      const eDate = new Date(sDate.getTime() + Math.max(0, days - 1) * 24 * 60 * 60 * 1000);
+      endDate = eDate.toISOString().split('T')[0];
+    }
+  }
+
+  const numberOfPersons = Math.max(1, Number(input.numberOfPersons ?? current.numberOfPersons ?? 1));
+  let budget = Number(input.budget ?? current.budget);
+  if (!Number.isFinite(budget) || budget <= 0) {
+    const pBudget = Number(input.budgetPerPerson ?? current.budgetPerPerson);
+    if (Number.isFinite(pBudget) && pBudget > 0) {
+      budget = pBudget * numberOfPersons;
+    }
+  }
+
   if (!destination) throw httpError(400, 'Destination is required');
   if (!Number.isFinite(days)) throw httpError(400, 'Days must be between 1 and 14');
   if (!Number.isFinite(budget) || budget <= 0) throw httpError(400, 'Budget must be a positive number');
-  return { destination, days, budget, interests };
+
+  if (budget < 1000) {
+    throw httpError(400, 'Budget must be at least PKR 1,000');
+  }
+
+  // Supervisor Rule: If budget is low (< PKR 3,500/person/day), the system should manage
+  // the hotel stay and transport, while the customer handles food on their own.
+  const isLowBudget = budget < (numberOfPersons * days * 3500);
+
+  const budgetPerPerson = Number(input.budgetPerPerson ?? current.budgetPerPerson ?? 0) || Math.round(budget / numberOfPersons);
+  const vehicleType = input.vehicleType || current.vehicleDetails?.id || undefined;
+  const driverRequired = false; // Driver option removed
+  const travelerGender = input.travelerGender || current.travelerGender || 'mixed';
+  const maleCount = Number(input.maleCount ?? current.maleCount ?? 0);
+  const femaleCount = Number(input.femaleCount ?? current.femaleCount ?? 0);
+  const tripMode = ['customized', 'company'].includes(input.tripMode ?? current.tripMode)
+    ? (input.tripMode ?? current.tripMode)
+    : 'customized';
+  const transportChoice = ['rental', 'own'].includes(input.transportChoice ?? current.transportChoice)
+    ? (input.transportChoice ?? current.transportChoice)
+    : 'rental';
+  const preferredRoute = String(input.preferredRoute ?? current.preferredRoute ?? '').trim();
+
+  // If budget is low, food is automatically self-arranged (handled by customer on their own)
+  let foodChoice = isLowBudget ? 'self' : (
+    ['included', 'self'].includes(input.foodChoice ?? current.foodChoice)
+      ? (input.foodChoice ?? current.foodChoice)
+      : 'included'
+  );
+  const transportRequired = input.transportRequired !== undefined ? Boolean(input.transportRequired) : (current.transportRequired !== undefined ? Boolean(current.transportRequired) : true);
+  const foodRequired = isLowBudget ? false : (input.foodRequired !== undefined ? Boolean(input.foodRequired) : (current.foodRequired !== undefined ? Boolean(current.foodRequired) : true));
+  const activitiesRequired = input.activitiesRequired !== undefined ? Boolean(input.activitiesRequired) : (current.activitiesRequired !== undefined ? Boolean(current.activitiesRequired) : true);
+
+  // If 4 persons travel on a low budget, default rooms to 1 (Family Quad Room) to prevent stay cost from exceeding budget
+  let defaultRooms = Math.max(1, Number(input.roomsQuantity ?? current.roomsQuantity ?? 1));
+  if (isLowBudget && numberOfPersons <= 4 && !input.roomsQuantity) {
+    defaultRooms = 1;
+  }
+  const roomsQuantity = defaultRooms;
+  const selectedMeals = input.selectedMeals || current.selectedMeals || { breakfast: true, lunch: false, dinner: true };
+  const optionalActivities = Array.isArray(input.optionalActivities ?? current.optionalActivities)
+    ? (input.optionalActivities ?? current.optionalActivities)
+    : [];
+  const optionalExperiences = Array.isArray(input.optionalExperiences ?? current.optionalExperiences)
+    ? (input.optionalExperiences ?? current.optionalExperiences)
+    : [];
+
+  return {
+    destination,
+    startLocation,
+    startDate,
+    endDate,
+    category,
+    days,
+    budget,
+    budgetPerPerson,
+    numberOfPersons,
+    travelerGender,
+    maleCount,
+    femaleCount,
+    vehicleType,
+    driverRequired,
+    tripMode,
+    transportChoice,
+    preferredRoute,
+    transportRequired,
+    foodRequired,
+    activitiesRequired,
+    roomsQuantity,
+    selectedMeals,
+    foodChoice,
+    optionalActivities,
+    optionalExperiences,
+    interests,
+    travelType,
+    transportation,
+    comfortLevel,
+    hotelRequired,
+    selectedHotelId,
+    selectedRoomId,
+  };
 }
 
 function sanitizeItinerary(input, expectedDays) {
@@ -57,24 +185,53 @@ function sanitizeItinerary(input, expectedDays) {
 function recalculateBudget(trip) {
   trip.budgetBreakdown = calculateBudget({
     budget: trip.budget,
+    budgetPerPerson: trip.budgetPerPerson,
+    numberOfPersons: trip.numberOfPersons || 1,
     days: trip.days,
     itinerary: trip.itinerary,
     route: trip.route,
     selectedHotel: trip.selectedHotel,
     hotelSuggestions: trip.hotelSuggestions,
     expenses: trip.expenses,
+    vehicleType: trip.vehicleDetails?.id,
+    driverRequired: false,
+    tripMode: trip.tripMode,
+    transportChoice: trip.transportChoice,
+    foodChoice: trip.foodChoice,
+    hotelRequired: trip.hotelRequired,
+    transportRequired: trip.transportRequired,
+    foodRequired: trip.foodRequired,
+    activitiesRequired: trip.activitiesRequired,
+    roomsQuantity: trip.roomsQuantity || 1,
+    selectedMeals: trip.selectedMeals,
+    selectedActivities: trip.optionalActivities,
+    optionalExperiences: trip.optionalExperiences,
   });
+  if (trip.budgetBreakdown?.packageDetails) {
+    trip.packageDetails = trip.budgetBreakdown.packageDetails;
+    trip.vehicleDetails = trip.budgetBreakdown.vehicleDetails;
+    trip.foodPlan = trip.budgetBreakdown.foodPlan;
+    trip.budgetAllocation = trip.budgetBreakdown.allocation;
+  }
 }
 
 async function generateTrip(req, res, next) {
   try {
     requireDatabase(req);
     const input = normalizeTripInput(req.body);
-    const plan = await buildPlan({ ...input, userId: req.user._id });
-    const trip = await Trip.create({ userId: req.user._id, ...plan });
-    await syncTripAlerts(trip);
-    res.status(201).json({ trip });
-  } catch (error) { next(error); }
+    const userId = req.user?._id || undefined;
+    const plan = await buildPlan({ ...input, userId });
+    const trip = await Trip.create({ ...(userId ? { userId } : {}), ...plan });
+    try {
+      await syncTripAlerts(trip);
+    } catch (alertError) {
+      console.warn('[tripController] syncTripAlerts non-fatal error:', alertError.message);
+    }
+    res.status(201).json({ trip: sanitizeTripForUser(trip, req.user?.role) });
+  } catch (error) {
+    console.error('[tripController.generateTrip] ERROR:', error.stack || error.message);
+    next(error);
+  }
 }
 
 async function updateTrip(req, res, next) {
@@ -87,7 +244,7 @@ async function updateTrip(req, res, next) {
     Object.assign(trip, plan);
     await trip.save();
     await syncTripAlerts(trip);
-    res.json({ trip });
+    res.json({ trip: sanitizeTripForUser(trip, req.user?.role) });
   } catch (error) { next(error); }
 }
 
@@ -104,7 +261,7 @@ async function updateItinerary(req, res, next) {
     recalculateBudget(trip);
     await trip.save();
     await syncTripAlerts(trip);
-    res.json({ trip });
+    res.json({ trip: sanitizeTripForUser(trip, req.user?.role) });
   } catch (error) { next(error); }
 }
 
@@ -161,7 +318,7 @@ async function selectHotel(req, res, next) {
     recalculateBudget(trip);
     await trip.save();
     await syncTripAlerts(trip);
-    res.json({ trip });
+    res.json({ trip: sanitizeTripForUser(trip, req.user?.role) });
   } catch (error) { next(error); }
 }
 
@@ -180,7 +337,7 @@ async function addExpense(req, res, next) {
     recalculateBudget(trip);
     await trip.save();
     await syncTripAlerts(trip);
-    res.status(201).json({ trip, expense: trip.expenses.at(-1) });
+    res.status(201).json({ trip: sanitizeTripForUser(trip, req.user?.role), expense: trip.expenses.at(-1) });
   } catch (error) { next(error); }
 }
 
@@ -206,7 +363,7 @@ async function updateExpense(req, res, next) {
     recalculateBudget(trip);
     await trip.save();
     await syncTripAlerts(trip);
-    res.json({ trip, expense });
+    res.json({ trip: sanitizeTripForUser(trip, req.user?.role), expense });
   } catch (error) { next(error); }
 }
 
@@ -221,21 +378,44 @@ async function deleteExpense(req, res, next) {
     recalculateBudget(trip);
     await trip.save();
     await syncTripAlerts(trip);
-    res.json({ trip, ok: true });
+    res.json({ trip: sanitizeTripForUser(trip, req.user?.role), ok: true });
   } catch (error) { next(error); }
 }
 
 async function listTrips(req, res, next) {
-  try { requireDatabase(req); res.json({ trips: await Trip.find({ userId: req.user._id }).sort({ createdAt: -1 }).limit(50) }); }
-  catch (error) { next(error); }
+  try {
+    requireDatabase(req);
+    const trips = await Trip.find({ userId: req.user._id })
+      .sort({ createdAt: -1 })
+      .limit(50)
+      .lean();
+    res.json({ trips: trips.map((t) => sanitizeTripForUser(t, req.user?.role)) });
+  } catch (error) { next(error); }
 }
 
 async function getTrip(req, res, next) {
   try {
     requireDatabase(req);
-    const trip = await Trip.findOne({ _id: req.params.id, userId: req.user._id });
+    let query;
+    if (req.user?.role === 'admin') {
+      // Admins have oversight to inspect any trip by ID
+      query = { _id: req.params.id };
+    } else if (req.user?._id) {
+      // Authenticated users can view their own trips or guest-shared public trips
+      query = {
+        _id: req.params.id,
+        $or: [{ userId: req.user._id }, { userId: null }, { userId: { $exists: false } }],
+      };
+    } else {
+      // Guest visitors can only view unassigned / public trips, not private user trips
+      query = {
+        _id: req.params.id,
+        $or: [{ userId: null }, { userId: { $exists: false } }],
+      };
+    }
+    const trip = await Trip.findOne(query);
     if (!trip) throw httpError(404, 'Trip not found');
-    res.json({ trip });
+    res.json({ trip: sanitizeTripForUser(trip, req.user?.role) });
   } catch (error) { next(error); }
 }
 
@@ -257,7 +437,7 @@ async function refreshRoute(req, res, next) {
     recalculateBudget(trip);
     await trip.save();
     await syncTripAlerts(trip);
-    res.json({ trip });
+    res.json({ trip: sanitizeTripForUser(trip, req.user?.role) });
   } catch (error) { next(error); }
 }
 

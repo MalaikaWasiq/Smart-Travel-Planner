@@ -18,6 +18,27 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user',
+      index: true,
+    },
+    phone: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    country: {
+      type: String,
+      trim: true,
+      default: 'Pakistan',
+    },
+    avatarUrl: {
+      type: String,
+      trim: true,
+      default: '',
+    },
     preferences: {
       defaultBudget: Number,
       interests: [String],
@@ -26,6 +47,7 @@ const userSchema = new mongoose.Schema(
       reducedMotion: { type: Boolean, default: false },
       largeText: { type: Boolean, default: false },
     },
+    favorites: [{ type: String, trim: true }],
   },
   { timestamps: true }
 );
