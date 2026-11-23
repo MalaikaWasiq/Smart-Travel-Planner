@@ -83,9 +83,34 @@ const tripSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['Pending', 'Confirmed', 'Upcoming', 'In Progress', 'Completed', 'Cancelled'],
+      enum: ['Pending', 'Confirmed', 'Upcoming', 'In Progress', 'Completed', 'Cancelled', 'Not Completed', 'Not Taken'],
       default: 'Confirmed',
       index: true,
+    },
+    completionStatus: {
+      type: String,
+      enum: ['unverified', 'pending_confirmation', 'completed', 'not_completed', 'remind_later'],
+      default: 'unverified',
+      index: true,
+    },
+    completionConfirmedAt: Date,
+    completionMethod: {
+      type: String,
+      default: 'self_reported',
+    },
+    remindCompletionAfter: Date,
+    reviewEligible: {
+      type: Boolean,
+      default: false,
+    },
+    reviewSubmitted: {
+      type: Boolean,
+      default: false,
+    },
+    review: {
+      rating: { type: Number, min: 1, max: 5 },
+      comment: { type: String, trim: true, maxlength: 1000 },
+      submittedAt: Date,
     },
     paymentStatus: {
       type: String,

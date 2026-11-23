@@ -75,7 +75,7 @@ const CATEGORIES_DATA = [
 const FALLBACK_DEST_IMAGE = 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80';
 
 export default function HomeScreen({ navigation }) {
-  const { user, token, currentTrip, openTrip } = useApp();
+  const { user, token, currentTrip, openTrip, isFavorite, toggleFavorite: appToggleFavorite } = useApp();
   const { width: windowWidth } = useWindowDimensions();
   const isWide = windowWidth >= 700;
 
@@ -179,16 +179,10 @@ export default function HomeScreen({ navigation }) {
   }, [allDestinations]);
 
   // Toggle favorite bookmark
-  function toggleFavorite(destId) {
-    setFavorites((prev) => {
-      const next = new Set(prev);
-      if (next.has(destId)) {
-        next.delete(destId);
-      } else {
-        next.add(destId);
-      }
-      return next;
-    });
+  function toggleFavorite(dest) {
+    if (appToggleFavorite) {
+      appToggleFavorite(dest);
+    }
   }
 
   // Filter destinations for the current active category (or search)
@@ -491,7 +485,7 @@ export default function HomeScreen({ navigation }) {
               <View style={styles.cityGrid}>
                 {displayedDestinations.map((dest) => {
                   const cardKey = dest.destinationId || dest.id || String(dest.name);
-                  const isFavorited = favorites.has(dest.destinationId || dest.id);
+                  const isFavorited = isFavorite ? isFavorite(dest) : false;
                   return (
                     <TouchableOpacity
                       key={cardKey}
@@ -526,7 +520,7 @@ export default function HomeScreen({ navigation }) {
                       </View>
                       <TouchableOpacity
                         style={styles.heartButton}
-                        onPress={() => toggleFavorite(dest.destinationId || dest.id)}
+                        onPress={() => toggleFavorite(dest)}
                         hitSlop={8}
                         accessibilityRole="button"
                         accessibilityLabel="Favorite"

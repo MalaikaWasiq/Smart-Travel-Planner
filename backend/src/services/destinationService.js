@@ -142,11 +142,17 @@ async function toggleFavorite(userId, destinationId) {
 
 async function getUserFavorites(userId) {
   const user = await User.findById(userId).select('favorites').lean();
-  const favoriteIds = user?.favorites || [];
-  if (!favoriteIds.length) return [];
+  const rawFavoriteIds = user?.favorites || [];
+  if (!rawFavoriteIds.length) return [];
 
+  const favoriteKeys = rawFavoriteIds.map((id) => String(id).toLowerCase().trim());
   const all = await getDestinations({ userId });
-  return all.filter((dest) => favoriteIds.includes(dest.destinationId || String(dest._id)));
+  return all.filter((dest) => {
+    const dId = String(dest.destinationId || '').toLowerCase().trim();
+    const dMongoId = String(dest._id || '').toLowerCase().trim();
+    const dName = String(dest.name || '').toLowerCase().trim();
+    return favoriteKeys.includes(dId) || favoriteKeys.includes(dMongoId) || favoriteKeys.includes(dName);
+  });
 }
 
 module.exports = {

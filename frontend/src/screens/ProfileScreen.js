@@ -97,6 +97,12 @@ export default function ProfileScreen({ navigation }) {
     currentTrip,
     updateProfile,
     updatePreferences,
+    favorites,
+    favLoading,
+    toggleFavorite,
+    refreshFavorites,
+    verifyTripCompletion,
+    submitTripReview,
   } = useApp();
 
   // Navigation / Tabs state
@@ -106,6 +112,20 @@ export default function ProfileScreen({ navigation }) {
   // Input ref for editing full name
   const fullNameInputRef = useRef(null);
   const [isEditingName, setIsEditingName] = useState(false);
+
+  // Trip Completion & Rating State
+  const [verifyingTripId, setVerifyingTripId] = useState(null);
+  const [ratingModalVisible, setRatingModalVisible] = useState(false);
+  const [ratingTrip, setRatingTrip] = useState(null);
+  const [ratingScore, setRatingScore] = useState(5);
+  const [ratingComment, setRatingComment] = useState('');
+  const [ratingSubmitting, setRatingSubmitting] = useState(false);
+
+  // Pending Trip Completion Verification computation
+  const pendingCompletionTrips = useMemo(() => {
+    if (!Array.isArray(trips)) return [];
+    return trips.filter((t) => t.isEligibleForCompletion && t.status !== 'Completed' && t.status !== 'Not Completed');
+  }, [trips]);
 
   // Dynamic User Profile Form State - Strictly follows logged-in user with storage fallback
   const storedUser = useMemo(() => getStoredUserInfo(), []);
@@ -124,14 +144,16 @@ export default function ProfileScreen({ navigation }) {
   const [avatarModalVisible, setAvatarModalVisible] = useState(false);
   const [customAvatarUrlInput, setCustomAvatarUrlInput] = useState('');
 
-  // Preferences State
-  const [selectedInterests, setSelectedInterests] = useState(user?.preferences?.interests || ['Nature', 'Adventure']);
-  const [hotelType, setHotelType] = useState(user?.preferences?.preferredHotelType || 'Mid-range');
-  const [budgetVal, setBudgetVal] = useState(String(user?.preferences?.defaultBudget || 75000));
+  // Preferences State - Strictly follows logged-in user without hardcoded demo selections
+  const [selectedInterests, setSelectedInterests] = useState(
+    Array.isArray(user?.preferences?.interests) ? user.preferences.interests : []
+  );
+  const [hotelType, setHotelType] = useState(user?.preferences?.preferredHotelType || 'Any');
+  const [budgetVal, setBudgetVal] = useState(
+    user?.preferences?.defaultBudget ? String(user.preferences.defaultBudget) : ''
+  );
 
-  // Favorites & Trips State
-  const [favorites, setFavorites] = useState([]);
-  const [favLoading, setFavLoading] = useState(false);
+  // Status State
   const [error, setError] = useState('');
   const [saveSuccess, setSaveSuccess] = useState('');
   const [saving, setSaving] = useState(false);
@@ -156,9 +178,13 @@ export default function ProfileScreen({ navigation }) {
     if (dp) setAvatarUrl(dp);
 
     if (user?.preferences) {
-      if (Array.isArray(user.preferences.interests)) setSelectedInterests(user.preferences.interests);
-      if (user.preferences.preferredHotelType) setHotelType(user.preferences.preferredHotelType);
-      if (user.preferences.defaultBudget) setBudgetVal(String(user.preferences.defaultBudget));
+      setSelectedInterests(Array.isArray(user.preferences.interests) ? user.preferences.interests : []);
+      setHotelType(user.preferences.preferredHotelType || 'Any');
+      setBudgetVal(user.preferences.defaultBudget ? String(user.preferences.defaultBudget) : '');
+    } else {
+      setSelectedInterests([]);
+      setHotelType('Any');
+      setBudgetVal('');
     }
   }
 
@@ -186,17 +212,9 @@ export default function ProfileScreen({ navigation }) {
       setError(requestError.message);
     }
 
-    if (token) {
-      setFavLoading(true);
-      try {
-        const favRes = await apiRequest('/destinations/favorites', { token });
-        setFavorites(favRes.favorites || []);
-      } catch (err) {
-        // silent fail on favorites in profile
-      } finally {
-        setFavLoading(false);
-      }
-    }
+    try {
+      await refreshFavorites();
+    } catch (_) {}
   }
 
   useEffect(() => {
@@ -346,16 +364,39 @@ export default function ProfileScreen({ navigation }) {
 
   // Save Preferences
   async function handleSavePreferences() {
-    setSaving(true);
+    if (saving) return;
     setError('');
+    setSaveSuccess('');
+
+    // Step 4 & 5 Validation: Default budget per person must be a positive numeric value
+    const cleanBudgetStr = String(budgetVal || '').trim();
+    const budgetNum = Number(cleanBudgetStr);
+
+    if (!cleanBudgetStr || isNaN(budgetNum) || budgetNum <= 0) {
+      setError('Please enter a valid positive budget amount in PKR (e.g. 75000).');
+      return;
+    }
+    if (budgetNum > 10000000) {
+      setError('Default budget cannot exceed PKR 10,000,000.');
+      return;
+    }
+
+    const validHotelTypes = ['Any', 'Budget', 'Mid-range', 'Luxury', 'Boutique'];
+    const chosenHotelType = validHotelTypes.includes(hotelType) ? hotelType : 'Any';
+
+    const validInterestsList = ['Nature', 'Adventure', 'History', 'Culture', 'Food', 'Shopping'];
+    const cleanInterests = Array.isArray(selectedInterests)
+      ? selectedInterests.filter((item) => validInterestsList.includes(item))
+      : [];
+
+    setSaving(true);
     try {
-      const budgetNum = parseInt(budgetVal, 10) || 50000;
       await updatePreferences({
-        interests: selectedInterests,
-        preferredHotelType: hotelType,
+        interests: cleanInterests,
+        preferredHotelType: chosenHotelType,
         defaultBudget: budgetNum,
       });
-      setSaveSuccess('Travel preferences updated! ✨');
+      setSaveSuccess('Travel preferences saved successfully! ✨');
       setTimeout(() => setSaveSuccess(''), 4000);
     } catch (err) {
       setError(err.message || 'Failed to save preferences');
@@ -436,6 +477,50 @@ export default function ProfileScreen({ navigation }) {
   function chooseTrip(trip) {
     openTrip(trip);
     navigation.navigate('Itinerary', { trip });
+  }
+
+  // Handle Trip Completion Verification
+  async function handleVerifyCompletion(tripId, action) {
+    if (verifyingTripId) return;
+    setVerifyingTripId(tripId);
+    setError('');
+    try {
+      const res = await verifyTripCompletion(tripId, action);
+      setSaveSuccess(res.message || 'Trip status updated!');
+      setTimeout(() => setSaveSuccess(''), 4500);
+    } catch (err) {
+      setError(err.message || 'Failed to update trip completion status');
+    } finally {
+      setVerifyingTripId(null);
+    }
+  }
+
+  // Handle Rate Your Trip modal open
+  function openRateModal(trip) {
+    setRatingTrip(trip);
+    setRatingScore(5);
+    setRatingComment('');
+    setRatingModalVisible(true);
+  }
+
+  // Handle Review submission
+  async function handlePostReview() {
+    if (!ratingTrip?._id || ratingSubmitting) return;
+    setRatingSubmitting(true);
+    setError('');
+    try {
+      const res = await submitTripReview(ratingTrip._id, {
+        rating: ratingScore,
+        comment: ratingComment,
+      });
+      setRatingModalVisible(false);
+      setSaveSuccess(res.message || 'Thank you for rating your trip! ⭐');
+      setTimeout(() => setSaveSuccess(''), 4500);
+    } catch (err) {
+      setError(err.message || 'Failed to submit review');
+    } finally {
+      setRatingSubmitting(false);
+    }
   }
 
   return (
@@ -654,6 +739,28 @@ export default function ProfileScreen({ navigation }) {
                     <View style={styles.errorBanner}>
                       <AppIcon name="alert-circle" size={18} color="#DC2626" style={{ marginRight: 8 }} />
                       <AppText style={styles.errorBannerText}>{error}</AppText>
+                    </View>
+                  ) : null}
+
+                  {/* Trip Completion Verification Notice Banner */}
+                  {pendingCompletionTrips.length > 0 ? (
+                    <View style={styles.pendingNoticeBanner}>
+                      <AppIcon name="notifications-outline" size={20} color="#0F766E" style={{ marginRight: 10 }} />
+                      <View style={{ flex: 1 }}>
+                        <AppText style={styles.pendingNoticeTitle}>Trip Completion Notice</AppText>
+                        <AppText style={styles.pendingNoticeDesc}>
+                          Your trip to {pendingCompletionTrips[0].destination} has concluded! Please confirm whether you completed your journey.
+                        </AppText>
+                      </View>
+                      {sidebarTab !== 'trips' ? (
+                        <TouchableOpacity
+                          style={styles.pendingNoticeAction}
+                          onPress={() => setSidebarTab('trips')}
+                          activeOpacity={0.85}
+                        >
+                          <AppText style={styles.pendingNoticeActionText}>Confirm in My Trips →</AppText>
+                        </TouchableOpacity>
+                      ) : null}
                     </View>
                   ) : null}
 
@@ -910,15 +1017,16 @@ export default function ProfileScreen({ navigation }) {
                             </View>
 
                             <View style={[styles.fieldGroup, { marginTop: 14 }]}>
-                              <AppText style={styles.fieldLabel}>Default Trip Budget (PKR)</AppText>
+                              <AppText style={styles.fieldLabel}>Default Budget Per Person (PKR)</AppText>
                               <View style={styles.inputBox}>
                                 <AppIcon name="cash-outline" size={18} color="#6B7280" style={styles.inputIcon} />
                                 <TextInput
                                   value={budgetVal}
-                                  onChangeText={setBudgetVal}
+                                  onChangeText={(txt) => setBudgetVal(txt.replace(/[^0-9]/g, ''))}
                                   placeholder="75000"
                                   keyboardType="numeric"
                                   style={styles.textInput}
+                                  accessibilityLabel="Default Budget Per Person in PKR"
                                 />
                               </View>
                             </View>
@@ -928,9 +1036,17 @@ export default function ProfileScreen({ navigation }) {
                               onPress={handleSavePreferences}
                               disabled={saving}
                               activeOpacity={0.85}
+                              accessibilityRole="button"
+                              accessibilityLabel="Save Preferences"
                             >
-                              <AppIcon name="save-outline" size={18} color="#FFFFFF" style={{ marginRight: 8 }} />
-                              <AppText style={styles.saveBtnText}>Save Preferences</AppText>
+                              {saving ? (
+                                <ActivityIndicator color="#FFFFFF" size="small" />
+                              ) : (
+                                <>
+                                  <AppIcon name="save-outline" size={18} color="#FFFFFF" style={{ marginRight: 8 }} />
+                                  <AppText style={styles.saveBtnText}>Save Preferences</AppText>
+                                </>
+                              )}
                             </TouchableOpacity>
                           </View>
                         )}
@@ -1013,18 +1129,46 @@ export default function ProfileScreen({ navigation }) {
                       ) : (
                         <View style={styles.favoritesGrid}>
                           {favorites.map((dest) => (
-                            <TouchableOpacity
-                              key={dest._id}
+                            <View
+                              key={dest.destinationId || dest._id || dest.id || dest.name}
                               style={styles.favDestinationCard}
-                              onPress={() => navigation.navigate('DestinationDetail', { destination: dest })}
-                              activeOpacity={0.88}
                             >
-                              <Image source={{ uri: dest.imageUrl }} style={styles.favDestImg} />
-                              <View style={styles.favDestInfo}>
-                                <AppText style={styles.favDestName} numberOfLines={1}>{dest.name}</AppText>
-                                <AppText style={styles.favDestRegion} numberOfLines={1}>{dest.region}</AppText>
+                              <TouchableOpacity
+                                onPress={() => navigation.navigate('DestinationDetail', { destination: dest })}
+                                activeOpacity={0.88}
+                              >
+                                <View style={{ position: 'relative' }}>
+                                  <Image
+                                    source={{ uri: dest.imageUrl || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80' }}
+                                    style={styles.favDestImg}
+                                  />
+                                  <TouchableOpacity
+                                    style={styles.favRemoveHeartBtn}
+                                    onPress={() => toggleFavorite(dest)}
+                                    hitSlop={8}
+                                    activeOpacity={0.8}
+                                    accessibilityRole="button"
+                                    accessibilityLabel={`Remove ${dest.name} from favorites`}
+                                  >
+                                    <AppIcon name="heart" size={17} color="#ef4444" />
+                                  </TouchableOpacity>
+                                </View>
+                                <View style={styles.favDestInfo}>
+                                  <AppText style={styles.favDestName} numberOfLines={1}>{dest.name}</AppText>
+                                  <AppText style={styles.favDestRegion} numberOfLines={1}>{dest.region || dest.category || 'Pakistan'}</AppText>
+                                </View>
+                              </TouchableOpacity>
+                              <View style={styles.favCardActionsRow}>
+                                <TouchableOpacity
+                                  style={styles.favPlanBtn}
+                                  onPress={() => navigation.navigate('TripPlanning', { destination: dest.name })}
+                                  activeOpacity={0.8}
+                                >
+                                  <AppIcon name="paper-plane-outline" size={12} color="#0F766E" />
+                                  <AppText style={styles.favPlanBtnText}>Plan Trip</AppText>
+                                </TouchableOpacity>
                               </View>
-                            </TouchableOpacity>
+                            </View>
                           ))}
                         </View>
                       )}
@@ -1050,30 +1194,154 @@ export default function ProfileScreen({ navigation }) {
                           </AppText>
                         </View>
                       ) : (
-                        trips.map((trip) => (
-                          <View key={trip._id} style={styles.tripCardRow}>
-                            <View style={{ flex: 1 }}>
-                              <AppText style={styles.tripDestName}>{trip.destination}</AppText>
-                              <AppText style={styles.tripDaysBudget}>
-                                {trip.days} days • PKR {Number(trip.budget || 0).toLocaleString()}
-                                {trip.travelType ? ` • ${trip.travelType}` : ''}
-                              </AppText>
+                        trips.map((trip) => {
+                          const isCompleted = trip.status === 'Completed';
+                          const isNotCompleted = trip.status === 'Not Completed';
+                          const isEligibleForConfirmation = trip.isEligibleForCompletion && !isCompleted && !isNotCompleted && trip.status !== 'Cancelled';
+                          const hasReviewed = trip.reviewSubmitted;
+
+                          return (
+                            <View key={trip._id} style={styles.tripCardContainer}>
+                              <View style={styles.tripCardTopRow}>
+                                <View style={{ flex: 1 }}>
+                                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                                    <AppText style={styles.tripDestName}>{trip.destination}</AppText>
+                                    {isCompleted ? (
+                                      <View style={styles.badgeCompleted}>
+                                        <AppIcon name="checkmark-done" size={13} color="#0F766E" />
+                                        <AppText style={styles.badgeCompletedText}>Completed (Self-Reported)</AppText>
+                                      </View>
+                                    ) : isNotCompleted ? (
+                                      <View style={styles.badgeNotCompleted}>
+                                        <AppIcon name="close-circle" size={13} color="#DC2626" />
+                                        <AppText style={styles.badgeNotCompletedText}>Not Completed</AppText>
+                                      </View>
+                                    ) : trip.status === 'Cancelled' ? (
+                                      <View style={styles.badgeCancelled}>
+                                        <AppText style={styles.badgeCancelledText}>Cancelled</AppText>
+                                      </View>
+                                    ) : (
+                                      <View style={styles.badgeConfirmed}>
+                                        <AppText style={styles.badgeConfirmedText}>{trip.status || 'Confirmed'}</AppText>
+                                      </View>
+                                    )}
+                                  </View>
+                                  <AppText style={styles.tripDaysBudget}>
+                                    {trip.days} days • PKR {Number(trip.budget || 0).toLocaleString()}
+                                    {trip.travelType ? ` • ${trip.travelType}` : ''}
+                                    {trip.startDate ? ` • Dates: ${trip.startDate}${trip.computedEndDate || trip.endDate ? ` to ${trip.computedEndDate || trip.endDate}` : ''}` : ''}
+                                  </AppText>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                                  <TouchableOpacity
+                                    style={styles.deleteTripBtn}
+                                    onPress={() => confirmDelete(trip)}
+                                    accessibilityLabel={`Delete ${trip.destination}`}
+                                  >
+                                    <AppIcon name="trash-outline" size={18} color="#DC2626" />
+                                  </TouchableOpacity>
+                                  <TouchableOpacity
+                                    style={styles.openTripBtn}
+                                    onPress={() => chooseTrip(trip)}
+                                  >
+                                    <AppText style={styles.openTripBtnText}>Open Plan</AppText>
+                                  </TouchableOpacity>
+                                </View>
+                              </View>
+
+                              {/* Completion Verification Prompt for Eligible Past Trips */}
+                              {isEligibleForConfirmation ? (
+                                <View style={styles.completionPromptBox}>
+                                  <View style={styles.completionHeaderRow}>
+                                    <AppIcon name="help-circle-outline" size={18} color="#0F766E" />
+                                    <AppText style={styles.completionPromptTitle}>
+                                      Did you complete your trip to {trip.destination}?
+                                    </AppText>
+                                  </View>
+                                  <AppText style={styles.completionDisclaimer}>
+                                    * Self-reported completion by traveler
+                                  </AppText>
+                                  <View style={styles.completionActionsRow}>
+                                    <TouchableOpacity
+                                      style={styles.completeYesBtn}
+                                      onPress={() => handleVerifyCompletion(trip._id, 'completed')}
+                                      disabled={verifyingTripId === trip._id}
+                                      activeOpacity={0.85}
+                                    >
+                                      {verifyingTripId === trip._id ? (
+                                        <ActivityIndicator size="small" color="#FFFFFF" />
+                                      ) : (
+                                        <>
+                                          <AppIcon name="checkmark-circle-outline" size={15} color="#FFFFFF" style={{ marginRight: 4 }} />
+                                          <AppText style={styles.completeYesBtnText}>Yes, I completed my trip</AppText>
+                                        </>
+                                      )}
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity
+                                      style={styles.completeNoBtn}
+                                      onPress={() => handleVerifyCompletion(trip._id, 'not_completed')}
+                                      disabled={verifyingTripId === trip._id}
+                                      activeOpacity={0.85}
+                                    >
+                                      <AppIcon name="close-circle-outline" size={15} color="#DC2626" style={{ marginRight: 4 }} />
+                                      <AppText style={styles.completeNoBtnText}>No, I did not complete</AppText>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity
+                                      style={styles.completeLaterBtn}
+                                      onPress={() => handleVerifyCompletion(trip._id, 'remind_later')}
+                                      disabled={verifyingTripId === trip._id}
+                                      activeOpacity={0.85}
+                                    >
+                                      <AppIcon name="time-outline" size={15} color="#475569" style={{ marginRight: 4 }} />
+                                      <AppText style={styles.completeLaterBtnText}>Remind me later</AppText>
+                                    </TouchableOpacity>
+                                  </View>
+                                </View>
+                              ) : null}
+
+                              {/* Rating & Review Section (Unlocked strictly after completion) */}
+                              {isCompleted ? (
+                                <View style={styles.tripCompletedFooter}>
+                                  {trip.reviewEligible && !hasReviewed ? (
+                                    <View style={styles.ratePromptRow}>
+                                      <View style={{ flex: 1 }}>
+                                        <AppText style={styles.ratePromptTitle}>Journey Completed! ✨</AppText>
+                                        <AppText style={styles.ratePromptSubtitle}>
+                                          Share your experience to help other travelers plan their trip.
+                                        </AppText>
+                                      </View>
+                                      <TouchableOpacity
+                                        style={styles.rateTripBtn}
+                                        onPress={() => openRateModal(trip)}
+                                        activeOpacity={0.85}
+                                      >
+                                        <AppIcon name="star" size={15} color="#FFFFFF" style={{ marginRight: 6 }} />
+                                        <AppText style={styles.rateTripBtnText}>Rate Your Trip</AppText>
+                                      </TouchableOpacity>
+                                    </View>
+                                  ) : hasReviewed ? (
+                                    <View style={styles.reviewedInfoBox}>
+                                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                                        <AppIcon name="star" size={15} color="#F59E0B" />
+                                        <AppText style={styles.reviewedScoreText}>
+                                          Your Rating: {trip.review?.rating || 5}/5 Stars
+                                        </AppText>
+                                      </View>
+                                      {trip.review?.comment ? (
+                                        <AppText style={styles.reviewedCommentText}>
+                                          "{trip.review.comment}"
+                                        </AppText>
+                                      ) : null}
+                                    </View>
+                                  ) : null}
+                                </View>
+                              ) : null}
                             </View>
-                            <TouchableOpacity
-                              style={styles.deleteTripBtn}
-                              onPress={() => confirmDelete(trip)}
-                              accessibilityLabel={`Delete ${trip.destination}`}
-                            >
-                              <AppIcon name="trash-outline" size={18} color="#DC2626" />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                              style={styles.openTripBtn}
-                              onPress={() => chooseTrip(trip)}
-                            >
-                              <AppText style={styles.openTripBtnText}>Open Plan</AppText>
-                            </TouchableOpacity>
-                          </View>
-                        ))
+                          );
+                        })
                       )}
                     </View>
                   )}
@@ -1195,6 +1463,90 @@ export default function ProfileScreen({ navigation }) {
               }}
             >
               <AppText style={styles.saveBtnText}>Set URL as Picture</AppText>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </Modal>
+
+      {/* ==============================================================
+          RATE YOUR TRIP MODAL
+         ============================================================== */}
+      <Modal
+        visible={ratingModalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setRatingModalVisible(false)}
+      >
+        <TouchableOpacity
+          style={styles.modalOverlay}
+          activeOpacity={1}
+          onPress={() => setRatingModalVisible(false)}
+        >
+          <View style={[styles.modalCard, { maxWidth: 440 }]}>
+            <View style={styles.modalHeader}>
+              <View>
+                <AppText style={styles.modalTitle}>Rate Your Trip ⭐</AppText>
+                <AppText style={styles.modalSubtitle}>
+                  {ratingTrip?.destination} ({ratingTrip?.days} days)
+                </AppText>
+              </View>
+              <TouchableOpacity onPress={() => setRatingModalVisible(false)}>
+                <AppIcon name="close" size={22} color="#1F2937" />
+              </TouchableOpacity>
+            </View>
+
+            <AppText style={[styles.fieldLabel, { marginTop: 12, textAlign: 'center' }]}>
+              How was your journey experience?
+            </AppText>
+
+            {/* Star Rating Picker */}
+            <View style={styles.starPickerRow}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <TouchableOpacity
+                  key={star}
+                  onPress={() => setRatingScore(star)}
+                  style={{ padding: 6 }}
+                  accessibilityLabel={`${star} stars`}
+                >
+                  <AppIcon
+                    name={star <= ratingScore ? 'star' : 'star-outline'}
+                    size={32}
+                    color={star <= ratingScore ? '#F59E0B' : '#D1D5DB'}
+                  />
+                </TouchableOpacity>
+              ))}
+            </View>
+            <AppText style={styles.starScoreLabel}>
+              {ratingScore === 5 ? 'Exceptional! ⭐⭐⭐⭐⭐' : ratingScore === 4 ? 'Very Good! ⭐⭐⭐⭐' : ratingScore === 3 ? 'Average ⭐⭐⭐' : ratingScore === 2 ? 'Below Expectations ⭐⭐' : 'Needs Improvement ⭐'}
+            </AppText>
+
+            {/* Review Comment Input */}
+            <AppText style={[styles.fieldLabel, { marginTop: 14 }]}>Your Travel Review (Optional):</AppText>
+            <View style={[styles.inputBox, { height: 80, alignItems: 'flex-start', paddingVertical: 8 }]}>
+              <TextInput
+                value={ratingComment}
+                onChangeText={setRatingComment}
+                placeholder="Share your memorable moments, road tips, or highlights..."
+                placeholderTextColor="#9CA3AF"
+                multiline
+                numberOfLines={3}
+                style={[styles.textInput, { height: '100%', textAlignVertical: 'top' }]}
+              />
+            </View>
+
+            <TouchableOpacity
+              style={[styles.saveBtn, { marginTop: 16 }, ratingSubmitting && { opacity: 0.7 }]}
+              onPress={handlePostReview}
+              disabled={ratingSubmitting}
+            >
+              {ratingSubmitting ? (
+                <ActivityIndicator color="#FFFFFF" size="small" />
+              ) : (
+                <>
+                  <AppIcon name="paper-plane-outline" size={18} color="#FFFFFF" style={{ marginRight: 8 }} />
+                  <AppText style={styles.saveBtnText}>Submit Trip Review</AppText>
+                </>
+              )}
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -1834,7 +2186,7 @@ const styles = StyleSheet.create({
     borderColor: '#E5E7EB',
   },
   interestChipSelected: {
-    backgroundColor: '#E6F7EE',
+    backgroundColor: '#0F766E',
     borderColor: '#0F766E',
   },
   interestChipText: {
@@ -1843,7 +2195,7 @@ const styles = StyleSheet.create({
     color: '#4B5563',
   },
   interestChipTextSelected: {
-    color: '#0F766E',
+    color: '#FFFFFF',
     fontWeight: '700',
   },
 
@@ -1980,6 +2332,62 @@ const styles = StyleSheet.create({
     color: '#6B7280',
     marginTop: 2,
   },
+  favRemoveHeartBtn: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.15,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  favCardActionsRow: {
+    paddingHorizontal: 8,
+    paddingBottom: 8,
+  },
+  favPlanBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#E6F7EE',
+    paddingVertical: 4,
+    borderRadius: 8,
+    gap: 4,
+    borderWidth: 1,
+    borderColor: '#A7F3D0',
+  },
+  favPlanBtnText: {
+    fontSize: 11,
+    fontFamily: fonts.bold,
+    color: '#0F766E',
+  },
+  tripCardContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    padding: 14,
+    marginBottom: 12,
+    gap: 10,
+    elevation: 1,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 3,
+  },
+  tripCardTopRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
   tripCardRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -1990,6 +2398,257 @@ const styles = StyleSheet.create({
     borderColor: '#E5E7EB',
     gap: 10,
     marginBottom: 8,
+  },
+  completionPromptBox: {
+    backgroundColor: '#F0FDF4',
+    borderWidth: 1.5,
+    borderColor: '#059669',
+    borderRadius: 12,
+    padding: 12,
+    gap: 8,
+  },
+  completionHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  completionPromptTitle: {
+    fontSize: 14,
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+    color: '#064E3B',
+    flex: 1,
+  },
+  completionDisclaimer: {
+    fontSize: 11,
+    fontFamily: fonts.regular,
+    color: '#047857',
+    fontStyle: 'italic',
+  },
+  completionActionsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginTop: 4,
+  },
+  completeYesBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#0F766E',
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 8,
+  },
+  completeYesBtnText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+  },
+  completeNoBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FEF2F2',
+    borderWidth: 1,
+    borderColor: '#F87171',
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 8,
+  },
+  completeNoBtnText: {
+    color: '#DC2626',
+    fontSize: 12,
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+  },
+  completeLaterBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F8FAFC',
+    borderWidth: 1,
+    borderColor: '#CBD5E1',
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    borderRadius: 8,
+  },
+  completeLaterBtnText: {
+    color: '#475569',
+    fontSize: 12,
+    fontFamily: fonts.medium,
+  },
+  badgeCompleted: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#ECFDF5',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#A7F3D0',
+  },
+  badgeCompletedText: {
+    fontSize: 11,
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+    color: '#0F766E',
+  },
+  badgeNotCompleted: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#FEF2F2',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#FECACA',
+  },
+  badgeNotCompletedText: {
+    fontSize: 11,
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+    color: '#DC2626',
+  },
+  badgeCancelled: {
+    backgroundColor: '#F3F4F6',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  badgeCancelledText: {
+    fontSize: 11,
+    color: '#6B7280',
+    fontFamily: fonts.bold,
+  },
+  badgeConfirmed: {
+    backgroundColor: '#EFF6FF',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#BFDBFE',
+  },
+  badgeConfirmedText: {
+    fontSize: 11,
+    color: '#1D4ED8',
+    fontFamily: fonts.bold,
+  },
+  tripCompletedFooter: {
+    borderTopWidth: 1,
+    borderColor: '#F3F4F6',
+    paddingTop: 8,
+  },
+  ratePromptRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#FFFBEB',
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#FDE68A',
+    gap: 8,
+  },
+  ratePromptTitle: {
+    fontSize: 12,
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+    color: '#92400E',
+  },
+  ratePromptSubtitle: {
+    fontSize: 11,
+    fontFamily: fonts.regular,
+    color: '#B45309',
+  },
+  rateTripBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#D97706',
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 8,
+  },
+  rateTripBtnText: {
+    fontSize: 12,
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+    color: '#FFFFFF',
+  },
+  reviewedInfoBox: {
+    backgroundColor: '#FEF3C7',
+    padding: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#FDE68A',
+    gap: 3,
+  },
+  reviewedScoreText: {
+    fontSize: 12,
+    fontFamily: fonts.bold,
+    color: '#92400E',
+  },
+  reviewedCommentText: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: '#78350F',
+    fontStyle: 'italic',
+  },
+  pendingNoticeBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#E6F7EE',
+    borderWidth: 1.5,
+    borderColor: '#0F766E',
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
+  },
+  pendingNoticeTitle: {
+    fontSize: 13,
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+    color: '#0F766E',
+  },
+  pendingNoticeDesc: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: '#064E3B',
+    marginTop: 2,
+  },
+  pendingNoticeAction: {
+    backgroundColor: '#0F766E',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
+    marginLeft: 10,
+  },
+  pendingNoticeActionText: {
+    fontSize: 11,
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+    color: '#FFFFFF',
+  },
+  starPickerRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 6,
+    marginVertical: 10,
+  },
+  starScoreLabel: {
+    textAlign: 'center',
+    fontSize: 13,
+    fontFamily: fonts.bold,
+    color: '#D97706',
+    marginBottom: 8,
+  },
+  modalSubtitle: {
+    fontSize: 12,
+    color: '#6B7280',
+    marginTop: 2,
   },
   deleteTripBtn: {
     width: 32,

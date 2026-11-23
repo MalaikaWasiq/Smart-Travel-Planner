@@ -175,15 +175,18 @@ async function updatePreferences(req, res, next) {
 
     const allowedInterests = new Set(['History', 'Food', 'Nature', 'Adventure', 'Shopping', 'Culture']);
     const allowedHotelTypes = new Set(['Any', 'Budget', 'Mid-range', 'Luxury', 'Boutique']);
-    const defaultBudget = Number(req.body.defaultBudget);
+    let defaultBudget = 0;
+    if (req.body.defaultBudget !== undefined && req.body.defaultBudget !== '') {
+      defaultBudget = Number(req.body.defaultBudget);
+      if (!Number.isFinite(defaultBudget) || defaultBudget < 0 || defaultBudget > 10000000) {
+        throw httpError(400, 'Default budget must be a valid positive number up to 10,000,000 PKR');
+      }
+    }
     const interests = Array.isArray(req.body.interests)
       ? [...new Set(req.body.interests.map((value) => String(value).trim()))]
       : [];
     const preferredHotelType = String(req.body.preferredHotelType || 'Any').trim();
 
-    if (!Number.isFinite(defaultBudget) || defaultBudget < 0 || defaultBudget > 10000000) {
-      throw httpError(400, 'Default budget must be between 0 and 10,000,000 PKR');
-    }
     if (interests.some((interest) => !allowedInterests.has(interest))) {
       throw httpError(400, 'One or more interests are not supported');
     }
@@ -302,9 +305,9 @@ async function socialLogin(req, res, next) {
         passwordHash,
         role: finalRole,
         preferences: {
-          defaultBudget: 75000,
-          interests: ['Nature', 'Adventure'],
-          preferredHotelType: 'Mid-range',
+          defaultBudget: 0,
+          interests: [],
+          preferredHotelType: 'Any',
         },
       });
     }

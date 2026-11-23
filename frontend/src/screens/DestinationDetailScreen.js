@@ -31,7 +31,13 @@ export default function DestinationDetailScreen({ navigation, route }) {
   const [weatherLoading, setWeatherLoading] = useState(false);
   const [weatherError, setWeatherError] = useState('');
   const [favLoading, setFavLoading] = useState(false);
-  const { token } = useApp();
+  const { token, isFavorite: appIsFavorite, toggleFavorite } = useApp();
+
+  useEffect(() => {
+    if (destination?.name && appIsFavorite) {
+      setIsFavorite(appIsFavorite(destination));
+    }
+  }, [destination, appIsFavorite]);
 
   useEffect(() => {
     if (initialDest) {
@@ -80,17 +86,16 @@ export default function DestinationDetailScreen({ navigation, route }) {
   }, [cityQuery, destination.destinationId, destination.id, destination.name, token]);
 
   async function handleToggleFavorite() {
-    if (!token) {
-      navigation.navigate('Login');
-      return;
-    }
-    const destId = destination.destinationId || destination.id;
-    if (!destId) return;
-
     setFavLoading(true);
     try {
-      const res = await apiRequest(`/destinations/${destId}/favorite`, { method: 'POST', token });
-      setIsFavorite(res.isFavorite);
+      if (toggleFavorite) {
+        const nextState = await toggleFavorite(destination);
+        setIsFavorite(nextState);
+      } else if (token) {
+        const destId = destination.destinationId || destination.id;
+        const res = await apiRequest(`/destinations/${destId}/favorite`, { method: 'POST', token });
+        setIsFavorite(res.isFavorite);
+      }
     } catch (_) {
       // Ignored
     } finally {

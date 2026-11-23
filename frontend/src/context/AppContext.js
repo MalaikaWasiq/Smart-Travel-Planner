@@ -4,6 +4,21 @@ import { scheduleServerAlerts } from '../services/notificationService';
 
 const AppContext = createContext(null);
 
+const FAVORITES_STORAGE_KEY = 'stp_user_favorites';
+
+function getInitialFavorites() {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const raw = window.localStorage.getItem(FAVORITES_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (_) {}
+  }
+  return [];
+}
+
 export function deriveNameFromEmail(email) {
   if (!email || typeof email !== 'string') return '';
   const username = email.split('@')[0] || '';
@@ -36,6 +51,8 @@ export function AppProvider({ children }) {
   const [currentTrip, setCurrentTrip] = useState(null);
   const [trips, setTrips] = useState([]);
   const [tripsLoading, setTripsLoading] = useState(false);
+  const [favorites, setFavorites] = useState(getInitialFavorites);
+  const [favLoading, setFavLoading] = useState(false);
 
   function applyTripUpdate(trip, prepend = false) {
     if (!trip) return;
@@ -87,6 +104,7 @@ export function AppProvider({ children }) {
           }
           setTrips(savedTrips);
           setCurrentTrip(savedTrips[0] || null);
+          refreshFavorites(storedToken).catch(() => {});
         }
       } catch (_) {
         // preserve stored user so user does not appear as empty on temporary network hiccup
@@ -119,6 +137,7 @@ export function AppProvider({ children }) {
     setUser(safeUser);
     setTrips(savedTrips);
     setCurrentTrip(savedTrips[0] || null);
+    refreshFavorites(data.token).catch(() => {});
     return safeUser;
   }
 
@@ -150,6 +169,7 @@ export function AppProvider({ children }) {
     setUser(safeUser);
     setTrips(savedTrips);
     setCurrentTrip(savedTrips[0] || null);
+    refreshFavorites(data.token).catch(() => {});
     return safeUser;
   }
 
@@ -219,6 +239,28 @@ export function AppProvider({ children }) {
     refreshAlerts().catch(() => {});
   }
 
+  async function verifyTripCompletion(tripId, action) {
+    const id = tripId || currentTrip?._id;
+    if (!id) throw new Error('Trip ID is required');
+    const data = await apiRequest(`/trips/${id}/verify-completion`, {
+      method: 'POST', token, body: { action },
+    });
+    applyTripUpdate(data.trip);
+    await refreshTrips().catch(() => {});
+    return data;
+  }
+
+  async function submitTripReview(tripId, { rating, comment }) {
+    const id = tripId || currentTrip?._id;
+    if (!id) throw new Error('Trip ID is required');
+    const data = await apiRequest(`/trips/${id}/review`, {
+      method: 'POST', token, body: { rating, comment },
+    });
+    applyTripUpdate(data.trip);
+    await refreshTrips().catch(() => {});
+    return data;
+  }
+
   async function deleteTrip(tripId) {
     const idStr = String(tripId);
     await apiRequest(`/trips/${idStr}`, { method: 'DELETE', token });
@@ -270,6 +312,10 @@ export function AppProvider({ children }) {
     const safeUser = withInitials(data.user);
     setUser(safeUser);
     await userStorage.set(safeUser);
+    if (typeof window !== 'undefined' && window.localStorage && safeUser) {
+      window.localStorage.setItem('smartTravelPlanner.currentUser', JSON.stringify(safeUser));
+      window.localStorage.setItem('stp_last_user', JSON.stringify(safeUser));
+    }
     return safeUser;
   }
 
@@ -322,12 +368,110 @@ export function AppProvider({ children }) {
     apiRequest('/interactions', { method: 'POST', token, body: { eventType, ...details } }).catch(() => {});
   }
 
+  function isFavorite(destOrId) {
+    if (!destOrId) return false;
+    const targetKey = (typeof destOrId === 'string'
+      ? destOrId
+      : (destOrId.destinationId || destOrId._id || destOrId.id || destOrId.name || '')
+    ).toString().toLowerCase().trim();
+
+    const targetName = (typeof destOrId === 'object' && destOrId.name ? destOrId.name : '').toString().toLowerCase().trim();
+
+    return favorites.some((fav) => {
+      const favKey = (fav.destinationId || fav._id || fav.id || fav.name || '').toString().toLowerCase().trim();
+      const favName = (fav.name || '').toString().toLowerCase().trim();
+      return (targetKey && favKey === targetKey) ||
+             (targetName && favName === targetName) ||
+             (targetKey && favName === targetKey) ||
+             (targetName && favKey === targetName);
+    });
+  }
+
+  async function toggleFavorite(dest) {
+    if (!dest) return false;
+    const destId = (dest.destinationId || dest._id || dest.id || dest.name || '').toString();
+    const alreadyFav = isFavorite(dest);
+    let updated = [];
+
+    if (alreadyFav) {
+      const targetKey = destId.toLowerCase().trim();
+      const targetName = (dest.name || '').toLowerCase().trim();
+      updated = favorites.filter((f) => {
+        const fKey = (f.destinationId || f._id || f.id || f.name || '').toString().toLowerCase().trim();
+        const fName = (f.name || '').toString().toLowerCase().trim();
+        return !(fKey === targetKey || (targetName && fName === targetName) || fName === targetKey);
+      });
+    } else {
+      const normalizedDest = {
+        _id: dest._id || dest.id || destId,
+        destinationId: dest.destinationId || destId,
+        name: dest.name || destId,
+        region: dest.region || dest.category || 'Pakistan',
+        category: dest.category || 'Destinations',
+        imageUrl: dest.imageUrl || dest.image || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80',
+        rating: dest.rating || 4.8,
+        bestTimeToVisit: dest.bestTimeToVisit || 'April to October',
+        description: dest.description || '',
+        weatherCity: dest.weatherCity || dest.name,
+      };
+      const filtered = favorites.filter((f) => {
+        const fKey = (f.destinationId || f._id || f.id || f.name || '').toString().toLowerCase().trim();
+        const fName = (f.name || '').toString().toLowerCase().trim();
+        const targetKey = destId.toLowerCase().trim();
+        const targetName = (dest.name || '').toLowerCase().trim();
+        return !(fKey === targetKey || (targetName && fName === targetName) || fName === targetKey);
+      });
+      updated = [normalizedDest, ...filtered];
+    }
+
+    setFavorites(updated);
+    if (typeof window !== 'undefined' && window.localStorage) {
+      try {
+        window.localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(updated));
+      } catch (_) {}
+    }
+
+    if (token && destId) {
+      try {
+        await apiRequest(`/destinations/${encodeURIComponent(destId)}/favorite`, { method: 'POST', token });
+      } catch (err) {
+        console.warn('Backend favorite sync warning:', err.message);
+      }
+    }
+
+    return !alreadyFav;
+  }
+
+  async function refreshFavorites(authToken = token) {
+    if (!authToken) return favorites;
+    setFavLoading(true);
+    try {
+      const favRes = await apiRequest('/destinations/favorites', { token: authToken });
+      if (Array.isArray(favRes?.favorites)) {
+        setFavorites(favRes.favorites);
+        if (typeof window !== 'undefined' && window.localStorage) {
+          try {
+            window.localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favRes.favorites));
+          } catch (_) {}
+        }
+        return favRes.favorites;
+      }
+    } catch (_) {
+      // silent fallback
+    } finally {
+      setFavLoading(false);
+    }
+    return favorites;
+  }
+
   return (
     <AppContext.Provider value={{
       user, token, authLoading, currentTrip, setCurrentTrip, trips, tripsLoading,
+      favorites, favLoading, isFavorite, toggleFavorite, refreshFavorites,
       login, signup, socialLogin, logout, generateTrip, updateTrip, saveItinerary, selectHotel,
       addExpense, updateExpense, deleteExpense, deleteTrip,
       listTrips, refreshTrips, refreshTripRoute, updatePreferences, updateProfile,
+      verifyTripCompletion, submitTripReview,
       exportMyData, deleteAccount, refreshAlerts, openTrip, track,
     }}>
       {children}

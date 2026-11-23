@@ -5,6 +5,7 @@ const {
   generateTrip, updateTrip, updateItinerary, listTrips, getTrip, selectHotel, deleteTrip,
   addExpense, updateExpense, deleteExpense,
   previewItineraryChange, refreshRoute,
+  verifyTripCompletion, submitTripReview,
 } = require('../controllers/tripController');
 
 const router = express.Router();
@@ -23,6 +24,8 @@ router.patch('/:id/hotel', selectHotel);
 router.post('/:id/expenses', addExpense);
 router.patch('/:id/expenses/:expenseId', updateExpense);
 router.delete('/:id/expenses/:expenseId', deleteExpense);
+router.post('/:id/verify-completion', verifyTripCompletion);
+router.post('/:id/review', submitTripReview);
 router.delete('/:id', deleteTrip);
 
 module.exports = router;

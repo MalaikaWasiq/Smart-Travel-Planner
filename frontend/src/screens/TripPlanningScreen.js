@@ -1909,6 +1909,60 @@ function validateJourneyDates(sDate, eDate, tripDays) {
   return '';
 }
 
+function isHotelMatchingPreference(hotel, preferredType) {
+  if (!hotel) return false;
+  if (!preferredType || preferredType === 'Any') return true;
+  const pType = String(preferredType).toLowerCase();
+  const name = String(hotel.name || '').toLowerCase();
+  const comfort = String(hotel.comfortLevel || '').toLowerCase();
+  const price = Number(hotel.pricePerNight) || 0;
+  const amenities = Array.isArray(hotel.amenities) ? hotel.amenities.join(' ').toLowerCase() : '';
+
+  if (pType === 'budget') {
+    return comfort === 'basic' || price <= 5500 || name.includes('budget') || name.includes('inn') || name.includes('hostel') || name.includes('guest house');
+  }
+  if (pType === 'mid-range') {
+    return comfort === 'normal' || (price >= 3500 && price <= 11000) || name.includes('hotel') || name.includes('lodge') || name.includes('inn');
+  }
+  if (pType === 'luxury') {
+    return comfort === 'luxury' || price >= 9500 || name.includes('luxury') || name.includes('palace') || name.includes('serena') || name.includes('pearl continental') || name.includes('resort');
+  }
+  if (pType === 'boutique') {
+    return name.includes('boutique') || amenities.includes('boutique') || (Number(hotel.rating) >= 4.3 && (comfort === 'luxury' || comfort === 'normal'));
+  }
+  return true;
+}
+
+function matchInterestWithActivity(activity, interests = []) {
+  if (!activity || !interests || !interests.length) return null;
+  const text = `${activity.name || ''} ${activity.desc || ''} ${activity.category || ''}`.toLowerCase();
+  for (const interest of interests) {
+    const term = String(interest).toLowerCase();
+    if (term === 'nature' && (text.includes('nature') || text.includes('mountain') || text.includes('lake') || text.includes('alpine') || text.includes('pine') || text.includes('river') || text.includes('scenic') || text.includes('stargazing') || text.includes('green') || text.includes('trail') || text.includes('valley'))) {
+      return interest;
+    }
+    if (term === 'adventure' && (text.includes('adventure') || text.includes('jeep') || text.includes('trek') || text.includes('hike') || text.includes('safari') || text.includes('rafting') || text.includes('zipline') || text.includes('chairlift') || text.includes('climbing') || text.includes('thrill') || text.includes('speedboat') || text.includes('speed') || text.includes('ski') || text.includes('quad') || text.includes('scuba'))) {
+      return interest;
+    }
+    if (term === 'history' && (text.includes('history') || text.includes('historic') || text.includes('fort') || text.includes('palace') || text.includes('ruins') || text.includes('museum') || text.includes('ancient') || text.includes('citadel') || text.includes('monument') || text.includes('qila') || text.includes('royal'))) {
+      return interest;
+    }
+    if (term === 'culture' && (text.includes('culture') || text.includes('cultural') || text.includes('heritage') || text.includes('folk') || text.includes('artisan') || text.includes('bazaar') || text.includes('traditional') || text.includes('craft') || text.includes('music') || text.includes('rubab') || text.includes('village'))) {
+      return interest;
+    }
+    if (term === 'food' && (text.includes('food') || text.includes('culinary') || text.includes('bbq') || text.includes('feast') || text.includes('street') || text.includes('karahi') || text.includes('chai') || text.includes('kahwa') || text.includes('tikka') || text.includes('grill') || text.includes('dinner') || text.includes('tea') || text.includes('meal'))) {
+      return interest;
+    }
+    if (term === 'shopping' && (text.includes('shopping') || text.includes('bazaar') || text.includes('market') || text.includes('souvenir') || text.includes('handicraft') || text.includes('craft') || text.includes('shops') || text.includes('mall'))) {
+      return interest;
+    }
+    if (text.includes(term)) {
+      return interest;
+    }
+  }
+  return null;
+}
+
 export default function TripPlanningScreen({ navigation, route }) {
   const { preselectedDestination, preselectedCategory, initialTripMode, preselectedBudget } = route.params || {};
   const { user, generateTrip } = useApp();
@@ -1972,15 +2026,45 @@ export default function TripPlanningScreen({ navigation, route }) {
     setHotelAdjustmentDismissed(false);
   }, [destination]);
 
-  // Compute destination-specific activities dynamically based on selected city
+  // Compute destination-specific activities dynamically and prioritize by user interests
   const currentActivitiesList = useMemo(() => {
-    return getActivitiesForDestination(destination, category);
-  }, [destination, category]);
+    const rawList = getActivitiesForDestination(destination, category);
+    if (!rawList || !rawList.length) return [];
+    const activeInterests = (selectedInterests && selectedInterests.length > 0)
+      ? selectedInterests
+      : (user?.preferences?.interests || []);
 
-  // Compute destination-specific extra experiences ("Make Your Trip More Special!") dynamically based on selected city
+    return [...rawList].sort((a, b) => {
+      const matchA = matchInterestWithActivity(a, activeInterests);
+      const matchB = matchInterestWithActivity(b, activeInterests);
+      if (matchA && !matchB) return -1;
+      if (!matchA && matchB) return 1;
+      return 0;
+    }).map((act) => ({
+      ...act,
+      matchedInterest: matchInterestWithActivity(act, activeInterests),
+    }));
+  }, [destination, category, selectedInterests, user?.preferences?.interests]);
+
+  // Compute destination-specific extra experiences ("Make Your Trip More Special!") dynamically and prioritize by user interests
   const currentExtraExperiences = useMemo(() => {
-    return getCityExtraExperiences(destination, category);
-  }, [destination, category]);
+    const rawList = getCityExtraExperiences(destination, category);
+    if (!rawList || !rawList.length) return [];
+    const activeInterests = (selectedInterests && selectedInterests.length > 0)
+      ? selectedInterests
+      : (user?.preferences?.interests || []);
+
+    return [...rawList].sort((a, b) => {
+      const matchA = matchInterestWithActivity(a, activeInterests);
+      const matchB = matchInterestWithActivity(b, activeInterests);
+      if (matchA && !matchB) return -1;
+      if (!matchA && matchB) return 1;
+      return 0;
+    }).map((exp) => ({
+      ...exp,
+      matchedInterest: matchInterestWithActivity(exp, activeInterests),
+    }));
+  }, [destination, category, selectedInterests, user?.preferences?.interests]);
 
   // Reset selected optional activities & extra experiences when destination changes so no mismatched activities remain selected
   useEffect(() => {
@@ -2319,11 +2403,12 @@ export default function TripPlanningScreen({ navigation, route }) {
   const [calendarPickerMode, setCalendarPickerMode] = useState('start'); // 'start' | 'end'
   const [dateError, setDateError] = useState('');
 
-  // 4. Tour Group Size & Budget (all fields clear initially for manual user entry)
+  // 4. Tour Group Size & Budget (prefills default budget from user preferences if set)
   const [numberOfPersons, setNumberOfPersons] = useState('');
   const [malesInput, setMalesInput] = useState('');
   const [femalesInput, setFemalesInput] = useState('');
-  const [budgetPerPerson, setBudgetPerPerson] = useState('');
+  const defaultUserBudget = user?.preferences?.defaultBudget ? String(user.preferences.defaultBudget) : '';
+  const [budgetPerPerson, setBudgetPerPerson] = useState(preselectedBudget ? String(preselectedBudget) : defaultUserBudget);
   const [budget, setBudget] = useState(preselectedBudget ? String(preselectedBudget) : '');
   const [travelerGender, setTravelerGender] = useState('mixed'); // 'male' | 'female' | 'mixed'
   const [maleCount, setMaleCount] = useState(0);
@@ -2332,11 +2417,39 @@ export default function TripPlanningScreen({ navigation, route }) {
   const [vehicleDropdownOpen, setVehicleDropdownOpen] = useState(false);
   const driverRequired = false; // Licensed mountain driver option removed
 
-  // Travel Style
+  // Travel Style (prefills saved interests and comfort level from user preferences)
   const [travelType, setTravelType] = useState('Family');
-  const [selectedInterests, setSelectedInterests] = useState(['Nature', 'Sightseeing', 'Food']);
+  const userSavedInterests = Array.isArray(user?.preferences?.interests) && user.preferences.interests.length > 0
+    ? user.preferences.interests
+    : ['Nature', 'Adventure'];
+  const [selectedInterests, setSelectedInterests] = useState(userSavedInterests);
   const [transportation, setTransportation] = useState('Private Car');
-  const [comfortLevel, setComfortLevel] = useState('Normal');
+  const initialComfort = user?.preferences?.preferredHotelType === 'Budget'
+    ? 'Basic'
+    : (user?.preferences?.preferredHotelType === 'Luxury' ? 'Luxury' : 'Normal');
+  const [comfortLevel, setComfortLevel] = useState(initialComfort);
+
+  // Sync preferences from logged-in user when opening or switching account
+  useEffect(() => {
+    if (user?.preferences) {
+      if (!budgetPerPerson && !preselectedBudget && user.preferences.defaultBudget) {
+        const prefBudgetStr = String(user.preferences.defaultBudget);
+        setBudgetPerPerson(prefBudgetStr);
+        const count = parseInt(numberOfPersons, 10);
+        if (count > 0) {
+          setBudget(String(count * user.preferences.defaultBudget));
+        }
+      }
+      if (Array.isArray(user.preferences.interests) && user.preferences.interests.length > 0) {
+        setSelectedInterests((prev) => {
+          if (!prev || prev.length === 0 || (prev.length === 2 && prev.includes('Nature') && prev.includes('Adventure'))) {
+            return user.preferences.interests;
+          }
+          return prev;
+        });
+      }
+    }
+  }, [user?.preferences?.defaultBudget, user?.preferences?.interests]);
 
   // In-App Hotel State
   const [hotels, setHotels] = useState([]);
@@ -2723,8 +2836,12 @@ export default function TripPlanningScreen({ navigation, route }) {
           const list = res.hotels || [];
           setHotels(list);
           if (list.length > 0) {
-            // Auto-select first hotel that is within budget
-            const withinBudgetChoice = list.find((h) => h.withinBudget) || list[0];
+            const userHotelPref = user?.preferences?.preferredHotelType || 'Any';
+            // Auto-select first hotel matching user's hotel preference and within budget, with fallback
+            const prefMatch = userHotelPref !== 'Any'
+              ? list.find((h) => h.withinBudget && isHotelMatchingPreference(h, userHotelPref))
+              : null;
+            const withinBudgetChoice = prefMatch || list.find((h) => h.withinBudget) || list[0];
             setSelectedHotel(withinBudgetChoice);
             setSelectedRoom(withinBudgetChoice.defaultRoom || withinBudgetChoice.rooms?.[0] || null);
           } else {
@@ -2761,12 +2878,18 @@ export default function TripPlanningScreen({ navigation, route }) {
     const dailyPP = (numPersons > 0 && tripDays > 0 && numBudget > 0) ? Math.round(numBudget / (numPersons * tripDays)) : 0;
     const isHigh = dailyPP >= 12000 || pp >= 60000 || numBudget >= 180000 || comfortLevel === 'Luxury';
     const isLow = !isHigh && (dailyPP <= 5500 || pp <= 25000 || comfortLevel === 'Basic' || (numBudget > 0 && numBudget <= 45000));
+    const userHotelPref = user?.preferences?.preferredHotelType || 'Any';
 
     const copy = hotels.map((h) => {
       const price = Number(h.pricePerNight) || 0;
+      const matchesPref = isHotelMatchingPreference(h, userHotelPref);
       let budgetBadge = '⭐ Standard Pick';
       let badgeType = 'standard';
-      if (isHigh) {
+
+      if (userHotelPref !== 'Any' && matchesPref) {
+        budgetBadge = `★ Matches Your Hotel Preference (${userHotelPref})`;
+        badgeType = 'preference';
+      } else if (isHigh) {
         if (h.comfortLevel === 'Luxury' || price >= 14000) {
           budgetBadge = '👑 Luxury Pick · Recommended';
           badgeType = 'luxury';
@@ -2794,10 +2917,23 @@ export default function TripPlanningScreen({ navigation, route }) {
           badgeType = 'standard';
         }
       }
-      return { ...h, budgetBadge, badgeType };
+      return { ...h, budgetBadge, badgeType, matchesPref };
     });
 
     copy.sort((a, b) => {
+      // 1. Within budget hotels first
+      const aWithin = a.withinBudget !== false;
+      const bWithin = b.withinBudget !== false;
+      if (aWithin && !bWithin) return -1;
+      if (!aWithin && bWithin) return 1;
+
+      // 2. Hotel matching preferred hotel type first
+      if (userHotelPref !== 'Any') {
+        if (a.matchesPref && !b.matchesPref) return -1;
+        if (!a.matchesPref && b.matchesPref) return 1;
+      }
+
+      // 3. Dynamic budget tier ordering
       if (isHigh) {
         // High budget: luxury and higher price hotels first
         if (a.comfortLevel === 'Luxury' && b.comfortLevel !== 'Luxury') return -1;
@@ -2814,7 +2950,7 @@ export default function TripPlanningScreen({ navigation, route }) {
     });
 
     return copy;
-  }, [hotels, budgetPerPerson, numBudget, numPersons, numDays, comfortLevel]);
+  }, [hotels, budgetPerPerson, numBudget, numPersons, numDays, comfortLevel, user?.preferences?.preferredHotelType]);
 
   // Handle vehicle selection with budget check
   function handleSelectVehicle(veh) {
@@ -5250,11 +5386,19 @@ export default function TripPlanningScreen({ navigation, route }) {
                           {hotel.budgetBadge ? (
                             <View style={[
                               styles.hotelBudgetBadgePill,
-                              hotel.badgeType === 'luxury' ? styles.hotelBudgetBadgeLuxury : hotel.badgeType === 'budget' ? styles.hotelBudgetBadgeBudget : styles.hotelBudgetBadgeStandard
+                              hotel.badgeType === 'preference'
+                                ? styles.hotelBudgetBadgePreference
+                                : (hotel.badgeType === 'luxury'
+                                    ? styles.hotelBudgetBadgeLuxury
+                                    : (hotel.badgeType === 'budget' ? styles.hotelBudgetBadgeBudget : styles.hotelBudgetBadgeStandard))
                             ]}>
                               <AppText style={[
                                 styles.hotelBudgetBadgeText,
-                                hotel.badgeType === 'luxury' ? styles.hotelBudgetBadgeTextLuxury : hotel.badgeType === 'budget' ? styles.hotelBudgetBadgeTextBudget : styles.hotelBudgetBadgeTextStandard
+                                hotel.badgeType === 'preference'
+                                  ? styles.hotelBudgetBadgeTextPreference
+                                  : (hotel.badgeType === 'luxury'
+                                      ? styles.hotelBudgetBadgeTextLuxury
+                                      : (hotel.badgeType === 'budget' ? styles.hotelBudgetBadgeTextBudget : styles.hotelBudgetBadgeTextStandard))
                               ]}>
                                 {hotel.budgetBadge}
                               </AppText>
@@ -5688,6 +5832,11 @@ export default function TripPlanningScreen({ navigation, route }) {
                           </AppText>
                         </View>
                       </View>
+                      {act.matchedInterest ? (
+                        <View style={styles.activityPrefBadge}>
+                          <AppText style={styles.activityPrefBadgeText}>✨ Recommended for your {act.matchedInterest} interest</AppText>
+                        </View>
+                      ) : null}
                       <AppText style={styles.activityCheckDesc}>{act.desc}</AppText>
                       {isChecked ? (
                         <AppText style={styles.activityTotalText}>
@@ -5767,6 +5916,11 @@ export default function TripPlanningScreen({ navigation, route }) {
                           </AppText>
                         </View>
                       </View>
+                      {exp.matchedInterest ? (
+                        <View style={styles.activityPrefBadge}>
+                          <AppText style={styles.activityPrefBadgeText}>✨ Recommended for your {exp.matchedInterest} interest</AppText>
+                        </View>
+                      ) : null}
                       <AppText style={styles.activityCheckDesc}>{exp.desc}</AppText>
                     </View>
                   </TouchableOpacity>
@@ -6969,6 +7123,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#38bdf8',
   },
+  hotelBudgetBadgePreference: {
+    backgroundColor: '#ecfdf5',
+    borderWidth: 1,
+    borderColor: '#059669',
+  },
   hotelBudgetBadgeText: {
     fontSize: 9,
     fontFamily: fonts.bold,
@@ -6981,6 +7140,9 @@ const styles = StyleSheet.create({
   },
   hotelBudgetBadgeTextStandard: {
     color: '#0369a1',
+  },
+  hotelBudgetBadgeTextPreference: {
+    color: '#065f46',
   },
   roomSelectContainer: {
     marginTop: 6,
@@ -8000,6 +8162,21 @@ const styles = StyleSheet.create({
   },
   activityPriceBadgeTextActive: {
     color: '#15803d',
+  },
+  activityPrefBadge: {
+    backgroundColor: '#ecfdf5',
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+    borderRadius: 6,
+    alignSelf: 'flex-start',
+    marginVertical: 3,
+    borderWidth: 1,
+    borderColor: '#a7f3d0',
+  },
+  activityPrefBadgeText: {
+    fontSize: 10,
+    fontFamily: fonts.bold,
+    color: '#065f46',
   },
   activityCheckDesc: {
     fontSize: 11,

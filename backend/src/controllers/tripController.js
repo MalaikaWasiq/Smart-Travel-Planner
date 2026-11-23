@@ -5,9 +5,42 @@ const { buildTripRoutes } = require('../services/routeService');
 const { calculateBudget } = require('../services/budgetService');
 const { syncTripAlerts } = require('../services/alertService');
 
+function enrichTripCompletion(trip) {
+  if (!trip) return trip;
+  const now = new Date();
+  let endDateStr = trip.endDate;
+  if (!endDateStr && trip.startDate) {
+    const sDate = new Date(trip.startDate);
+    if (!isNaN(sDate.getTime())) {
+      const eDate = new Date(sDate.getTime() + Math.max(0, (trip.days || 1) - 1) * 24 * 60 * 60 * 1000);
+      endDateStr = eDate.toISOString().split('T')[0];
+    }
+  }
+
+  const isEligibleStatus = ['Confirmed', 'In Progress', 'Upcoming'].includes(trip.status);
+  let isPastEndDate = false;
+  if (endDateStr) {
+    const endOfDay = new Date(`${endDateStr}T23:59:59.999Z`);
+    isPastEndDate = endOfDay <= now;
+  }
+
+  const isEligibleForCompletion = Boolean(
+    isEligibleStatus &&
+    isPastEndDate &&
+    trip.status !== 'Completed' &&
+    trip.status !== 'Not Completed' &&
+    trip.status !== 'Cancelled'
+  );
+
+  trip.isEligibleForCompletion = isEligibleForCompletion;
+  trip.computedEndDate = endDateStr;
+  return trip;
+}
+
 function sanitizeTripForUser(tripDoc, role) {
   if (!tripDoc) return tripDoc;
   const trip = tripDoc.toObject ? tripDoc.toObject() : JSON.parse(JSON.stringify(tripDoc));
+  enrichTripCompletion(trip);
   if (role === 'admin') return trip;
 
   // Protect internal company financial calculations, markups, and cost allocation trees from customers
@@ -450,7 +483,129 @@ async function deleteTrip(req, res, next) {
   } catch (error) { next(error); }
 }
 
+async function verifyTripCompletion(req, res, next) {
+  try {
+    requireDatabase(req);
+    const trip = await Trip.findOne({ _id: req.params.id, userId: req.user._id });
+    if (!trip) throw httpError(404, 'Trip not found or access denied');
+
+    // Rule 3: Only trips with a valid confirmed/eligible trip record can enter completion verification.
+    // Exclude cancelled trips and unconfirmed/pending trips.
+    if (['Cancelled', 'Pending'].includes(trip.status)) {
+      throw httpError(400, 'Cancelled or unconfirmed trips are not eligible for completion verification.');
+    }
+
+    // Rule 4: When the trip end date has passed
+    const now = new Date();
+    let endDateStr = trip.endDate;
+    if (!endDateStr && trip.startDate) {
+      const sDate = new Date(trip.startDate);
+      if (!isNaN(sDate.getTime())) {
+        const eDate = new Date(sDate.getTime() + Math.max(0, (trip.days || 1) - 1) * 24 * 60 * 60 * 1000);
+        endDateStr = eDate.toISOString().split('T')[0];
+      }
+    }
+
+    if (endDateStr) {
+      const endOfDay = new Date(`${endDateStr}T23:59:59.999Z`);
+      if (endOfDay > now) {
+        throw httpError(400, `Completion verification is only available after the trip end date (${endDateStr}) has passed.`);
+      }
+    }
+
+    const action = String(req.body.action || '').trim().toLowerCase();
+
+    // Rule 6: If the user confirms completion ("Yes, I completed my trip.")
+    if (action === 'completed' || action === 'yes') {
+      trip.status = 'Completed';
+      trip.completionStatus = 'completed';
+      trip.completionConfirmedAt = new Date();
+      trip.completionMethod = 'self_reported'; // Rule 10: self-reported completion, not independent/GPS verified
+      trip.reviewEligible = true;
+      await trip.save();
+      return res.json({
+        ok: true,
+        trip: sanitizeTripForUser(trip, req.user?.role),
+        message: `Trip to ${trip.destination} marked as completed. You can now rate your trip!`,
+      });
+    }
+
+    // Rule 7: If the user says No ("No, I did not complete my trip.")
+    if (action === 'not_completed' || action === 'no') {
+      trip.status = 'Not Completed';
+      trip.completionStatus = 'not_completed';
+      trip.completionConfirmedAt = new Date();
+      trip.completionMethod = 'self_reported';
+      trip.reviewEligible = false;
+      await trip.save();
+      return res.json({
+        ok: true,
+        trip: sanitizeTripForUser(trip, req.user?.role),
+        message: `Trip to ${trip.destination} marked as Not Completed.`,
+      });
+    }
+
+    // Rule 8: If the user selects Remind me later
+    if (action === 'remind_later' || action === 'later') {
+      trip.completionStatus = 'remind_later';
+      trip.remindCompletionAfter = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24-hour snooze
+      await trip.save();
+      return res.json({
+        ok: true,
+        trip: sanitizeTripForUser(trip, req.user?.role),
+        message: 'Reminder snoozed. You can complete verification anytime in My Trips.',
+      });
+    }
+
+    throw httpError(400, 'Invalid action. Must be "completed", "not_completed", or "remind_later".');
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function submitTripReview(req, res, next) {
+  try {
+    requireDatabase(req);
+    const trip = await Trip.findOne({ _id: req.params.id, userId: req.user._id });
+    if (!trip) throw httpError(404, 'Trip not found or access denied');
+
+    // Rule 9: Do not allow reviews for upcoming, cancelled, unconfirmed, or uncompleted trips.
+    if (trip.status !== 'Completed' || !trip.reviewEligible) {
+      throw httpError(403, 'Reviews can only be submitted for verified completed trips.');
+    }
+
+    // Rule 9: Prevent duplicate reviews
+    if (trip.reviewSubmitted) {
+      throw httpError(400, 'A review has already been submitted for this trip.');
+    }
+
+    const rating = Number(req.body.rating);
+    if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+      throw httpError(400, 'Rating must be an integer between 1 and 5 stars.');
+    }
+
+    const comment = String(req.body.comment || '').trim().slice(0, 1000);
+
+    trip.review = {
+      rating,
+      comment,
+      submittedAt: new Date(),
+    };
+    trip.reviewSubmitted = true;
+    await trip.save();
+
+    res.json({
+      ok: true,
+      trip: sanitizeTripForUser(trip, req.user?.role),
+      message: 'Thank you for rating your trip!',
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   generateTrip, updateTrip, updateItinerary, listTrips, getTrip, selectHotel, deleteTrip,
   addExpense, updateExpense, deleteExpense, previewItineraryChange, refreshRoute,
+  verifyTripCompletion, submitTripReview,
 };

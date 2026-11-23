@@ -311,7 +311,7 @@ const CATEGORY_TABS = [
 export default function CategoryCitiesScreen({ navigation, route }) {
   const initialCategory = route.params?.category || 'All';
   const [activeCat, setActiveCat] = useState(initialCategory);
-  const { token } = useApp();
+  const { token, isFavorite, toggleFavorite } = useApp();
   const { width } = useWindowDimensions();
   const isWide = width >= 768;
 
@@ -524,6 +524,7 @@ export default function CategoryCitiesScreen({ navigation, route }) {
                 <View style={[styles.grid, isWide && styles.gridWide]}>
                   {filtered.map((item, idx) => {
                     const bestMonths = item.bestTimeToVisit || 'May to October';
+                    const isFav = isFavorite ? isFavorite(item) : false;
                     return (
                       <View key={item.destinationId || item.id || idx} style={[styles.cityCard, isWide && styles.cityCardWide]}>
                         {/* CITY IMAGE */}
@@ -542,6 +543,24 @@ export default function CategoryCitiesScreen({ navigation, route }) {
                               <AppIcon name="location-outline" size={13} color="#ffffff" />
                               <AppText style={styles.regionText}>{item.region || item.category || activeCat}</AppText>
                             </View>
+                            {/* Floating Favorite Heart on Image */}
+                            <TouchableOpacity
+                              style={[styles.imageFavBadge, isFav && styles.imageFavBadgeActive]}
+                              onPress={(e) => {
+                                e?.stopPropagation?.();
+                                toggleFavorite?.(item);
+                              }}
+                              hitSlop={8}
+                              activeOpacity={0.8}
+                              accessibilityRole="button"
+                              accessibilityLabel={isFav ? `Remove ${item.name} from favorites` : `Add ${item.name} to favorites`}
+                            >
+                              <AppIcon
+                                name={isFav ? 'heart' : 'heart-outline'}
+                                size={19}
+                                color={isFav ? '#ef4444' : '#ffffff'}
+                              />
+                            </TouchableOpacity>
                             {/* Rating Tag */}
                             <View style={styles.ratingBadge}>
                               <AppIcon name="star" size={13} color="#f59e0b" />
@@ -552,11 +571,27 @@ export default function CategoryCitiesScreen({ navigation, route }) {
 
                         {/* CITY BODY */}
                         <View style={styles.cardBody}>
-                          <TouchableOpacity onPress={() => handleViewDetail(item)}>
-                            <AppText variant="title" style={styles.cityName}>
-                              {item.name}
-                            </AppText>
-                          </TouchableOpacity>
+                          <View style={styles.cityNameRow}>
+                            <TouchableOpacity style={{ flex: 1 }} onPress={() => handleViewDetail(item)}>
+                              <AppText variant="title" style={styles.cityName}>
+                                {item.name}
+                              </AppText>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              style={[styles.cityFavButton, isFav && styles.cityFavButtonActive]}
+                              onPress={() => toggleFavorite?.(item)}
+                              hitSlop={8}
+                              activeOpacity={0.75}
+                              accessibilityRole="button"
+                              accessibilityLabel={isFav ? `Remove ${item.name} from favorites` : `Add ${item.name} to favorites`}
+                            >
+                              <AppIcon
+                                name={isFav ? 'heart' : 'heart-outline'}
+                                size={22}
+                                color={isFav ? '#ef4444' : '#94a3b8'}
+                              />
+                            </TouchableOpacity>
+                          </View>
 
                           {/* BEST VISITING MONTHS (SUPERVISOR REQUIREMENT) */}
                           <View style={styles.seasonBanner}>
@@ -844,10 +879,29 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
   },
+  imageFavBadge: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: 'rgba(0, 0, 0, 0.45)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.4)',
+  },
+  imageFavBadgeActive: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#FCA5A5',
+    ...shadowSoft,
+  },
   ratingBadge: {
     position: 'absolute',
-    top: 12,
-    right: 12,
+    bottom: 10,
+    right: 10,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 3,
@@ -864,12 +918,33 @@ const styles = StyleSheet.create({
   cardBody: {
     padding: spacing.md,
   },
+  cityNameRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 6,
+  },
   cityName: {
     fontSize: 19,
     fontFamily: fonts.serif,
     fontWeight: '800',
     color: '#1F2937',
-    marginBottom: 6,
+    flex: 1,
+  },
+  cityFavButton: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: '#F1F5F9',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 8,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  cityFavButtonActive: {
+    backgroundColor: '#FEE2E2',
+    borderColor: '#FECACA',
   },
   seasonBanner: {
     flexDirection: 'row',
