@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema(
       default: 'user',
       index: true,
     },
+    adminKey: {
+      type: String,
+      trim: true,
+      default: '',
+    },
     phone: {
       type: String,
       trim: true,

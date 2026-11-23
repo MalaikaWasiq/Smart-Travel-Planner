@@ -26,3 +26,4 @@ ml/.env
 **/.DS_Store
 Thumbs.db
 cloudflared.exe
+scratch/

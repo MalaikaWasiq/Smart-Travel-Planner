@@ -141,8 +141,8 @@ export function AppProvider({ children }) {
     return safeUser;
   }
 
-  async function signup(fullName, email, password, role = 'user', adminCode = '') {
-    const res = await apiRequest('/auth/signup', { method: 'POST', body: { fullName, email, password, role, adminCode } });
+  async function signup(fullName, email, password, role = 'user', adminCode = '', phone = '') {
+    const res = await apiRequest('/auth/signup', { method: 'POST', body: { fullName, email, password, role, adminCode, phone } });
     if (typeof window !== 'undefined' && window.localStorage) {
       const userObj = res.user || { fullName, email, role };
       window.localStorage.setItem('smartTravelPlanner.currentUser', JSON.stringify(userObj));

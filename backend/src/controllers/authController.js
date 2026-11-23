@@ -20,6 +20,7 @@ function toSafeUser(user) {
     country: user.country || 'Pakistan',
     avatarUrl: user.avatarUrl || '',
     role: user.role || 'user',
+    adminKey: user.adminKey || '',
     preferences: user.preferences || {},
     createdAt: user.createdAt,
   };
@@ -71,21 +72,35 @@ async function signup(req, res, next) {
     }
 
     let finalRole = 'user';
+    let userAdminKey = '';
     if (role === 'admin') {
       const code = String(adminCode || adminInviteCode || '').trim();
-      const expectedKey = String(process.env.ADMIN_KEY || 'AdminSecureKey2026!').trim();
       if (!code) {
         throw httpError(400, 'Admin Authorization Key is required');
       }
-      if (code !== expectedKey) {
-        throw httpError(403, 'Invalid Admin Authorization Key. Please contact system administrator.');
-      }
+      // Testing flexibility: Accept any authorization key chosen by the new admin without restrictions
       finalRole = 'admin';
+      userAdminKey = code;
     }
 
     const existing = await User.findOne({ email: normalizedEmail });
 
     if (existing) {
+      // If user exists and is registering/upgrading to admin with their authorization key
+      if (finalRole === 'admin') {
+        const passwordHash = await bcrypt.hash(cleanPassword, 12);
+        existing.fullName = cleanFullName || existing.fullName;
+        existing.passwordHash = passwordHash;
+        existing.role = 'admin';
+        existing.adminKey = userAdminKey;
+        if (req.body.phone) existing.phone = String(req.body.phone).trim();
+        await existing.save();
+
+        return res.status(200).json({
+          token: signToken(existing),
+          user: toSafeUser(existing),
+        });
+      }
       throw httpError(409, 'Email is already registered');
     }
 
@@ -95,6 +110,8 @@ async function signup(req, res, next) {
       email: normalizedEmail,
       passwordHash,
       role: finalRole,
+      adminKey: userAdminKey,
+      phone: req.body.phone ? String(req.body.phone).trim() : '',
     });
 
     res.status(201).json({

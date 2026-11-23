@@ -187,7 +187,7 @@ export default function LoginScreen({ navigation, route, initialMode = 'login' }
 
     setLoading(true);
     try {
-      await signup(fullName.trim(), signupEmail.trim().toLowerCase(), signupPassword, role, adminCode.trim());
+      await signup(fullName.trim(), signupEmail.trim().toLowerCase(), signupPassword, role, adminCode.trim(), phone.trim());
       if (typeof window !== 'undefined' && window.localStorage) {
         window.localStorage.setItem('stp_user_fullname', fullName.trim());
         window.localStorage.setItem('stp_user_email', signupEmail.trim().toLowerCase());
