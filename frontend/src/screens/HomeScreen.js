@@ -29,7 +29,7 @@ const CATEGORIES_DATA = [
   {
     id: 'Adventure & Nature',
     title: 'Adventure & Nature',
-    iconEmoji: '🏔️',
+    iconEmoji: '',
     iconName: 'compass-outline',
     image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80',
     desc: 'Discover breathtaking landscapes, thrilling adventures, hiking trails, valleys, lakes, and peaceful escapes across Pakistan.',
@@ -40,7 +40,7 @@ const CATEGORIES_DATA = [
   {
     id: 'Northern Areas',
     title: 'Northern Areas',
-    iconEmoji: '❄️',
+    iconEmoji: '',
     iconName: 'snow-outline',
     image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&q=80',
     desc: "Explore Pakistan's majestic mountains, beautiful valleys, glaciers, lakes, and unforgettable northern landscapes.",
@@ -51,7 +51,7 @@ const CATEGORIES_DATA = [
   {
     id: 'Cultural & Historical',
     title: 'Cultural & Historical',
-    iconEmoji: '🏛️',
+    iconEmoji: '',
     iconName: 'shield-outline',
     image: 'https://images.unsplash.com/photo-1588714477688-cf28a50e94f7?w=800&q=80',
     desc: "Experience Pakistan's rich history, ancient civilizations, magnificent forts, heritage sites, and vibrant cultural cities.",
@@ -62,7 +62,7 @@ const CATEGORIES_DATA = [
   {
     id: 'Coastal Areas',
     title: 'Coastal Areas',
-    iconEmoji: '🌊',
+    iconEmoji: '',
     iconName: 'water-outline',
     image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
     desc: "Relax by Pakistan's beautiful coastline, explore beaches and islands, and discover unforgettable coastal adventures.",
@@ -233,7 +233,7 @@ export default function HomeScreen({ navigation }) {
       categoryData: {
         id: 'All',
         title: 'All Destinations in Pakistan',
-        iconEmoji: '🇵🇰',
+        iconEmoji: '',
         image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80',
         desc: 'Explore all 48 curated destinations across Pakistan — from northern glaciers and alpine meadows to ancient heritage forts and sunny coastal beaches.',
       },
@@ -298,8 +298,8 @@ export default function HomeScreen({ navigation }) {
 
               {/* =====================================================================
                   1. TOP HEADER SECTION (Matches Reference Mockup)
-                  - Handwritten slogan: "Pakistan is always a good idea ♡ ✈"
-                  - Centered greeting: "Hi, Traveler 👋" with Mountain Emblem
+                  - Handwritten slogan: "Pakistan is always a good idea  "
+                  - Centered greeting: "Hi, Traveler " with Mountain Emblem
                   - Subtitle: "Plan smarter · Travel better · Explore Pakistan"
                   - Search bar with Emerald Green [Search] button
                   - Profile avatar on right
@@ -311,7 +311,7 @@ export default function HomeScreen({ navigation }) {
                     <AppText style={styles.sloganLine1}>Pakistan is</AppText>
                     <View style={styles.sloganRow2}>
                       <AppText style={styles.sloganLine2}>always a good idea </AppText>
-                      <AppText style={styles.sloganHeart}>♡ </AppText>
+                      <AppText style={styles.sloganHeart}> </AppText>
                       <AppIcon name="airplane" size={13} color="#145a38" />
                     </View>
                   </View>
@@ -335,7 +335,7 @@ export default function HomeScreen({ navigation }) {
                       resizeMode="contain"
                     />
                     <AppText style={styles.greetingText}>
-                      {user?.fullName ? `Hi, ${displayName} 👋` : 'Hi, Traveler 👋'}
+                      {user?.fullName ? `Hi, ${displayName} ` : 'Hi, Traveler '}
                     </AppText>
                   </View>
 
@@ -419,7 +419,7 @@ export default function HomeScreen({ navigation }) {
                       />
                       <View style={styles.categoryCardContent}>
                         <View style={styles.categoryTitleRow}>
-                          <AppText style={styles.categoryCardEmoji}>{cat.iconEmoji}</AppText>
+                          <AppIcon name={cat.iconName || 'compass-outline'} size={20} color={cat.color || colors.forest} style={{ marginRight: 6 }} />
                           <AppText style={styles.categoryCardTitle} numberOfLines={1}>
                             {cat.title}
                           </AppText>
@@ -510,7 +510,7 @@ export default function HomeScreen({ navigation }) {
                         </AppText>
                         {dest.isMapLocation ? (
                           <View style={styles.mapGeocodedPill}>
-                            <AppText style={styles.mapGeocodedPillText}>📍 Live Map ({dest.region || 'Pakistan'})</AppText>
+                            <AppText style={styles.mapGeocodedPillText}> Live Map ({dest.region || 'Pakistan'})</AppText>
                           </View>
                         ) : (
                           <AppText style={styles.cityCardRegion} numberOfLines={1}>

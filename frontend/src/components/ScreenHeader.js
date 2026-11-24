@@ -9,7 +9,7 @@ import AppIcon from './AppIcon';
 export default function ScreenHeader({ title, subtitle, onBack, children, gradientColors }) {
   const insets = useSafeAreaInsets();
   return (
-    <LinearGradient colors={gradientColors || ['#155E43', '#21845D']} style={[styles.header, { paddingTop: Math.max(20, insets.top + 14) }]}>
+    <LinearGradient colors={gradientColors || ['#0F766E', '#0D9488']} style={[styles.header, { paddingTop: Math.max(20, insets.top + 14) }]}>
       {onBack ? (
         <TouchableOpacity accessibilityRole="button" accessibilityLabel="Go back" onPress={onBack} style={styles.back}>
           <AppIcon name="chevron-back" color="#ffffff" size={20} />

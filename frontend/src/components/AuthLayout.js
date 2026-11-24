@@ -82,7 +82,7 @@ export function AuthLayout({ title, subtitle, serverError, onBack, children }) {
                 <AppText style={styles.subtitle}>{subtitle}</AppText>
                 <View style={styles.heartRow}>
                   <View style={styles.heartLine} />
-                  <AppText style={styles.heartEmoji}>💚</AppText>
+                  <AppIcon name="heart" size={16} color="#16a34a" />
                   <View style={styles.heartLine} />
                 </View>
               </View>

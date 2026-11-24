@@ -21,7 +21,7 @@ function detectHazards({ destination, weather, forecast = [], route = {} }) {
         type: 'landslide',
         severity: 'danger',
         title: 'Critical Landslide Risk in Mountain Passes',
-        message: '⚠️ High landslide & rockfall alert on mountain access corridors (KKH, Kohistan, Swat-Kalam & Neelum Valley roads). Precipitation and snowmelt trigger sudden slope slides.',
+        message: 'High landslide & rockfall alert on mountain access corridors (KKH, Kohistan, Swat-Kalam & Neelum Valley roads). Precipitation and snowmelt trigger sudden slope slides.',
         recommendedAction: 'Verify road clearance with FWO (051-9271616) and NHMP (130) before departure. Strictly travel in daylight hours (07:00 AM - 05:00 PM).',
       });
     } else {
@@ -29,7 +29,7 @@ function detectHazards({ destination, weather, forecast = [], route = {} }) {
         type: 'landslide',
         severity: 'warning',
         title: 'Mountain Pass Rockfall & Landslide Caution',
-        message: '⚠️ Active rockfall and shooting-stone sectors along Karakoram Highway, Jaglot-Skardu road, and valley passes. Loose mountain gravel can cause temporary blockages.',
+        message: 'Active rockfall and shooting-stone sectors along Karakoram Highway, Jaglot-Skardu road, and valley passes. Loose mountain gravel can cause temporary blockages.',
         recommendedAction: 'Avoid stopping vehicles under unstable rock cliffs. Maintain safe following distance and monitor local traffic police updates.',
       });
     }
@@ -48,7 +48,7 @@ function detectHazards({ destination, weather, forecast = [], route = {} }) {
       type: 'snow-ice',
       severity: weather?.temp <= 0 ? 'danger' : 'warning',
       title: 'Snowfall & Invisible Black Ice on Roads',
-      message: '❄️ Sub-zero night temperatures cause invisible black ice on hairpin curves and high bridges. Extreme slippery road conditions.',
+      message: 'Sub-zero night temperatures cause invisible black ice on hairpin curves and high bridges. Extreme slippery road conditions.',
       recommendedAction: 'Use 4x4 vehicles with tire chains. Keep engine antifreeze topped up, verify heater functionality, and carry warm blankets.',
     });
   }
@@ -59,7 +59,7 @@ function detectHazards({ destination, weather, forecast = [], route = {} }) {
       type: 'pass-closure',
       severity: 'warning',
       title: 'High-Altitude Pass Access Restriction',
-      message: '🏔️ High altitude pass (>4,000m). Seasonal snow blockages can close transit outside peak summer (November to May).',
+      message: 'High altitude pass (>4,000m). Seasonal snow blockages can close transit outside peak summer (November to May).',
       recommendedAction: 'Confirm with local DC office or take alternative all-weather Karakoram Highway (KKH) route via Kohistan.',
     });
   }
@@ -70,7 +70,7 @@ function detectHazards({ destination, weather, forecast = [], route = {} }) {
       type: 'heavy-rain',
       severity: 'danger',
       title: 'Heavy Rainfall & Flash Flood Hazard',
-      message: '🌊 Severe rainfall/torrential cloudburst conditions can trigger sudden river surges and wash out low-lying bridges.',
+      message: 'Severe rainfall/torrential cloudburst conditions can trigger sudden river surges and wash out low-lying bridges.',
       recommendedAction: 'Stay at least 100 meters away from riverbanks. Never attempt to drive across overflowing stream causeways.',
     });
   }
@@ -85,7 +85,7 @@ function detectHazards({ destination, weather, forecast = [], route = {} }) {
       type: isSmog ? 'smog' : 'fog',
       severity: 'warning',
       title: isSmog ? 'Toxic Smog & Highway Visibility Alert' : 'Dense Fog & Low Visibility Alert',
-      message: '🌫️ Smog/fog causes visibility to drop below 30 meters on Motorways (M-2, M-3, M-4, M-5, M-9) during late nights and early mornings.',
+      message: 'Smog/fog causes visibility to drop below 30 meters on Motorways (M-2, M-3, M-4, M-5, M-9) during late nights and early mornings.',
       recommendedAction: 'Travel between 11:00 AM and 04:30 PM only. Turn on low-beam fog lights and dial Motorway Police Helpline (130) before departure.',
     });
   }
@@ -97,7 +97,7 @@ function detectHazards({ destination, weather, forecast = [], route = {} }) {
       type: 'coastal',
       severity: 'warning',
       title: 'Coastal Swells & Remote Highway Stretch',
-      message: '🌊 Strong rip currents on beaches. Makran Coastal Highway features 120km+ isolated stretches without fuel stations.',
+      message: 'Strong rip currents on beaches. Makran Coastal Highway features 120km+ isolated stretches without fuel stations.',
       recommendedAction: 'Refuel at main towns, carry 10L reserve water per vehicle, and strictly obey red-flag swimming bans.',
     });
   }
@@ -108,7 +108,7 @@ function detectHazards({ destination, weather, forecast = [], route = {} }) {
       type: 'road-closure',
       severity: 'danger',
       title: 'Road Closure / Blockage Alert',
-      message: '⚠️ Route section temporarily obstructed or closed for maintenance.',
+      message: 'Route section temporarily obstructed or closed for maintenance.',
       recommendedAction: 'Consult NHMP (130) or use local bypass routes.',
     });
   }

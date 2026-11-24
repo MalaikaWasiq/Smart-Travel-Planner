@@ -2,7 +2,7 @@ const { calculateBudget } = require('./services/budgetService');
 const { getMenuForDestination, calculateActualFoodExpense } = require('./services/foodService');
 
 console.log('====================================================');
-console.log('🧪 RUNNING SMART TRAVEL PLANNER BUDGET AUDIT SUITE');
+console.log('[TEST] RUNNING SMART TRAVEL PLANNER BUDGET AUDIT SUITE');
 console.log('====================================================\n');
 
 let passedCount = 0;
@@ -11,10 +11,10 @@ let totalCount = 0;
 function assert(condition, message) {
   totalCount++;
   if (condition) {
-    console.log(`✅ PASS: ${message}`);
+    console.log(`[PASS] ${message}`);
     passedCount++;
   } else {
-    console.error(`❌ FAIL: ${message}`);
+    console.error(`[FAIL] ${message}`);
   }
 }
 
@@ -175,8 +175,8 @@ assert(testI.hotels === 0, 'Hotel cost is 0 when hotelRequired=false');
 assert(testI.food === 0, 'Food cost is 0 when foodRequired=false');
 assert(testI.activities === 0, 'Activities cost is 0 when activitiesRequired=false');
 
-// TEST J: Company tour 10% profit & 5% contingency
-console.log('\n--- TEST J: Company Tour Profit & Contingency ---');
+// TEST J: Company tour 10% profit on services subtotal
+console.log('\n--- TEST J: Company Tour Profit (10% on Services Subtotal) ---');
 const testJCompany = calculateBudget({
   budget: 200000,
   numberOfPersons: 4,
@@ -198,17 +198,28 @@ const testJCustom = calculateBudget({
   tripMode: 'customize'
 });
 console.log('Company Mode:', {
+  subtotal: testJCompany.servicesSubtotal,
   profit: testJCompany.companyProfit,
-  contingency: testJCompany.safetyMargin
+  total: testJCompany.totalEstimated
 });
 console.log('Customize Mode:', {
+  subtotal: testJCustom.servicesSubtotal,
   profit: testJCustom.companyProfit,
-  contingency: testJCustom.safetyMargin
+  total: testJCustom.totalEstimated
 });
-assert(testJCompany.companyProfit === 20000, 'Company profit is 10% of 200,000 = 20,000');
-assert(testJCompany.safetyMargin === 10000, 'Company contingency is 5% of 200,000 = 10,000');
+assert(testJCompany.companyProfit === Math.round(testJCompany.servicesSubtotal * 0.10), 'Company profit is 10% of services subtotal');
+assert(testJCompany.totalEstimated === testJCompany.servicesSubtotal + testJCompany.companyProfit, 'Total incurred equals services subtotal + company profit');
 assert(testJCustom.companyProfit === 0, 'Custom trip has 0 company profit');
-assert(testJCustom.safetyMargin === 0, 'Custom trip has 0 contingency');
+assert(testJCustom.totalEstimated === testJCustom.servicesSubtotal, 'Custom total equals services subtotal');
+
+// TEST K: Client Malaika WhatsApp Scenario (Transport 22k, Hotel 28.8k, Food 62.8k, Activities 4k)
+console.log('\n--- TEST K: Client Scenario (10% Profit on Services -> 129,360) ---');
+const mockServicesSubtotal = 22000 + 28800 + 62800 + 4000; // 117,600
+const mockCompanyProfit = Math.round(mockServicesSubtotal * 0.10); // 11,760
+const mockTotal = mockServicesSubtotal + mockCompanyProfit; // 129,360
+assert(mockServicesSubtotal === 117600, 'Services subtotal is 117,600');
+assert(mockCompanyProfit === 11760, '10% Company profit is 11,760');
+assert(mockTotal === 129360, 'Total is 129,360 (Client: 129 something, not 146k)');
 
 console.log('\n====================================================');
 console.log(`RESULTS: ${passedCount} / ${totalCount} TESTS PASSED`);

@@ -29,3 +29,8 @@ cloudflared.exe
 scratch/
 *.apk
 *.keystore
+
+# Graphify
+graphify-out/
+graphify/
+

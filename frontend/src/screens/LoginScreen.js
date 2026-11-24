@@ -277,14 +277,14 @@ export default function LoginScreen({ navigation, route, initialMode = 'login' }
         </TouchableOpacity>
       </View>
 
-      {/* 2. Role Switcher: [ 👤 Traveler ]  [ 🛡️ Admin ] */}
+      {/* 2. Role Switcher: [  Traveler ]  [  Admin ] */}
       <View style={styles.roleSwitcherContainer}>
         <TouchableOpacity
           style={[styles.roleBtn, role === 'user' && styles.roleBtnActive]}
           onPress={() => handleRoleChange('user')}
         >
           <Text style={[styles.roleBtnText, role === 'user' && styles.roleBtnTextActive]}>
-            👤 Traveler
+             Traveler
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -292,7 +292,7 @@ export default function LoginScreen({ navigation, route, initialMode = 'login' }
           onPress={() => handleRoleChange('admin')}
         >
           <Text style={[styles.roleBtnText, role === 'admin' && styles.roleBtnTextActive]}>
-            🛡️ Admin
+             Admin
           </Text>
         </TouchableOpacity>
       </View>

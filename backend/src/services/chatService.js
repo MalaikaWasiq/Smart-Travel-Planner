@@ -280,7 +280,7 @@ async function answerTravelQuestion({ message, trip, appContext = {}, history = 
 
     if (isPeaceQuery) {
       fallbackText =
-        `### 🌿 Peaceful & Tranquil Destinations in Pakistan\n\n` +
+        `### Peaceful & Tranquil Destinations in Pakistan\n\n` +
         `If you are seeking peace, fresh mountain air, and a break from the noise of city life, here are the top tranquil escapes across Pakistan:\n\n` +
         `1. **Neelum Valley (Azad Kashmir)**: Known for lush alpine woods, roaring crystalline rivers, and serene village walks in Keran, Sharda, and Arang Kel. Early morning mist over the river offers unmatched peace.\n` +
         `   * **Best Time:** May to October\n` +
@@ -294,14 +294,14 @@ async function answerTravelQuestion({ message, trip, appContext = {}, history = 
         `4. **Kund Malir & Ormara Beach (Balochistan Coast)**: Pristine white sand beaches along the Makran Coastal Highway with calm Arabian Sea waves and breathtaking starry night skies.\n` +
         `   * **Best Time:** October to March\n` +
         `   * **Vibe:** Coastal calm, quiet waves, stargazing.\n\n` +
-        `### 💡 Tips for a Peaceful Journey:\n` +
+        `### Tips for a Peaceful Journey:\n` +
         `- Plan travel on weekdays to avoid weekend crowds.\n` +
         `- Book peaceful boutique guesthouses or riverside cottages rather than crowded main bazaars.\n` +
         `- Keep warm layers for chilly mountain evenings.\n\n` +
         `Which setting appeals to you more: lush mountain valleys, pine forests, or quiet coastal shores?`;
     } else {
       fallbackText =
-        `### 🌄 Welcome to SafarSaathi AI! Your Pakistan Travel Guide\n\n` +
+        `### Welcome to SafarSaathi AI! Your Pakistan Travel Guide\n\n` +
         `Pakistan offers world-class travel experiences across high mountains, historic heritage cities, and sunny coastal beaches:\n\n` +
         `* **Northern Wonders**: Hunza, Skardu, Fairy Meadows, Naran-Kaghan, and Swat Valley.\n` +
         `* **Historical & Cultural**: Lahore Fort, Badshahi Mosque, Rohtas Fort, Taxila Gandhara ruins, and Multan shrines.\n` +

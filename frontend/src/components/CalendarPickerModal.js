@@ -120,15 +120,15 @@ export default function CalendarPickerModal({
     // Validate against past / minDate
     if (effectiveMinDate && dateStr < effectiveMinDate) {
       if (mode === 'start') {
-        setModalError(`⚠️ Cannot select past date: ${dateStr}. Start date must be today (${todayStr}) or later.`);
+        setModalError(`Cannot select past date: ${dateStr}. Start date must be today (${todayStr}) or later.`);
       } else {
-        setModalError(`⚠️ End date (${dateStr}) cannot be earlier than start date (${effectiveMinDate}).`);
+        setModalError(`End date (${dateStr}) cannot be earlier than start date (${effectiveMinDate}).`);
       }
       return;
     }
 
     if (maxDate && dateStr > maxDate) {
-      setModalError(`⚠️ Date exceeds maximum allowed limit (${maxDate}).`);
+      setModalError(`Date exceeds maximum allowed limit (${maxDate}).`);
       return;
     }
 
@@ -155,7 +155,7 @@ export default function CalendarPickerModal({
     const dateStr = formatLocalDate(year, month, day);
 
     if (effectiveMinDate && dateStr < effectiveMinDate) {
-      setModalError(`⚠️ Selected preset is before minimum allowed date (${effectiveMinDate}).`);
+      setModalError(`Selected preset is before minimum allowed date (${effectiveMinDate}).`);
       return;
     }
 

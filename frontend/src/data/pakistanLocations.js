@@ -471,12 +471,12 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
   const dLat = Number(destCoords?.[0]) || getPakistanCoords(destName, [34.7994, 72.5725])[0];
   const dLon = Number(destCoords?.[1]) || getPakistanCoords(destName, [34.7994, 72.5725])[1];
 
-  // 1. Malam Jabba / Swat / Kalam (Direct via M-1 ➔ M-16 Swat Expressway)
+  // 1. Malam Jabba / Swat / Kalam (Direct via M-1 -> M-16 Swat Expressway)
   if (d.includes('malam jabba') || d.includes('swat') || d.includes('kalam') || d.includes('mingora')) {
     return {
       motorwayRoute: {
         id: 'motorway',
-        name: '⚡ Shortest Motorway Route',
+        name: ' Shortest Motorway Route',
         badge: 'M-1 + Swat Expressway (M-16)',
         highways: ['M-1 Motorway (Burhan)', 'M-16 Swat Expressway', 'Malam Jabba Alpine Road'],
         typeLabel: 'Motorway Express (120 km/h)',
@@ -486,7 +486,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       gtRoadRoute: {
         id: 'gt_road',
-        name: '🚗 Alternative GT Road Route',
+        name: ' Alternative GT Road Route',
         badge: 'N-5 GT Road + Malakand Pass (N-45)',
         highways: ['N-5 Grand Trunk Road (via Nowshera)', 'Malakand Pass (N-45)', 'Chakdara Link'],
         typeLabel: 'National Highway (GT Road)',
@@ -496,7 +496,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       roadBlock: {
         hasBlock: true,
-        title: '⚠️ ⛔ SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
+        title: 'SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
         locationName: 'Swat Expressway / Barikot Corridor (M-16 Swat Valley)',
         coords: [34.685, 72.215],
         delayMins: 15,
@@ -509,7 +509,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
         { step: 1, text: `Depart from ${originName || 'Current Location'}`, icon: 'navigate', type: 'start' },
         { step: 2, text: 'Take motorway corridor towards Colonel Sher Khan Interchange', icon: 'speedometer', highway: 'Motorway Corridor' },
         { step: 3, text: 'Merge onto Swat Expressway (M-16) through Palai Tunnels', icon: 'shuffle', highway: 'M-16 Swat Expressway' },
-        { step: 4, text: '⚠️ ⛔ HAZARD: Speed slow karein! Road construction work & single lane diversion near Barikot (+15 min delay)', icon: 'warning', isDelay: true },
+        { step: 4, text: 'HAZARD: Speed slow karein! Road construction work & single lane diversion near Barikot (+15 min delay)', icon: 'warning', isDelay: true },
         { step: 5, text: 'Pass Mingora towards alpine Malam Jabba junction', icon: 'trail-sign', highway: 'Expressway' },
         { step: 6, text: `Ascend alpine scenic road to ${destName || 'Malam Jabba'} summit`, icon: 'flag', type: 'destination' },
       ],
@@ -521,7 +521,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
     return {
       motorwayRoute: {
         id: 'motorway',
-        name: '⚡ Shortest Hazara Motorway Route',
+        name: ' Shortest Hazara Motorway Route',
         badge: 'M-15 Hazara Motorway + N-15 Kaghan',
         highways: ['M-15 Hazara Motorway', 'N-15 Kaghan Alpine Highway', 'Babusar Pass Summit'],
         typeLabel: 'Motorway & Alpine Highway',
@@ -531,7 +531,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       gtRoadRoute: {
         id: 'gt_road',
-        name: '🚗 Traditional GT Road & Murree Route',
+        name: ' Traditional GT Road & Murree Route',
         badge: 'N-5 GT Road + N-75 + Galyat Corridor',
         highways: ['N-5 GT Road', 'N-75 Murree Expressway', 'Galyat N-35 Link'],
         typeLabel: 'National Highway & Mountain Pass',
@@ -541,7 +541,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       roadBlock: {
         hasBlock: true,
-        title: '⚠️ ⛔ SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
+        title: 'SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
         locationName: 'N-15 Alpine Corridor near Balakot / Kaghan approach',
         coords: [34.820, 73.480],
         delayMins: 15,
@@ -554,7 +554,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
         { step: 1, text: `Depart from ${originName || 'Current Location'}`, icon: 'navigate', type: 'start' },
         { step: 2, text: 'Connect to Hazara Motorway (M-15) via Abbottabad Bypass', icon: 'speedometer', highway: 'M-15 Motorway' },
         { step: 3, text: 'Pass Mansehra and merge onto N-15 Kaghan Alpine Highway', icon: 'trail-sign', highway: 'N-15' },
-        { step: 4, text: '⚠️ ⛔ HAZARD: Speed slow karein! Mountain road maintenance & single lane traffic (+15 min delay)', icon: 'warning', isDelay: true },
+        { step: 4, text: 'HAZARD: Speed slow karein! Mountain road maintenance & single lane traffic (+15 min delay)', icon: 'warning', isDelay: true },
         { step: 5, text: 'Continue through Naran Valley past Lulusar Emerald Lake', icon: 'car-sport', highway: 'Alpine Highway' },
         { step: 6, text: `Ascend alpine pass to ${destName || 'Babusar Top'} summit`, icon: 'flag', type: 'destination' },
       ],
@@ -566,7 +566,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
     return {
       motorwayRoute: {
         id: 'motorway',
-        name: '⚡ Shortest M-2 Motorway Route',
+        name: ' Shortest M-2 Motorway Route',
         badge: 'M-2 Motorway (Balkasar & Salt Range)',
         highways: ['M-2 Motorway', 'Lahore Ring Road (L-20)'],
         typeLabel: '6-Lane Motorway (120 km/h)',
@@ -576,7 +576,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       gtRoadRoute: {
         id: 'gt_road',
-        name: '🚗 Historic GT Road Route',
+        name: ' Historic GT Road Route',
         badge: 'N-5 Grand Trunk Road',
         highways: ['N-5 GT Road via Jhelum, Gujrat & Gujranwala'],
         typeLabel: 'N-5 National Highway',
@@ -586,7 +586,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       roadBlock: {
         hasBlock: true,
-        title: '⚠️ ⛔ SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
+        title: 'SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
         locationName: 'M-2 Motorway near Salt Range / Kallar Kahar Pass',
         coords: [32.780, 72.820],
         delayMins: 15,
@@ -599,7 +599,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
         { step: 1, text: `Depart from ${originName || 'Current Location'}`, icon: 'navigate', type: 'start' },
         { step: 2, text: 'Merge onto Motorway towards M-2 Lahore Corridor', icon: 'speedometer', highway: 'M-2 Motorway' },
         { step: 3, text: 'Descend scenic Salt Range (km 225)', icon: 'trail-sign', highway: 'M-2 Motorway' },
-        { step: 4, text: '⚠️ ⛔ HAZARD: Speed slow karein! Salt Range lane resurfacing & single-lane traffic (+15 min delay)', icon: 'warning', isDelay: true },
+        { step: 4, text: 'HAZARD: Speed slow karein! Salt Range lane resurfacing & single-lane traffic (+15 min delay)', icon: 'warning', isDelay: true },
         { step: 5, text: 'Cruise past Bhera & Sukheke service areas on M-2 (120 km/h)', icon: 'car-sport', highway: 'M-2 Motorway' },
         { step: 6, text: `Enter Lahore via Thokar Niaz Baig / Babu Sabu Interchange`, icon: 'flag', type: 'destination' },
       ],
@@ -611,8 +611,8 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
     return {
       motorwayRoute: {
         id: 'motorway',
-        name: '⚡ Shortest Express Motorway Route',
-        badge: 'M-1 / M-2 ➔ Srinagar Highway',
+        name: ' Shortest Express Motorway Route',
+        badge: 'M-1 / M-2 -> Srinagar Highway',
         highways: ['Motorway Corridor', 'Srinagar Highway', 'Islamabad Expressway'],
         typeLabel: 'Express Motorway Route',
         color: '#15803d',
@@ -621,7 +621,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       gtRoadRoute: {
         id: 'gt_road',
-        name: '🚗 Alternative N-5 GT Road Route',
+        name: ' Alternative N-5 GT Road Route',
         badge: 'N-5 Grand Trunk Road',
         highways: ['N-5 GT Road via Taxila & Margalla Pass'],
         typeLabel: 'National Highway Route',
@@ -631,7 +631,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       roadBlock: {
         hasBlock: true,
-        title: '⚠️ ⛔ SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
+        title: 'SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
         locationName: 'Islamabad Entrance Corridor near Toll Plaza Link',
         coords: [33.645, 72.985],
         delayMins: 10,
@@ -643,7 +643,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       turnByTurn: [
         { step: 1, text: `Depart from ${originName || 'Current Location'}`, icon: 'navigate', type: 'start' },
         { step: 2, text: 'Follow Motorway corridor towards Islamabad Toll Plaza', icon: 'speedometer', highway: 'Motorway' },
-        { step: 3, text: '⚠️ ⛔ HAZARD: Speed slow karein! Toll Plaza approach lane resurfacing (+10 min delay)', icon: 'warning', isDelay: true },
+        { step: 3, text: 'HAZARD: Speed slow karein! Toll Plaza approach lane resurfacing (+10 min delay)', icon: 'warning', isDelay: true },
         { step: 4, text: 'Merge onto Srinagar Highway towards Islamabad city center', icon: 'trail-sign', highway: 'Srinagar Highway' },
         { step: 5, text: `Reach final destination: ${destName || 'Islamabad'}`, icon: 'flag', type: 'destination' },
       ],
@@ -655,7 +655,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
     return {
       motorwayRoute: {
         id: 'motorway',
-        name: '⚡ Shortest Murree Expressway Route',
+        name: ' Shortest Murree Expressway Route',
         badge: 'N-75 Murree Expressway',
         highways: ['Barakahu Bypass', 'N-75 Murree Expressway', 'Mall Road Corridor'],
         typeLabel: '4-Lane Alpine Expressway',
@@ -665,7 +665,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       gtRoadRoute: {
         id: 'gt_road',
-        name: '🚗 Old Murree Road via Tret',
+        name: ' Old Murree Road via Tret',
         badge: 'Old Murree Alpine Highway',
         highways: ['Old Murree Road (via Tret & Salgran)'],
         typeLabel: 'Scenic Mountain Highway',
@@ -675,7 +675,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       roadBlock: {
         hasBlock: true,
-        title: '⚠️ ⛔ SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
+        title: 'SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
         locationName: 'Murree Expressway (N-75) near Lower Topa',
         coords: [33.880, 73.370],
         delayMins: 15,
@@ -687,7 +687,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       turnByTurn: [
         { step: 1, text: `Depart from ${originName || 'Current Location'}`, icon: 'navigate', type: 'start' },
         { step: 2, text: 'Take Murree Expressway (N-75) via elevated Barakahu Bypass', icon: 'speedometer', highway: 'N-75' },
-        { step: 3, text: '⚠️ ⛔ HAZARD: Speed slow karein! Hillside protection work & single lane diversion (+15 min delay)', icon: 'warning', isDelay: true },
+        { step: 3, text: 'HAZARD: Speed slow karein! Hillside protection work & single lane diversion (+15 min delay)', icon: 'warning', isDelay: true },
         { step: 4, text: 'Climb pine forest ridge towards Mall Road / Kashmir Point', icon: 'trail-sign', highway: 'Expressway' },
         { step: 5, text: `Reach final destination: ${destName || 'Murree'}`, icon: 'flag', type: 'destination' },
       ],
@@ -699,7 +699,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
     return {
       motorwayRoute: {
         id: 'motorway',
-        name: '⚡ Shortest Coastal Highway Route',
+        name: ' Shortest Coastal Highway Route',
         badge: 'Makran Coastal Highway (N-10)',
         highways: ['National Highway Corridor', 'Makran Coastal Highway (N-10)'],
         typeLabel: 'Scenic Coastal Highway',
@@ -709,7 +709,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       gtRoadRoute: {
         id: 'gt_road',
-        name: '🚗 Regional Coastal Highway Link',
+        name: ' Regional Coastal Highway Link',
         badge: 'RCD / Regional Link Highway',
         highways: ['RCD Highway Link', 'Coastal Connecting Road'],
         typeLabel: 'Regional Highway',
@@ -719,7 +719,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       },
       roadBlock: {
         hasBlock: true,
-        title: '⚠️ ⛔ SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
+        title: 'SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
         locationName: 'Makran Coastal Highway (N-10) near Kund Malir Pass',
         coords: [25.500, 65.450],
         delayMins: 15,
@@ -731,7 +731,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
       turnByTurn: [
         { step: 1, text: `Depart from ${originName || 'Current Location'}`, icon: 'navigate', type: 'start' },
         { step: 2, text: 'Take National Highway corridor towards Coastal belt', icon: 'speedometer', highway: 'Highway Corridor' },
-        { step: 3, text: '⚠️ ⛔ HAZARD: Speed slow karein! Coastal sand drift clearance & single lane road (+15 min delay)', icon: 'warning', isDelay: true },
+        { step: 3, text: 'HAZARD: Speed slow karein! Coastal sand drift clearance & single lane road (+15 min delay)', icon: 'warning', isDelay: true },
         { step: 4, text: 'Cruise along scenic Arabian Sea Coastal Highway (N-10)', icon: 'trail-sign', highway: 'N-10' },
         { step: 5, text: `Reach final destination: ${destName || 'Destination'}`, icon: 'flag', type: 'destination' },
       ],
@@ -745,7 +745,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
   return {
     motorwayRoute: {
       id: 'motorway',
-      name: `⚡ Shortest Motorway Route to ${destName}`,
+      name: ` Shortest Motorway Route to ${destName}`,
       badge: `Primary Motorway Corridor to ${destName}`,
       highways: [`Motorway Corridor towards ${destName}`, 'Direct Express Highway'],
       typeLabel: 'Primary Motorway Route',
@@ -755,7 +755,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
     },
     gtRoadRoute: {
       id: 'gt_road',
-      name: `🚗 Alternative Highway Route to ${destName}`,
+      name: ` Alternative Highway Route to ${destName}`,
       badge: `National Highway Network to ${destName}`,
       highways: [`National Highway (N-5 / Regional Link) towards ${destName}`],
       typeLabel: 'National Highway Route',
@@ -765,7 +765,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
     },
     roadBlock: {
       hasBlock: true,
-      title: '⚠️ ⛔ SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
+      title: 'SPEED SLOW KAREIN — ROAD BLOCK & HIGH TRAFFIC',
       locationName: `Highway Corridor approaching ${destName}`,
       coords: [hazardLat, hazardLon],
       delayMins: 15,
@@ -777,7 +777,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
     turnByTurn: [
       { step: 1, text: `Depart from ${originName || 'Current Location'}`, icon: 'navigate', type: 'start' },
       { step: 2, text: `Take primary highway corridor towards ${destName}`, icon: 'speedometer', highway: 'Express Corridor' },
-      { step: 3, text: '⚠️ ⛔ HAZARD: Speed slow karein! Road construction & single lane diversion reported (+15 min delay)', icon: 'warning', isDelay: true },
+      { step: 3, text: 'HAZARD: Speed slow karein! Road construction & single lane diversion reported (+15 min delay)', icon: 'warning', isDelay: true },
       { step: 4, text: `Cruise along expressway corridor approaching ${destName}`, icon: 'trail-sign', highway: 'Express Corridor' },
       { step: 5, text: `Reach final destination: ${destName}`, icon: 'flag', type: 'destination' },
     ],
@@ -785,7 +785,7 @@ export function getHighwayRouteDetails(originName, destName, originCoords = null
 }
 
 /**
- * Returns dynamic journey progression stages (Departing Origin ➔ On Highway ➔ In Transit City ➔ Reached Final Destination)
+ * Returns dynamic journey progression stages (Departing Origin -> On Highway -> In Transit City -> Reached Final Destination)
  * for live GPS driving simulation and tracking.
  */
 export function getJourneyStages(originName, destName, originCoords, destCoords) {
@@ -809,7 +809,7 @@ export function getJourneyStages(originName, destName, originCoords, destCoords)
     stage4Label = `${destName || 'Attock'} (Final Destination Reached)`;
   } else if (o.includes('attock') && d.includes('malam jabba')) {
     stage1Label = `${originName || 'Attock'} (Starting Point)`;
-    stage2Label = 'M-1 Motorway ➔ Swat Expressway (M-16)';
+    stage2Label = 'M-1 Motorway -> Swat Expressway (M-16)';
     stage3Label = 'Mingora / Barikot (Swat Valley Transit)';
     stage4Label = 'Malam Jabba Ski Resort (Final Destination Reached)';
   } else if (o.includes('lahore') && d.includes('islamabad')) {
@@ -868,7 +868,7 @@ export function getJourneyStages(originName, destName, originCoords, destCoords)
       coords: [dLat, dLon],
       percent: 100,
       speed: '0 km/h',
-      statusText: `🎉 You have reached your final destination: ${destName}!`,
+      statusText: ` You have reached your final destination: ${destName}!`,
       icon: 'checkmark-circle-outline',
       isArrived: true,
     },

@@ -76,6 +76,10 @@ function normalizeTripInput(input, current = {}) {
   const selectedHotelId = input.selectedHotelId || current.selectedHotel?.id || undefined;
   const selectedRoomId = input.selectedRoomId || current.selectedHotel?.selectedRoom?.id || undefined;
   const startLocation = String(input.startLocation ?? current.startLocation ?? 'Islamabad').trim() || 'Islamabad';
+  const startCoordinates = Array.isArray(input.startCoordinates ?? current.startCoordinates)
+    && (input.startCoordinates ?? current.startCoordinates).length === 2
+    ? (input.startCoordinates ?? current.startCoordinates).map(Number)
+    : null;
   const startDate = String(input.startDate ?? current.startDate ?? new Date().toISOString().split('T')[0]).trim();
   const category = String(input.category ?? current.category ?? '').trim();
 
@@ -150,6 +154,7 @@ function normalizeTripInput(input, current = {}) {
   return {
     destination,
     startLocation,
+    startCoordinates,
     startDate,
     endDate,
     category,

@@ -197,7 +197,7 @@ export default function HotelDetailScreen({ navigation, route }) {
               <Text style={styles.headerBackText}>Back</Text>
             </TouchableOpacity>
             <Text style={styles.headerTitle}>{hotel.name || 'Hotel Details'}</Text>
-            <Text style={styles.headerSubtitle}>{`📍 ${hotel.city || 'Pakistan'} · Verified Lodging`}</Text>
+            <Text style={styles.headerSubtitle}>{` ${hotel.city || 'Pakistan'} · Verified Lodging`}</Text>
           </View>
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
@@ -235,7 +235,7 @@ export default function HotelDetailScreen({ navigation, route }) {
             <View style={{ flex: 1 }}>
               <Text style={styles.hotelTitle}>{hotel.name}</Text>
               <Text style={styles.hotelLocation}>
-                📍 {hotel.city}, Pakistan
+                 {hotel.city}, Pakistan
               </Text>
             </View>
           </View>
@@ -311,10 +311,10 @@ export default function HotelDetailScreen({ navigation, route }) {
                         {room.name}
                       </Text>
                       <View style={styles.roomSpecsRow}>
-                        <Text style={styles.roomSpecBadge}>🛏️ {room.bed || '1 King Bed'}</Text>
-                        <Text style={styles.roomSpecBadge}>👥 Up to {room.capacity || 2} Guests</Text>
+                        <Text style={styles.roomSpecBadge}> {room.bed || '1 King Bed'}</Text>
+                        <Text style={styles.roomSpecBadge}> Up to {room.capacity || 2} Guests</Text>
                         {room.available && (
-                          <Text style={styles.roomAvailBadge}>🟢 {room.available} Rooms Left</Text>
+                          <Text style={styles.roomAvailBadge}> {room.available} Rooms Left</Text>
                         )}
                       </View>
                     </View>
@@ -328,9 +328,9 @@ export default function HotelDetailScreen({ navigation, route }) {
                   </View>
 
                   <View style={styles.roomPerks}>
-                    <Text style={styles.perkText}>✓ Free Buffet Breakfast included</Text>
-                    <Text style={styles.perkText}>✓ Ensuite Bathroom with 24/7 Hot Water & Heating</Text>
-                    <Text style={styles.perkText}>✓ Free High-Speed Wi-Fi & Scenic View</Text>
+                    <Text style={styles.perkText}>[Included] Free Buffet Breakfast included</Text>
+                    <Text style={styles.perkText}>[Included] Ensuite Bathroom with 24/7 Hot Water & Heating</Text>
+                    <Text style={styles.perkText}>[Included] Free High-Speed Wi-Fi & Scenic View</Text>
                   </View>
 
                   <View style={styles.roomCardBottom}>
@@ -340,7 +340,7 @@ export default function HotelDetailScreen({ navigation, route }) {
                       ) : null}
                     </View>
                     <Text style={[styles.selectRadioLabel, isSelected && styles.selectRadioLabelActive]}>
-                      {isSelected ? 'Room Selected ✓' : 'Tap to Select this Room'}
+                      {isSelected ? 'Room Selected [Included]' : 'Tap to Select this Room'}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -377,19 +377,19 @@ export default function HotelDetailScreen({ navigation, route }) {
           </View>
 
           <View style={styles.policyRow}>
-            <Text style={styles.policyKey}>🕒 Check-in / Check-out:</Text>
+            <Text style={styles.policyKey}> Check-in / Check-out:</Text>
             <Text style={styles.policyValue}>Check-in: 02:00 PM · Check-out: 12:00 PM</Text>
           </View>
           <View style={styles.policyRow}>
-            <Text style={styles.policyKey}>🆔 Verification:</Text>
+            <Text style={styles.policyKey}> Verification:</Text>
             <Text style={styles.policyValue}>Original CNIC or Passport required for all adult guests</Text>
           </View>
           <View style={styles.policyRow}>
-            <Text style={styles.policyKey}>🚗 Parking & Transport:</Text>
+            <Text style={styles.policyKey}> Parking & Transport:</Text>
             <Text style={styles.policyValue}>Complimentary secure parking for cars and 4x4 mountain jeeps</Text>
           </View>
           <View style={[styles.policyRow, { borderBottomWidth: 0 }]}>
-            <Text style={styles.policyKey}>❄️ Climate & Heating:</Text>
+            <Text style={styles.policyKey}> Climate & Heating:</Text>
             <Text style={styles.policyValue}>24/7 hot water and winter heating / generator backup provided</Text>
           </View>
         </View>
@@ -421,7 +421,7 @@ export default function HotelDetailScreen({ navigation, route }) {
                 ]}
               >
                 {isTripHotelSelected
-                  ? 'SELECTED FOR YOUR TRIP ✓'
+                  ? 'SELECTED FOR YOUR TRIP [Included]'
                   : isSaving
                   ? 'SAVING HOTEL...'
                   : `SET AS HOTEL FOR ${currentTrip.destination.toUpperCase()}`}
@@ -454,8 +454,8 @@ const styles = StyleSheet.create({
 
   scenicHeader: {
     paddingHorizontal: 16,
-    paddingTop: Platform.OS === 'ios' ? 14 : 10,
-    paddingBottom: 6,
+    paddingTop: 16,
+    paddingBottom: 10,
     maxWidth: 1200,
     width: '100%',
     alignSelf: 'center',

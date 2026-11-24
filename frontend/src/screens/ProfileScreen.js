@@ -58,16 +58,16 @@ const leafFlourish = require('../../assets/auth_leaf_flourish_clean.png');
 const bottomMountains = require('../../assets/auth_bottom_mountains_clean.png');
 
 const COUNTRIES = [
-  { name: 'Pakistan', flag: '🇵🇰' },
-  { name: 'United Arab Emirates', flag: '🇦🇪' },
-  { name: 'Saudi Arabia', flag: '🇸🇦' },
-  { name: 'United Kingdom', flag: '🇬🇧' },
-  { name: 'United States', flag: '🇺🇸' },
-  { name: 'Canada', flag: '🇨🇦' },
-  { name: 'Turkey', flag: '🇹🇷' },
-  { name: 'Germany', flag: '🇩🇪' },
-  { name: 'Malaysia', flag: '🇲🇾' },
-  { name: 'Australia', flag: '🇦🇺' },
+  { name: 'Pakistan', flag: 'PK' },
+  { name: 'United Arab Emirates', flag: 'AE' },
+  { name: 'Saudi Arabia', flag: 'SA' },
+  { name: 'United Kingdom', flag: 'GB' },
+  { name: 'United States', flag: 'US' },
+  { name: 'Canada', flag: 'CA' },
+  { name: 'Turkey', flag: 'TR' },
+  { name: 'Germany', flag: 'DE' },
+  { name: 'Malaysia', flag: 'MY' },
+  { name: 'Australia', flag: 'AU' },
 ];
 
 const PRESET_AVATARS = [
@@ -107,6 +107,7 @@ export default function ProfileScreen({ navigation }) {
 
   // Navigation / Tabs state
   const [sidebarTab, setSidebarTab] = useState('profile'); // 'profile' | 'favorites' | 'trips'
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [profileTab, setProfileTab] = useState('personal'); // 'personal' | 'preferences' | 'stats'
 
   // Input ref for editing full name
@@ -239,22 +240,15 @@ export default function ProfileScreen({ navigation }) {
     return 'U';
   }, [user?.initials, fullName, user?.fullName, email, user?.email]);
 
-  // Find country flag
+  // Find country code
   const currentFlag = useMemo(() => {
     const found = COUNTRIES.find((c) => c.name.toLowerCase() === country.toLowerCase());
-    return found ? found.flag : '🇵🇰';
+    return found ? found.flag : 'PK';
   }, [country]);
 
-  // Top Back handler
+  // Top Back handler - Profile is a top-level tab, so Back always returns cleanly to Home
   function handleGoBack() {
-    if (currentTrip) {
-      openTrip(currentTrip);
-      navigateRoot('Itinerary', { trip: currentTrip });
-    } else if (navigation?.canGoBack && navigation.canGoBack()) {
-      navigation.goBack();
-    } else {
-      navigateRoot('MainApp', { screen: 'Home' });
-    }
+    navigateRoot('MainApp', { screen: 'Home' });
   }
 
   // Handle Image Upload / DP selection
@@ -317,7 +311,7 @@ export default function ProfileScreen({ navigation }) {
     }
     try {
       await updateProfile({ avatarUrl: newAvatar });
-      setSaveSuccess('Display picture updated! ✨');
+      setSaveSuccess('Display picture updated!');
       setTimeout(() => setSaveSuccess(''), 3000);
     } catch (err) {
       console.warn('Avatar update failed:', err.message);
@@ -353,7 +347,7 @@ export default function ProfileScreen({ navigation }) {
         }));
       }
       setIsEditingName(false);
-      setSaveSuccess('Profile changes saved successfully! ✨');
+      setSaveSuccess('Profile changes saved successfully!');
       setTimeout(() => setSaveSuccess(''), 4000);
     } catch (err) {
       setError(err.message || 'Failed to update profile');
@@ -396,7 +390,7 @@ export default function ProfileScreen({ navigation }) {
         preferredHotelType: chosenHotelType,
         defaultBudget: budgetNum,
       });
-      setSaveSuccess('Travel preferences saved successfully! ✨');
+      setSaveSuccess('Travel preferences saved successfully!');
       setTimeout(() => setSaveSuccess(''), 4000);
     } catch (err) {
       setError(err.message || 'Failed to save preferences');
@@ -514,13 +508,145 @@ export default function ProfileScreen({ navigation }) {
         comment: ratingComment,
       });
       setRatingModalVisible(false);
-      setSaveSuccess(res.message || 'Thank you for rating your trip! ⭐');
+      setSaveSuccess(res.message || 'Thank you for rating your trip!');
       setTimeout(() => setSaveSuccess(''), 4500);
     } catch (err) {
       setError(err.message || 'Failed to submit review');
     } finally {
       setRatingSubmitting(false);
     }
+  }
+
+  function renderSidebarContent(isDrawer = false) {
+    return (
+      <View style={[styles.sidebarCard, isDesktop ? styles.desktopSidebar : (isDrawer ? styles.drawerSidebar : styles.mobileSidebar)]}>
+        {isDrawer && (
+          <View style={styles.drawerHeader}>
+            <AppText style={styles.drawerTitle}>Navigation Menu</AppText>
+            <TouchableOpacity
+              onPress={() => setMobileDrawerOpen(false)}
+              style={styles.drawerCloseBtn}
+              accessibilityRole="button"
+              accessibilityLabel="Close navigation menu"
+            >
+              <AppIcon name="close" size={20} color="#1F2937" />
+            </TouchableOpacity>
+          </View>
+        )}
+        <View style={styles.sidebarMenuList}>
+          {/* 1. Profile */}
+          <TouchableOpacity
+            style={[styles.sidebarBtn, sidebarTab === 'profile' && styles.sidebarBtnActive]}
+            onPress={() => {
+              setSidebarTab('profile');
+              if (isDrawer) setMobileDrawerOpen(false);
+            }}
+            activeOpacity={0.85}
+          >
+            <AppIcon
+              name="person"
+              size={18}
+              color={sidebarTab === 'profile' ? '#FFFFFF' : '#475569'}
+              style={styles.sidebarBtnIcon}
+            />
+            <AppText style={[styles.sidebarBtnText, sidebarTab === 'profile' && styles.sidebarBtnTextActive]}>
+              Profile
+            </AppText>
+          </TouchableOpacity>
+
+          {/* 2. Favorites */}
+          <TouchableOpacity
+            style={[styles.sidebarBtn, sidebarTab === 'favorites' && styles.sidebarBtnActive]}
+            onPress={() => {
+              setSidebarTab('favorites');
+              if (isDrawer) setMobileDrawerOpen(false);
+            }}
+            activeOpacity={0.85}
+          >
+            <AppIcon
+              name="heart-outline"
+              size={18}
+              color={sidebarTab === 'favorites' ? '#FFFFFF' : '#475569'}
+              style={styles.sidebarBtnIcon}
+            />
+            <AppText style={[styles.sidebarBtnText, sidebarTab === 'favorites' && styles.sidebarBtnTextActive]}>
+              Favorites
+            </AppText>
+          </TouchableOpacity>
+
+          {/* 3. My Trips */}
+          <TouchableOpacity
+            style={[styles.sidebarBtn, sidebarTab === 'trips' && styles.sidebarBtnActive]}
+            onPress={() => {
+              setSidebarTab('trips');
+              if (isDrawer) setMobileDrawerOpen(false);
+            }}
+            activeOpacity={0.85}
+          >
+            <AppIcon
+              name="airplane-outline"
+              size={18}
+              color={sidebarTab === 'trips' ? '#FFFFFF' : '#475569'}
+              style={styles.sidebarBtnIcon}
+            />
+            <AppText style={[styles.sidebarBtnText, sidebarTab === 'trips' && styles.sidebarBtnTextActive]}>
+              My Trips
+            </AppText>
+          </TouchableOpacity>
+
+          {/* 4. Budget Planner */}
+          <TouchableOpacity
+            style={styles.sidebarBtn}
+            onPress={() => {
+              if (isDrawer) setMobileDrawerOpen(false);
+              navigation.navigate('MainApp', { screen: 'Budget' });
+            }}
+            activeOpacity={0.85}
+          >
+            <AppIcon name="wallet-outline" size={18} color="#475569" style={styles.sidebarBtnIcon} />
+            <AppText style={styles.sidebarBtnText}>Budget Planner</AppText>
+          </TouchableOpacity>
+
+          {/* 5. Settings */}
+          <TouchableOpacity
+            style={styles.sidebarBtn}
+            onPress={() => {
+              if (isDrawer) setMobileDrawerOpen(false);
+              navigation.navigate('Settings');
+            }}
+            activeOpacity={0.85}
+          >
+            <AppIcon name="settings-outline" size={18} color="#475569" style={styles.sidebarBtnIcon} />
+            <AppText style={styles.sidebarBtnText}>Settings</AppText>
+          </TouchableOpacity>
+
+          {/* 6. Logout */}
+          <TouchableOpacity
+            style={styles.sidebarBtn}
+            onPress={() => {
+              if (isDrawer) setMobileDrawerOpen(false);
+              confirmLogout();
+            }}
+            activeOpacity={0.85}
+          >
+            <AppIcon name="log-out-outline" size={18} color="#475569" style={styles.sidebarBtnIcon} />
+            <AppText style={styles.sidebarBtnText}>Logout</AppText>
+          </TouchableOpacity>
+        </View>
+
+        {/* Sidebar Bottom Scenic Footer */}
+        <View style={styles.sidebarFooter}>
+          <Image source={bottomMountains} style={styles.sidebarMountainImg} resizeMode="contain" />
+          <View style={styles.sidebarScriptBox}>
+            <AppText style={styles.sidebarScriptText}>Explore Pakistan</AppText>
+            <View style={styles.sidebarAirplaneTrail}>
+              <AppText style={styles.trailDashes}>·· ·-· ·</AppText>
+              <AppIcon name="airplane" size={13} color="#0F766E" style={{ marginLeft: 3 }} />
+            </View>
+          </View>
+        </View>
+      </View>
+    );
   }
 
   return (
@@ -539,7 +665,7 @@ export default function ProfileScreen({ navigation }) {
 
               {/* ==============================================================
                   TOP FLOATING HEADER BAR (Matches Reference Replica)
-                  - Left: Back arrow, Mountain logo emblem, "Smart Travel Planner"
+                  - Left: Back arrow, Hamburger Menu (mobile), Mountain logo emblem, "Smart Travel Planner"
                   - Right: Notification Bell, User Avatar Badge / DP
                  ============================================================== */}
               <View style={styles.topHeader}>
@@ -553,11 +679,22 @@ export default function ProfileScreen({ navigation }) {
                     <AppIcon name="arrow-back" size={20} color="#1F2937" />
                   </TouchableOpacity>
 
+                  {!isDesktop && (
+                    <TouchableOpacity
+                      onPress={() => setMobileDrawerOpen(true)}
+                      style={styles.hamburgerBtn}
+                      accessibilityRole="button"
+                      accessibilityLabel="Open navigation menu"
+                    >
+                      <AppIcon name="menu-outline" size={22} color="#0F766E" />
+                    </TouchableOpacity>
+                  )}
+
                   <View style={styles.logoBadge}>
                     <Image source={mountainLogo} style={styles.logoImg} resizeMode="contain" />
                   </View>
 
-                  <AppText style={styles.brandTitle}>Smart Travel Planner</AppText>
+                  <AppText style={styles.brandTitle} numberOfLines={1}>Smart Travel Planner</AppText>
                 </View>
 
                 <View style={styles.topHeaderRight}>
@@ -592,119 +729,13 @@ export default function ProfileScreen({ navigation }) {
                   TWO-COLUMN APP LAYOUT (Sidebar on Left, Main Card on Right)
                  ============================================================== */}
               <View style={[styles.mainLayout, isDesktop ? styles.desktopMainLayout : styles.mobileMainLayout]}>
-
-                {/* ------------------------------------------------------------
-                    LEFT SIDEBAR
-                    - Profile (Active in #0F766E)
-                    - Favorites
-                    - My Trips
-                    - Budget Planner
-                    - Settings
-                    - Logout
-                    - Decorative: Mountain graphic + "Explore Pakistan" script
-                   ------------------------------------------------------------ */}
-                <View style={[styles.sidebarCard, isDesktop ? styles.desktopSidebar : styles.mobileSidebar]}>
-                  <View style={styles.sidebarMenuList}>
-                    {/* 1. Profile */}
-                    <TouchableOpacity
-                      style={[styles.sidebarBtn, sidebarTab === 'profile' && styles.sidebarBtnActive]}
-                      onPress={() => setSidebarTab('profile')}
-                      activeOpacity={0.85}
-                    >
-                      <AppIcon
-                        name="person"
-                        size={18}
-                        color={sidebarTab === 'profile' ? '#FFFFFF' : '#475569'}
-                        style={styles.sidebarBtnIcon}
-                      />
-                      <AppText style={[styles.sidebarBtnText, sidebarTab === 'profile' && styles.sidebarBtnTextActive]}>
-                        Profile
-                      </AppText>
-                    </TouchableOpacity>
-
-                    {/* 2. Favorites */}
-                    <TouchableOpacity
-                      style={[styles.sidebarBtn, sidebarTab === 'favorites' && styles.sidebarBtnActive]}
-                      onPress={() => setSidebarTab('favorites')}
-                      activeOpacity={0.85}
-                    >
-                      <AppIcon
-                        name="heart-outline"
-                        size={18}
-                        color={sidebarTab === 'favorites' ? '#FFFFFF' : '#475569'}
-                        style={styles.sidebarBtnIcon}
-                      />
-                      <AppText style={[styles.sidebarBtnText, sidebarTab === 'favorites' && styles.sidebarBtnTextActive]}>
-                        Favorites
-                      </AppText>
-                    </TouchableOpacity>
-
-                    {/* 3. My Trips */}
-                    <TouchableOpacity
-                      style={[styles.sidebarBtn, sidebarTab === 'trips' && styles.sidebarBtnActive]}
-                      onPress={() => setSidebarTab('trips')}
-                      activeOpacity={0.85}
-                    >
-                      <AppIcon
-                        name="airplane-outline"
-                        size={18}
-                        color={sidebarTab === 'trips' ? '#FFFFFF' : '#475569'}
-                        style={styles.sidebarBtnIcon}
-                      />
-                      <AppText style={[styles.sidebarBtnText, sidebarTab === 'trips' && styles.sidebarBtnTextActive]}>
-                        My Trips
-                      </AppText>
-                    </TouchableOpacity>
-
-                    {/* 4. Budget Planner */}
-                    <TouchableOpacity
-                      style={styles.sidebarBtn}
-                      onPress={() => navigation.navigate('MainApp', { screen: 'Budget' })}
-                      activeOpacity={0.85}
-                    >
-                      <AppIcon name="wallet-outline" size={18} color="#475569" style={styles.sidebarBtnIcon} />
-                      <AppText style={styles.sidebarBtnText}>Budget Planner</AppText>
-                    </TouchableOpacity>
-
-                    {/* 5. Settings */}
-                    <TouchableOpacity
-                      style={styles.sidebarBtn}
-                      onPress={() => navigation.navigate('Settings')}
-                      activeOpacity={0.85}
-                    >
-                      <AppIcon name="settings-outline" size={18} color="#475569" style={styles.sidebarBtnIcon} />
-                      <AppText style={styles.sidebarBtnText}>Settings</AppText>
-                    </TouchableOpacity>
-
-                    {/* 6. Logout */}
-                    <TouchableOpacity
-                      style={styles.sidebarBtn}
-                      onPress={confirmLogout}
-                      activeOpacity={0.85}
-                    >
-                      <AppIcon name="log-out-outline" size={18} color="#475569" style={styles.sidebarBtnIcon} />
-                      <AppText style={styles.sidebarBtnText}>Logout</AppText>
-                    </TouchableOpacity>
-                  </View>
-
-                  {/* Sidebar Bottom Scenic Footer */}
-                  <View style={styles.sidebarFooter}>
-                    <Image source={bottomMountains} style={styles.sidebarMountainImg} resizeMode="contain" />
-                    <View style={styles.sidebarScriptBox}>
-                      <AppText style={styles.sidebarScriptText}>Explore Pakistan</AppText>
-                      <View style={styles.sidebarAirplaneTrail}>
-                        <AppText style={styles.trailDashes}>·· ·-♡-· ·</AppText>
-                        <AppIcon name="airplane" size={13} color="#0F766E" style={{ marginLeft: 3 }} />
-                      </View>
-                    </View>
-                  </View>
-                </View>
+                {isDesktop && renderSidebarContent(false)}
 
                 {/* ------------------------------------------------------------
                     MAIN CONTENT CARD
                     - Header: "My Profile" + "Manage your account information and preferences"
                     - Leaf Flourish in top-right
-                    - Left Sub-card: Avatar with Camera button + Name + Info rows + "👑 Travel Explorer"
+                    - Left Sub-card: Avatar with Camera button + Name + Info rows + "Travel Explorer"
                     - Right Sub-card: Tabs ("Personal Info", "Preferences", "Travel Stats") + Form
                    ------------------------------------------------------------ */}
                 <View style={styles.mainCard}>
@@ -774,7 +805,7 @@ export default function ProfileScreen({ navigation }) {
                           - Full Name with Edit Icon
                           - Email Address
                           - Info rows: Email, Country
-                          - "👑 Travel Explorer" pill
+                          - "Travel Explorer" pill
                          ======================================================== */}
                       <View style={[styles.profileSubCard, isDesktop ? styles.desktopProfileSubCard : styles.mobileProfileSubCard]}>
                         {/* Avatar with Camera Overlay */}
@@ -835,7 +866,7 @@ export default function ProfileScreen({ navigation }) {
 
                         {/* Travel Explorer Badge */}
                         <View style={styles.badgePill}>
-                          <AppText style={styles.badgeCrown}>👑</AppText>
+                          <AppIcon name="shield-checkmark" size={14} color="#0F766E" style={{ marginRight: 6 }} />
                           <AppText style={styles.badgeText}>Travel Explorer</AppText>
                         </View>
                       </View>
@@ -991,8 +1022,9 @@ export default function ProfileScreen({ navigation }) {
                                     onPress={() => toggleInterest(interest)}
                                   >
                                     <AppText style={[styles.interestChipText, selected && styles.interestChipTextSelected]}>
-                                      {interest} {selected ? '✓' : '+'}
+                                      {interest}
                                     </AppText>
+                                    <AppIcon name={selected ? 'checkmark' : 'add'} size={14} color={selected ? '#FFFFFF' : '#0F766E'} style={{ marginLeft: 4 }} />
                                   </TouchableOpacity>
                                 );
                               })}
@@ -1112,7 +1144,7 @@ export default function ProfileScreen({ navigation }) {
                   {sidebarTab === 'favorites' && (
                     <View style={styles.sidebarViewContainer}>
                       <View style={styles.sectionTitleRow}>
-                        <AppText style={styles.subSectionTitle}>Favorite Destinations ❤️</AppText>
+                        <AppText style={styles.subSectionTitle}>Favorite Destinations</AppText>
                         <TouchableOpacity onPress={() => navigation.navigate('MainApp', { screen: 'Home' })}>
                           <AppText style={styles.exploreMoreLink}>Explore more →</AppText>
                         </TouchableOpacity>
@@ -1179,7 +1211,7 @@ export default function ProfileScreen({ navigation }) {
                   {sidebarTab === 'trips' && (
                     <View style={styles.sidebarViewContainer}>
                       <View style={styles.sectionTitleRow}>
-                        <AppText style={styles.subSectionTitle}>My Saved Trips 🎒</AppText>
+                        <AppText style={styles.subSectionTitle}>My Saved Trips</AppText>
                         <TouchableOpacity onPress={() => navigation.navigate('MainApp', { screen: 'Home' })}>
                           <AppText style={styles.exploreMoreLink}>+ Plan New Trip</AppText>
                         </TouchableOpacity>
@@ -1308,7 +1340,7 @@ export default function ProfileScreen({ navigation }) {
                                   {trip.reviewEligible && !hasReviewed ? (
                                     <View style={styles.ratePromptRow}>
                                       <View style={{ flex: 1 }}>
-                                        <AppText style={styles.ratePromptTitle}>Journey Completed! ✨</AppText>
+                                        <AppText style={styles.ratePromptTitle}>Journey Completed!</AppText>
                                         <AppText style={styles.ratePromptSubtitle}>
                                           Share your experience to help other travelers plan their trip.
                                         </AppText>
@@ -1485,7 +1517,7 @@ export default function ProfileScreen({ navigation }) {
           <View style={[styles.modalCard, { maxWidth: 440 }]}>
             <View style={styles.modalHeader}>
               <View>
-                <AppText style={styles.modalTitle}>Rate Your Trip ⭐</AppText>
+                <AppText style={styles.modalTitle}>Rate Your Trip</AppText>
                 <AppText style={styles.modalSubtitle}>
                   {ratingTrip?.destination} ({ratingTrip?.days} days)
                 </AppText>
@@ -1517,7 +1549,7 @@ export default function ProfileScreen({ navigation }) {
               ))}
             </View>
             <AppText style={styles.starScoreLabel}>
-              {ratingScore === 5 ? 'Exceptional! ⭐⭐⭐⭐⭐' : ratingScore === 4 ? 'Very Good! ⭐⭐⭐⭐' : ratingScore === 3 ? 'Average ⭐⭐⭐' : ratingScore === 2 ? 'Below Expectations ⭐⭐' : 'Needs Improvement ⭐'}
+              {ratingScore === 5 ? 'Exceptional! (5/5)' : ratingScore === 4 ? 'Very Good! (4/5)' : ratingScore === 3 ? 'Average (3/5)' : ratingScore === 2 ? 'Below Expectations (2/5)' : 'Needs Improvement (1/5)'}
             </AppText>
 
             {/* Review Comment Input */}
@@ -1551,6 +1583,27 @@ export default function ProfileScreen({ navigation }) {
           </View>
         </TouchableOpacity>
       </Modal>
+
+      {/* MOBILE NAVIGATION DRAWER MODAL */}
+      {!isDesktop && (
+        <Modal
+          visible={mobileDrawerOpen}
+          transparent
+          animationType="fade"
+          onRequestClose={() => setMobileDrawerOpen(false)}
+        >
+          <View style={styles.drawerOverlay}>
+            <TouchableOpacity
+              style={styles.drawerBackdrop}
+              activeOpacity={1}
+              onPress={() => setMobileDrawerOpen(false)}
+            />
+            <View style={styles.drawerPanel}>
+              {renderSidebarContent(true)}
+            </View>
+          </View>
+        </Modal>
+      )}
     </View>
   );
 }
@@ -1588,8 +1641,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: 'rgba(255, 255, 255, 0.94)',
     borderRadius: 24,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    gap: 6,
     borderWidth: 1,
     borderColor: 'rgba(220, 236, 229, 0.85)',
     marginBottom: 18,
@@ -1603,42 +1657,49 @@ const styles = StyleSheet.create({
   topHeaderLeft: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
+    minWidth: 0,
+    flexShrink: 1,
   },
   backBtn: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 10,
+    marginRight: 6,
     backgroundColor: '#F3F4F6',
+    flexShrink: 0,
   },
   logoBadge: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 10,
+    marginRight: 6,
     borderWidth: 1,
     borderColor: '#E5E7EB',
+    flexShrink: 0,
   },
   logoImg: {
-    width: 26,
-    height: 26,
+    width: 24,
+    height: 24,
   },
   brandTitle: {
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: fonts.bold,
     color: '#1F2937',
     fontWeight: '800',
     letterSpacing: -0.2,
+    flexShrink: 1,
   },
   topHeaderRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 6,
+    flexShrink: 0,
   },
   headerIconBtn: {
     width: 38,
@@ -2040,17 +2101,20 @@ const styles = StyleSheet.create({
   tabNavBtn: {
     flex: 1,
     paddingVertical: 8,
+    paddingHorizontal: 4,
     alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 10,
   },
   tabNavBtnActive: {
     backgroundColor: '#0F766E',
   },
   tabNavText: {
-    fontSize: 13,
+    fontSize: 11.5,
     fontFamily: fonts.medium,
     fontWeight: '600',
     color: '#4B5563',
+    textAlign: 'center',
   },
   tabNavTextActive: {
     color: '#FFFFFF',
@@ -2178,6 +2242,8 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   interestChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 7,
     paddingHorizontal: 12,
     borderRadius: 20,
@@ -2728,5 +2794,61 @@ const styles = StyleSheet.create({
   presetAvatarImg: {
     width: '100%',
     height: '100%',
+  },
+  hamburgerBtn: {
+    padding: 6,
+    borderRadius: 8,
+    backgroundColor: '#F3F4F6',
+    marginRight: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  drawerOverlay: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'rgba(0, 0, 0, 0.45)',
+    zIndex: 9999,
+  },
+  drawerBackdrop: {
+    flex: 1,
+  },
+  drawerPanel: {
+    width: 290,
+    maxWidth: '82%',
+    backgroundColor: '#FFFFFF',
+    height: '100%',
+    shadowColor: '#000',
+    shadowOffset: { width: 4, height: 0 },
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 16,
+    paddingTop: 16,
+  },
+  drawerSidebar: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 0,
+    elevation: 0,
+    shadowOpacity: 0,
+    padding: 16,
+    width: '100%',
+  },
+  drawerHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+    paddingBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+  },
+  drawerTitle: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: '#0F766E',
+  },
+  drawerCloseBtn: {
+    padding: 4,
+    borderRadius: 6,
+    backgroundColor: '#F3F4F6',
   },
 });

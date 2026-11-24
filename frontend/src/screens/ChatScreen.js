@@ -93,7 +93,7 @@ function DestinationRecommendationCard({ destination, navigation }) {
 
         {destination.bestTimeToVisit ? (
           <AppText style={styles.cardMeta} numberOfLines={1}>
-            🗓️ {destination.bestTimeToVisit}
+             {destination.bestTimeToVisit}
           </AppText>
         ) : null}
 
@@ -314,8 +314,8 @@ export default function ChatScreen({ navigation, route }) {
           ? res.session.messages[res.session.messages.length - 1]?.content
           : null) ||
         (rawMessage.toLowerCase().includes('peace') || rawMessage.toLowerCase().includes('sukoon')
-          ? `### 🌿 Peaceful & Tranquil Destinations in Pakistan\n\nIf you are looking to unwind, escape city noise, and immerse yourself in serenity, here are top tranquil destinations in Pakistan:\n\n1. **Hunza Valley (Gilgit-Baltistan)**: Crisp mountain air, breathtaking views of Rakaposhi, and tranquil apricot blossoms in Karimabad and Gulmit.\n   * **Best Time:** April to October\n   * **Vibe:** Mountain peace, hospitable culture, and scenic tranquility.\n\n2. **Neelum Valley (Azad Kashmir)**: Crystalline roaring rivers, dense pine forests, and quiet alpine meadows in Sharda and Arang Kel.\n   * **Best Time:** May to October\n   * **Vibe:** Lush greenery, riverside retreats, and cool fresh breezes.\n\n3. **Kumrat Valley (Upper Dir, KPK)**: Untouched alpine wilderness with towering deodar pines, quiet crystal rivers, and secluded riverside campsites.\n   * **Best Time:** May to September\n   * **Vibe:** Pristine nature, quiet trails, and wilderness calm.\n\n4. **Kund Malir & Hingol (Balochistan Coast)**: Golden sand beaches beside dramatic coastal cliffs with clean Arabian Sea waves and tranquil stargazing.\n   * **Best Time:** October to March\n   * **Vibe:** Peaceful coastline, quiet waves, and starry skies.\n\n*Travel Tip: Travel during mid-week to avoid weekend crowds, pack comfortable walking shoes and warm layers for mountain evenings.*`
-          : `### 🌄 Welcome to SafarSaathi AI – Your Pakistan Travel Guide\n\nPakistan is home to world-renowned mountains, historic heritage cities, and stunning coastlines:\n\n* **Northern Wonders**: Hunza, Skardu, Fairy Meadows, Naran-Kaghan, and Swat Valley.\n* **Cultural Heritage**: Lahore Fort, Badshahi Mosque, Rohtas Fort, and Taxila ruins.\n* **Coastal Escapes**: Gwadar, Kund Malir Beach, and Astola Island.\n\nFeel free to ask about any destination, best season to visit, packing tips, routes, or local culture!`);
+          ? `###  Peaceful & Tranquil Destinations in Pakistan\n\nIf you are looking to unwind, escape city noise, and immerse yourself in serenity, here are top tranquil destinations in Pakistan:\n\n1. **Hunza Valley (Gilgit-Baltistan)**: Crisp mountain air, breathtaking views of Rakaposhi, and tranquil apricot blossoms in Karimabad and Gulmit.\n   * **Best Time:** April to October\n   * **Vibe:** Mountain peace, hospitable culture, and scenic tranquility.\n\n2. **Neelum Valley (Azad Kashmir)**: Crystalline roaring rivers, dense pine forests, and quiet alpine meadows in Sharda and Arang Kel.\n   * **Best Time:** May to October\n   * **Vibe:** Lush greenery, riverside retreats, and cool fresh breezes.\n\n3. **Kumrat Valley (Upper Dir, KPK)**: Untouched alpine wilderness with towering deodar pines, quiet crystal rivers, and secluded riverside campsites.\n   * **Best Time:** May to September\n   * **Vibe:** Pristine nature, quiet trails, and wilderness calm.\n\n4. **Kund Malir & Hingol (Balochistan Coast)**: Golden sand beaches beside dramatic coastal cliffs with clean Arabian Sea waves and tranquil stargazing.\n   * **Best Time:** October to March\n   * **Vibe:** Peaceful coastline, quiet waves, and starry skies.\n\n*Travel Tip: Travel during mid-week to avoid weekend crowds, pack comfortable walking shoes and warm layers for mountain evenings.*`
+          : `###  Welcome to SafarSaathi AI – Your Pakistan Travel Guide\n\nPakistan is home to world-renowned mountains, historic heritage cities, and stunning coastlines:\n\n* **Northern Wonders**: Hunza, Skardu, Fairy Meadows, Naran-Kaghan, and Swat Valley.\n* **Cultural Heritage**: Lahore Fort, Badshahi Mosque, Rohtas Fort, and Taxila ruins.\n* **Coastal Escapes**: Gwadar, Kund Malir Beach, and Astola Island.\n\nFeel free to ask about any destination, best season to visit, packing tips, routes, or local culture!`);
 
       // Ensure destination cards always appear underneath whenever destinations are mentioned
       let recommendedDestinations =
@@ -673,7 +673,7 @@ export default function ChatScreen({ navigation, route }) {
                     <AppIcon name="sparkles" color="#0c3d26" size={24} />
                   </View>
                   <View style={styles.introHeaderText}>
-                    <AppText style={styles.introGreeting}>Assalam-o-Alaikum! 🌄</AppText>
+                    <AppText style={styles.introGreeting}>Assalam-o-Alaikum! </AppText>
                     <AppText style={styles.introTagline}>
                       I am SafarSaathi AI, your personal travel companion.
                     </AppText>

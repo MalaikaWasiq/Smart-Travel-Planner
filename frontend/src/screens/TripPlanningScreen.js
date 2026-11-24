@@ -283,7 +283,7 @@ const BUDGET_PRESETS = [40000, 75000, 120000, 200000];
 const COMFORT_LEVELS = [
   { id: 'Basic', label: 'Budget', badge: 'Economy', desc: 'Budget-friendly hotels & transit' },
   { id: 'Normal', label: 'Standard', badge: 'Standard', desc: 'Comfortable mid-range choices' },
-  { id: 'Luxury', label: 'Premium', badge: 'Luxury', desc: '4-5★ resorts & private transit' },
+  { id: 'Luxury', label: 'Premium', badge: 'Luxury', desc: '4-5 Star resorts & private transit' },
 ];
 
 function getAccurateRoutesForJourney(startLocation, destination, category) {
@@ -305,30 +305,30 @@ function getAccurateRoutesForJourney(startLocation, destination, category) {
   if (s.includes('attock')) {
     if (d.includes('swat') || d.includes('kalam') || d.includes('malam jabba') || d.includes('kumrat')) {
       return [
-        'Peshawar - Islamabad Motorway (M-1) ➔ Swat Expressway (M-16 via Swabi)',
-        'Swat Expressway (M-16) ➔ Chakdara ➔ Mingora & Kalam Valley Road (N-95)',
-        'Grand Trunk Road (N-5 via Attock Khurd) ➔ Nowshera ➔ Malakand Pass (N-45)',
+        'Peshawar - Islamabad Motorway (M-1) -> Swat Expressway (M-16 via Swabi)',
+        'Swat Expressway (M-16) -> Chakdara -> Mingora & Kalam Valley Road (N-95)',
+        'Grand Trunk Road (N-5 via Attock Khurd) -> Nowshera -> Malakand Pass (N-45)',
       ];
     }
     if (d.includes('babusar') || d.includes('naran') || d.includes('kaghan')) {
       return [
-        'M-1 (Burhan Interchange) ➔ Hazara Motorway (M-15) ➔ Naran-Kaghan Highway (N-15)',
-        'GT Road (N-5 via Hasan Abdal) ➔ Abbottabad & Mansehra Bypass ➔ N-15 Highway',
-        'Karakoram Highway (KKH / N-35) ➔ Chilas ➔ Babusar Pass Route (N-15 North)',
+        'M-1 (Burhan Interchange) -> Hazara Motorway (M-15) -> Naran-Kaghan Highway (N-15)',
+        'GT Road (N-5 via Hasan Abdal) -> Abbottabad & Mansehra Bypass -> N-15 Highway',
+        'Karakoram Highway (KKH / N-35) -> Chilas -> Babusar Pass Route (N-15 North)',
       ];
     }
     if (d.includes('hunza') || d.includes('skardu') || d.includes('gilgit') || d.includes('fairy meadows') || d.includes('khunjerab') || d.includes('deosai')) {
       return [
-        'M-1 (Burhan) ➔ Hazara Motorway (M-15) ➔ Karakoram Highway (KKH / N-35 via Chilas)',
-        'Hazara Motorway (M-15) ➔ Naran (N-15) ➔ Babusar Pass ➔ KKH (Summer Route)',
-        'KKH (N-35) ➔ Jaglot Junction ➔ Skardu Strategic Highway (S-1)',
+        'M-1 (Burhan) -> Hazara Motorway (M-15) -> Karakoram Highway (KKH / N-35 via Chilas)',
+        'Hazara Motorway (M-15) -> Naran (N-15) -> Babusar Pass -> KKH (Summer Route)',
+        'KKH (N-35) -> Jaglot Junction -> Skardu Strategic Highway (S-1)',
       ];
     }
     if (d.includes('lahore') || d.includes('faisalabad') || d.includes('multan')) {
       return [
-        'Peshawar - Islamabad Motorway (M-1) ➔ Islamabad - Lahore Motorway (M-2)',
+        'Peshawar - Islamabad Motorway (M-1) -> Islamabad - Lahore Motorway (M-2)',
         'Grand Trunk Road (N-5 / GT Road via Rawalpindi, Jhelum & Gujranwala)',
-        'CPEC Hakla Interchange ➔ Pindi Bhattian (M-2 / M-4 Motorway Network)',
+        'CPEC Hakla Interchange -> Pindi Bhattian (M-2 / M-4 Motorway Network)',
       ];
     }
     if (d.includes('peshawar')) {
@@ -342,17 +342,17 @@ function getAccurateRoutesForJourney(startLocation, destination, category) {
   // 3. To Babusar Top / Naran / Kaghan
   if (d.includes('babusar') || d.includes('naran') || d.includes('kaghan')) {
     return [
-      'Hazara Motorway (M-15) ➔ Naran-Kaghan Highway (N-15 via Balakot & Kaghan)',
+      'Hazara Motorway (M-15) -> Naran-Kaghan Highway (N-15 via Balakot & Kaghan)',
       'Babusar Pass Scenic Route (N-15 over 13,691 ft Pass into Chilas)',
-      'Murree Expressway (N-75) ➔ Kohala ➔ Muzaffarabad ➔ Garhi Habibullah ➔ Balakot (N-15)',
-      'Karakoram Highway (KKH / N-35 via Abbottabad & Besham) ➔ Chilas ➔ N-15 Link',
+      'Murree Expressway (N-75) -> Kohala -> Muzaffarabad -> Garhi Habibullah -> Balakot (N-15)',
+      'Karakoram Highway (KKH / N-35 via Abbottabad & Besham) -> Chilas -> N-15 Link',
     ];
   }
 
   // 4. To Hunza / Gilgit / Khunjerab / Naltar / Phander / Fairy Meadows
   if (d.includes('hunza') || d.includes('gilgit') || d.includes('khunjerab') || d.includes('naltar') || d.includes('phander') || d.includes('fairy meadows')) {
     return [
-      'Hazara Motorway (M-15) ➔ Karakoram Highway (KKH / N-35 via Besham, Dasu & Chilas)',
+      'Hazara Motorway (M-15) -> Karakoram Highway (KKH / N-35 via Besham, Dasu & Chilas)',
       'Babusar Pass Scenic Route (N-15 via Naran & Kaghan into Chilas KKH - Summer Route)',
       'Karakoram Highway (KKH / N-35) along Indus & Hunza River to Karimabad & Attabad Lake',
       'Khunjerab Border Highway (KKH / N-35 via Gulmit, Passu Cones & Sost to Border)',
@@ -362,8 +362,8 @@ function getAccurateRoutesForJourney(startLocation, destination, category) {
   // 5. To Skardu / Deosai / Khaplu / Shigar / Astore
   if (d.includes('skardu') || d.includes('deosai') || d.includes('khaplu') || d.includes('shigar') || d.includes('astore')) {
     return [
-      'Hazara Motorway (M-15) ➔ KKH (N-35) ➔ Skardu Strategic Highway (S-1 via Jaglot & Indus Gorge)',
-      'Babusar Pass (N-15) ➔ Chilas ➔ Jaglot Junction ➔ Skardu Strategic Highway (S-1)',
+      'Hazara Motorway (M-15) -> KKH (N-35) -> Skardu Strategic Highway (S-1 via Jaglot & Indus Gorge)',
+      'Babusar Pass (N-15) -> Chilas -> Jaglot Junction -> Skardu Strategic Highway (S-1)',
       'Astore Valley Road via Jaglot Junction & Rama Alpine Trail',
       'Deosai Alpine Jeep Corridor (via Ali Malik Pass & Sheosar Lake Trail - Seasonal)',
     ];
@@ -372,17 +372,17 @@ function getAccurateRoutesForJourney(startLocation, destination, category) {
   // 6. To Swat / Kalam / Malam Jabba / Kumrat
   if (d.includes('swat') || d.includes('kalam') || d.includes('malam jabba') || d.includes('kumrat')) {
     return [
-      'Peshawar - Islamabad Motorway (M-1) ➔ Swat Expressway (M-16 via Colonel Sher Khan)',
+      'Peshawar - Islamabad Motorway (M-1) -> Swat Expressway (M-16 via Colonel Sher Khan)',
       'Chakdara - Mingora - Kalam Valley Highway (N-95 along Swat River)',
       'Malam Jabba Mountain Road (via Saidu Sharif & Manglor / Swat)',
-      'Kumrat Valley Corridor (M-16 to Chakdara ➔ Dir Highway N-45 ➔ Thal Kumrat Road)',
+      'Kumrat Valley Corridor (M-16 to Chakdara -> Dir Highway N-45 -> Thal Kumrat Road)',
     ];
   }
 
   // 7. To Chitral / Kalash / Lowari Tunnel / Shandur
   if (d.includes('chitral') || d.includes('kalash') || d.includes('lowari') || d.includes('shandur')) {
     return [
-      'Swat Expressway (M-16) ➔ Dir - Lowari Tunnel - Chitral Highway (N-45)',
+      'Swat Expressway (M-16) -> Dir - Lowari Tunnel - Chitral Highway (N-45)',
       'Malakand Pass & Timurgara Scenic Highway (N-45)',
       'Kalash Valley Road via Ayun (Bumburet, Rumbur & Birir Valley Trail)',
       'Shandur Pass Alpine Route (connecting Chitral with Gilgit & Phander)',
@@ -395,7 +395,7 @@ function getAccurateRoutesForJourney(startLocation, destination, category) {
       'Islamabad - Murree Expressway (N-75 via Bhara Kahu Bypass)',
       'Galyat Scenic Ridge Highway (Nathiagali, Ayubia, Dunga Gali & Changla Gali)',
       'Hazara Motorway (M-15 via Abbottabad Tunnels) & Thandiani Ridge Road',
-      'Murree - Kohala ➔ Muzaffarabad ➔ Neelum Valley Road (along Neelum River)',
+      'Murree - Kohala -> Muzaffarabad -> Neelum Valley Road (along Neelum River)',
       'Rawalakot Highway via Azad Pattan Bridge & Banjosa Lake Road',
     ];
   }
@@ -404,7 +404,7 @@ function getAccurateRoutesForJourney(startLocation, destination, category) {
   if (d.includes('gwadar') || d.includes('kund malir') || d.includes('ormara') || d.includes('astola') || d.includes('coast') || d.includes('beach') || d.includes('clifton') || d.includes('hawksbay') || d.includes('manora')) {
     return [
       'Makran Coastal Highway (N-10 via Kund Malir, Ormara & Pasni to Gwadar)',
-      'Karachi Northern Bypass (M-10) ➔ RCD Highway (N-25 to Hub & Coastal Highway)',
+      'Karachi Northern Bypass (M-10) -> RCD Highway (N-25 to Hub & Coastal Highway)',
       'Hingol National Park Coastal Drive (via Princess of Hope & Buzi Pass)',
       'Karachi Coastal Boulevard & Marine Drive Gwadar',
     ];
@@ -415,7 +415,7 @@ function getAccurateRoutesForJourney(startLocation, destination, category) {
     return [
       'Karachi - Hyderabad Motorway (M-9)',
       'National Highway (N-5 via Thatta, Makli Necropolis & Keenjhar Lake)',
-      'Multan - Sukkur Motorway (M-5) ➔ M-9 Motorway Corridor',
+      'Multan - Sukkur Motorway (M-5) -> M-9 Motorway Corridor',
       'Indus Highway (N-55 via Sehwan Sharif, Dadu & Larkana to Mohenjo-daro)',
     ];
   }
@@ -433,7 +433,7 @@ function getAccurateRoutesForJourney(startLocation, destination, category) {
   // 12. To Multan / Bahawalpur / Faisalabad
   if (d.includes('multan') || d.includes('bahawalpur') || d.includes('faisalabad')) {
     return [
-      'Lahore - Abdul Hakeem Motorway (M-3) ➔ Faisalabad - Multan Motorway (M-4)',
+      'Lahore - Abdul Hakeem Motorway (M-3) -> Faisalabad - Multan Motorway (M-4)',
       'Multan - Sukkur Motorway (M-5 / CPEC Southern Motorway to Bahawalpur)',
       'National Highway (N-5 via Sahiwal, Khanewal & Bahawalpur Bypass)',
       'Pindi Bhattian - Faisalabad Motorway (M-4 via Chiniot & Gojra)',
@@ -454,7 +454,7 @@ function getAccurateRoutesForJourney(startLocation, destination, category) {
   if (d.includes('quetta') || d.includes('ziarat')) {
     return [
       'RCD Highway (N-25 via Hub, Khuzdar & Kalat to Quetta)',
-      'Indus Highway (N-55) ➔ D.G. Khan ➔ Loralai - Quetta Highway (N-70)',
+      'Indus Highway (N-55) -> D.G. Khan -> Loralai - Quetta Highway (N-70)',
       'Ziarat Juniper Valley Highway (N-50 via Kuchlak & Bostan to Ziarat Pass)',
       'Zhob - D.I. Khan CPEC Western Alignment Route (N-50)',
     ];
@@ -466,7 +466,7 @@ function getAccurateRoutesForJourney(startLocation, destination, category) {
       return [
         'Lahore - Islamabad Motorway (M-2 via Salt Range & Kalar Kahar)',
         'Grand Trunk Road (N-5 / GT Road via Gujranwala, Gujrat & Jhelum)',
-        'Sialkot Motorway (M-11) ➔ GT Road (N-5) Express Link',
+        'Sialkot Motorway (M-11) -> GT Road (N-5) Express Link',
       ];
     }
     if (s.includes('peshawar')) {
@@ -477,13 +477,13 @@ function getAccurateRoutesForJourney(startLocation, destination, category) {
     }
     if (s.includes('faisalabad') || s.includes('multan')) {
       return [
-        'M-4 Motorway ➔ M-2 Motorway (via Pindi Bhattian to Islamabad)',
+        'M-4 Motorway -> M-2 Motorway (via Pindi Bhattian to Islamabad)',
         'Grand Trunk Road (N-5 / GT Road Corridor)',
       ];
     }
     if (s.includes('karachi') || s.includes('sukkur')) {
       return [
-        'National Highway / Motorway Corridor (M-5 ➔ M-4 ➔ M-2 to Islamabad)',
+        'National Highway / Motorway Corridor (M-5 -> M-4 -> M-2 to Islamabad)',
         'Indus Highway (N-55 Corridor)',
       ];
     }
@@ -856,49 +856,49 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   lahore: [
     {
       id: 'lhr_royal_walk',
-      name: '🏰 Shahi Qila & Badshahi Mosque VIP Night Heritage Walk',
+      name: ' Shahi Qila & Badshahi Mosque VIP Night Heritage Walk',
       category: 'Heritage VIP Tour',
       price: 6000,
       desc: 'Exclusive evening guided tour of Lahore Fort, illuminated Sheesh Mahal, and Badshahi Mosque royal courtyards.',
     },
     {
       id: 'lhr_food_feast',
-      name: '🍲 Androon Lahore & Fort Road Food Street Royal Feast',
+      name: ' Androon Lahore & Fort Road Food Street Royal Feast',
       category: 'Food Street Feast',
       price: 12000,
       desc: 'Authentic Lahori feast: Phika Lassi, Siri Paye, Mutton Karahi, Dumba Tikka & Shahi Kheer overlooking Badshahi Mosque.',
     },
     {
       id: 'lhr_wagah_vip',
-      name: '🎺 Wagah Border VIP Flag Ceremony Pass & Escort',
+      name: ' Wagah Border VIP Flag Ceremony Pass & Escort',
       category: 'Wagah Border Pass',
       price: 8000,
       desc: 'Reserved front-row VIP stadium seating & escorted entrance pass at the legendary Pak-India Wagah Border parade.',
     },
     {
       id: 'lhr_qawwali',
-      name: '🪕 Live Sufi Qawwali Night at Historic Walled City Haveli',
+      name: ' Live Sufi Qawwali Night at Historic Walled City Haveli',
       category: 'Sufi Qawwali Night',
       price: 10000,
       desc: 'Mesmerizing live traditional acoustic Qawwali night with authentic cardamom green tea in a 200-year-old historic Haveli.',
     },
     {
       id: 'lhr_mughal_photo',
-      name: '📸 Mughal Royal Attire & 4K DSLR Photo Shoot',
+      name: ' Mughal Royal Attire & 4K DSLR Photo Shoot',
       category: 'Royal Photography',
       price: 14000,
       desc: 'Professional photographer providing royal Mughal costumes, turbans and 4K DSLR portraits at Shalimar Gardens.',
     },
     {
       id: 'lhr_bazaar_safari',
-      name: '🛍️ Anarkali & Kashmiri Bazaar Hidden Crafts Safari',
+      name: ' Anarkali & Kashmiri Bazaar Hidden Crafts Safari',
       category: 'Artisan Shopping',
       price: 5000,
       desc: 'Private guided shopping trail through ancient bazaars: pure silk, handmade embroidered khussas, and copper brassware.',
     },
     {
       id: 'lhr_buggy_ride',
-      name: '🐴 Royal Victoria Horse Carriage Buggy Ride',
+      name: ' Royal Victoria Horse Carriage Buggy Ride',
       category: 'Royal Carriage Ride',
       price: 4000,
       desc: 'Decorated horse-drawn royal Victoria buggy carriage tour through historic Mall Road and Lawrence Gardens.',
@@ -908,49 +908,49 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   'malam jabba': [
     {
       id: 'mj_ski_gear',
-      name: '⛷️ Skiing & Snowboard Equipment Rental & Pass',
+      name: ' Skiing & Snowboard Equipment Rental & Pass',
       category: 'Skiing & Snowboarding',
       price: 12000,
       desc: 'Full ski gear, snow boots, poles, certified ski slope pass, and personal instructor session on Malam Jabba ski slopes.',
     },
     {
       id: 'mj_chairlift',
-      name: '🚡 Panoramic Dual Chairlift & Cloud-Peak Cable Car Pass',
+      name: ' Panoramic Dual Chairlift & Cloud-Peak Cable Car Pass',
       category: 'Chairlift Pass',
       price: 6000,
       desc: 'Spectacular dual chairlift ride to the 9,200ft Malam Jabba summit with breathtaking views over snow pine forests.',
     },
     {
       id: 'mj_zipline',
-      name: '🧗 Alpine Gorge Mountain Zipline Thrill',
+      name: ' Alpine Gorge Mountain Zipline Thrill',
       category: 'Alpine Zipline',
       price: 8000,
       desc: 'Certified high-altitude zipline flight soaring over the snow-covered pine valley gorge with professional safety gear.',
     },
     {
       id: 'mj_tubing',
-      name: '🛷 Pine Forest Snow Tubing & Ice Skating Pass',
+      name: ' Pine Forest Snow Tubing & Ice Skating Pass',
       category: 'Snow Tubing & Skating',
       price: 7000,
       desc: 'High-speed snow tube downhill slide & ice rink session with safety helmets and winter traction gear.',
     },
     {
       id: 'mj_bonfire',
-      name: '🪵 Cedar Forest Campfire & Swati Kahwa Night',
+      name: ' Cedar Forest Campfire & Swati Kahwa Night',
       category: 'Cedar Campfire',
       price: 10000,
       desc: 'Evening roaring campfire under snowy pines with warm cardamom Swati green tea, roasted nuts & marshmallows.',
     },
     {
       id: 'mj_shinwari_bbq',
-      name: '🍖 Khyber Shinwari Live Mutton Karahi & BBQ in Snow',
+      name: ' Khyber Shinwari Live Mutton Karahi & BBQ in Snow',
       category: 'Shinwari BBQ Feast',
       price: 14000,
       desc: 'Charcoal-grilled mutton tikka & live Shinwari Karahi feast served piping hot beside the snowy mountain slopes.',
     },
     {
       id: 'mj_drone_shoot',
-      name: '📸 4K Snow Peak & Skiing Drone Cinematography',
+      name: ' 4K Snow Peak & Skiing Drone Cinematography',
       category: 'Drone Cinematography',
       price: 15000,
       desc: 'Dedicated aerial drone photographer capturing your ski runs, chairlift ascent, and summit panoramic moments in 4K.',
@@ -960,49 +960,49 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   hunza: [
     {
       id: 'hnz_attabad_boat',
-      name: '🚤 Attabad Lake Speedboat Cruise & Jet Ski Thrill',
+      name: ' Attabad Lake Speedboat Cruise & Jet Ski Thrill',
       category: 'Turquoise Lake Boating',
       price: 10000,
       desc: 'High-speed speedboat cruise on turquoise Attabad waters with jet ski riding and life jacket safety gear.',
     },
     {
       id: 'hnz_passu_bridge',
-      name: '🌉 Passu Cones Suspension Bridge Adrenaline Walk',
+      name: ' Passu Cones Suspension Bridge Adrenaline Walk',
       category: 'Hussaini Bridge Crossing',
       price: 6000,
       desc: 'Thrilling suspension bridge crossing high over Hunza River with dramatic Passu Cathedral backdrop and safety harness.',
     },
     {
       id: 'hnz_eagles_sunset',
-      name: '🦅 Eagles Nest Duiker Peak Sunset & Live Rubab',
+      name: ' Eagles Nest Duiker Peak Sunset & Live Rubab',
       category: '360° Sunset Viewpoint',
       price: 9000,
       desc: 'Panoramic sunset over Rakaposhi, Ultar Sar & Golden Peak with live local Hunza Rubab acoustic performance.',
     },
     {
       id: 'hnz_forts_tour',
-      name: '🏰 Baltit & Altit Forts Royal Mirs Guided VIP Tour',
+      name: ' Baltit & Altit Forts Royal Mirs Guided VIP Tour',
       category: 'Royal Palaces Heritage',
       price: 7000,
       desc: '800-year-old royal palace private tour, ancient armory, royal organic gardens, and historical culture guide.',
     },
     {
       id: 'hnz_organic_feast',
-      name: '🫓 Traditional Wakhi / Burushaski Organic Feast',
+      name: ' Traditional Wakhi / Burushaski Organic Feast',
       category: 'Traditional Hunza Feast',
       price: 8000,
       desc: 'Authentic local feast: hot Chapshuro meat pies, Giyaling pancakes, fresh walnut paste, and warm apricot blossom tea.',
     },
     {
       id: 'hnz_khunjerab_jeep',
-      name: '🚙 4x4 Mountain Jeep Safari to Khunjerab Pass (15,397 ft)',
+      name: ' 4x4 Mountain Jeep Safari to Khunjerab Pass (15,397 ft)',
       category: 'Pak-China Border Jeep',
       price: 16000,
       desc: 'High-altitude mountain 4x4 jeep expedition up to the Pak-China border, highest paved international road and snow peaks.',
     },
     {
       id: 'hnz_passu_drone',
-      name: '📸 Passu Cones & Glacier 4K Drone Aerial Photography',
+      name: ' Passu Cones & Glacier 4K Drone Aerial Photography',
       category: '4K Glacier Photography',
       price: 15000,
       desc: 'Cinematic aerial drone shoot across the dramatic Karakoram Highway needle peaks and glacier moraines.',
@@ -1012,49 +1012,49 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   skardu: [
     {
       id: 'skd_katpana_safari',
-      name: '🏖️ Katpana Cold Desert 4x4 Dune Bashing & Quad Bike',
+      name: ' Katpana Cold Desert 4x4 Dune Bashing & Quad Bike',
       category: 'Cold Desert Safari',
       price: 12000,
       desc: "World's highest cold desert sand dune drifting & sunset quad biking at 7,500 ft with panoramic Karakoram views.",
     },
     {
       id: 'skd_kachura_boat',
-      name: '🚣 Shangrila Lower & Upper Kachura Lakes Shikara Boating',
+      name: ' Shangrila Lower & Upper Kachura Lakes Shikara Boating',
       category: 'Glacial Lakes Boating',
       price: 7000,
       desc: 'Serene shikara boat ride across crystal glacier lakes, trout viewing, and stroll through Shangrila apricot orchards.',
     },
     {
       id: 'skd_deosai_expedition',
-      name: '🏔️ Deosai Plains (Land of Giants) 4x4 Jeep Safari',
+      name: ' Deosai Plains (Land of Giants) 4x4 Jeep Safari',
       category: 'Deosai Plains Safari',
       price: 18000,
       desc: "Full-day rugged 4x4 expedition across the world's 2nd highest alpine plateau to emerald Sheosar Lake at 13,780 ft.",
     },
     {
       id: 'skd_trout_bbq',
-      name: '🐟 Fresh Indus River Trout Catch & Riverside Barbecue',
+      name: ' Fresh Indus River Trout Catch & Riverside Barbecue',
       category: 'Indus Trout BBQ',
       price: 11000,
       desc: 'Cold-water angling permit and live charcoal grilled river trout dinner prepared fresh beside the Indus riverbank.',
     },
     {
       id: 'skd_fort_heritage',
-      name: '🏰 600-Year-Old Shigar Fort & Kharpocho Palace VIP Tour',
+      name: ' 600-Year-Old Shigar Fort & Kharpocho Palace VIP Tour',
       category: 'Balti Royal Heritage',
       price: 8000,
       desc: 'Guided tour of restored 17th-century Raja of Shigar palace and ancient Kharpocho fortress overlooking Skardu valley.',
     },
     {
       id: 'skd_milkyway_night',
-      name: '🌌 Katpana Stargazing & Milky Way Campfire Night',
+      name: ' Katpana Stargazing & Milky Way Campfire Night',
       category: 'Milky Way Campfire',
       price: 14000,
       desc: 'Zero-light-pollution telescope galaxy viewing in the cold desert with warm bonfire, Balti butter tea and marshmallows.',
     },
     {
       id: 'skd_drone_pkg',
-      name: '📸 Cold Desert & Glacial Lakes 4K Drone Cinematography',
+      name: ' Cold Desert & Glacial Lakes 4K Drone Cinematography',
       category: 'Skardu Drone Video',
       price: 15000,
       desc: 'Professional drone cinematography capturing Katpana sand dunes, Shangrila Resort, and Upper Kachura waters in 4K.',
@@ -1064,49 +1064,49 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   naran: [
     {
       id: 'nrn_saifulmalook',
-      name: '🚙 Lake Saif-ul-Malook 4x4 Mountain Jeep Safari',
+      name: ' Lake Saif-ul-Malook 4x4 Mountain Jeep Safari',
       category: 'Saif-ul-Malook Safari',
       price: 10000,
       desc: 'Rugged mountain 4x4 jeep ascent to the legendary 10,578 ft fairy lake with crystal water boating and photography.',
     },
     {
       id: 'nrn_babusar_exp',
-      name: '🏔️ Babusar Top (13,691 ft) Summit & Lulusar Lake Safari',
+      name: ' Babusar Top (13,691 ft) Summit & Lulusar Lake Safari',
       category: 'Babusar Top Summit',
       price: 12000,
       desc: 'High alpine mountain pass expedition over the roof of Kaghan Valley to Lulusar Lake and the Babusar Pass summit.',
     },
     {
       id: 'nrn_rafting',
-      name: '🛶 Kunhar River White Water Rafting Thrill',
+      name: ' Kunhar River White Water Rafting Thrill',
       category: 'River Rafting',
       price: 8000,
       desc: 'Adrenaline white water rapid rafting on the glacial Kunhar river with certified safety raft guides and life vests.',
     },
     {
       id: 'nrn_trout_bbq',
-      name: '🐟 Kunhar Fresh Brown Trout Catch & Live Riverside BBQ',
+      name: ' Kunhar Fresh Brown Trout Catch & Live Riverside BBQ',
       category: 'Kunhar Trout BBQ',
       price: 11000,
       desc: 'Fresh river trout angling permit and live charcoal grilled trout feast prepared hot right on the Kunhar riverbank.',
     },
     {
       id: 'nrn_shogran_safari',
-      name: '⛺ Siri Paye & Shogran Emerald Meadows Horse Trek',
+      name: ' Siri Paye & Shogran Emerald Meadows Horse Trek',
       category: 'Shogran Alpine Meadows',
       price: 9000,
       desc: 'Jeep safari up to the clouds of Siri Paye alpine meadow with guided mountain horse riding under Makra Peak.',
     },
     {
       id: 'nrn_bonfire',
-      name: '🔥 Riverside Kunhar Campfire & Kashmiri Kahwa Night',
+      name: ' Riverside Kunhar Campfire & Kashmiri Kahwa Night',
       category: 'Riverside Campfire',
       price: 10000,
       desc: 'Evening roaring bonfire right beside the Kunhar river with warm cardamom green tea, roasted nuts & marshmallows.',
     },
     {
       id: 'nrn_drone_pkg',
-      name: '📸 Babusar & Kaghan Waterfalls 4K Drone Package',
+      name: ' Babusar & Kaghan Waterfalls 4K Drone Package',
       category: 'Kaghan Drone Package',
       price: 14000,
       desc: 'High-resolution aerial drone shoot capturing Saif-ul-Malook, Batakundi waterfalls, and Babusar Top summit vistas.',
@@ -1116,42 +1116,42 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   babusar: [
     {
       id: 'bbs_summit_jeep',
-      name: '🏔️ Babusar Pass (13,691 ft) Summit & Chilas Border Jeep Safari',
+      name: ' Babusar Pass (13,691 ft) Summit & Chilas Border Jeep Safari',
       category: 'Babusar Pass Jeep',
       price: 12000,
       desc: 'Rugged 4x4 jeep tour across the high mountain pass connecting Khyber Pakhtunkhwa to Gilgit-Baltistan with snow views.',
     },
     {
       id: 'bbs_lulusar_lake',
-      name: '🚣 Lulusar Lake Turquoise Waters Excursion & Boating',
+      name: ' Lulusar Lake Turquoise Waters Excursion & Boating',
       category: 'Alpine Lake Boating',
       price: 8000,
       desc: 'Scenic stop and motorboat ride on Lulusar Lake, the primary headwaters reservoir of the Kunhar River.',
     },
     {
       id: 'bbs_batakundi_bbq',
-      name: '🐟 Batakundi Riverside Trout Fishing & Live Charcoal BBQ',
+      name: ' Batakundi Riverside Trout Fishing & Live Charcoal BBQ',
       category: 'Batakundi Trout BBQ',
       price: 11000,
       desc: 'Cold-water river trout fishing and live outdoor barbecue feast beside the cascading mountain streams of Batakundi.',
     },
     {
       id: 'bbs_pass_camp',
-      name: '⛺ High-Altitude Alpine Pass Camping & Stargazing',
+      name: ' High-Altitude Alpine Pass Camping & Stargazing',
       category: 'Alpine Camping',
       price: 15000,
       desc: 'Overnight tent stay with warm sleeping bags and panoramic galaxy stargazing near the high alpine pass.',
     },
     {
       id: 'bbs_kahwa_fire',
-      name: '🔥 High-Pass Campfire & Saffron Mountain Kahwa',
+      name: ' High-Pass Campfire & Saffron Mountain Kahwa',
       category: 'Mountain Pass Bonfire',
       price: 9000,
       desc: 'Evening bonfire in freezing pass winds with warm saffron cardamom green tea and roasted mountain treats.',
     },
     {
       id: 'bbs_drone_pkg',
-      name: '📸 4K High-Altitude Babusar Pass Drone Cinematography',
+      name: ' 4K High-Altitude Babusar Pass Drone Cinematography',
       category: 'Babusar Drone Cinematography',
       price: 15000,
       desc: 'Spectacular 4K drone cinematography capturing the serpentine alpine switchbacks and snow peaks of Babusar.',
@@ -1161,42 +1161,42 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   swat: [
     {
       id: 'swt_mahodand',
-      name: '🚙 Mahodand Lake & Ushu Cedar Forest 4x4 Safari',
+      name: ' Mahodand Lake & Ushu Cedar Forest 4x4 Safari',
       category: 'Mahodand Lake Jeep',
       price: 12000,
       desc: 'Off-road 4x4 jeep safari through dense deodar pine forests and Matiltan waterfalls to emerald Mahodand Lake.',
     },
     {
       id: 'swt_boating_horse',
-      name: '🚣 Mahodand Emerald Lake Boating & Meadow Horse Riding',
+      name: ' Mahodand Emerald Lake Boating & Meadow Horse Riding',
       category: 'Mahodand Lake Boating',
       price: 7000,
       desc: 'Scenic wooden boat cruise across the emerald alpine lake followed by a mountain meadow horse ride under snow peaks.',
     },
     {
       id: 'swt_riverside_rubab',
-      name: '🌲 Swat River Riverside BBQ & Live Pashto Rubab Night',
+      name: ' Swat River Riverside BBQ & Live Pashto Rubab Night',
       category: 'Swat River Rubab BBQ',
       price: 11000,
       desc: 'Live charcoal mutton tikka and Shinwari karahi feast accompanied by live acoustic Pashto Rubab beside Swat River.',
     },
     {
       id: 'swt_buddhist_trail',
-      name: '🏰 Swat Museum & Butkara Ancient Buddhist Stupa Trail',
+      name: ' Swat Museum & Butkara Ancient Buddhist Stupa Trail',
       category: 'Gandhara Buddhist Tour',
       price: 6000,
       desc: 'Guided archaeological walk exploring 2,000-year-old Gandharan Buddhist rock carvings, stupas, and royal museum relics.',
     },
     {
       id: 'swt_malam_pass',
-      name: '🚡 Malam Jabba Snow Chairlift & Alpine Zipline Pass',
+      name: ' Malam Jabba Snow Chairlift & Alpine Zipline Pass',
       category: 'Malam Jabba Day Pass',
       price: 10000,
       desc: 'Day pass for Malam Jabba scenic chairlift ascent, high-speed mountain zipline and pine ridge walking trail.',
     },
     {
       id: 'swt_drone_pkg',
-      name: '📸 Kalam & Ushu Valleys 4K Aerial Drone Cinematography',
+      name: ' Kalam & Ushu Valleys 4K Aerial Drone Cinematography',
       category: 'Swat Drone Video',
       price: 14000,
       desc: 'High-res 4K drone package capturing Ushu glacier, cascading waterfalls, and the emerald bends of Swat valley.',
@@ -1206,42 +1206,42 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   islamabad: [
     {
       id: 'isb_monal_dinner',
-      name: '⛰️ Margalla Hills Private Ridge Sunset & Monal Dining',
+      name: ' Margalla Hills Private Ridge Sunset & Monal Dining',
       category: 'Margalla Hilltop Dining',
       price: 12000,
       desc: 'Reserved scenic viewpoint dining table overlooking the illuminated capital skyline with authentic Pakistani cuisine.',
     },
     {
       id: 'isb_rawal_water',
-      name: '🚤 Rawal Lake Speedboat Cruise & Water Sports Pass',
+      name: ' Rawal Lake Speedboat Cruise & Water Sports Pass',
       category: 'Rawal Lake Boating',
       price: 7000,
       desc: 'High-speed motorboat cruise, lake pedal boating and water sports session at scenic Rawal Lake View Park.',
     },
     {
       id: 'isb_monument_vip',
-      name: '🏛️ Lok Virsa & Pakistan Monument VIP Heritage Pass',
+      name: ' Lok Virsa & Pakistan Monument VIP Heritage Pass',
       category: 'National Heritage Tour',
       price: 6000,
       desc: 'Official guided tour of national folk heritage museum, regional ethnology halls and Pakistan Monument architectural arches.',
     },
     {
       id: 'isb_bus_tour',
-      name: '🚌 Double-Decker Islamabad Open-Top Sightseeing Tour',
+      name: ' Double-Decker Islamabad Open-Top Sightseeing Tour',
       category: 'Open-Top Bus Tour',
       price: 5000,
       desc: 'Open-roof scenic city tour covering Faisal Mosque, Shakarparian garden, Constitution Avenue & diplomatic zone.',
     },
     {
       id: 'rwp_street_food',
-      name: '🍢 Raja Bazaar & Saddar Heritage Street Food Safari',
+      name: ' Raja Bazaar & Saddar Heritage Street Food Safari',
       category: 'Rawalpindi Food Safari',
       price: 8000,
       desc: 'Old Rawalpindi food walk: authentic Seekh Kababs, Bala Tikka, Rabri falooda and hot Kashmiri chai.',
     },
     {
       id: 'isb_drone_pkg',
-      name: '📸 Margalla Hills & Faisal Mosque 4K Drone Package',
+      name: ' Margalla Hills & Faisal Mosque 4K Drone Package',
       category: 'Capital Drone Cinematography',
       price: 14000,
       desc: 'Professional drone cinematography capturing the majestic Faisal Mosque marble porticos and green Margalla ridges.',
@@ -1251,42 +1251,42 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   karachi: [
     {
       id: 'khi_yacht_cruise',
-      name: '🚤 Arabian Sea Private Yacht Cruise & Sunset Sailing',
+      name: ' Arabian Sea Private Yacht Cruise & Sunset Sailing',
       category: 'Arabian Sea Yacht',
       price: 16000,
       desc: 'Exclusive luxury motorboat/yacht cruise along Karachi harbor, Oyster Rocks, and Manora Island with sunset views.',
     },
     {
       id: 'khi_crabbing',
-      name: '🦀 Deep Sea Crabbing & Live Floating Seafood Feast',
+      name: ' Deep Sea Crabbing & Live Floating Seafood Feast',
       category: 'Live Crabbing Feast',
       price: 14000,
       desc: 'Live crab catching experience on the Arabian Sea with boat chef cooking spicy masala crabs and hot garlic naan on board.',
     },
     {
       id: 'khi_beach_hut',
-      name: '🌊 Hawksbay & Turtle Beach Private Seaside Cabana Day',
+      name: ' Hawksbay & Turtle Beach Private Seaside Cabana Day',
       category: 'Seaside Beach Cabana',
       price: 15000,
       desc: 'Furnished seaside beach hut with private oceanfront terrace, fresh coastal breeze, swimming and live charcoal BBQ.',
     },
     {
       id: 'khi_watersports',
-      name: '🪂 Jet Ski Thrill & Parasailing at Clifton / French Beach',
+      name: ' Jet Ski Thrill & Parasailing at Clifton / French Beach',
       category: 'Ocean Water Sports',
       price: 11000,
       desc: 'Adrenaline ocean water sports pass including jet ski runs and parasailing flight with certified rescue life guards.',
     },
     {
       id: 'khi_burns_road',
-      name: '🍢 Burns Road & Port Grand Heritage Street Food Trail',
+      name: ' Burns Road & Port Grand Heritage Street Food Trail',
       category: 'Karachi Street Food',
       price: 8000,
       desc: 'Historic culinary trail: Waheed Nihari, Fry Kabab, Matka Biryani, Bun Kabab and original Rabri Falooda.',
     },
     {
       id: 'khi_drone_pkg',
-      name: '📸 Coastal Sunset & Ocean Wave 4K Drone Cinematography',
+      name: ' Coastal Sunset & Ocean Wave 4K Drone Cinematography',
       category: 'Coastal Drone Video',
       price: 14000,
       desc: '4K aerial drone shoot capturing coastal cliffs, crashing ocean surf, and golden hour Arabian Sea sunset.',
@@ -1296,35 +1296,35 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   gwadar: [
     {
       id: 'gwd_kund_malir_camp',
-      name: '🏖️ Kund Malir Golden Sands Beach Camping & Bonfire',
+      name: ' Kund Malir Golden Sands Beach Camping & Bonfire',
       category: 'Makran Beach Camping',
       price: 15000,
       desc: 'Overnight luxury tent camping along Makran Coastal Highway with stargazing, fresh fish barbecue, and beach campfire.',
     },
     {
       id: 'gwd_astola_island',
-      name: '🐬 Astola Island (Haft Talar) Deep-Sea Speedboat Safari',
+      name: ' Astola Island (Haft Talar) Deep-Sea Speedboat Safari',
       category: 'Astola Island Safari',
       price: 20000,
       desc: "Deep-sea speedboat expedition to uninhabited Astola Island with coral reef snorkeling, turquoise lagoons and dolphins.",
     },
     {
       id: 'gwd_hingol_safari',
-      name: '🚙 Princess of Hope & Hingol Mud Volcano 4x4 Safari',
+      name: ' Princess of Hope & Hingol Mud Volcano 4x4 Safari',
       category: 'Hingol National Park',
       price: 14000,
       desc: 'Off-road 4x4 expedition through surreal natural rock formations, Hingol canyon gorge, and active Chandragup mud volcanoes.',
     },
     {
       id: 'gwd_lobster_feast',
-      name: '🦞 Fresh Arabian Sea Grilled Lobster & Jumbo Prawn Feast',
+      name: ' Fresh Arabian Sea Grilled Lobster & Jumbo Prawn Feast',
       category: 'Makran Seafood Feast',
       price: 13000,
       desc: 'Catch-of-the-day grilled lobster, jumbo tiger prawns and authentic Balochi sajji prepared right by the coastline.',
     },
     {
       id: 'gwd_hammerhead_tour',
-      name: '🛥️ Gwadar Hammerhead Peak Sunset & Deep Sea Boat Tour',
+      name: ' Gwadar Hammerhead Peak Sunset & Deep Sea Boat Tour',
       category: 'Gwadar Port Boat Tour',
       price: 11000,
       desc: 'Panoramic viewpoint overlooking the hammerhead peninsula followed by a scenic deep sea cruise with local fishermen.',
@@ -1334,35 +1334,35 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   multan: [
     {
       id: 'mlt_derawar_safari',
-      name: '🏰 Derawar Fort & Cholistan Desert 4x4 Dune Safari',
+      name: ' Derawar Fort & Cholistan Desert 4x4 Dune Safari',
       category: 'Cholistan Desert Safari',
       price: 16000,
       desc: 'Expedition across Cholistan dunes to the 40 colossal bastions of Derawar Fort with sunset desert camel riding.',
     },
     {
       id: 'mlt_rohi_music',
-      name: '⛺ Cholistan Desert Campfire & Rohi Folk Music Night',
+      name: ' Cholistan Desert Campfire & Rohi Folk Music Night',
       category: 'Desert Sufi Campfire',
       price: 14000,
       desc: 'Overnight desert camp under sparkling stars with live Khwaja Ghulam Farid mystic Sufi singing and acoustic dholak.',
     },
     {
       id: 'mlt_kashigari_trail',
-      name: '🕌 Multan Sufi Shrines & Kashigari Blue Pottery Trail',
+      name: ' Multan Sufi Shrines & Kashigari Blue Pottery Trail',
       category: 'Blue Pottery & Shrines',
       price: 7000,
       desc: 'Guided tour of Shah Rukn-e-Alam, Bahauddin Zakariya shrines & hands-on pottery shaping at an artisan workshop.',
     },
     {
       id: 'mlt_sohan_halwa_feast',
-      name: '🥩 Authentic Multani Chaanp, Sohan Halwa & Mango Feast',
+      name: ' Authentic Multani Chaanp, Sohan Halwa & Mango Feast',
       category: 'Multani Royal Feast',
       price: 9000,
       desc: 'Royal Punjabi feast: succulent mutton chaanp, traditional tandoori flatbreads, and original Hafiz Sohan Halwa.',
     },
     {
       id: 'mlt_noor_mahal',
-      name: '🏰 Noor Mahal & Darbar Mahal Royal Palaces VIP Tour',
+      name: ' Noor Mahal & Darbar Mahal Royal Palaces VIP Tour',
       category: 'Bahawalpur Palaces',
       price: 8000,
       desc: 'Nawab of Bahawalpur royal Italianate palace interior tour, evening light show and royal gardens photography.',
@@ -1372,28 +1372,28 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   kumrat: [
     {
       id: 'kmr_deodar_trek',
-      name: '🌲 Kumrat Deodar Jungle Trek & Waterfall Safari',
+      name: ' Kumrat Deodar Jungle Trek & Waterfall Safari',
       category: 'Deodar Forest Trek',
       price: 9000,
       desc: 'Guided nature hike through towering thousand-year-old virgin cedar deodar forest to cascading forest waterfalls.',
     },
     {
       id: 'kmr_katora_jeep',
-      name: '🚙 Do Kala Chashma & Katora Lake Base 4x4 Jeep Safari',
+      name: ' Do Kala Chashma & Katora Lake Base 4x4 Jeep Safari',
       category: 'Katora Lake Base Jeep',
       price: 14000,
       desc: 'Rugged mountain 4x4 jeep trek to roaring glacier streams, wooden log bridges, and pristine alpine mountain springs.',
     },
     {
       id: 'kmr_panjkora_camp',
-      name: '⛺ Panjkora Riverside Swiss Tent Camp & Bonfire',
+      name: ' Panjkora Riverside Swiss Tent Camp & Bonfire',
       category: 'Panjkora River Camp',
       price: 15000,
       desc: 'Overnight luxury tent camp right beside the roaring Panjkora river with hot local river trout barbecue and campfire.',
     },
     {
       id: 'kmr_folk_rubab',
-      name: '🪕 Traditional Kohistani / Pashto Folk Rubab Night',
+      name: ' Traditional Kohistani / Pashto Folk Rubab Night',
       category: 'Folk Rubab Campfire',
       price: 8000,
       desc: 'Fireside acoustic folk music session with mountain elders, Pashto rubab melodies, and spiced herbal mountain green tea.',
@@ -1403,28 +1403,28 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   chitral: [
     {
       id: 'cht_kalash_fest',
-      name: '🎭 Kalash Tribal Village Cultural Immersion & Dance',
+      name: ' Kalash Tribal Village Cultural Immersion & Dance',
       category: 'Kalash Tribe Immersion',
       price: 10000,
       desc: 'Authentic Kalasha cultural ceremony, handmade beaded dresses, traditional folk singing and valley walking tour.',
     },
     {
       id: 'cht_royal_fort',
-      name: '🏰 Chitral Royal Fort & Shahi Mosque Guided Walk',
+      name: ' Chitral Royal Fort & Shahi Mosque Guided Walk',
       category: 'Chitral Royal Heritage',
       price: 7000,
       desc: 'Historic royal seat of the Mehtar of Chitral along the Kunar river banks with mountain museum artifacts.',
     },
     {
       id: 'cht_shandur_safari',
-      name: '🏇 Shandur (World Highest Polo Ground) Day Safari',
+      name: ' Shandur (World Highest Polo Ground) Day Safari',
       category: 'Shandur Polo Safari',
       price: 16000,
       desc: "High-altitude mountain pass journey to the 12,200 ft plateau where the world's most thrilling freestyle polo is played.",
     },
     {
       id: 'cht_trout_dinner',
-      name: '🍲 Traditional Chitrali Baqalam & River Trout Feast',
+      name: ' Traditional Chitrali Baqalam & River Trout Feast',
       category: 'Chitrali Feast',
       price: 8000,
       desc: 'Local walnut bread (Baqalam), mutton broth, and fresh cold-water river trout dinner with dry fruit herbal tea.',
@@ -1434,35 +1434,35 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   murree: [
     {
       id: 'mrr_chairlift',
-      name: '🚡 Patriata (New Murree) Dual Chairlift & Cable Car Pass',
+      name: ' Patriata (New Murree) Dual Chairlift & Cable Car Pass',
       category: 'Patriata Cable Car',
       price: 7000,
       desc: 'Famous 7km panoramic dual chairlift and gondola cable car flight high above misty pine forests and rolling hills.',
     },
     {
       id: 'mrr_pipeline',
-      name: '🌲 Ayubia National Park Pipeline Track Nature Walk',
+      name: ' Ayubia National Park Pipeline Track Nature Walk',
       category: 'Pipeline Nature Trail',
       price: 6000,
       desc: 'Guided historic pine forest nature walk with monkey spotting, pine canopy views and bird watching.',
     },
     {
       id: 'mrr_miranjani',
-      name: '⛰️ Miranjani Peak Hilltop Guided Hiking Trek',
+      name: ' Miranjani Peak Hilltop Guided Hiking Trek',
       category: 'Miranjani Peak Trek',
       price: 8000,
       desc: 'Guided ascent to the highest 9,776 ft peak in Abbottabad/Galyat with snow peak panoramas and alpine air.',
     },
     {
       id: 'mrr_pine_bonfire',
-      name: '🪵 Pine Forest Campfire, Hot BBQ & Corn Night',
+      name: ' Pine Forest Campfire, Hot BBQ & Corn Night',
       category: 'Galyat Pine Campfire',
       price: 10000,
       desc: 'Evening campfire in cedar woods with roasted sweet corn, charcoal chicken tikka and spiced Kashmiri tea.',
     },
     {
       id: 'mrr_horse_ride',
-      name: '🐴 Mall Road Horse Riding & Evening Heritage Stroll',
+      name: ' Mall Road Horse Riding & Evening Heritage Stroll',
       category: 'Mall Road Horse Ride',
       price: 5000,
       desc: 'Traditional mountain horse ride along Kashmir Point and colonial Mall Road bazaar with scenic sunset photography.',
@@ -1472,28 +1472,28 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   'fairy meadows': [
     {
       id: 'fm_tattu_jeep',
-      name: '🚙 Tattu Village 4x4 Cliff Jeep Thrill Safari',
+      name: ' Tattu Village 4x4 Cliff Jeep Thrill Safari',
       category: 'Tattu Cliff Jeep',
       price: 15000,
       desc: 'World-famous thrill jeep ride carved into narrow mountain cliffs to the trailhead of Fairy Meadows.',
     },
     {
       id: 'fm_base_camp_trek',
-      name: '🐴 Nanga Parbat Base Camp & Beyal Camp Guided Trek',
+      name: ' Nanga Parbat Base Camp & Beyal Camp Guided Trek',
       category: 'Nanga Parbat Trek',
       price: 14000,
       desc: 'Guided alpine trek to the face of the Killer Mountain (8,126m) with massive Raikot glacier moraine views.',
     },
     {
       id: 'fm_lake_camp',
-      name: '⛺ Fairy Meadows Reflection Lake Camping & Bonfire',
+      name: ' Fairy Meadows Reflection Lake Camping & Bonfire',
       category: 'Fairy Meadows Camp',
       price: 16000,
       desc: 'Overnight luxury wooden cottage / tent camp beside the crystal reflection pond with roaring birch wood campfire.',
     },
     {
       id: 'fm_stargazing',
-      name: '🌌 Nanga Parbat Milky Way Stargazing & Night Shoot',
+      name: ' Nanga Parbat Milky Way Stargazing & Night Shoot',
       category: 'Milky Way Stargazing',
       price: 12000,
       desc: 'Astrophotography session capturing the Milky Way arching directly over the snow-covered face of Nanga Parbat.',
@@ -1503,28 +1503,28 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   neelum: [
     {
       id: 'nlm_ratti_gali',
-      name: '🚙 Ratti Gali & Chitta Katha Glacial Lake 4x4 Safari',
+      name: ' Ratti Gali & Chitta Katha Glacial Lake 4x4 Safari',
       category: 'Ratti Gali Lake Jeep',
       price: 16000,
       desc: 'High mountain 4x4 jeep trek to the turquoise glacial jewel of Azad Kashmir nestled at 12,130 ft altitude.',
     },
     {
       id: 'nlm_waterfall_boat',
-      name: '🚣 Kutton & Dhani Waterfalls Rafting & Boating Pass',
+      name: ' Kutton & Dhani Waterfalls Rafting & Boating Pass',
       category: 'Neelum River Boating',
       price: 8000,
       desc: 'Scenic wooden rafting and boat ride along Neelum river with stop at cascading crystal mountain waterfalls.',
     },
     {
       id: 'nlm_wazwan_fire',
-      name: '🪵 Riverside Neelum Pine Bonfire & Kashmiri Wazwan',
+      name: ' Riverside Neelum Pine Bonfire & Kashmiri Wazwan',
       category: 'Kashmiri Wazwan Feast',
       price: 12000,
       desc: 'Evening campfire beside Neelum river with authentic Kashmiri Wazwan: Roghan Josh, Rista, Gushtaba & Kashmiri tea.',
     },
     {
       id: 'nlm_pir_chinasi',
-      name: '🏰 Pir Chinasi 9,500 ft Summit & Red Fort Muzaffarabad Tour',
+      name: ' Pir Chinasi 9,500 ft Summit & Red Fort Muzaffarabad Tour',
       category: 'Pir Chinasi Excursion',
       price: 9000,
       desc: 'Scenic mountain drive up to Pir Chinasi paragliding ridge and guided walk through 16th-century Red Fort.',
@@ -1534,28 +1534,28 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   quetta: [
     {
       id: 'qta_juniper_trek',
-      name: '🌲 Ancient Ziarat Juniper Forest Guided Nature Trek',
+      name: ' Ancient Ziarat Juniper Forest Guided Nature Trek',
       category: 'Ancient Juniper Trek',
       price: 9000,
       desc: "Guided walk through the world's 2nd largest ancient juniper forest with trees over 5,000 years old.",
     },
     {
       id: 'qta_residency_tour',
-      name: '🏛️ Quaid-e-Azam Residency & Ziarat Heritage VIP Tour',
+      name: ' Quaid-e-Azam Residency & Ziarat Heritage VIP Tour',
       category: 'Quaid Residency Tour',
       price: 6000,
       desc: 'Historic wooden Victorian architecture retreat where the founder of Pakistan spent his last peaceful days.',
     },
     {
       id: 'qta_balochi_rosh',
-      name: '🍖 Authentic Balochi Rosh & Dumpukht Feast',
+      name: ' Authentic Balochi Rosh & Dumpukht Feast',
       category: 'Balochi Rosh Feast',
       price: 11000,
       desc: 'Traditional slow-cooked Balochi mutton Rosh, Kandahari Naan, fresh pomegranates, and green tea.',
     },
     {
       id: 'qta_hanna_lake',
-      name: '⛰️ Hanna Lake Boating & Urak Valley Fruit Orchard Walk',
+      name: ' Hanna Lake Boating & Urak Valley Fruit Orchard Walk',
       category: 'Hanna Lake Boating',
       price: 7000,
       desc: 'Scenic turquoise lake boating and walking tour through sweet apple, cherry and peach orchards in Urak valley.',
@@ -1565,28 +1565,28 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   peshawar: [
     {
       id: 'psh_namak_mandi',
-      name: '🍢 Namak Mandi Shinwari Tikka & Chapli Kabab Feast',
+      name: ' Namak Mandi Shinwari Tikka & Chapli Kabab Feast',
       category: 'Namak Mandi Feast',
       price: 10000,
       desc: 'World-famous frontier meat feast: live mutton karahi, authentic Jalil Chapli Kababs, and hot tandoori roghni naans.',
     },
     {
       id: 'psh_heritage_walk',
-      name: '🏰 Bala Hisar Fort, Sethi House & Qissa Khwani Walk',
+      name: ' Bala Hisar Fort, Sethi House & Qissa Khwani Walk',
       category: 'Old Peshawar Heritage',
       price: 8000,
       desc: 'Guided tour of the historic Storytellers Bazaar, intricately carved wood Sethi Havelis, and ancient Gor Khatri ruins.',
     },
     {
       id: 'psh_qahwa_trail',
-      name: '☕ Traditional Peshawari Qahwa & Dry Fruit Tea Trail',
+      name: ' Traditional Peshawari Qahwa & Dry Fruit Tea Trail',
       category: 'Peshawari Qahwa Trail',
       price: 4000,
       desc: 'Historic copper samovar green tea tasting with roasted almonds, walnuts, and traditional sweet Peshawari halwa.',
     },
     {
       id: 'psh_karkhano_safari',
-      name: '🛍️ Karkhano Silk & Afghan Rugs Guided Shopping Safari',
+      name: ' Karkhano Silk & Afghan Rugs Guided Shopping Safari',
       category: 'Frontier Bazaars Shopping',
       price: 5000,
       desc: 'Private guided shopping tour of famous frontier silk fabrics, tribal handmade carpets, and brass handicrafts.',
@@ -1596,21 +1596,21 @@ const CITY_EXTRA_EXPERIENCES_MAP = {
   taxila: [
     {
       id: 'txl_gandhara_vip',
-      name: '🏛️ Taxila UNESCO Gandhara Stupas & Museum VIP Tour',
+      name: ' Taxila UNESCO Gandhara Stupas & Museum VIP Tour',
       category: 'Taxila UNESCO Tour',
       price: 7000,
       desc: 'Guided archaeological tour of 2,500-year-old Buddhist university, Jaulian monastery, and Dharmarajika stupa.',
     },
     {
       id: 'txl_rohtas_fort',
-      name: '🏰 Rohtas Fort Colossal Ramparts & Sher Shah Suri Walk',
+      name: ' Rohtas Fort Colossal Ramparts & Sher Shah Suri Walk',
       category: 'Rohtas Fort Tour',
       price: 8000,
       desc: 'Guided exploration of 16th-century UNESCO military fortress with 12 colossal stone gates and massive ramparts.',
     },
     {
       id: 'txl_katas_khewra',
-      name: '🛕 Katas Raj Sacred Temples & Khewra Salt Mine Train Pass',
+      name: ' Katas Raj Sacred Temples & Khewra Salt Mine Train Pass',
       category: 'Katas Raj & Khewra',
       price: 8000,
       desc: 'Historic holy Shiva pond temples and electric train tour through the crystal salt chambers of the Khewra Salt Mine.',
@@ -1636,42 +1636,42 @@ function getCityExtraExperiences(destName, categoryName) {
     return [
       {
         id: 'cat_ext_heritage_walk',
-        name: '🏰 Historic Fortress & Old Town VIP Guided Walk',
+        name: ' Historic Fortress & Old Town VIP Guided Walk',
         category: 'Heritage VIP Walk',
         price: 7000,
         desc: 'Private architectural and historical walking tour with certified regional heritage guide.',
       },
       {
         id: 'cat_ext_food_feast',
-        name: '🍲 Authentic Traditional Food Street Royal Feast',
+        name: ' Authentic Traditional Food Street Royal Feast',
         category: 'Food Street Feast',
         price: 11000,
         desc: 'Multi-course evening feast featuring regional barbecue, traditional gravies, and heritage desserts.',
       },
       {
         id: 'cat_ext_qawwali',
-        name: '🪕 Evening Sufi Qawwali & Traditional Folk Music Night',
+        name: ' Evening Sufi Qawwali & Traditional Folk Music Night',
         category: 'Sufi Folk Music',
         price: 9000,
         desc: 'Atmospheric evening acoustic musical session celebrating regional folklore and traditional instruments.',
       },
       {
         id: 'cat_ext_costumes',
-        name: '📸 Traditional Royal Costumes & 4K Photo Shoot',
+        name: ' Traditional Royal Costumes & 4K Photo Shoot',
         category: 'Heritage Photography',
         price: 12000,
         desc: 'Professional photography shoot with authentic regional heritage costumes at iconic landmarks.',
       },
       {
         id: 'cat_ext_crafts',
-        name: '🛍️ Historic Bazaars & Indigenous Crafts Safari',
+        name: ' Historic Bazaars & Indigenous Crafts Safari',
         category: 'Artisan Crafts Safari',
         price: 6000,
         desc: 'Guided shopping excursion through traditional bazaars: pottery, textiles, and local handicrafts.',
       },
       {
         id: 'cat_ext_buggy',
-        name: '🐴 Royal Decorated Horse Carriage / Buggy Tour',
+        name: ' Royal Decorated Horse Carriage / Buggy Tour',
         category: 'Royal Carriage Tour',
         price: 5000,
         desc: 'Charming horse-drawn carriage ride through historic city avenues and heritage quarters.',
@@ -1683,42 +1683,42 @@ function getCityExtraExperiences(destName, categoryName) {
     return [
       {
         id: 'cat_ext_coastal_boat',
-        name: '🚤 Private Coastal Speedboat & Marine Cruise',
+        name: ' Private Coastal Speedboat & Marine Cruise',
         category: 'Coastal Speedboat',
         price: 14000,
         desc: 'Private boat cruise along coastal waters with scenic cliff views and sea breeze.',
       },
       {
         id: 'cat_ext_seafood_bbq',
-        name: '🦀 Fresh Catch Deep-Sea Barbecue & Seafood Feast',
+        name: ' Fresh Catch Deep-Sea Barbecue & Seafood Feast',
         category: 'Seafood BBQ Feast',
         price: 13000,
         desc: 'Fresh caught fish, jumbo prawns and grilled coastal seafood feast prepared right by the shore.',
       },
       {
         id: 'cat_ext_beach_hut',
-        name: '🏖️ Private Beachfront Cabana Day with Ocean Views',
+        name: ' Private Beachfront Cabana Day with Ocean Views',
         category: 'Beachfront Cabana',
         price: 15000,
         desc: 'Furnished seaside beach cabana day with private terrace, shade, swimming and barbecue grill.',
       },
       {
         id: 'cat_ext_watersports',
-        name: '🪂 Jet Ski Ocean Thrill & Water Sports Package',
+        name: ' Jet Ski Ocean Thrill & Water Sports Package',
         category: 'Ocean Water Sports',
         price: 10000,
         desc: 'Adrenaline marine water sports with life jacket safety gear and professional guide.',
       },
       {
         id: 'cat_ext_beach_fire',
-        name: '🔥 Seaside Beach Bonfire & Acoustic Stargazing Night',
+        name: ' Seaside Beach Bonfire & Acoustic Stargazing Night',
         category: 'Beach Bonfire',
         price: 11000,
         desc: 'Evening roaring campfire on sandy beach under star-lit skies with warm tea and marshmallows.',
       },
       {
         id: 'cat_ext_coast_drone',
-        name: '📸 Golden Hour Ocean Sunset 4K Drone Photography',
+        name: ' Golden Hour Ocean Sunset 4K Drone Photography',
         category: 'Coastal Drone Package',
         price: 14000,
         desc: 'Cinematic aerial drone shoot capturing coastal cliffs, waves, and sunset over the sea.',
@@ -1730,42 +1730,42 @@ function getCityExtraExperiences(destName, categoryName) {
     return [
       {
         id: 'cat_ext_ridge_trek',
-        name: '🧗 Guided Scenic Ridge Hiking & Nature Trail',
+        name: ' Guided Scenic Ridge Hiking & Nature Trail',
         category: 'Nature Trail Hike',
         price: 8000,
         desc: 'Scenic nature hike along mountain ridges with certified local trail guide and nature photography.',
       },
       {
         id: 'cat_ext_river_bbq',
-        name: '🍖 Riverside Charcoal Live Barbecue Dinner',
+        name: ' Riverside Charcoal Live Barbecue Dinner',
         category: 'Riverside BBQ Dinner',
         price: 11000,
         desc: 'Live charcoal BBQ feast (chicken tikka, kebabs & parathas) beside flowing streams under the stars.',
       },
       {
         id: 'cat_ext_campfire',
-        name: '🔥 Musical Campfire & Roasted Treats Night',
+        name: ' Musical Campfire & Roasted Treats Night',
         category: 'Musical Campfire',
         price: 10000,
         desc: 'Evening acoustic campfire setup with traditional green tea (kahwa) and roasted marshmallows.',
       },
       {
         id: 'cat_ext_wilderness_camp',
-        name: '⛺ Scenic Wilderness Swiss Tent Camping Experience',
+        name: ' Scenic Wilderness Swiss Tent Camping Experience',
         category: 'Wilderness Camping',
         price: 14000,
         desc: 'Overnight tent stay with luxury tents, insulated sleeping bags, and sunrise panoramic views.',
       },
       {
         id: 'cat_ext_drone_action',
-        name: '📸 Landscape & Action 4K Drone Photography',
+        name: ' Landscape & Action 4K Drone Photography',
         category: '4K Drone Photography',
         price: 14000,
         desc: 'Dedicated professional photographer with 4K drone capturing high-res memories across your stops.',
       },
       {
         id: 'cat_ext_thrill_pass',
-        name: '🪂 Multi-Thrill Zipline & Rope Course Adventure Pass',
+        name: ' Multi-Thrill Zipline & Rope Course Adventure Pass',
         category: 'Adventure Pass',
         price: 10000,
         desc: 'Adrenaline pass including zipline run, suspended rope walk, or river crossing thrill.',
@@ -1777,49 +1777,49 @@ function getCityExtraExperiences(destName, categoryName) {
   return [
     {
       id: 'cat_ext_alpine_trek',
-      name: '🌲 Outdoor Nature & Alpine Trail Mountain Trek',
+      name: ' Outdoor Nature & Alpine Trail Mountain Trek',
       category: 'Alpine Nature Trek',
       price: 8000,
       desc: 'Guided nature hike along scenic alpine ridges with certified local mountain trail leader.',
     },
     {
       id: 'cat_ext_trout_bbq',
-      name: '🐟 Fresh Cold-Water River Trout Catch & Live BBQ',
+      name: ' Fresh Cold-Water River Trout Catch & Live BBQ',
       category: 'River Trout BBQ',
       price: 11000,
       desc: 'Cold-water river trout fishing permit and live charcoal grilled dinner beside mountain streams.',
     },
     {
       id: 'cat_ext_alpine_bonfire',
-      name: '🔥 Mountain Campfire & Traditional Cardamom Kahwa',
+      name: ' Mountain Campfire & Traditional Cardamom Kahwa',
       category: 'Alpine Bonfire Night',
       price: 10000,
       desc: 'Evening acoustic campfire setup under mountain stars with warm green tea (kahwa) and marshmallows.',
     },
     {
       id: 'cat_ext_swiss_camp',
-      name: '⛺ Alpine Wilderness Swiss Tent Camping Experience',
+      name: ' Alpine Wilderness Swiss Tent Camping Experience',
       category: 'Swiss Tent Camping',
       price: 15000,
       desc: 'Overnight tent stay with luxury Swiss tents, insulated sleeping bags, and sunrise mountain views.',
     },
     {
       id: 'cat_ext_mountain_drone',
-      name: '📸 Mountain Peaks & Valley 4K Drone Cinematography',
+      name: ' Mountain Peaks & Valley 4K Drone Cinematography',
       category: 'Mountain Drone Video',
       price: 14000,
       desc: 'Dedicated aerial drone photographer capturing your journey and high mountain panoramic vistas in 4K.',
     },
     {
       id: 'cat_ext_adventure_pass',
-      name: '🪂 High-Thrill Mountain Adventure Pass',
+      name: ' High-Thrill Mountain Adventure Pass',
       category: 'Mountain Adventure Pass',
       price: 10000,
       desc: 'Adrenaline adventure pass including suspension bridge crossing, chairlift or zipline flight.',
     },
     {
       id: 'cat_ext_folk_rubab',
-      name: '🪕 Local Cultural Experience & Folk Rubab Night',
+      name: ' Local Cultural Experience & Folk Rubab Night',
       category: 'Local Folk Rubab',
       price: 6000,
       desc: 'Authentic local village visit, traditional rubab music session, and indigenous handicraft tour.',
@@ -2053,7 +2053,7 @@ export default function TripPlanningScreen({ navigation, route }) {
     return [31.5204, 74.3587];
   });
   const [isDetectingLocation, setIsDetectingLocation] = useState(false);
-  const [liveLocationStatus, setLiveLocationStatus] = useState('📍 Real-time departure active. Tap map, GPS, or presets to change.');
+  const [liveLocationStatus, setLiveLocationStatus] = useState(' Real-time departure active. Tap map, GPS, or presets to change.');
   const [departureSearchQuery, setDepartureSearchQuery] = useState('');
   const [isCustomOrigin, setIsCustomOrigin] = useState(false);
   const [liveSearchResults, setLiveSearchResults] = useState([]);
@@ -2075,7 +2075,7 @@ export default function TripPlanningScreen({ navigation, route }) {
           const lat = Number(event.data.lat);
           const lon = Number(event.data.lon);
           setOriginCoords([lat, lon]);
-          setLiveLocationStatus(`📍 Selected Real Location: ${event.data.name} (${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`);
+          setLiveLocationStatus(` Selected Real Location: ${event.data.name} (${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`);
           if (typeof window !== 'undefined' && window.localStorage) {
             window.localStorage.setItem('stp_user_origin_coords', JSON.stringify([lat, lon]));
           }
@@ -2183,7 +2183,7 @@ export default function TripPlanningScreen({ navigation, route }) {
     }
     if (explicitCoords && Array.isArray(explicitCoords)) {
       setOriginCoords(explicitCoords);
-      setLiveLocationStatus(`📍 Departure: ${city} (${explicitCoords[0].toFixed(4)}° N, ${explicitCoords[1].toFixed(4)}° E)`);
+      setLiveLocationStatus(` Departure: ${city} (${explicitCoords[0].toFixed(4)}° N, ${explicitCoords[1].toFixed(4)}° E)`);
       if (typeof window !== 'undefined' && window.localStorage) {
         window.localStorage.setItem('stp_user_origin_coords', JSON.stringify(explicitCoords));
       }
@@ -2192,7 +2192,7 @@ export default function TripPlanningScreen({ navigation, route }) {
     const coords = getLocationCoords(city, null);
     if (coords) {
       setOriginCoords(coords);
-      setLiveLocationStatus(`📍 Departure: ${city} (${coords[0].toFixed(4)}° N, ${coords[1].toFixed(4)}° E)`);
+      setLiveLocationStatus(` Departure: ${city} (${coords[0].toFixed(4)}° N, ${coords[1].toFixed(4)}° E)`);
       if (typeof window !== 'undefined' && window.localStorage) {
         window.localStorage.setItem('stp_user_origin_coords', JSON.stringify(coords));
       }
@@ -2206,14 +2206,14 @@ export default function TripPlanningScreen({ navigation, route }) {
           const foundLat = parseFloat(geoData[0].lat);
           const foundLon = parseFloat(geoData[0].lon);
           setOriginCoords([foundLat, foundLon]);
-          setLiveLocationStatus(`📍 Departure: ${city} (${foundLat.toFixed(4)}° N, ${foundLon.toFixed(4)}° E)`);
+          setLiveLocationStatus(` Departure: ${city} (${foundLat.toFixed(4)}° N, ${foundLon.toFixed(4)}° E)`);
           if (typeof window !== 'undefined' && window.localStorage) {
             window.localStorage.setItem('stp_user_origin_coords', JSON.stringify([foundLat, foundLon]));
           }
           return;
         }
       } catch (_) {}
-      setLiveLocationStatus(`📍 Departure: ${city}`);
+      setLiveLocationStatus(` Departure: ${city}`);
     }
   };
 
@@ -2253,7 +2253,7 @@ export default function TripPlanningScreen({ navigation, route }) {
       }
 
       setStartLocation(detectedName);
-      setLiveLocationStatus(`📍 Exact Real Location: ${detectedName} (${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`);
+      setLiveLocationStatus(` Exact Real Location: ${detectedName} (${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`);
       if (typeof window !== 'undefined' && window.localStorage) {
         window.localStorage.setItem('stp_user_start_location', detectedName);
         window.localStorage.setItem('stp_user_origin_coords', JSON.stringify([lat, lon]));
@@ -2263,7 +2263,7 @@ export default function TripPlanningScreen({ navigation, route }) {
     } catch (e) {
       const fallbackName = fallbackHint || `Current Location (${lat.toFixed(4)}°, ${lon.toFixed(4)}°)`;
       setStartLocation(fallbackName);
-      setLiveLocationStatus(`📍 Exact Real Location: ${fallbackName} (${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`);
+      setLiveLocationStatus(` Exact Real Location: ${fallbackName} (${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`);
       if (typeof window !== 'undefined' && window.localStorage) {
         window.localStorage.setItem('stp_user_start_location', fallbackName);
         window.localStorage.setItem('stp_user_origin_coords', JSON.stringify([lat, lon]));
@@ -2277,6 +2277,14 @@ export default function TripPlanningScreen({ navigation, route }) {
   const handleDetectCurrentLocation = () => {
     setIsDetectingLocation(true);
     setLiveLocationStatus('Detecting live GPS coordinates...');
+
+    // Clear stale cached coordinates so live hardware GPS is always queried afresh
+    if (typeof window !== 'undefined' && window.localStorage) {
+      try {
+        window.localStorage.removeItem('stp_user_start_location');
+        window.localStorage.removeItem('stp_user_origin_coords');
+      } catch (_) {}
+    }
 
     if (typeof navigator !== 'undefined' && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -2292,7 +2300,8 @@ export default function TripPlanningScreen({ navigation, route }) {
             const ipRes = await fetch('https://ipwho.is/');
             const ipData = await ipRes.json();
             if (ipData.success && ipData.latitude && ipData.longitude) {
-              await applyDetectedLocation(ipData.latitude, ipData.longitude, ipData.city);
+              const fallbackNotice = ipData.city ? `${ipData.city} (ISP Network Gateway)` : null;
+              await applyDetectedLocation(ipData.latitude, ipData.longitude, fallbackNotice);
               return;
             }
           } catch (_) {}
@@ -2301,13 +2310,14 @@ export default function TripPlanningScreen({ navigation, route }) {
             const ipRes2 = await fetch('https://get.geojs.io/v1/ip/geo.json');
             const ipData2 = await ipRes2.json();
             if (ipData2.latitude && ipData2.longitude) {
-              await applyDetectedLocation(parseFloat(ipData2.latitude), parseFloat(ipData2.longitude), ipData2.city);
+              const fallbackNotice = ipData2.city ? `${ipData2.city} (ISP Network Gateway)` : null;
+              await applyDetectedLocation(parseFloat(ipData2.latitude), parseFloat(ipData2.longitude), fallbackNotice);
               return;
             }
           } catch (_) {}
 
           setStartLocation('Current Location');
-          setLiveLocationStatus('📍 Location permission required. Search or choose departure city below.');
+          setLiveLocationStatus('Location permission required. Search or choose departure city below (e.g. Attock City).');
           setIsDetectingLocation(false);
         },
         { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
@@ -2324,7 +2334,7 @@ export default function TripPlanningScreen({ navigation, route }) {
         } catch (_) {}
 
         setStartLocation('Current Location');
-        setLiveLocationStatus('📍 Please search or choose departure city below.');
+        setLiveLocationStatus('Please search or choose departure city below (e.g. Attock City).');
         setIsDetectingLocation(false);
       })();
     }
@@ -2335,7 +2345,7 @@ export default function TripPlanningScreen({ navigation, route }) {
     if (typeof window !== 'undefined' && window.localStorage) {
       const saved = window.localStorage.getItem('stp_user_start_location');
       if (saved) {
-        setLiveLocationStatus(`📍 Saved Starting Location: ${saved}`);
+        setLiveLocationStatus(` Saved Starting Location: ${saved}`);
         return;
       }
     }
@@ -2803,9 +2813,8 @@ export default function TripPlanningScreen({ navigation, route }) {
     return numBudget < (numPersons * numDays * 3500);
   }, [numBudget, numDays, numPersons]);
 
-  // Allocation formula: If company mode, 10% company profit is deducted from budget
-  const companyProfit = (tripMode === 'company') ? Math.round(numBudget * 0.10) : 0;
-  const safetyMargin = (tripMode === 'company') ? Math.round(numBudget * 0.05) : 0;
+  // Allocation formula: Target allocations for initial budget distribution
+  const safetyMargin = 0;
   const allocTransport = isLowBudget
     ? ((tripMode === 'company') ? Math.round(numBudget * 0.43) : Math.round(numBudget * 0.46))
     : ((tripMode === 'company') ? Math.round(numBudget * 0.30) : Math.round(numBudget * 0.35));
@@ -2883,37 +2892,37 @@ export default function TripPlanningScreen({ navigation, route }) {
     const copy = hotels.map((h) => {
       const price = Number(h.pricePerNight) || 0;
       const matchesPref = isHotelMatchingPreference(h, userHotelPref);
-      let budgetBadge = '⭐ Standard Pick';
+      let budgetBadge = 'Standard Pick';
       let badgeType = 'standard';
 
       if (userHotelPref !== 'Any' && matchesPref) {
-        budgetBadge = `★ Matches Your Hotel Preference (${userHotelPref})`;
+        budgetBadge = ` Star Matches Your Hotel Preference (${userHotelPref})`;
         badgeType = 'preference';
       } else if (isHigh) {
         if (h.comfortLevel === 'Luxury' || price >= 14000) {
-          budgetBadge = '👑 Luxury Pick · Recommended';
+          budgetBadge = ' Luxury Pick · Recommended';
           badgeType = 'luxury';
         } else {
-          budgetBadge = '💰 Economy Option';
+          budgetBadge = ' Economy Option';
           badgeType = 'economy';
         }
       } else if (isLow) {
         if (h.comfortLevel === 'Basic' || price <= 6000) {
-          budgetBadge = '💰 Budget Pick · Recommended';
+          budgetBadge = ' Budget Pick · Recommended';
           badgeType = 'budget';
         } else {
-          budgetBadge = '⭐ Premium Upgrade';
+          budgetBadge = 'Premium Upgrade';
           badgeType = 'luxury';
         }
       } else {
         if (h.comfortLevel === 'Luxury') {
-          budgetBadge = '👑 Luxury Pick';
+          budgetBadge = ' Luxury Pick';
           badgeType = 'luxury';
         } else if (h.comfortLevel === 'Basic' || price <= 5000) {
-          budgetBadge = '💰 Budget Pick';
+          budgetBadge = ' Budget Pick';
           badgeType = 'economy';
         } else {
-          budgetBadge = '⭐ Recommended for Budget';
+          budgetBadge = 'Recommended for Budget';
           badgeType = 'standard';
         }
       }
@@ -3058,12 +3067,27 @@ export default function TripPlanningScreen({ navigation, route }) {
         message: `Your selected food options (PKR ${nextFoodCost.toLocaleString()}) exceed your remaining budget of PKR ${remainingAfterHotel.toLocaleString()} by PKR ${(nextFoodCost - remainingAfterHotel).toLocaleString()}.`,
         availableAmount: remainingAfterHotel,
         serviceAmount: nextFoodCost,
+        options: [
+          {
+            text: 'Manage Food Myself',
+            style: 'primary',
+            onPress: () => {
+              setFoodRequired(false);
+              setFoodChoice('self');
+            },
+          },
+          {
+            text: 'Close Notice',
+            style: 'cancel',
+            onPress: () => {},
+          },
+        ],
         primaryText: 'Manage Food Myself (Save PKR ' + nextFoodCost.toLocaleString() + ')',
         onPrimary: () => {
           setFoodRequired(false);
           setFoodChoice('self');
         },
-        secondaryText: 'Keep Current Meals',
+        secondaryText: 'Close Notice',
         onSecondary: () => {},
       });
       return;
@@ -3263,33 +3287,33 @@ export default function TripPlanningScreen({ navigation, route }) {
       const isLuxuryVeh = veh.rentPerDay >= 11000 || ['SUV-Fortuner', 'SUV-Prado', 'SUV-Sportage', 'Sedan-Civic', 'Grand-Cabin', 'Bus-Coaster'].includes(veh.id);
       const isEconomyVeh = veh.rentPerDay <= 4800 || veh.isBike || ['Economy-Alto', 'Economy-Mira', 'Economy-WagonR', 'Compact-Vitz'].includes(veh.id);
 
-      let budgetBadge = '⭐ Standard Match';
+      let budgetBadge = 'Standard Match';
       let badgeType = 'standard';
       if (isHighTier) {
         if (isLuxuryVeh) {
-          budgetBadge = '👑 Luxury Pick · Recommended';
+          budgetBadge = ' Luxury Pick · Recommended';
           badgeType = 'luxury';
         } else {
-          budgetBadge = '💰 Economy Saver Option';
+          budgetBadge = ' Economy Saver Option';
           badgeType = 'economy';
         }
       } else if (isLowTier) {
         if (isEconomyVeh) {
-          budgetBadge = '💰 Best Economy Match · Recommended';
+          budgetBadge = ' Best Economy Match · Recommended';
           badgeType = 'budget';
         } else {
-          budgetBadge = '⭐ Premium Upgrade Option';
+          budgetBadge = 'Premium Upgrade Option';
           badgeType = 'luxury';
         }
       } else {
         if (isLuxuryVeh) {
-          budgetBadge = '👑 Luxury Upgrade';
+          budgetBadge = ' Luxury Upgrade';
           badgeType = 'luxury';
         } else if (isEconomyVeh) {
-          budgetBadge = '💰 Economy Option';
+          budgetBadge = ' Economy Option';
           badgeType = 'economy';
         } else {
-          budgetBadge = '⭐ Recommended for Budget';
+          budgetBadge = 'Recommended for Budget';
           badgeType = 'standard';
         }
       }
@@ -3414,7 +3438,9 @@ export default function TripPlanningScreen({ navigation, route }) {
   const totalOptionalCost = totalExtrasCost + bonfireCost;
 
   // Total Incurred vs Budget (Actual Costs!)
-  const totalIncurred = estimatedVehicleCost + foodTotalCost + hotelTotalCost + calculatedActivitiesCost + totalOptionalCost + companyProfit + safetyMargin;
+  const servicesSubtotal = estimatedVehicleCost + foodTotalCost + hotelTotalCost + calculatedActivitiesCost + totalOptionalCost;
+  const companyProfit = (tripMode === 'company') ? Math.round(servicesSubtotal * 0.10) : 0;
+  const totalIncurred = servicesSubtotal + companyProfit;
   const remainingBudget = Math.max(0, numBudget - totalIncurred);
   const budgetShortfall = Math.max(0, totalIncurred - numBudget);
   const budgetExceeded = totalIncurred > numBudget && numBudget > 0;
@@ -3615,6 +3641,7 @@ export default function TripPlanningScreen({ navigation, route }) {
       const trip = await generateTrip({
         destination: destination.trim(),
         startLocation: startLocation.trim(),
+        startCoordinates: originCoords && originCoords.length === 2 ? [Number(originCoords[1]), Number(originCoords[0])] : null,
         startDate,
         endDate: endDate || computeEndDate(startDate, numDays),
         category,
@@ -3750,7 +3777,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               }}
             >
               <View style={styles.modeHeaderRow}>
-                <AppIcon name="business-outline" size={20} color={tripMode === 'company' ? colors.white : colors.forest} />
+                <AppIcon name="business-outline" size={20} color={colors.forest} />
                 <AppText style={[styles.modeTitle, tripMode === 'company' && styles.modeTitleActive]}>
                   Company Tour or Full Package
                 </AppText>
@@ -3760,7 +3787,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               </AppText>
               <View style={[styles.modeBadge, tripMode === 'company' && styles.modeBadgeActive]}>
                 <AppText style={[styles.modeBadgeText, tripMode === 'company' && styles.modeBadgeTextActive]}>
-                  {tripMode === 'company' ? '✓ ACTIVE' : 'SELECT'}
+                  {tripMode === 'company' ? '[Included] ACTIVE' : 'SELECT'}
                 </AppText>
               </View>
             </TouchableOpacity>
@@ -3770,7 +3797,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               onPress={() => setTripMode('customized')}
             >
               <View style={styles.modeHeaderRow}>
-                <AppIcon name="construct-outline" size={20} color={tripMode === 'customized' ? colors.white : colors.forest} />
+                <AppIcon name="construct-outline" size={20} color={colors.forest} />
                 <AppText style={[styles.modeTitle, tripMode === 'customized' && styles.modeTitleActive]}>
                   Customize My Trip
                 </AppText>
@@ -3780,7 +3807,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               </AppText>
               <View style={[styles.modeBadge, tripMode === 'customized' && styles.modeBadgeActive]}>
                 <AppText style={[styles.modeBadgeText, tripMode === 'customized' && styles.modeBadgeTextActive]}>
-                  {tripMode === 'customized' ? '✓ ACTIVE' : 'SELECT'}
+                  {tripMode === 'customized' ? '[Included] ACTIVE' : 'SELECT'}
                 </AppText>
               </View>
             </TouchableOpacity>
@@ -3845,7 +3872,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                 <AppText style={styles.companyInclusionsTitle}>Full Company Package Inclusions</AppText>
               </View>
               <AppText style={styles.companyInclusionsText}>
-                ✓ Chauffeur vehicle with fuel & motorway tolls  •  ✓ Hotel stay according to budget tier  •  ✓ Daily breakfast & dinner  •  ✓ Sights entry coordination & 24/7 support
+                [Included] Chauffeur vehicle with fuel & motorway tolls  •  [Included] Hotel stay according to budget tier  •  [Included] Daily breakfast & dinner  •  [Included] Sights entry coordination & 24/7 support
               </AppText>
             </View>
           )}
@@ -3886,7 +3913,7 @@ export default function TripPlanningScreen({ navigation, route }) {
           <View style={styles.categoryInfoBox}>
             <AppIcon name="information-circle" size={16} color={colors.forest} />
             <AppText style={styles.categoryInfoText}>
-              📍 <AppText style={{ fontWeight: 'bold' }}>{destination}</AppText> lies in the <AppText style={{ fontWeight: 'bold', color: colors.forest }}>{category}</AppText> category.
+               <AppText style={{ fontWeight: 'bold' }}>{destination}</AppText> lies in the <AppText style={{ fontWeight: 'bold', color: colors.forest }}>{category}</AppText> category.
             </AppText>
           </View>
 
@@ -3934,7 +3961,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               <AppIcon name="locate" size={18} color="#ffffff" style={{ marginRight: 8 }} />
             )}
             <AppText style={styles.gpsDetectButtonText}>
-              {isDetectingLocation ? 'Detecting Live GPS...' : '📍 Detect Exact Live Location (GPS)'}
+              {isDetectingLocation ? 'Detecting Live GPS...' : ' Detect Exact Live Location (GPS)'}
             </AppText>
           </TouchableOpacity>
 
@@ -3954,7 +3981,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                 <AppText style={styles.endpointCoordsText}>{liveLocationStatus}</AppText>
               ) : (
                 <AppText style={styles.endpointCoordsText}>
-                  📍 GPS: {originCoords ? `${originCoords[0]?.toFixed(4)}°N, ${originCoords[1]?.toFixed(4)}°E` : 'Live Coordinates Synced'}
+                   GPS: {originCoords ? `${originCoords[0]?.toFixed(4)}°N, ${originCoords[1]?.toFixed(4)}°E` : 'Live Coordinates Synced'}
                 </AppText>
               )}
             </View>
@@ -3988,7 +4015,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               >
                 <AppIcon name="navigate-circle" size={15} color={isDetectingLocation ? '#ffffff' : '#15803d'} />
                 <AppText style={[styles.originPresetBtnText, isDetectingLocation && styles.originPresetBtnTextActive]}>
-                  {isDetectingLocation ? 'Detecting GPS...' : '🎯 Live GPS Tracker'}
+                  {isDetectingLocation ? 'Detecting GPS...' : ' Live GPS Tracker'}
                 </AppText>
               </TouchableOpacity>
 
@@ -3997,7 +4024,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                 onPress={() => setOriginCategoryTab(originCategoryTab === 'home' ? null : 'home')}
               >
                 <AppIcon name="home" size={13} color={originCategoryTab === 'home' ? '#ffffff' : '#15803d'} />
-                <AppText style={[styles.originPresetBtnText, originCategoryTab === 'home' && styles.originPresetBtnTextActive]}>🏠 Home / Ghar</AppText>
+                <AppText style={[styles.originPresetBtnText, originCategoryTab === 'home' && styles.originPresetBtnTextActive]}> Home / Ghar</AppText>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -4005,7 +4032,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                 onPress={() => setOriginCategoryTab(originCategoryTab === 'uni' ? null : 'uni')}
               >
                 <AppIcon name="school" size={13} color={originCategoryTab === 'uni' ? '#ffffff' : '#15803d'} />
-                <AppText style={[styles.originPresetBtnText, originCategoryTab === 'uni' && styles.originPresetBtnTextActive]}>🏫 School / Uni</AppText>
+                <AppText style={[styles.originPresetBtnText, originCategoryTab === 'uni' && styles.originPresetBtnTextActive]}> School / Uni</AppText>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -4013,7 +4040,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                 onPress={() => setOriginCategoryTab(originCategoryTab === 'office' ? null : 'office')}
               >
                 <AppIcon name="business" size={13} color={originCategoryTab === 'office' ? '#ffffff' : '#15803d'} />
-                <AppText style={[styles.originPresetBtnText, originCategoryTab === 'office' && styles.originPresetBtnTextActive]}>🏢 Office</AppText>
+                <AppText style={[styles.originPresetBtnText, originCategoryTab === 'office' && styles.originPresetBtnTextActive]}> Office</AppText>
               </TouchableOpacity>
             </View>
 
@@ -4023,14 +4050,14 @@ export default function TripPlanningScreen({ navigation, route }) {
                 <AppText style={styles.originSubChipsTitle}>Popular Home & Residential Areas:</AppText>
                 <View style={styles.originSubChipsWrap}>
                   {[
-                    { label: '🏠 DHA Lahore', name: 'DHA Lahore', coords: [31.4697, 74.3800] },
-                    { label: '🏠 Bahria Town Rawalpindi', name: 'Bahria Town Rawalpindi', coords: [33.5186, 73.1097] },
-                    { label: '🏠 Gulberg Lahore', name: 'Gulberg Lahore', coords: [31.5204, 74.3487] },
-                    { label: '🏠 Model Town Lahore', name: 'Model Town Lahore', coords: [31.4880, 74.3211] },
-                    { label: '🏠 F-10 Islamabad', name: 'F-10 Islamabad', coords: [33.6934, 73.0031] },
-                    { label: '🏠 Askari Lahore', name: 'Askari Lahore', coords: [31.5392, 74.4012] },
-                    { label: '🏠 Satellite Town Rwp', name: 'Satellite Town Rawalpindi', coords: [33.6391, 73.0645] },
-                    { label: '🏠 Clifton Karachi', name: 'Clifton Karachi', coords: [24.8138, 67.0300] },
+                    { label: ' DHA Lahore', name: 'DHA Lahore', coords: [31.4697, 74.3800] },
+                    { label: ' Bahria Town Rawalpindi', name: 'Bahria Town Rawalpindi', coords: [33.5186, 73.1097] },
+                    { label: ' Gulberg Lahore', name: 'Gulberg Lahore', coords: [31.5204, 74.3487] },
+                    { label: ' Model Town Lahore', name: 'Model Town Lahore', coords: [31.4880, 74.3211] },
+                    { label: ' F-10 Islamabad', name: 'F-10 Islamabad', coords: [33.6934, 73.0031] },
+                    { label: ' Askari Lahore', name: 'Askari Lahore', coords: [31.5392, 74.4012] },
+                    { label: ' Satellite Town Rwp', name: 'Satellite Town Rawalpindi', coords: [33.6391, 73.0645] },
+                    { label: ' Clifton Karachi', name: 'Clifton Karachi', coords: [24.8138, 67.0300] },
                   ].map((item) => (
                     <TouchableOpacity
                       key={item.name}
@@ -4054,14 +4081,14 @@ export default function TripPlanningScreen({ navigation, route }) {
                 <AppText style={styles.originSubChipsTitle}>Top Universities in Pakistan:</AppText>
                 <View style={styles.originSubChipsWrap}>
                   {[
-                    { label: '🏫 FAST NUCES Islamabad', name: 'FAST NUCES Islamabad', coords: [33.6518, 73.0159] },
-                    { label: '🏫 NUST H-12 Islamabad', name: 'NUST Islamabad', coords: [33.6425, 72.9904] },
-                    { label: '🏫 LUMS Lahore', name: 'LUMS Lahore', coords: [31.4705, 74.4111] },
-                    { label: '🏫 COMSATS Islamabad', name: 'COMSATS Islamabad', coords: [33.6519, 73.1566] },
-                    { label: '🏫 GIKI Topi', name: 'GIKI Topi', coords: [34.0705, 72.6433] },
-                    { label: '🏫 Punjab University (PU)', name: 'Punjab University Lahore', coords: [31.4988, 74.2985] },
-                    { label: '🏫 UET Lahore', name: 'UET Lahore', coords: [31.5794, 74.3562] },
-                    { label: '🏫 IBA Karachi', name: 'IBA Karachi', coords: [24.9427, 67.1142] },
+                    { label: ' FAST NUCES Islamabad', name: 'FAST NUCES Islamabad', coords: [33.6518, 73.0159] },
+                    { label: ' NUST H-12 Islamabad', name: 'NUST Islamabad', coords: [33.6425, 72.9904] },
+                    { label: ' LUMS Lahore', name: 'LUMS Lahore', coords: [31.4705, 74.4111] },
+                    { label: ' COMSATS Islamabad', name: 'COMSATS Islamabad', coords: [33.6519, 73.1566] },
+                    { label: ' GIKI Topi', name: 'GIKI Topi', coords: [34.0705, 72.6433] },
+                    { label: ' Punjab University (PU)', name: 'Punjab University Lahore', coords: [31.4988, 74.2985] },
+                    { label: ' UET Lahore', name: 'UET Lahore', coords: [31.5794, 74.3562] },
+                    { label: ' IBA Karachi', name: 'IBA Karachi', coords: [24.9427, 67.1142] },
                   ].map((item) => (
                     <TouchableOpacity
                       key={item.name}
@@ -4085,11 +4112,11 @@ export default function TripPlanningScreen({ navigation, route }) {
                 <AppText style={styles.originSubChipsTitle}>Popular Office & Corporate Districts:</AppText>
                 <View style={styles.originSubChipsWrap}>
                   {[
-                    { label: '🏢 Blue Area Islamabad', name: 'Blue Area Islamabad', coords: [33.7103, 73.0656] },
-                    { label: '🏢 Gulberg Main Blvd Lahore', name: 'Gulberg Lahore', coords: [31.5204, 74.3487] },
-                    { label: '🏢 I-9 Industrial Area Isb', name: 'I-9 Islamabad', coords: [33.6582, 73.0521] },
-                    { label: '🏢 I.I. Chundrigar Road Karachi', name: 'I.I. Chundrigar Road Karachi', coords: [24.8508, 67.0011] },
-                    { label: '🏢 Saddar Commercial Rwp', name: 'Saddar Rawalpindi', coords: [33.5973, 73.0534] },
+                    { label: ' Blue Area Islamabad', name: 'Blue Area Islamabad', coords: [33.7103, 73.0656] },
+                    { label: ' Gulberg Main Blvd Lahore', name: 'Gulberg Lahore', coords: [31.5204, 74.3487] },
+                    { label: ' I-9 Industrial Area Isb', name: 'I-9 Islamabad', coords: [33.6582, 73.0521] },
+                    { label: ' I.I. Chundrigar Road Karachi', name: 'I.I. Chundrigar Road Karachi', coords: [24.8508, 67.0011] },
+                    { label: ' Saddar Commercial Rwp', name: 'Saddar Rawalpindi', coords: [33.5973, 73.0534] },
                   ].map((item) => (
                     <TouchableOpacity
                       key={item.name}
@@ -4227,7 +4254,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                       onPress={() => handleSelectDepartureCity(departureSearchQuery.trim())}
                     >
                       <AppText style={styles.useCustomOriginBtnText}>
-                        Use "{departureSearchQuery.trim()}" as departure location ➔
+                        Use "{departureSearchQuery.trim()}" as departure location ->
                       </AppText>
                     </TouchableOpacity>
                   </View>
@@ -4240,15 +4267,15 @@ export default function TripPlanningScreen({ navigation, route }) {
           <View style={styles.routeRoutePreview}>
             <AppIcon name="arrow-forward-circle" size={16} color={colors.forest} />
             <AppText style={styles.routeRoutePreviewText}>
-              Route: <AppText style={{ fontWeight: 'bold' }}>{startLocation || 'Origin'}</AppText> ➔ <AppText style={{ fontWeight: 'bold', color: colors.forest }}>{destination || 'Destination'}</AppText>
+              Route: <AppText style={{ fontWeight: 'bold' }}>{startLocation || 'Origin'}</AppText> -> <AppText style={{ fontWeight: 'bold', color: colors.forest }}>{destination || 'Destination'}</AppText>
             </AppText>
           </View>
 
           <AppText style={{ fontSize: 11, color: '#15803d', fontWeight: '600', marginBottom: 8, marginTop: -4 }}>
-            💡 Map Tip: Green pin ko drag karein ya map par kahin bhi tap karein apne ghar, office, school, ya university ki exact location set karne ke liye.
+             Map Tip: Green pin ko drag karein ya map par kahin bhi tap karein apne ghar, office, school, ya university ki exact location set karne ke liye.
           </AppText>
 
-          {/* Real Journey Route Map (Current Location ➔ Final Destination) */}
+          {/* Real Journey Route Map (Current Location -> Final Destination) */}
           <JourneyRouteMap
             originName={startLocation || 'Origin'}
             originCoords={originCoords}
@@ -4361,7 +4388,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                FAMILY MODE: Combined Total Family Budget & Family Breakdown
                ============================================================ */
             <View style={styles.groupContainer}>
-              <AppText style={[styles.sublabel, { marginTop: 12 }]}>👨‍👩‍👧‍👦 Family Members Breakdown:</AppText>
+              <AppText style={[styles.sublabel, { marginTop: 12 }]}>Family Members Breakdown:</AppText>
               <View style={styles.strengthRow}>
                 {/* Males (Men / Boys) */}
                 <View style={styles.strengthCol}>
@@ -4506,7 +4533,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                GROUP MODE: Budget Per Person or Total Group Pooling
                ============================================================ */
             <View style={styles.groupContainer}>
-              <AppText style={[styles.sublabel, { marginTop: 12 }]}>👥 Group Travelers Breakdown:</AppText>
+              <AppText style={[styles.sublabel, { marginTop: 12 }]}> Group Travelers Breakdown:</AppText>
               <View style={styles.strengthRow}>
                 {/* Males Strength */}
                 <View style={styles.strengthCol}>
@@ -4690,7 +4717,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                   onPress={() => toggleInterest(interest)}
                 >
                   <AppText style={[styles.interestText, active && styles.interestTextActive]}>
-                    {active ? `✓ ${interest}` : interest}
+                    {active ? `[Included] ${interest}` : interest}
                   </AppText>
                 </TouchableOpacity>
               );
@@ -4723,7 +4750,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               onPress={() => openCalendarPicker('start')}
               accessibilityLabel="Open Start Date Calendar Picker"
             >
-              <AppText style={styles.openCalendarLink}>📅 Open Calendar</AppText>
+              <AppText style={styles.openCalendarLink}> Open Calendar</AppText>
             </TouchableOpacity>
           </View>
           <View style={[
@@ -4767,7 +4794,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               onPress={() => openCalendarPicker('end')}
               accessibilityLabel="Open End Date Calendar Picker"
             >
-              <AppText style={styles.openCalendarLink}>📅 Open Calendar</AppText>
+              <AppText style={styles.openCalendarLink}> Open Calendar</AppText>
             </TouchableOpacity>
           </View>
           <View style={[
@@ -4838,8 +4865,8 @@ export default function TripPlanningScreen({ navigation, route }) {
                 {dateError
                   ? dateError
                   : startDate && (endDate || days)
-                    ? `📅 ${startDate} ➔ ${endDate || computeEndDate(startDate, days)} (${numDays || 1} Days / ${nights} Nights)`
-                    : '📅 Click the calendar or enter start date & days'}
+                    ? ` ${startDate} -> ${endDate || computeEndDate(startDate, days)} (${numDays || 1} Days / ${nights} Nights)`
+                    : ' Click the calendar or enter start date & days'}
               </AppText>
             </View>
           </View>
@@ -4897,7 +4924,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                     {travelType === 'Solo' ? 'Traveling on Your Own Bike / Car' : 'Traveling in Your Own Car'}
                   </AppText>
                   <AppText style={styles.ownCarDesc}>
-                    ✅ Apna personal vehicle (Car / Bike) hai! Rental charges are <AppText style={{ fontWeight: 'bold' }}>PKR 0</AppText> and will <AppText style={{ fontWeight: 'bold' }}>NOT</AppText> be cut from your budget.
+                     Apna personal vehicle (Car / Bike) hai! Rental charges are <AppText style={{ fontWeight: 'bold' }}>PKR 0</AppText> and will <AppText style={{ fontWeight: 'bold' }}>NOT</AppText> be cut from your budget.
                   </AppText>
                 </View>
               </View>
@@ -4922,7 +4949,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               <View style={{ marginTop: 6 }}>
                 <View style={styles.dropdownLabelRow}>
                   <AppText style={styles.sublabel}>
-                    {travelType === 'Solo' ? '🏍️ / 🚗 Select Bike or Car:' : '🚗 Select Vehicle:'}
+                    {travelType === 'Solo' ? ' /  Select Bike or Car:' : ' Select Vehicle:'}
                   </AppText>
                   {matchingVehicles.length > 0 && (
                     <View style={styles.withinBadge}>
@@ -4971,7 +4998,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                         {currentVehicle.name}
                       </AppText>
                       <AppText style={styles.dropdownVehicleMeta}>
-                        {currentVehicle.persons} • 🧳 {currentVehicle.luggage} • PKR {currentVehicle.rentPerDay.toLocaleString()}/day
+                        {currentVehicle.persons} •  {currentVehicle.luggage} • PKR {currentVehicle.rentPerDay.toLocaleString()}/day
                       </AppText>
                       {currentVehicle.budgetBadge ? (
                         <View style={[
@@ -5068,7 +5095,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                       </AppText>
                     </View>
                     <View style={styles.withinBadge}>
-                      <AppText style={styles.withinBadgeText}>✓ Within Budget</AppText>
+                      <AppText style={styles.withinBadgeText}>[Included] Within Budget</AppText>
                     </View>
                   </View>
                   <AppText style={styles.summaryDetails}>
@@ -5160,7 +5187,7 @@ export default function TripPlanningScreen({ navigation, route }) {
           <View style={styles.routePreviewBox}>
             <AppText style={styles.routePreviewLabel}>SELECTED JOURNEY ROUTE:</AppText>
             <AppText style={styles.routePreviewText}>
-              🚗 {startLocation} ➔ <AppText style={{ fontWeight: 'bold' }}>{preferredRoute || 'Standard Scenic Route'}</AppText> ➔ {destination}
+               {startLocation} -> <AppText style={{ fontWeight: 'bold' }}>{preferredRoute || 'Standard Scenic Route'}</AppText> -> {destination}
             </AppText>
           </View>
         </View>
@@ -5227,10 +5254,10 @@ export default function TripPlanningScreen({ navigation, route }) {
                 </AppText>
                 <AppText style={styles.smartExpenseNote}>
                   {dailyHotelBudget < 3000
-                    ? `Daily hotel allocation: PKR ${dailyHotelBudget.toLocaleString()}/night. Luxury 4★/5★ hotels are hidden; displaying verified budget-friendly guest houses & lodges.`
+                    ? `Daily hotel allocation: PKR ${dailyHotelBudget.toLocaleString()}/night. Luxury 4 Star/5 Star hotels are hidden; displaying verified budget-friendly guest houses & lodges.`
                     : dailyHotelBudget >= 7000
-                      ? `Daily hotel allocation: PKR ${dailyHotelBudget.toLocaleString()}/night. Luxury 4★ and 5★ resorts, executive rooms & suites are fully unlocked!`
-                      : `Daily hotel allocation: PKR ${dailyHotelBudget.toLocaleString()}/night. Quality 3★ family hotels & deluxe standard rooms available.`}
+                      ? `Daily hotel allocation: PKR ${dailyHotelBudget.toLocaleString()}/night. Luxury 4 Star and 5 Star resorts, executive rooms & suites are fully unlocked!`
+                      : `Daily hotel allocation: PKR ${dailyHotelBudget.toLocaleString()}/night. Quality 3 Star family hotels & deluxe standard rooms available.`}
                 </AppText>
               </View>
             </View>
@@ -5309,7 +5336,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                               <AppText style={styles.ratingNum}>{hotel.rating || 4.5}</AppText>
                             </View>
                           </View>
-                          <AppText style={styles.hotelCity}>📍 {hotel.city}</AppText>
+                          <AppText style={styles.hotelCity}> {hotel.city}</AppText>
                           {hotel.budgetBadge ? (
                             <View style={[
                               styles.hotelBudgetBadgePill,
@@ -5558,7 +5585,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               >
                 <View style={styles.mealCheckRow}>
                   <AppIcon name={selectedMeals.breakfast ? "checkbox" : "square-outline"} size={20} color={selectedMeals.breakfast ? colors.forest : colors.muted} />
-                  <AppText style={styles.mealName}>🍳 Breakfast ({currentFoodMenu?.meals?.breakfast?.title || 'Morning Breakfast'})</AppText>
+                  <AppText style={styles.mealName}> Breakfast ({currentFoodMenu?.meals?.breakfast?.title || 'Morning Breakfast'})</AppText>
                   <View style={[styles.mealPriceBadge, selectedMeals.breakfast && styles.mealPriceBadgeActive]}>
                     <AppText style={[styles.mealPriceBadgeText, selectedMeals.breakfast && styles.mealPriceBadgeTextActive]}>
                       PKR {(selectedMeals.breakfast ? breakfastRate * numPersons * (numDays || 1) : 0).toLocaleString()}
@@ -5574,7 +5601,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                       <AppText style={{ color: colors.forest, fontWeight: 'bold', fontSize: 13, lineHeight: 18 }}>•</AppText>
                       <View style={{ flex: 1 }}>
                         <AppText style={{ fontSize: 13, color: colors.slate, fontWeight: '600' }}>
-                          {item.name} {item.isSignature ? <AppText style={{ color: '#b45309', fontSize: 11, fontWeight: 'bold' }}>[★ Specialty]</AppText> : null}
+                          {item.name} {item.isSignature ? <AppText style={{ color: '#b45309', fontSize: 11, fontWeight: 'bold' }}>[ Star Specialty]</AppText> : null}
                         </AppText>
                         {item.desc ? (
                           <AppText style={{ fontSize: 12, color: colors.muted, lineHeight: 16 }}>
@@ -5594,7 +5621,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               >
                 <View style={styles.mealCheckRow}>
                   <AppIcon name={selectedMeals.lunch ? "checkbox" : "square-outline"} size={20} color={selectedMeals.lunch ? colors.forest : colors.muted} />
-                  <AppText style={styles.mealName}>🥪 Lunch ({currentFoodMenu?.meals?.lunch?.title || 'Midday Lunch'})</AppText>
+                  <AppText style={styles.mealName}> Lunch ({currentFoodMenu?.meals?.lunch?.title || 'Midday Lunch'})</AppText>
                   <View style={[styles.mealPriceBadge, selectedMeals.lunch && styles.mealPriceBadgeActive]}>
                     <AppText style={[styles.mealPriceBadgeText, selectedMeals.lunch && styles.mealPriceBadgeTextActive]}>
                       PKR {(selectedMeals.lunch ? lunchRate * numPersons * (numDays || 1) : 0).toLocaleString()}
@@ -5610,7 +5637,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                       <AppText style={{ color: colors.forest, fontWeight: 'bold', fontSize: 13, lineHeight: 18 }}>•</AppText>
                       <View style={{ flex: 1 }}>
                         <AppText style={{ fontSize: 13, color: colors.slate, fontWeight: '600' }}>
-                          {item.name} {item.isSignature ? <AppText style={{ color: '#b45309', fontSize: 11, fontWeight: 'bold' }}>[★ Specialty]</AppText> : null}
+                          {item.name} {item.isSignature ? <AppText style={{ color: '#b45309', fontSize: 11, fontWeight: 'bold' }}>[ Star Specialty]</AppText> : null}
                         </AppText>
                         {item.desc ? (
                           <AppText style={{ fontSize: 12, color: colors.muted, lineHeight: 16 }}>
@@ -5630,7 +5657,7 @@ export default function TripPlanningScreen({ navigation, route }) {
               >
                 <View style={styles.mealCheckRow}>
                   <AppIcon name={selectedMeals.dinner ? "checkbox" : "square-outline"} size={20} color={selectedMeals.dinner ? colors.forest : colors.muted} />
-                  <AppText style={styles.mealName}>🍽️ Dinner ({currentFoodMenu?.meals?.dinner?.title || 'Evening Feast'})</AppText>
+                  <AppText style={styles.mealName}> Dinner ({currentFoodMenu?.meals?.dinner?.title || 'Evening Feast'})</AppText>
                   <View style={[styles.mealPriceBadge, selectedMeals.dinner && styles.mealPriceBadgeActive]}>
                     <AppText style={[styles.mealPriceBadgeText, selectedMeals.dinner && styles.mealPriceBadgeTextActive]}>
                       PKR {(selectedMeals.dinner ? dinnerRate * numPersons * (numDays || 1) : 0).toLocaleString()}
@@ -5646,7 +5673,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                       <AppText style={{ color: colors.forest, fontWeight: 'bold', fontSize: 13, lineHeight: 18 }}>•</AppText>
                       <View style={{ flex: 1 }}>
                         <AppText style={{ fontSize: 13, color: colors.slate, fontWeight: '600' }}>
-                          {item.name} {item.isSignature ? <AppText style={{ color: '#b45309', fontSize: 11, fontWeight: 'bold' }}>[★ Specialty]</AppText> : null}
+                          {item.name} {item.isSignature ? <AppText style={{ color: '#b45309', fontSize: 11, fontWeight: 'bold' }}>[ Star Specialty]</AppText> : null}
                         </AppText>
                         {item.desc ? (
                           <AppText style={{ fontSize: 12, color: colors.muted, lineHeight: 16 }}>
@@ -5761,7 +5788,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                       </View>
                       {act.matchedInterest ? (
                         <View style={styles.activityPrefBadge}>
-                          <AppText style={styles.activityPrefBadgeText}>✨ Recommended for your {act.matchedInterest} interest</AppText>
+                          <AppText style={styles.activityPrefBadgeText}> Recommended for your {act.matchedInterest} interest</AppText>
                         </View>
                       ) : null}
                       <AppText style={styles.activityCheckDesc}>{act.desc}</AppText>
@@ -5798,7 +5825,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                 <View style={styles.cardHeaderRow}>
                   <AppIcon name="sparkles" size={20} color="#b45309" />
                   <AppText variant="heading" style={[styles.cardTitle, { color: '#92400e' }]}>
-                    ✨ Make Your Trip More Special in {destination || 'Pakistan'}!
+                     Make Your Trip More Special in {destination || 'Pakistan'}!
                   </AppText>
                 </View>
                 <AppText variant="caption" color={colors.muted}>
@@ -5845,7 +5872,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                       </View>
                       {exp.matchedInterest ? (
                         <View style={styles.activityPrefBadge}>
-                          <AppText style={styles.activityPrefBadgeText}>✨ Recommended for your {exp.matchedInterest} interest</AppText>
+                          <AppText style={styles.activityPrefBadgeText}> Recommended for your {exp.matchedInterest} interest</AppText>
                         </View>
                       ) : null}
                       <AppText style={styles.activityCheckDesc}>{exp.desc}</AppText>
@@ -5876,35 +5903,35 @@ export default function TripPlanningScreen({ navigation, route }) {
 
           <View style={styles.deductionAuditCard}>
             <View style={styles.deductionRow}>
-              <AppText style={styles.deductionLabel}>👥 Budget & Group Size:</AppText>
+              <AppText style={styles.deductionLabel}> Budget & Group Size:</AppText>
               <AppText style={styles.deductionVal}>
                 PKR {numBudgetPerPerson.toLocaleString()} / person × {numPersons || 1} = PKR {numBudget.toLocaleString()}
               </AppText>
             </View>
 
             <View style={styles.deductionRow}>
-              <AppText style={styles.deductionLabel}>🚗 Transport ({isOwnCar ? 'Own Car' : 'Rental'}):</AppText>
+              <AppText style={styles.deductionLabel}> Transport ({isOwnCar ? 'Own Car' : 'Rental'}):</AppText>
               <AppText style={styles.deductionVal}>
                 {isOwnCar ? `PKR 0 rent ${driverCharges > 0 ? `+ PKR ${driverCharges.toLocaleString()} driver` : ''}` : `PKR ${estimatedVehicleCost.toLocaleString()}`}
               </AppText>
             </View>
 
             <View style={styles.deductionRow}>
-              <AppText style={styles.deductionLabel}>🏨 Hotel Stay ({nights} nights, {effectiveRooms} rooms):</AppText>
+              <AppText style={styles.deductionLabel}> Hotel Stay ({nights} nights, {effectiveRooms} rooms):</AppText>
               <AppText style={styles.deductionVal}>
                 {(!hotelRequired || !selectedHotel || hotelTotalCost === 0) ? 'PKR 0 (Skipped / Self-arranged)' : `PKR ${hotelTotalCost.toLocaleString()}`}
               </AppText>
             </View>
 
             <View style={styles.deductionRow}>
-              <AppText style={styles.deductionLabel}>🍽️ Food Plan ({currentFoodMenu?.cityName || destination}):</AppText>
+              <AppText style={styles.deductionLabel}> Food Plan ({currentFoodMenu?.cityName || destination}):</AppText>
               <AppText style={styles.deductionVal}>
                 {(!foodRequired || foodChoice === 'self' || foodTotalCost === 0) ? 'PKR 0 (Skipped / Self-arranged)' : `PKR ${foodTotalCost.toLocaleString()}`}
               </AppText>
             </View>
 
             <View style={styles.deductionRow}>
-              <AppText style={styles.deductionLabel}>🎯 Selected Activities:</AppText>
+              <AppText style={styles.deductionLabel}> Selected Activities:</AppText>
               <AppText style={styles.deductionVal}>
                 {(!activitiesRequired || calculatedActivitiesCost === 0) ? 'PKR 0 (Skipped / Free Sights)' : `PKR ${calculatedActivitiesCost.toLocaleString()}`}
               </AppText>
@@ -5912,7 +5939,7 @@ export default function TripPlanningScreen({ navigation, route }) {
 
             {selectedExtraIds.length > 0 ? (
               <View style={styles.deductionRow}>
-                <AppText style={styles.deductionLabel}>✨ Optional Extra Experiences ({selectedExtraIds.length}):</AppText>
+                <AppText style={styles.deductionLabel}> Optional Extra Experiences ({selectedExtraIds.length}):</AppText>
                 <AppText style={styles.deductionVal}>PKR {totalExtrasCost.toLocaleString()}</AppText>
               </View>
             ) : null}
@@ -5931,7 +5958,7 @@ export default function TripPlanningScreen({ navigation, route }) {
 
             <View style={styles.deductionRow}>
               <AppText style={styles.deductionRemainLabel}>
-                {budgetExceeded ? '⚠️ BUDGET SHORTFALL:' : '💰 REMAINING SAVINGS:'}
+                {budgetExceeded ? ' BUDGET SHORTFALL:' : ' REMAINING SAVINGS:'}
               </AppText>
               <AppText style={[styles.deductionRemainVal, { color: budgetExceeded ? '#dc2626' : '#15803d' }]}>
                 PKR {budgetExceeded ? (totalIncurred - numBudget).toLocaleString() : remainingBudget.toLocaleString()}
@@ -5948,7 +5975,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                 activeOpacity={0.88}
               >
                 <AppIcon name="flash" size={18} color="#ffffff" />
-                <AppText style={styles.autoFitBtnText}>⚡ Auto-Fit to Budget (1-Click Optimization)</AppText>
+                <AppText style={styles.autoFitBtnText}> Auto-Fit to Budget (1-Click Optimization)</AppText>
               </TouchableOpacity>
 
               {liveSuggestions.length > 0 && (
@@ -5966,7 +5993,7 @@ export default function TripPlanningScreen({ navigation, route }) {
                         <View style={{ flex: 1 }}>
                           <AppText style={styles.sugTitle}>{sug.title}</AppText>
                           <AppText style={styles.sugDesc}>{sug.desc}</AppText>
-                          <AppText style={styles.sugSavings}>💰 Saves approx. PKR {sug.savings.toLocaleString()}</AppText>
+                          <AppText style={styles.sugSavings}> Saves approx. PKR {sug.savings.toLocaleString()}</AppText>
                         </View>
                         <TouchableOpacity
                           style={styles.applyBtn}
@@ -6066,13 +6093,38 @@ export default function TripPlanningScreen({ navigation, route }) {
                       </AppText>
                     </TouchableOpacity>
                   ))
+                ) : budgetModal.primaryText ? (
+                  <>
+                    <TouchableOpacity
+                      style={[styles.budgetModalBtn, styles.budgetModalBtnPrimary]}
+                      onPress={() => {
+                        setBudgetModal({ visible: false, title: '', message: '', options: [] });
+                        if (budgetModal.onPrimary) budgetModal.onPrimary();
+                      }}
+                    >
+                      <AppText style={[styles.budgetModalBtnText, styles.budgetModalBtnTextPrimary]}>
+                        {budgetModal.primaryText}
+                      </AppText>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.budgetModalBtn, styles.budgetModalBtnSecondary]}
+                      onPress={() => {
+                        setBudgetModal({ visible: false, title: '', message: '', options: [] });
+                        if (budgetModal.onSecondary) budgetModal.onSecondary();
+                      }}
+                    >
+                      <AppText style={[styles.budgetModalBtnText, styles.budgetModalBtnTextSecondary]}>
+                        {budgetModal.secondaryText || 'Close Notice'}
+                      </AppText>
+                    </TouchableOpacity>
+                  </>
                 ) : (
                   <TouchableOpacity
                     style={[styles.budgetModalBtn, styles.budgetModalBtnPrimary]}
                     onPress={() => setBudgetModal({ visible: false, title: '', message: '', options: [] })}
                   >
                     <AppText style={[styles.budgetModalBtnText, styles.budgetModalBtnTextPrimary]}>
-                      Back to Itinerary
+                      Close Notice
                     </AppText>
                   </TouchableOpacity>
                 )}

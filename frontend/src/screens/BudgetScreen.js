@@ -34,7 +34,7 @@ const PAKISTAN_REGIONS = [
 const TRAVEL_TIERS = [
   {
     id: 'backpacker',
-    title: '🎒 Backpacker / Solo',
+    title: ' Backpacker / Solo',
     badge: 'Budget Friendly',
     badgeColor: '#26845b',
     dailyPerPerson: 6500,
@@ -45,7 +45,7 @@ const TRAVEL_TIERS = [
   },
   {
     id: 'comfort',
-    title: '🚗 Comfort / Family',
+    title: ' Comfort / Family',
     badge: 'Most Popular',
     badgeColor: '#174f36',
     dailyPerPerson: 18500,
@@ -56,12 +56,12 @@ const TRAVEL_TIERS = [
   },
   {
     id: 'luxury',
-    title: '👑 Luxury Mountain Resort',
+    title: ' Luxury Mountain Resort',
     badge: 'Premium Experience',
     badgeColor: '#c87a24',
     dailyPerPerson: 45000,
     breakdownPercents: { hotels: 42, transport: 28, food: 15, activities: 10, misc: 5 },
-    hotelDesc: '4-5★ Serena / Pearl Continental / Shangrila Resort',
+    hotelDesc: '4-5 Star Serena / Pearl Continental / Shangrila Resort',
     transportDesc: 'Private 4x4 Prado / Land Cruiser / HiAce with guide',
     foodDesc: 'Fine dining resorts, buffets & continental meals',
   },
@@ -188,8 +188,8 @@ export default function BudgetScreen({ navigation }) {
             </Text>
             <Text style={styles.headerSubtitle}>
               {activeTab === 'trip' && currentTrip
-                ? `📍 ${currentTrip.destination} · ${breakdown.currency || 'PKR'}`
-                : '📍 Regional cost standards & interactive calculator'}
+                ? ` ${currentTrip.destination} · ${breakdown.currency || 'PKR'}`
+                : ' Regional cost standards & interactive calculator'}
             </Text>
           </View>
 
@@ -209,7 +209,7 @@ export default function BudgetScreen({ navigation }) {
                 style={{ marginRight: 6 }}
               />
               <Text style={[styles.tabPillText, activeTab === 'trip' && styles.tabPillTextActive]}>
-                📍 {currentTrip.destination} Trip
+                 {currentTrip.destination} Trip
               </Text>
             </TouchableOpacity>
           )}
@@ -226,7 +226,7 @@ export default function BudgetScreen({ navigation }) {
               style={{ marginRight: 6 }}
             />
             <Text style={[styles.tabPillText, activeTab === 'calculator' && styles.tabPillTextActive]}>
-              🇵🇰 Pakistan Cost Calculator
+               Pakistan Cost Calculator
             </Text>
           </TouchableOpacity>
         </View>
@@ -243,7 +243,7 @@ export default function BudgetScreen({ navigation }) {
             accessibilityLabel={`Return to ${currentTrip.destination} itinerary`}
           >
             <AppIcon name="arrow-back" size={17} color="#ffffff" style={{ marginRight: 8 }} />
-            <Text style={styles.backToItineraryBigText}>← Back to {currentTrip.destination} Itinerary (Day Plan)</Text>
+            <Text style={styles.backToItineraryBigText}>Back to {currentTrip.destination} Itinerary (Day Plan)</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -371,7 +371,7 @@ export default function BudgetScreen({ navigation }) {
                       }}
                       activeOpacity={0.7}
                     >
-                      <Text style={styles.tripPickText}>📊 View {t.destination} Budget →</Text>
+                      <Text style={styles.tripPickText}> View {t.destination} Budget →</Text>
                     </TouchableOpacity>
                   ))}
                 </ScrollView>
@@ -552,35 +552,35 @@ export default function BudgetScreen({ navigation }) {
                 <View style={styles.breakdownItem}>
                   <View style={[styles.catDot, { backgroundColor: colors.green }]} />
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.breakdownLabel}>🏨 Hotels & Lodging</Text>
+                    <Text style={styles.breakdownLabel}> Hotels & Lodging</Text>
                     <Text style={styles.breakdownAmount}>PKR {computedBudget.hotelsAmount.toLocaleString()}</Text>
                   </View>
                 </View>
                 <View style={styles.breakdownItem}>
                   <View style={[styles.catDot, { backgroundColor: colors.blue }]} />
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.breakdownLabel}>🚙 Transport & Fuel</Text>
+                    <Text style={styles.breakdownLabel}> Transport & Fuel</Text>
                     <Text style={styles.breakdownAmount}>PKR {computedBudget.transportAmount.toLocaleString()}</Text>
                   </View>
                 </View>
                 <View style={styles.breakdownItem}>
                   <View style={[styles.catDot, { backgroundColor: colors.amber }]} />
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.breakdownLabel}>🍲 Food & Dining</Text>
+                    <Text style={styles.breakdownLabel}> Food & Dining</Text>
                     <Text style={styles.breakdownAmount}>PKR {computedBudget.foodAmount.toLocaleString()}</Text>
                   </View>
                 </View>
                 <View style={styles.breakdownItem}>
                   <View style={[styles.catDot, { backgroundColor: '#76548b' }]} />
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.breakdownLabel}>🎟️ Activities & Safari</Text>
+                    <Text style={styles.breakdownLabel}> Activities & Safari</Text>
                     <Text style={styles.breakdownAmount}>PKR {computedBudget.activitiesAmount.toLocaleString()}</Text>
                   </View>
                 </View>
                 <View style={styles.breakdownItem}>
                   <View style={[styles.catDot, { backgroundColor: '#8b6b4d' }]} />
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.breakdownLabel}>🛡️ Emergency / Misc</Text>
+                    <Text style={styles.breakdownLabel}> Emergency / Misc</Text>
                     <Text style={styles.breakdownAmount}>PKR {computedBudget.miscAmount.toLocaleString()}</Text>
                   </View>
                 </View>
@@ -610,23 +610,23 @@ export default function BudgetScreen({ navigation }) {
 
               <View style={styles.benchmarkTable}>
                 <View style={styles.benchRow}>
-                  <Text style={styles.benchColKey}>🏨 Hotel Room / Night</Text>
+                  <Text style={styles.benchColKey}> Hotel Room / Night</Text>
                   <Text style={styles.benchColVal}>Economy PKR 3,500–6,000 | 3-Star PKR 10,000–18,000 | Luxury PKR 35,000–65,000</Text>
                 </View>
                 <View style={styles.benchRow}>
-                  <Text style={styles.benchColKey}>🚗 Car Rental (Daily + Driver)</Text>
+                  <Text style={styles.benchColKey}> Car Rental (Daily + Driver)</Text>
                   <Text style={styles.benchColVal}>Alto/Cultus PKR 4,500–6,000 | GLi Sedan PKR 7,500–9,500 | Prado 4x4 PKR 16,000–24,000</Text>
                 </View>
                 <View style={styles.benchRow}>
-                  <Text style={styles.benchColKey}>🏔️ Special 4x4 Mountain Jeeps</Text>
+                  <Text style={styles.benchColKey}> Special 4x4 Mountain Jeeps</Text>
                   <Text style={styles.benchColVal}>Saif-ul-Malook PKR 5,000 | Deosai Safari PKR 18,000–22,000 | Fairy Meadows PKR 14,000</Text>
                 </View>
                 <View style={styles.benchRow}>
-                  <Text style={styles.benchColKey}>🍲 Daily Food & Tea</Text>
+                  <Text style={styles.benchColKey}> Daily Food & Tea</Text>
                   <Text style={styles.benchColVal}>Local Dhabas PKR 1,200–1,800/person | Family Restaurants PKR 2,500–4,000/person</Text>
                 </View>
                 <View style={[styles.benchRow, { borderBottomWidth: 0 }]}>
-                  <Text style={styles.benchColKey}>🎟️ Fort & Park Entry Tickets</Text>
+                  <Text style={styles.benchColKey}> Fort & Park Entry Tickets</Text>
                   <Text style={styles.benchColVal}>National Parks PKR 200–400 | Baltit/Altit Forts PKR 600–1,200 (Pakistani/Foreigner)</Text>
                 </View>
               </View>
@@ -647,8 +647,8 @@ const styles = StyleSheet.create({
 
   scenicHeader: {
     paddingHorizontal: 16,
-    paddingTop: Platform.OS === 'ios' ? 14 : 10,
-    paddingBottom: 6,
+    paddingTop: 16,
+    paddingBottom: 10,
     maxWidth: 1200,
     width: '100%',
     alignSelf: 'center',
@@ -687,6 +687,7 @@ const styles = StyleSheet.create({
   },
   tabPillContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -694,8 +695,8 @@ const styles = StyleSheet.create({
   tabPill: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 9,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     borderRadius: 24,
     backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderWidth: 1,

@@ -15,27 +15,27 @@ function formatWhatsAppText(trip) {
   const vehicle = trip?.vehicleDetails || {};
 
   const lines = [
-    `🌟 *SMART TRAVEL PLANNER PAKISTAN* 🌟`,
+    ` *SMART TRAVEL PLANNER PAKISTAN* `,
     `----------------------------------------`,
-    `📍 *Destination:* ${trip?.destination || 'Pakistan'}`,
-    `🚗 *Starting From:* ${trip?.startLocation || 'Islamabad / Rawalpindi'}`,
-    `📅 *Duration:* ${trip?.days} Days (${nights} Nights)`,
-    `👥 *Travelers:* ${trip?.numberOfPersons || 1} Persons`,
-    `💰 *Total Estimated Package:* PKR ${Number(trip?.budgetBreakdown?.totalEstimated || trip?.budget || 0).toLocaleString()}`,
-    `💵 *Per Person Cost:* PKR ${Number(trip?.budgetBreakdown?.packageDetails?.pricePerPerson || Math.round(Number(trip?.budget || 0) / Math.max(1, trip?.numberOfPersons || 1))).toLocaleString()}`,
+    ` *Destination:* ${trip?.destination || 'Pakistan'}`,
+    ` *Starting From:* ${trip?.startLocation || 'Islamabad / Rawalpindi'}`,
+    ` *Duration:* ${trip?.days} Days (${nights} Nights)`,
+    ` *Travelers:* ${trip?.numberOfPersons || 1} Persons`,
+    ` *Total Estimated Package:* PKR ${Number(trip?.budgetBreakdown?.totalEstimated || trip?.budget || 0).toLocaleString()}`,
+    ` *Per Person Cost:* PKR ${Number(trip?.budgetBreakdown?.packageDetails?.pricePerPerson || Math.round(Number(trip?.budget || 0) / Math.max(1, trip?.numberOfPersons || 1))).toLocaleString()}`,
     ``,
-    `📋 *SERVICES BREAKDOWN:*`,
+    ` *SERVICES BREAKDOWN:*`,
     `• Transport: ${vehicle.name || 'Dedicated Vehicle'} (${vehicle.capacity || 'Passengers'}, ${vehicle.driverIncluded ? 'With Mountain Driver' : 'Self-Drive'})`,
     `• Hotel: ${trip?.selectedHotel?.name || 'Verified Curated Hotel'} (${trip?.budgetBreakdown?.roomsQuantity || 1} Room(s))`,
     `• Food: ${trip?.foodPlan?.dinnerTotal > 0 ? 'Breakfast + Dinner Included' : 'Self-Arranged Meals'}`,
     `• Sights & Activities: ${trip?.budgetBreakdown?.activitiesPolicy?.policy || 'Standard Sightseeing & Viewpoints'}`,
     ``,
-    `🗓️ *DAY-WISE ITINERARY:*`,
+    ` *DAY-WISE ITINERARY:*`,
   ];
 
   (trip?.itinerary || []).forEach((day) => {
-    lines.push(`\n📅 *Day ${day.day}: ${markdownToPlainText(day.title)}*`);
-    if (day.weatherNote) lines.push(`🌤️ Weather: ${markdownToPlainText(day.weatherNote)}`);
+    lines.push(`\n *Day ${day.day}: ${markdownToPlainText(day.title)}*`);
+    if (day.weatherNote) lines.push(` Weather: ${markdownToPlainText(day.weatherNote)}`);
     (day.activities || []).forEach((act) => {
       const block = act.timeBlock ? `[${act.timeBlock}] ` : '';
       lines.push(`  • ${block}${act.time} - ${act.place} (PKR ${Number(act.estimatedCost || 0).toLocaleString()})`);
@@ -43,8 +43,8 @@ function formatWhatsAppText(trip) {
     });
   });
 
-  lines.push(`\n🇵🇰 Generated via Smart Travel Planner Pakistan`);
-  lines.push(`📞 Need assistance? Bookings & emergency helpline available 24/7.`);
+  lines.push(`\n Generated via Smart Travel Planner Pakistan`);
+  lines.push(` Need assistance? Bookings & emergency helpline available 24/7.`);
   return lines.join('\n');
 }
 
@@ -57,7 +57,7 @@ function tripHtml(trip) {
     <section class="day-section">
       <div class="day-header">
         <h2>Day ${Number(day.day)}: ${escapeHtml(markdownToPlainText(day.title))}</h2>
-        ${day.weatherNote ? `<div class="weather">🌤️ ${markdownToHtml(day.weatherNote)}</div>` : ''}
+        ${day.weatherNote ? `<div class="weather"> ${markdownToHtml(day.weatherNote)}</div>` : ''}
       </div>
       <div class="activities">
         ${(day.activities || []).map((activity) => `
@@ -100,7 +100,7 @@ function tripHtml(trip) {
       </head>
       <body>
         <div class="header">
-          <h1>🇵🇰 ${escapeHtml(trip?.destination || 'Pakistan')} — Complete Travel Plan</h1>
+          <h1> ${escapeHtml(trip?.destination || 'Pakistan')} — Complete Travel Plan</h1>
           <p style="margin: 0; color: #475569; font-size: 13px;">Journey Origin: <strong>${escapeHtml(trip?.startLocation || 'Islamabad')}</strong> • Mode: <strong>${escapeHtml(trip?.tripMode === 'company' ? 'Company Tour Package' : 'Customized Trip')}</strong></p>
         </div>
 

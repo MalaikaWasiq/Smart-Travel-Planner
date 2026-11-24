@@ -86,8 +86,7 @@ export default function MapScreen({ navigation, route }) {
     }
 
     if (contextTrip?.destination) return contextTrip.destination;
-    if (trips && trips.length > 0 && trips[0]?.destination) return trips[0].destination;
-    return 'Babusar Top';
+    return '';
   });
 
   const [activeCategory, setActiveCategory] = useState('All');
@@ -106,7 +105,7 @@ export default function MapScreen({ navigation, route }) {
       } catch (_) {}
     }
     if (contextTrip?.startLocation) return contextTrip.startLocation;
-    return 'Dar-ul-Islam Colony, Attock';
+    return 'Live GPS Location';
   });
 
   const [originCoords, setOriginCoords] = useState(() => {
@@ -151,7 +150,7 @@ export default function MapScreen({ navigation, route }) {
         }
       } catch (_) {}
     }
-    return getPakistanCoords('Babusar Top', [35.1524, 74.0477]);
+    return null;
   });
 
   const hasRoute = Boolean(selectedDestination && selectedDestination.trim().length > 0);
@@ -267,7 +266,7 @@ export default function MapScreen({ navigation, route }) {
   // Live GPS detection state
   const [isDetectingGPS, setIsDetectingGPS] = useState(false);
   const [gpsStatusMessage, setGpsStatusMessage] = useState(
-    '📍 Detecting real live GPS location...'
+    ' Detecting real live GPS location...'
   );
 
   // Custom search text
@@ -322,7 +321,7 @@ export default function MapScreen({ navigation, route }) {
     const coords = getPakistanCoords(orig, null);
     if (coords) {
       setOriginCoords(coords);
-      setGpsStatusMessage(`📍 Departure: ${orig} (${coords[0].toFixed(4)}° N, ${coords[1].toFixed(4)}° E)`);
+      setGpsStatusMessage(` Departure: ${orig} (${coords[0].toFixed(4)}° N, ${coords[1].toFixed(4)}° E)`);
     } else {
       try {
         const geoRes = await fetch(
@@ -333,11 +332,11 @@ export default function MapScreen({ navigation, route }) {
           const foundLat = parseFloat(geoData[0].lat);
           const foundLon = parseFloat(geoData[0].lon);
           setOriginCoords([foundLat, foundLon]);
-          setGpsStatusMessage(`📍 Departure: ${orig} (${foundLat.toFixed(4)}° N, ${foundLon.toFixed(4)}° E)`);
+          setGpsStatusMessage(` Departure: ${orig} (${foundLat.toFixed(4)}° N, ${foundLon.toFixed(4)}° E)`);
           return;
         }
       } catch (_) {}
-      setGpsStatusMessage(`📍 Departure: ${orig}`);
+      setGpsStatusMessage(` Departure: ${orig}`);
     }
   };
 
@@ -366,7 +365,7 @@ export default function MapScreen({ navigation, route }) {
   const [currentStageIndex, setCurrentStageIndex] = useState(0);
   const [isSimulatingDrive, setIsSimulatingDrive] = useState(false);
 
-  // Dynamic stages along the route (Origin ➔ Highway ➔ Transit ➔ Final Destination)
+  // Dynamic stages along the route (Origin -> Highway -> Transit -> Final Destination)
   const journeyStages = useMemo(() => {
     if (!selectedDestination || !destCoords) return [];
     return getJourneyStages(selectedOrigin, selectedDestination, originCoords, destCoords);
@@ -438,12 +437,12 @@ export default function MapScreen({ navigation, route }) {
         }
 
         setSelectedOrigin(detected);
-        setGpsStatusMessage(`📍 Live GPS Detected: ${detected} (${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`);
+        setGpsStatusMessage(` Live GPS Detected: ${detected} (${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`);
         setIsDetectingGPS(false);
       } catch (e) {
         const fallbackName = fallbackCity || `Current Location (${lat.toFixed(4)}°, ${lon.toFixed(4)}°)`;
         setSelectedOrigin(fallbackName);
-        setGpsStatusMessage(`📍 Live GPS Detected: ${fallbackName} (${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`);
+        setGpsStatusMessage(` Live GPS Detected: ${fallbackName} (${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E)`);
         setIsDetectingGPS(false);
       }
     };
@@ -475,7 +474,7 @@ export default function MapScreen({ navigation, route }) {
 
           setSelectedOrigin('Current Location');
           setOriginCoords([33.7667, 72.3667]);
-          setGpsStatusMessage('📍 GPS unavailable. Select your departure city below.');
+          setGpsStatusMessage(' GPS unavailable. Select your departure city below.');
           setIsDetectingGPS(false);
         },
         { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
@@ -493,7 +492,7 @@ export default function MapScreen({ navigation, route }) {
 
         setSelectedOrigin('Current Location');
         setOriginCoords([33.7667, 72.3667]);
-        setGpsStatusMessage('📍 Select your departure city below.');
+        setGpsStatusMessage(' Select your departure city below.');
         setIsDetectingGPS(false);
       })();
     }
@@ -568,8 +567,8 @@ export default function MapScreen({ navigation, route }) {
             <Text style={styles.headerTitle}>Live GPS & Route Map</Text>
             <Text style={styles.headerSubtitle}>
               {hasRoute
-                ? `📍 ${selectedOrigin} ➔ ${selectedDestination} | Real-Time Highway Navigation`
-                : `📍 ${selectedOrigin}, Live GPS Location & Street View`}
+                ? ` ${selectedOrigin} -> ${selectedDestination} | Real-Time Highway Navigation`
+                : ` ${selectedOrigin}, Live GPS Location & Street View`}
             </Text>
           </View>
 
@@ -583,7 +582,7 @@ export default function MapScreen({ navigation, route }) {
               >
                 <AppIcon name="arrow-back" size={17} color="#ffffff" style={{ marginRight: 6 }} />
                 <Text style={styles.backToItineraryBigText}>
-                  ← Back to {selectedDestination} Itinerary (Day Plan)
+                  Back to {selectedDestination} Itinerary (Day Plan)
                 </Text>
               </TouchableOpacity>
             ) : (
@@ -594,7 +593,7 @@ export default function MapScreen({ navigation, route }) {
               >
                 <AppIcon name="arrow-back" size={17} color="#ffffff" style={{ marginRight: 6 }} />
                 <Text style={styles.backToItineraryBigText}>
-                  ← Back to {selectedDestination} Trip Plan
+                  {selectedDestination ? `Back to ${selectedDestination} Trip Plan` : 'Plan a Custom Trip'}
                 </Text>
               </TouchableOpacity>
             )}
@@ -610,7 +609,7 @@ export default function MapScreen({ navigation, route }) {
                 <AppIcon name="locate" size={16} color="#0F766E" />
               )}
               <Text style={styles.detectGpsBtnText}>
-                {isDetectingGPS ? 'Detecting...' : '📍 My Live GPS'}
+                {isDetectingGPS ? 'Detecting...' : ' My Live GPS'}
               </Text>
             </TouchableOpacity>
           </View>
@@ -731,7 +730,7 @@ export default function MapScreen({ navigation, route }) {
                   onPress={handleCustomDestinationSubmit}
                 >
                   <Text style={styles.useCustomOriginBtnText}>
-                    🔍 Route to "{customDestinationInput.trim()}" ➔
+                     Route to "{customDestinationInput.trim()}" ->
                   </Text>
                 </TouchableOpacity>
               )}
@@ -749,7 +748,7 @@ export default function MapScreen({ navigation, route }) {
               }}
             >
               <AppIcon name="close-circle-outline" size={15} color="#dc2626" style={{ marginRight: 4 }} />
-              <Text style={styles.clearRouteBtnText}>✕ Clear Route (View My Location Only)</Text>
+              <Text style={styles.clearRouteBtnText}>Clear Route (View My Location Only)</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -766,14 +765,14 @@ export default function MapScreen({ navigation, route }) {
             <>
               <View style={styles.journeyCorridorBanner}>
                 <View style={styles.corridorStep}>
-                  <Text style={styles.corridorStepLabel}>🚩 STARTING FROM</Text>
+                  <Text style={styles.corridorStepLabel}> STARTING FROM</Text>
                   <Text style={styles.corridorStepValue}>{selectedOrigin}</Text>
                 </View>
                 <View style={styles.corridorArrow}>
                   <AppIcon name="arrow-forward" size={16} color="#15803d" />
                 </View>
                 <View style={styles.corridorStep}>
-                  <Text style={styles.corridorStepLabel}>🛣️ ROUTE TO TAKE</Text>
+                  <Text style={styles.corridorStepLabel}> ROUTE TO TAKE</Text>
                   <Text style={styles.corridorStepHighway}>
                     {selectedRouteObj.badge}
                   </Text>
@@ -782,7 +781,7 @@ export default function MapScreen({ navigation, route }) {
                   <AppIcon name="arrow-forward" size={16} color="#15803d" />
                 </View>
                 <View style={styles.corridorStep}>
-                  <Text style={styles.corridorStepLabel}>🏁 DESTINATION</Text>
+                  <Text style={styles.corridorStepLabel}> DESTINATION</Text>
                   <Text style={styles.corridorStepDest}>{selectedDestination}</Text>
                 </View>
               </View>
@@ -791,7 +790,7 @@ export default function MapScreen({ navigation, route }) {
               <View style={styles.routeCorridorDetailedBox}>
                 <AppIcon name="information-circle" size={16} color="#15803d" style={{ marginTop: 1 }} />
                 <Text style={styles.routeCorridorDetailedText}>
-                  Hum <Text style={{ fontWeight: 'bold' }}>{selectedOrigin}</Text> se safar shuru kar rahe hain, aur <Text style={{ fontWeight: 'bold' }}>{selectedRouteObj.highways?.join(' ➔ ') || selectedRouteObj.badge}</Text> ke raste se hote hue <Text style={{ fontWeight: 'bold', color: '#15803d' }}>{selectedDestination}</Text> pohnchain ge.
+                  Hum <Text style={{ fontWeight: 'bold' }}>{selectedOrigin}</Text> se safar shuru kar rahe hain, aur <Text style={{ fontWeight: 'bold' }}>{selectedRouteObj.highways?.join(' -> ') || selectedRouteObj.badge}</Text> ke raste se hote hue <Text style={{ fontWeight: 'bold', color: '#15803d' }}>{selectedDestination}</Text> pohnchain ge.
                 </Text>
               </View>
             </>
@@ -799,7 +798,7 @@ export default function MapScreen({ navigation, route }) {
             <View style={styles.liveLocationOnlyBanner}>
               <AppIcon name="navigate-circle" size={18} color="#15803d" style={{ marginRight: 6 }} />
               <Text style={styles.liveLocationOnlyText}>
-                📍 Real-time departure origin: <Text style={{ fontWeight: 'bold' }}>{selectedOrigin}</Text>. Upar search bar ya chips se destination select karein taake highway route aur road blockage alerts show hon.
+                 Real-time departure origin: <Text style={{ fontWeight: 'bold' }}>{selectedOrigin}</Text>. Upar search bar ya chips se destination select karein taake highway route aur road blockage alerts show hon.
               </Text>
             </View>
           )}
@@ -868,7 +867,7 @@ export default function MapScreen({ navigation, route }) {
                     onPress={handleOriginSearchSubmit}
                   >
                     <Text style={styles.useCustomOriginBtnText}>
-                      🔍 Use "{departureSearchText.trim()}" as departure location ➔
+                       Use "{departureSearchText.trim()}" as departure location ->
                     </Text>
                   </TouchableOpacity>
                 )}
@@ -905,7 +904,7 @@ export default function MapScreen({ navigation, route }) {
             >
               <View style={styles.routeTypeHeader}>
                 <Text style={[styles.routeTypeBadge, routeType === 'motorway' && styles.routeTypeBadgeActive]}>
-                  SHORTEST ROUTE ⚡
+                  SHORTEST ROUTE 
                 </Text>
                 <AppIcon
                   name="speedometer"
@@ -924,7 +923,7 @@ export default function MapScreen({ navigation, route }) {
             >
               <View style={styles.routeTypeHeader}>
                 <Text style={[styles.routeTypeBadgeGt, routeType === 'gt_road' && styles.routeTypeBadgeGtActive]}>
-                  HISTORIC GT ROAD 🚗
+                  HISTORIC GT ROAD 
                 </Text>
                 <AppIcon
                   name="car"
@@ -944,7 +943,7 @@ export default function MapScreen({ navigation, route }) {
           <View style={styles.roadBlockAlertCard}>
             <View style={styles.roadBlockHeader}>
               <View style={styles.redSignBadge}>
-                <Text style={styles.redSignText}>⚠️ ⛔ SPEED SLOW KAREIN — ROAD BLOCK & HAZARD</Text>
+                <Text style={styles.redSignText}>  SPEED SLOW KAREIN — ROAD BLOCK & HAZARD</Text>
               </View>
               <View style={styles.delayBadge}>
                 <AppIcon name="time" size={13} color="#ffffff" style={{ marginRight: 4 }} />
@@ -953,7 +952,7 @@ export default function MapScreen({ navigation, route }) {
             </View>
 
             <Text style={styles.roadBlockLocation}>
-              📍 Location: {highwayDetails?.roadBlock?.locationName || 'Approaching Highway Corridor'}
+               Location: {highwayDetails?.roadBlock?.locationName || 'Approaching Highway Corridor'}
             </Text>
 
             {/* Speed Slow Warning */}
@@ -1009,7 +1008,7 @@ export default function MapScreen({ navigation, route }) {
                     style={{ marginRight: 4 }}
                   />
                   <Text style={styles.driveSimulateBtnText}>
-                    {isSimulatingDrive ? 'Pause Drive' : '▶️ Drive Mode'}
+                    {isSimulatingDrive ? 'Pause Drive' : 'Drive Mode'}
                   </Text>
                 </TouchableOpacity>
 
@@ -1060,7 +1059,7 @@ export default function MapScreen({ navigation, route }) {
                     >
                       {stg.title}
                     </Text>
-                    {isPast && <Text style={{ color: '#15803d', marginLeft: 4, fontWeight: 'bold' }}>✓</Text>}
+                    {isPast && <Text style={{ color: '#15803d', marginLeft: 4, fontWeight: 'bold' }}>[Included]</Text>}
                   </TouchableOpacity>
                 );
               })}
@@ -1070,7 +1069,7 @@ export default function MapScreen({ navigation, route }) {
             {currentStage.isArrived ? (
               <View style={styles.arrivalCelebrationBox}>
                 <View style={styles.arrivalHeaderRow}>
-                  <Text style={styles.arrivalTitle}>🎉 YOU HAVE REACHED THE FINAL DESTINATION!</Text>
+                  <Text style={styles.arrivalTitle}> YOU HAVE REACHED THE FINAL DESTINATION!</Text>
                   <View style={styles.arrivalPill}>
                     <Text style={styles.arrivalPillText}>ARRIVED 100%</Text>
                   </View>
@@ -1083,9 +1082,9 @@ export default function MapScreen({ navigation, route }) {
               <View style={styles.activeSituationBox}>
                 <View style={styles.situationHeaderRow}>
                   <View style={styles.vehicleLivePill}>
-                    <Text style={styles.vehicleLivePillText}>🚗 VEHICLE TRACKING</Text>
+                    <Text style={styles.vehicleLivePillText}> VEHICLE TRACKING</Text>
                   </View>
-                  <Text style={styles.situationSpeedText}>⚡ Speed: {currentStage.speed}</Text>
+                  <Text style={styles.situationSpeedText}> Speed: {currentStage.speed}</Text>
                 </View>
                 <Text style={styles.situationLocation}>
                   Current Situation: <Text style={{ fontWeight: 'bold', color: colors.forest }}>{currentStage.locationName}</Text>
@@ -1106,7 +1105,7 @@ export default function MapScreen({ navigation, route }) {
               <Text style={styles.itineraryRedirectTag}>ACTIVE GENERATED ITINERARY ROUTE</Text>
             </View>
             <Text style={styles.itineraryRedirectTitle}>
-              {selectedOrigin} ➔ {selectedDestination}
+              {selectedOrigin} -> {selectedDestination}
             </Text>
             <Text style={styles.itineraryRedirectSub}>
               Live GPS driving route and turn-by-turn navigation to {selectedDestination}.
@@ -1125,13 +1124,13 @@ export default function MapScreen({ navigation, route }) {
             }}
           >
             <AppIcon name="calendar" size={16} color="#ffffff" style={{ marginRight: 6 }} />
-            <Text style={styles.viewItineraryBtnText}>View Itinerary ➔</Text>
+            <Text style={styles.viewItineraryBtnText}>View Itinerary -></Text>
           </TouchableOpacity>
         </View>
 
         {/* INTERACTIVE MAP CONTAINER */}
         <View style={[styles.mapWrapper, desktop && styles.desktopLayout]}>
-          <View style={[styles.mapContainer, { height: mapHeight }]}>
+          <View style={[styles.mapContainer, { height: mapHeight }, desktop && styles.desktopMapContainer]}>
             <JourneyRouteMap
               originName={selectedOrigin || 'My Location'}
               originCoords={originCoords}
@@ -1154,12 +1153,12 @@ export default function MapScreen({ navigation, route }) {
                 <View style={styles.highwayBadgesRow}>
                   <View style={styles.motorwayPill}>
                     <Text style={styles.motorwayPillText}>
-                      🛣️ Motorway: {highwayDetails?.motorwayRoute?.badge || 'Motorway Express (120 km/h)'}
+                       Motorway: {highwayDetails?.motorwayRoute?.badge || 'Motorway Express (120 km/h)'}
                     </Text>
                   </View>
                   <View style={styles.gtRoadPill}>
                     <Text style={styles.gtRoadPillText}>
-                      🚗 GT Road: {highwayDetails?.gtRoadRoute?.badge || 'National Highway (GT Road)'}
+                       GT Road: {highwayDetails?.gtRoadRoute?.badge || 'National Highway (GT Road)'}
                     </Text>
                   </View>
                 </View>
@@ -1223,16 +1222,16 @@ export default function MapScreen({ navigation, route }) {
                   Aap ki live GPS location map par load hai. Upar search bar ya chips se koi bhi city select karein:
                 </Text>
                 <View style={styles.sidebarEmptyPoints}>
-                  <Text style={styles.sidebarEmptyPoint}>⚡ Shortest Motorway & GT Road routes show hon ge</Text>
-                  <Text style={styles.sidebarEmptyPoint}>⚠️ Road construction, blockages aur one-way diversions show hon gi</Text>
-                  <Text style={styles.sidebarEmptyPoint}>🧭 Turn-by-turn driving steps aur key landmarks show hon ge</Text>
+                  <Text style={styles.sidebarEmptyPoint}> Shortest Motorway & GT Road routes show hon ge</Text>
+                  <Text style={styles.sidebarEmptyPoint}> Road construction, blockages aur one-way diversions show hon gi</Text>
+                  <Text style={styles.sidebarEmptyPoint}> Turn-by-turn driving steps aur key landmarks show hon ge</Text>
                 </View>
                 <TouchableOpacity
                   style={styles.sidebarPlanTripBtn}
                   onPress={() => navigation.navigate('TripPlanning')}
                 >
                   <AppIcon name="paper-plane" size={15} color="#ffffff" style={{ marginRight: 6 }} />
-                  <Text style={styles.sidebarPlanTripBtnText}>Plan a Trip with Full Itinerary ➔</Text>
+                  <Text style={styles.sidebarPlanTripBtnText}>Plan a Trip with Full Itinerary -></Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -1253,8 +1252,8 @@ const styles = StyleSheet.create({
 
   scenicHeader: {
     paddingHorizontal: 16,
-    paddingTop: Platform.OS === 'ios' ? 14 : 10,
-    paddingBottom: 6,
+    paddingTop: 16,
+    paddingBottom: 10,
     maxWidth: 1200,
     width: '100%',
     alignSelf: 'center',
@@ -1402,8 +1401,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#DCECE5',
-    maxWidth: 1200,
-    width: '100%',
+    maxWidth: 1168,
+    width: '92%',
     alignSelf: 'center',
   },
   gpsStatusBarText: {
@@ -1820,8 +1819,10 @@ const styles = StyleSheet.create({
   },
   roadBlockHeader: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 6,
     marginBottom: 6,
   },
   redSignBadge: {
@@ -1829,6 +1830,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
+    flexShrink: 1,
   },
   redSignText: {
     color: '#ffffff',
@@ -1926,14 +1928,17 @@ const styles = StyleSheet.create({
   },
   journeyTrackerHeaderRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 4,
+    gap: 8,
+    marginBottom: 6,
   },
   journeyTrackerTitle: {
     fontSize: 13,
     fontWeight: '800',
     color: colors.ink,
+    flexShrink: 1,
   },
   driveSimulateBtn: {
     flexDirection: 'row',
@@ -2090,13 +2095,15 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   mapContainer: {
-    flex: 1.35,
     borderRadius: 16,
     overflow: 'hidden',
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#DCECE5',
     ...shadow,
+  },
+  desktopMapContainer: {
+    flex: 1.35,
   },
   navigationSidebar: {
     flex: 0.9,

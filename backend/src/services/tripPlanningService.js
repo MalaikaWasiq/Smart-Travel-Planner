@@ -6,15 +6,22 @@ const { getHotelRecommendations, findHotelById } = require('./hotelService');
 const { calculateBudget } = require('./budgetService');
 const { rankAttractions } = require('./recommendationService');
 const { detectHazards } = require('./alertService');
+const { discoverRouteCorridor } = require('./mapCorridorService');
 
-function attachKnownCoordinates(itinerary, attractions) {
+function attachKnownCoordinates(itinerary, attractions, corridor = null) {
+  const allKnownMapPoints = [
+    ...(attractions || []),
+    ...(corridor?.destinationCandidateStops || []),
+    ...(corridor?.corridorWaypoints || []),
+  ];
+
   return itinerary.map((day) => ({
     ...day,
     activities: day.activities.map((activity) => {
       if (Number.isFinite(activity.latitude) && Number.isFinite(activity.longitude)) return activity;
       const place = String(activity.place || '').toLowerCase();
-      const match = attractions.find((attraction) => {
-        const title = String(attraction.title || '').toLowerCase();
+      const match = allKnownMapPoints.find((candidate) => {
+        const title = String(candidate.title || candidate.name || '').toLowerCase();
         return title === place || title.includes(place) || place.includes(title);
       });
       return Number.isFinite(match?.latitude) && Number.isFinite(match?.longitude)
@@ -45,6 +52,7 @@ async function buildPlan({
   selectedHotelId,
   selectedRoomId,
   startLocation = 'Lahore',
+  startCoordinates = null,
   startDate,
   endDate,
   category = '',
@@ -57,13 +65,16 @@ async function buildPlan({
   transportRequired = true,
   foodRequired = true,
   activitiesRequired = true,
-  roomsQuantity = 1,
+  roomsQuantity = null,
   selectedMeals = { breakfast: true, lunch: false, dinner: true },
 }) {
   const normalizedPersons = Math.max(1, Number(numberOfPersons) || 1);
   const normalizedDays = Math.max(1, Number(days) || 1);
   const nights = Math.max(1, normalizedDays - 1);
-  const rooms = Math.max(1, Number(roomsQuantity) || 1);
+  const calculatedRooms = Math.ceil(normalizedPersons / 2);
+  const rooms = (roomsQuantity !== null && roomsQuantity !== undefined && Number(roomsQuantity) > 0)
+    ? Number(roomsQuantity)
+    : calculatedRooms;
 
   // If budget per person is provided (supervisor handwritten flow), compute total budget
   const totalBudget = Number(budget) || (Number(budgetPerPerson) ? Number(budgetPerPerson) * normalizedPersons : 38500 * normalizedPersons);
@@ -82,9 +93,14 @@ async function buildPlan({
   const hotelBudgetShare = isLowBudget ? 0.50 : 0.35;
   const dailyHotelBudget = Math.round((totalBudget * hotelBudgetShare) / (nights * effectiveRooms));
 
-  const [weatherResult, attractions] = await Promise.all([
+  const startPoint = startCoordinates || startLocation || 'Islamabad';
+  const [weatherResult, attractions, corridor] = await Promise.all([
     getWeather(destination, normalizedDays),
     getAttractionsSafe(destination, interests, 10),
+    discoverRouteCorridor(startPoint, destination).catch((err) => {
+      console.warn('[tripPlanningService] discoverRouteCorridor non-fatal error:', err.message);
+      return null;
+    }),
   ]);
 
   const ranking = attractions.length
@@ -92,7 +108,7 @@ async function buildPlan({
     : { recommendations: [], modelVersion: 'no-candidates', fallbackUsed: true };
   const rankedAttractions = ranking.recommendations;
 
-  // Itinerary generation personalized by travelType, transportation, comfortLevel & 4 time blocks
+  // Itinerary generation grounded in live map corridor places
   const generated = await generateItinerary({
     destination,
     days: normalizedDays,
@@ -105,13 +121,19 @@ async function buildPlan({
     weather: weatherResult.weather,
     forecast: weatherResult.forecast,
     attractions: rankedAttractions,
+    corridor,
   });
 
-  const withCoordinates = attachKnownCoordinates(generated.itinerary, rankedAttractions);
+  const withCoordinates = attachKnownCoordinates(generated.itinerary, rankedAttractions, corridor);
 
   // Smart Expense Controller: pass dailyHotelBudget to filter hotels according to supervisor rule
   const [route, hotelSuggestions] = await Promise.all([
-    buildTripRoutes({ destination: generated.cityName, itinerary: withCoordinates }),
+    buildTripRoutes({
+      destination: generated.cityName,
+      itinerary: withCoordinates,
+      corridor,
+      startCoordinates,
+    }),
     Promise.resolve(getHotelRecommendations({
       city: generated.cityName,
       budget: totalBudget,
@@ -210,6 +232,13 @@ async function buildPlan({
   return {
     destination: canonicalDest,
     startLocation,
+    startCoordinates: startCoordinates || corridor?.startCoordinates || null,
+    corridorSummary: corridor ? {
+      highwaysTraversed: corridor.highwaysTraversed,
+      totalDistanceKm: corridor.totalDistanceKm,
+      totalDurationHrs: corridor.totalDurationHrs,
+      waypointsCount: corridor.corridorWaypoints?.length || 0,
+    } : null,
     startDate: startDate || new Date().toISOString().split('T')[0],
     endDate: endDate || undefined,
     category,

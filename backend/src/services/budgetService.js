@@ -127,7 +127,7 @@ function calculateBudget({
   activitiesRequired = true,
   selectedActivities = [],
   optionalActivities = [],
-  roomsQuantity = 1,
+  roomsQuantity = null,
   nights: passedNights,
   selectedMeals = { breakfast: true, lunch: false, dinner: true },
   selectedFoodItems = {},
@@ -153,7 +153,9 @@ function calculateBudget({
   // Room Calculation: 20 persons, 2 per room = 10 rooms (Ceil division using room capacity)
   const roomCapacity = selectedHotel?.selectedRoom?.capacity || selectedHotel?.rooms?.[0]?.capacity || 2;
   const calculatedRooms = Math.ceil(normalizedPersons / roomCapacity);
-  const effectiveRooms = Math.max(1, roomsQuantity ? Number(roomsQuantity) : calculatedRooms);
+  const effectiveRooms = (roomsQuantity !== null && roomsQuantity !== undefined && Number(roomsQuantity) > 0)
+    ? Number(roomsQuantity)
+    : Math.max(1, calculatedRooms);
 
   // 1. TRANSPORTATION CALCULATION (Priority 1)
   const vehicle = selectVehicleForGroup(normalizedPersons, vehicleType);
@@ -278,13 +280,14 @@ function calculateBudget({
   });
 
   const remainingAfterOptional = remainingAfterActivities - optionalCost;
+  const servicesSubtotal = transport + hotels + food + activities + optionalCost;
 
-  // Company Profit & Safety Contingency (Company Mode only)
-  const companyProfit = isCompany ? round(normalizedBudget * 0.10) : 0;
-  const safetyMargin = isCompany ? round(normalizedBudget * 0.05) : 0;
+  // Company Profit (Company Mode only: 10% profit on services subtotal)
+  const companyProfit = isCompany ? round(servicesSubtotal * 0.10) : 0;
+  const safetyMargin = 0;
 
   // Total Incurred
-  const totalActualExpenses = transport + hotels + food + activities + optionalCost + companyProfit + safetyMargin;
+  const totalActualExpenses = servicesSubtotal + companyProfit;
   const remainingBudget = Math.max(0, normalizedBudget - totalActualExpenses);
   const remainingPerPerson = Math.round(remainingBudget / normalizedPersons);
   const percentUsed = normalizedBudget > 0 ? Math.min(100, Math.round((totalActualExpenses / normalizedBudget) * 100)) : 100;
@@ -309,7 +312,7 @@ function calculateBudget({
   }
   if (selectedExtrasList && selectedExtrasList.length > 0) {
     selectedExtrasList.forEach((extra) => {
-      dynamicInclusions.push(`✨ ${extra.name || extra.title || 'Special Experience'}`);
+      dynamicInclusions.push(extra.name || extra.title || 'Special Experience');
     });
   }
   dynamicInclusions.push('24/7 Smart Travel Planner Helpline & Coordination');
@@ -329,6 +332,7 @@ function calculateBudget({
     food,
     activities,
     optionalExperiences: optionalCost,
+    servicesSubtotal,
     companyProfit,
     safetyMargin,
     totalEstimated: totalActualExpenses,

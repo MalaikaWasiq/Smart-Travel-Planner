@@ -202,7 +202,7 @@ export default function DestinationDetailScreen({ navigation, route }) {
                   <View style={{ flex: 1 }}>
                     <AppText style={styles.categoryInfoTitle}>Category Classification</AppText>
                     <AppText style={styles.categoryInfoBody}>
-                      📍 <AppText style={{ fontWeight: 'bold' }}>{destination.name}</AppText> lies in the <AppText style={{ fontWeight: 'bold', color: colors.forest }}>{destination.category || 'Featured'}</AppText> category of Pakistan.
+                       <AppText style={{ fontWeight: 'bold' }}>{destination.name}</AppText> lies in the <AppText style={{ fontWeight: 'bold', color: colors.forest }}>{destination.category || 'Featured'}</AppText> category of Pakistan.
                     </AppText>
                   </View>
                 </View>
@@ -337,7 +337,7 @@ export default function DestinationDetailScreen({ navigation, route }) {
                       <View style={{ flex: 1 }}>
                         <AppText style={styles.companyModeTitle}>Company Tour or Full Package</AppText>
                         <View style={styles.badgeRowInner}>
-                          <AppText style={styles.modeBadgeCompany}>✓ Complete All-Inclusive Package</AppText>
+                          <AppText style={styles.modeBadgeCompany}>[Included] Complete All-Inclusive Package</AppText>
                         </View>
                       </View>
                       <AppIcon name="chevron-forward" size={20} color={colors.white} />
@@ -362,7 +362,7 @@ export default function DestinationDetailScreen({ navigation, route }) {
                       <View style={{ flex: 1 }}>
                         <AppText style={styles.customModeTitle}>Customize My Trip</AppText>
                         <View style={styles.badgeRowInner}>
-                          <AppText style={styles.modeBadgeCustom}>⚙️ Flexible • Pick Your Services</AppText>
+                          <AppText style={styles.modeBadgeCustom}> Flexible • Pick Your Services</AppText>
                         </View>
                       </View>
                       <AppIcon name="chevron-forward" size={20} color="#0284c7" />

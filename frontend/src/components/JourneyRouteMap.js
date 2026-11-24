@@ -23,8 +23,9 @@ function buildJourneyMapHtml(originName, originCoords, destinationName, destCoor
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <style>
-    html, body, #map { height: 100%; width: 100%; margin: 0; padding: 0; }
-    body { background: #eaf1ea; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow: hidden; }
+    html, body { height: 100%; width: 100%; margin: 0; padding: 0; }
+    body { background: #eaf1ea; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow: hidden; position: relative; }
+    #map { position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; margin: 0; padding: 0; }
     
     /* Top floating journey badge */
     .journey-hud {
@@ -304,9 +305,9 @@ function buildJourneyMapHtml(originName, originCoords, destinationName, destCoor
 <body>
   <div class="journey-hud">
     <div class="journey-hud-title">
-      <span id="hud-origin-link" style="cursor: pointer; text-decoration: underline;" title="Tap to zoom to your exact house / office / uni">📍 <span id="hud-origin-text">${safeOrigin}</span></span>
-      <span style="color:#86efac; margin: 0 4px;">➔</span>
-      <span id="hud-dest-link" style="cursor: pointer; text-decoration: underline;" title="Tap to zoom to destination">🏁 ${safeDest}</span>
+      <span id="hud-origin-link" style="cursor: pointer; text-decoration: underline;" title="Tap to zoom to departure location">From: <span id="hud-origin-text">${safeOrigin}</span></span>
+      <span style="color:#86efac; margin: 0 4px;">&rarr;</span>
+      <span id="hud-dest-link" style="cursor: pointer; text-decoration: underline;" title="Tap to zoom to destination">To: ${safeDest}</span>
     </div>
     <div class="journey-hud-metrics" id="hud-metrics">
       <span class="hud-badge" id="hud-dist">Calculating route...</span>
@@ -314,26 +315,26 @@ function buildJourneyMapHtml(originName, originCoords, destinationName, destCoor
   </div>
 
   <div class="map-search-bar-wrap">
-    <input type="text" id="map-street-search" class="map-search-input" placeholder="🔍 Search Home, Uni, Office, Colony..." autocomplete="off" />
+    <input type="text" id="map-street-search" class="map-search-input" placeholder="Search address, neighborhood, university, colony..." autocomplete="off" />
     <div id="map-search-dropdown" class="map-search-dropdown" style="display:none;"></div>
   </div>
 
   <div class="map-tip-pill">
-    📍 Tap map or drag green pin to set your exact Home, Office, School, or Uni
+    Tap map or drag pin to set exact departure location
   </div>
 
   <div class="map-controls-dock">
     <button type="button" class="map-ctrl-btn map-ctrl-btn-gps" id="btn-zoom-gps" title="Find my real GPS location">
-      🎯 Live GPS
+      Live GPS
     </button>
     <button type="button" class="map-ctrl-btn" id="btn-zoom-home" title="Zoom to Departure Location">
-      📍 My Location
+      My Location
     </button>
     <button type="button" class="map-ctrl-btn map-ctrl-btn-full" id="btn-zoom-full" title="View Full Route">
-      🗺️ Full Route
+      Full Route
     </button>
     <button type="button" class="map-ctrl-btn map-ctrl-btn-dest" id="btn-zoom-dest" title="Zoom to Destination">
-      🏁 Destination
+      Destination
     </button>
   </div>
 
@@ -361,24 +362,24 @@ function buildJourneyMapHtml(originName, originCoords, destinationName, destCoor
       // Start Marker (User / Current Location - Draggable!)
       const startIcon = L.divIcon({
         className: '',
-        html: '<div class="pin-start" title="Drag me directly to your house, school, or office!">📍</div>',
+        html: '<div class="pin-start" title="Drag to set your exact location"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>',
         iconSize: [34, 34],
         iconAnchor: [17, 17]
       });
       const startMarker = L.marker([curOLat, curOLon], { icon: startIcon, zIndexOffset: 1000, draggable: true })
         .addTo(map)
-        .bindPopup('<div class="popup-label">📍 <span id="popup-origin-name">' + curOName + '</span></div><div class="popup-sub">Departure Point (Home / Office / School / Uni)</div><div style="margin-top:4px;font-size:10px;color:#15803d;font-weight:700;">💡 Drag me or tap anywhere on map to change location!</div>');
+        .bindPopup('<div class="popup-label"><span id="popup-origin-name">' + curOName + '</span></div><div class="popup-sub">Departure Point (Home / Office / School / Uni)</div><div style="margin-top:4px;font-size:10px;color:#15803d;font-weight:700;">Drag pin or tap anywhere on map to change location</div>');
 
       // Destination Marker
       const destIcon = L.divIcon({
         className: '',
-        html: '<div class="pin-dest" title="Destination">🏁</div>',
+        html: '<div class="pin-dest" title="Destination"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>',
         iconSize: [34, 34],
         iconAnchor: [17, 17]
       });
       const destMarker = L.marker([dLat, dLon], { icon: destIcon })
         .addTo(map)
-        .bindPopup('<div class="popup-label">🏁 ' + dName + '</div><div class="popup-sub">Final Destination</div>');
+        .bindPopup('<div class="popup-label">' + dName + '</div><div class="popup-sub">Final Destination</div>');
 
       // Live GPS Tracker Blue Dot & Accuracy Circle
       let gpsMarker = null;
@@ -386,7 +387,7 @@ function buildJourneyMapHtml(originName, originCoords, destinationName, destCoor
 
       const gpsDotIcon = L.divIcon({
         className: '',
-        html: '<div class="gps-pulse-wrap" title="Your Live GPS Tracker Position"><div class="gps-pulse-ring"></div><div class="gps-pulse-core"></div></div>',
+        html: '<div class="gps-pulse-wrap" title="Your Live GPS Position"><div class="gps-pulse-ring"></div><div class="gps-pulse-core"></div></div>',
         iconSize: [24, 24],
         iconAnchor: [12, 12]
       });
@@ -394,14 +395,14 @@ function buildJourneyMapHtml(originName, originCoords, destinationName, destCoor
       // Show Live GPS Blue Dot at the detected origin coords
       gpsAccuracyCircle = L.circle([curOLat, curOLon], { radius: 100, color: '#3b82f6', fillColor: '#93c5fd', fillOpacity: 0.22, weight: 1.5 }).addTo(map);
       gpsMarker = L.marker([curOLat, curOLon], { icon: gpsDotIcon, zIndexOffset: 2000 }).addTo(map);
-      gpsMarker.bindPopup('<b>🎯 Your Live GPS Location</b><br>' + curOName + '<br><small>Coordinates: ' + curOLat.toFixed(4) + '° N, ' + curOLon.toFixed(4) + '° E</small>');
+      gpsMarker.bindPopup('<b>Live GPS Location</b><br>' + curOName + '<br><small>Coordinates: ' + curOLat.toFixed(4) + '° N, ' + curOLon.toFixed(4) + '° E</small>');
 
       map.on('locationfound', function(e) {
         if (gpsMarker) {
           gpsMarker.setLatLng(e.latlng);
           gpsAccuracyCircle.setLatLng(e.latlng);
           gpsAccuracyCircle.setRadius(e.accuracy);
-          gpsMarker.bindPopup('<b>🎯 Your Live GPS Location</b><br><small>Accuracy: ~' + Math.round(e.accuracy) + 'm</small>');
+          gpsMarker.bindPopup('<b>Live GPS Location</b><br><small>Accuracy: ~' + Math.round(e.accuracy) + 'm</small>');
         }
       });
 
@@ -444,8 +445,8 @@ function buildJourneyMapHtml(originName, originCoords, destinationName, destCoor
           const estRoadKm = Math.round(R * c * 1.35);
           const estHours = (estRoadKm / 65).toFixed(1);
           document.getElementById('hud-metrics').innerHTML =
-            '<span class="hud-badge">🛣️ ~' + estRoadKm + ' km</span>' +
-            '<span class="hud-badge">⏱️ ~' + estHours + ' hrs</span>';
+            '<span class="hud-badge">' + estRoadKm + ' km</span>' +
+            '<span class="hud-badge">' + estHours + ' hrs</span>';
         }
 
         const timeoutId = setTimeout(drawFallback, 3500);
@@ -485,8 +486,8 @@ function buildJourneyMapHtml(originName, originCoords, destinationName, destCoor
               const timeStr = hrs > 0 ? (hrs + 'h ' + mins + 'm') : (mins + 'm');
 
               document.getElementById('hud-metrics').innerHTML =
-                '<span class="hud-badge">🛣️ ' + distKm + ' km</span>' +
-                '<span class="hud-badge">⏱️ ~' + timeStr + ' drive</span>';
+                '<span class="hud-badge">' + distKm + ' km</span>' +
+                '<span class="hud-badge">' + timeStr + ' drive</span>';
             } else {
               drawFallback();
             }
@@ -531,7 +532,7 @@ function buildJourneyMapHtml(originName, originCoords, destinationName, destCoor
         const popupName = document.getElementById('popup-origin-name');
         if (popupName) popupName.innerText = resolvedName;
 
-        startMarker.bindPopup('<div class="popup-label">📍 ' + resolvedName + '</div><div class="popup-sub">Departure Point (Home / Office / School / Uni)</div><div style="margin-top:4px;font-size:10px;color:#15803d;font-weight:700;">🏠 Exact Location & Streets Active</div>');
+        startMarker.bindPopup('<div class="popup-label"><span id="popup-origin-name">' + resolvedName + '</span></div><div class="popup-sub">Departure Point (Home / Office / School / Uni)</div><div style="margin-top:4px;font-size:10px;color:#15803d;font-weight:700;">Exact Location & Streets Active</div>');
         startMarker.openPopup();
 
         // Redraw route from new spot
@@ -644,7 +645,7 @@ function buildJourneyMapHtml(originName, originCoords, destinationName, destCoor
                   const div = document.createElement('div');
                   div.className = 'map-search-item';
                   const title = item.name || item.display_name.split(',')[0];
-                  div.innerHTML = '📍 <span><b>' + title + '</b><br><small style=\"color:#64748b;\">' + item.display_name.slice(0, 48) + '...</small></span>';
+                  div.innerHTML = '<span><b>' + title + '</b><br><small style=\"color:#64748b;\">' + item.display_name.slice(0, 48) + '...</small></span>';
                   div.onclick = function() {
                     const lat = parseFloat(item.lat);
                     const lon = parseFloat(item.lon);
@@ -693,6 +694,7 @@ export default function JourneyRouteMap({
   const mapKey = `${originName}-${originCoords?.[0]}-${originCoords?.[1]}-${destinationName}-${destCoords?.[0]}-${destCoords?.[1]}`;
 
   if (Platform.OS === 'web') {
+    const pixelHeight = typeof height === 'number' ? `${height}px` : (height || '360px');
     return (
       <View style={[styles.container, { height }, style]}>
         {React.createElement('iframe', {
@@ -702,7 +704,8 @@ export default function JourneyRouteMap({
           allow: 'geolocation; camera; microphone',
           style: {
             width: '100%',
-            height: '100%',
+            height: pixelHeight,
+            minHeight: pixelHeight,
             border: 'none',
             borderRadius: 12,
             display: 'block',

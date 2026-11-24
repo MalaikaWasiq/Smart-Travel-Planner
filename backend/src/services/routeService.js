@@ -159,17 +159,6 @@ async function geocodeDestination(destination) {
   return fallback;
 }
 
-function deterministicOffset(str, index = 0) {
-  let hash = 0;
-  for (let i = 0; i < str.length; i += 1) {
-    hash = (hash * 31 + str.charCodeAt(i)) | 0;
-  }
-  const factor = (index % 4) + 1;
-  const lonOffset = ((Math.sin(hash) * 10000) % 1) * 0.018 * factor;
-  const latOffset = ((Math.cos(hash) * 10000) % 1) * 0.015 * factor;
-  return [lonOffset, latOffset];
-}
-
 async function geocodePlace(place, destination, destinationCoordinates, activityIndex = 0) {
   const cleanLandmark = extractLandmarkName(place);
   const cacheKey = `${cleanLandmark}__${destination}`.toLowerCase();
@@ -232,17 +221,8 @@ async function geocodePlace(place, destination, destinationCoordinates, activity
     console.warn(`[routeService] Nominatim geocodePlace failed for ${cleanLandmark}: ${err.message}`);
   }
 
-  // 4. Deterministic Destination Cluster Offset (Never leave coordinates empty)
+  // 4. Honest Fallback: Bind directly to known destination coordinate without synthetic offset
   if (destinationCoordinates && isInPakistan(destinationCoordinates)) {
-    const [dLon, dLat] = deterministicOffset(cleanLandmark || place, activityIndex);
-    const clusteredCoords = [
-      Number((destinationCoordinates[0] + dLon).toFixed(6)),
-      Number((destinationCoordinates[1] + dLat).toFixed(6)),
-    ];
-    if (isInPakistan(clusteredCoords)) {
-      geocodeCache.set(cacheKey, clusteredCoords);
-      return clusteredCoords;
-    }
     return destinationCoordinates;
   }
 

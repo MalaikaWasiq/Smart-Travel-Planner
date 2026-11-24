@@ -53,7 +53,7 @@ const POPULAR_CITIES = [
 
 const COMFORT_TIERS = ['All Tiers', 'Luxury', 'Normal', 'Basic'];
 
-export default function HotelScreen({ navigation }) {
+export default function HotelScreen({ navigation, route }) {
   const { currentTrip, trips, selectHotel, openTrip, token } = useApp();
   const { width: windowWidth } = useWindowDimensions();
   const isWide = windowWidth >= 768;
@@ -67,11 +67,12 @@ export default function HotelScreen({ navigation }) {
   const [selectedCity, setSelectedCity] = useState('All Cities');
   const [selectedComfort, setSelectedComfort] = useState('All Tiers');
 
-  // Mode: if currentTrip exists, default to 'trip', but user can toggle to 'all'
-  const [mode, setMode] = useState(currentTrip ? 'trip' : 'all');
+  // Default to 'all' (All Pakistan Hotels) so no location is pre-selected unless navigated directly from an itinerary
+  const fromItinerary = Boolean(route?.params?.fromItinerary && currentTrip);
+  const [mode, setMode] = useState(fromItinerary ? 'trip' : 'all');
 
   function handleGoBack() {
-    if (currentTrip) {
+    if (fromItinerary && currentTrip) {
       openTrip(currentTrip);
       navigateRoot('Itinerary', { trip: currentTrip });
     } else {
@@ -221,8 +222,8 @@ export default function HotelScreen({ navigation }) {
             </Text>
             <Text style={styles.headerSubtitle}>
               {currentTrip && mode === 'trip'
-                ? `📍 ${currentTrip.destination} · Verified room rates & details`
-                : `📍 ${allHotels.length} curated stays across Northern Areas, Cities & Coast`}
+                ? ` ${currentTrip.destination} · Verified room rates & details`
+                : ` ${allHotels.length} curated stays across Northern Areas, Cities & Coast`}
             </Text>
           </View>
           {/* Mode Switcher Tabs when active trip is present */}
@@ -233,7 +234,7 @@ export default function HotelScreen({ navigation }) {
             onPress={() => setMode('trip')}
           >
             <Text style={[styles.toggleText, mode === 'trip' && styles.toggleTextActive]}>
-              📍 {currentTrip.destination} Hotels
+              {currentTrip.destination} Hotels
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -241,25 +242,10 @@ export default function HotelScreen({ navigation }) {
             onPress={() => setMode('all')}
           >
             <Text style={[styles.toggleText, mode === 'all' && styles.toggleTextActive]}>
-              🇵🇰 All Pakistan Hotels ({allHotels.length})
+              All Pakistan Hotels ({allHotels.length})
             </Text>
           </TouchableOpacity>
         </View>
-      ) : trips && trips.length > 0 ? (
-        /* Helpful banner if user has saved trips */
-        <TouchableOpacity
-          style={styles.savedTripBanner}
-          onPress={() => {
-            openTrip(trips[0]);
-            setMode('trip');
-          }}
-        >
-          <AppIcon name="navigate-circle" size={20} color="#145a38" />
-          <Text style={styles.savedTripText}>
-            You have a saved trip to <Text style={{ fontWeight: 'bold' }}>{trips[0].destination}</Text>. Tap to manage its hotel.
-          </Text>
-          <AppIcon name="chevron-forward" size={16} color="#145a38" />
-        </TouchableOpacity>
       ) : null}
 
       {/* ==========================================================
@@ -276,7 +262,7 @@ export default function HotelScreen({ navigation }) {
             >
               <AppIcon name="arrow-back" size={17} color="#ffffff" style={{ marginRight: 8 }} />
               <Text style={styles.backToItineraryBigText}>
-                ← Back to {currentTrip.destination} Itinerary
+                Back to {currentTrip.destination} Itinerary
               </Text>
             </TouchableOpacity>
           </View>
@@ -378,7 +364,7 @@ export default function HotelScreen({ navigation }) {
                       </View>
                     </View>
                     <Text style={styles.city}>
-                      📍 {hotel.city}{hotel.nights ? `, ${hotel.nights} night${hotel.nights === 1 ? '' : 's'}` : ''}
+                       {hotel.city}{hotel.nights ? `, ${hotel.nights} night${hotel.nights === 1 ? '' : 's'}` : ''}
                     </Text>
                     <Text style={styles.amenities} numberOfLines={2}>
                       {(hotel.amenities || []).join(' • ')}
@@ -395,7 +381,7 @@ export default function HotelScreen({ navigation }) {
                           onPress={() => choose(hotel)}
                         >
                           <Text style={[styles.buttonText, selected && styles.buttonTextSelected]}>
-                            {selected ? 'SELECTED ✓' : savingId === hotel.id ? 'SAVING...' : 'SELECT HOTEL'}
+                            {selected ? 'SELECTED [Included]' : savingId === hotel.id ? 'SAVING...' : 'SELECT HOTEL'}
                           </Text>
                         </TouchableOpacity>
 
@@ -454,7 +440,7 @@ export default function HotelScreen({ navigation }) {
                     </View>
 
                     <View style={styles.locationTierRow}>
-                      <Text style={styles.city}>📍 {hotel.city}, Pakistan</Text>
+                      <Text style={styles.city}> {hotel.city}, Pakistan</Text>
                       {hotel.comfortLevel ? (
                         <View
                           style={[
@@ -489,7 +475,7 @@ export default function HotelScreen({ navigation }) {
                             onPress={() => choose(hotel)}
                           >
                             <Text style={[styles.buttonText, selected && styles.buttonTextSelected]}>
-                              {selected ? 'SELECTED ✓' : savingId === hotel.id ? 'SAVING...' : 'SELECT HOTEL'}
+                              {selected ? 'SELECTED [Included]' : savingId === hotel.id ? 'SAVING...' : 'SELECT HOTEL'}
                             </Text>
                           </TouchableOpacity>
                         )}
@@ -537,7 +523,7 @@ const styles = StyleSheet.create({
 
   scenicHeader: {
     paddingHorizontal: 16,
-    paddingTop: Platform.OS === 'ios' ? 14 : 10,
+    paddingTop: 14,
     paddingBottom: 6,
     maxWidth: 1200,
     width: '100%',
@@ -853,12 +839,14 @@ const styles = StyleSheet.create({
   },
   bottom: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    gap: 8,
     marginTop: 6,
     borderTopWidth: 1,
     borderTopColor: '#F1F5F3',
-    paddingTop: 6,
+    paddingTop: 8,
   },
   price: {
     fontSize: 13.5,
@@ -888,7 +876,9 @@ const styles = StyleSheet.create({
   },
   actionButtonsRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 6,
+    alignItems: 'center',
   },
   planTripBtn: {
     backgroundColor: '#0F766E',

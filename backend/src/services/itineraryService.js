@@ -1,83 +1,5 @@
 const { createChatCompletion, groqConfig } = require('./groqService');
 
-const cityData = {
-  lahore: {
-    name: 'Lahore',
-    historic: ['Badshahi Mosque', 'Lahore Fort', 'Minar-e-Pakistan', 'Walled City of Lahore', 'Shalimar Gardens'],
-    food: ['Food Street Gawalmandi', 'Andaaz Restaurant', 'Haveli Restaurant', 'Cooco Den Restaurant'],
-    nature: ['Jilani Park', 'Bagh-e-Jinnah', 'Race Course Park', 'Shalimar Gardens'],
-    shopping: ['Anarkali Bazaar', 'Liberty Market', 'Packages Mall', 'MM Alam Road'],
-    culture: ['Lahore Museum', 'Alhamra Arts Council', 'Walled City Heritage Walk', 'National College of Arts'],
-  },
-  islamabad: {
-    name: 'Islamabad',
-    historic: ['Faisal Mosque', 'Pakistan Monument', 'Lok Virsa Museum', 'Saidpur Village'],
-    food: ['Monal Restaurant', 'Kohsar Market', 'Saidpur Village Food Street', 'Tuscany Courtyard'],
-    nature: ['Margalla Hills', 'Rawal Lake', 'Daman-e-Koh', 'Trail 5'],
-    shopping: ['Centaurus Mall', 'Jinnah Super Market', 'F-7 Markaz', 'Melody Food Park'],
-    culture: ['PNCA Gallery', 'Lok Virsa Museum', 'Pakistan Museum of Natural History'],
-  },
-  karachi: {
-    name: 'Karachi',
-    historic: ['Mohatta Palace', 'Quaid-e-Azam Mausoleum', 'Empress Market', 'Frere Hall'],
-    food: ['Burns Road Food Street', 'Boat Basin Food Street', 'Kolachi Restaurant', 'BBQ Tonight'],
-    nature: ['Clifton Beach', 'French Beach', 'Manora Island', 'Bagh Ibn-e-Qasim'],
-    shopping: ['Dolmen Mall', 'Tariq Road', 'Zamzama Boulevard', 'Lucky One Mall'],
-    culture: ['National Museum of Pakistan', 'Karachi Arts Council', 'TDF Ghar'],
-  },
-  hunza: {
-    name: 'Hunza',
-    historic: ['Baltit Fort', 'Altit Fort', 'Ganish Village', 'Karimabad Bazaar'],
-    food: ['Cafe De Hunza', 'Old Hunza Inn Restaurant', 'Eagles Nest Dining', 'Local Apricot Cafe'],
-    nature: ['Attabad Lake', 'Rakaposhi View Point', 'Borith Lake', 'Passu Cones'],
-    shopping: ['Hunza Gems Market', 'Karimabad Market', 'Local Handicraft Shops'],
-    culture: ['Hunza Cultural Show', 'Heritage Walk', 'Local Pottery Workshop'],
-  },
-  skardu: {
-    name: 'Skardu',
-    historic: ['Skardu Fort', 'Shigar Fort', 'Kharpocho Fort', 'Ancient Rock Carvings'],
-    food: ['Shangrila Restaurant', 'K2 Motel Dining', 'Mountain View Cafe', 'Balti Food House'],
-    nature: ['Shangrila Lake', 'Upper Kachura Lake', 'Satpara Lake', 'Cold Desert'],
-    shopping: ['Skardu Bazaar', 'Gem Stone Shops', 'Local Dry Fruit Market'],
-    culture: ['Skardu Museum', 'Balti Cultural Show', 'Buddhist Rock Carvings'],
-  },
-  murree: {
-    name: 'Murree',
-    historic: ['Christ Church Murree', 'GPO Chowk', 'Kashmir Point', 'Pindi Point'],
-    food: ['Mall Road Cafes', 'Lintotts Restaurant', 'Cecil Hotel Dining'],
-    nature: ['Patriata New Murree', 'Ayubia National Park', 'Nathia Gali', 'Thandiani'],
-    shopping: ['Mall Road Murree', 'Local Woolen Market', 'Souvenir Bazaar'],
-    culture: ['British Era Buildings', 'Pine Forest Walk', 'Murree Hills Festival'],
-  },
-  swat: {
-    name: 'Swat',
-    historic: ['Swat Museum', 'Butkara Stupa', 'Udegram Fort', 'Jehanabad Buddha'],
-    food: ['Fizagat Park Cafe', 'Kalam Valley Restaurant', 'Serena Hotel Swat'],
-    nature: ['Malam Jabba', 'Fizagat Park', 'Kalam Valley', 'Mahodand Lake'],
-    shopping: ['Mingora Bazaar', 'Swat Embroidery Shops', 'Local Gem Market'],
-    culture: ['Swat Cultural Museum', 'Saidu Sharif Museum', 'Traditional Dance Show'],
-  },
-  peshawar: {
-    name: 'Peshawar',
-    historic: ['Peshawar Museum', 'Bala Hisar Fort', 'Sethi House', 'Mahabat Khan Mosque'],
-    food: ['Namak Mandi Chapli Kabab', 'Charsi Tikka', 'Qissa Khwani Food Street'],
-    nature: ['Warsak Dam', 'Shahi Bagh', 'Hayatabad Park'],
-    shopping: ['Saddar Bazaar', 'Karkhano Market', 'Qissa Khwani Bazaar'],
-    culture: ['Khyber Museum', 'Gor Khatri Archaeological Site', 'Deans Hotel'],
-  },
-};
-
-const timeSlots = ['8:30 AM', '10:30 AM', '1:00 PM', '3:30 PM', '6:00 PM'];
-const dayTitles = [
-  'Arrival and City Highlights',
-  'Heritage and Local Culture',
-  'Nature and Food Trail',
-  'Markets and Hidden Spots',
-  'Relaxed Local Experience',
-  'Scenic Day Plan',
-  'Farewell Highlights',
-];
-
 const typeCosts = {
   historic: 700,
   food: 1800,
@@ -85,34 +7,6 @@ const typeCosts = {
   shopping: 1500,
   culture: 800,
 };
-
-function cityFor(destination) {
-  const key = String(destination || '').trim().toLowerCase().split(' ')[0];
-  return cityData[key] || {
-    name: destination,
-    historic: ['Old City Tour', 'Historic Fort', 'Heritage Museum'],
-    food: ['Local Food Street', 'Traditional Restaurant', 'Rooftop Cafe'],
-    nature: ['City Park', 'View Point', 'Lake Side Walk'],
-    shopping: ['Main Bazaar', 'Souvenir Market', 'City Mall'],
-    culture: ['City Museum', 'Cultural Center', 'Art Gallery'],
-  };
-}
-
-function preferredTypesForWeather(day) {
-  if (day?.isRainy || day?.isSnowy) {
-    return ['culture', 'food', 'shopping', 'historic', 'food'];
-  }
-
-  if (day?.isHot) {
-    return ['nature', 'historic', 'food', 'culture', 'shopping'];
-  }
-
-  if (day?.isCold) {
-    return ['historic', 'food', 'culture', 'shopping', 'food'];
-  }
-
-  return ['nature', 'historic', 'food', 'culture', 'shopping'];
-}
 
 function buildBudgetBreakdown(itinerary, budget) {
   const totals = {
@@ -139,49 +33,84 @@ function buildBudgetBreakdown(itinerary, budget) {
   };
 }
 
-function generateRuleBasedItinerary({ destination, days, budget, interests = [], forecast = [], startLocation = 'Lahore' }) {
-  const city = cityFor(destination);
+function generateRuleBasedItinerary({
+  destination,
+  days,
+  budget,
+  interests = [],
+  forecast = [],
+  startLocation = 'Islamabad',
+  corridor = null,
+}) {
   const totalDays = Math.min(Math.max(Number(days) || 1, 1), 14);
+  const cityName = destination || corridor?.destination || 'Pakistan Destination';
+
+  // Extract real places discovered dynamically from Map APIs
+  const transitStops = (corridor?.corridorWaypoints || []).filter((w) => w.stage === 'transit');
+  const destCandidateStops = (corridor?.destinationCandidateStops || []).map((s) => s.name);
+
+  // If map corridor provided highlights, use them; otherwise use clean natural/cultural defaults
+  const attractionPool = destCandidateStops.length > 0
+    ? destCandidateStops
+    : [
+      `${cityName} Main Sightseeing Point`,
+      `${cityName} Heritage Viewpoint`,
+      `${cityName} Nature Trail`,
+      `${cityName} Panorama Point`,
+    ];
+
+  const transitPointName = transitStops[0]?.name || 'Scenic Highway Rest Area';
+  const midTransitPointName = transitStops[Math.floor(transitStops.length / 2)]?.name || transitPointName;
 
   const itinerary = Array.from({ length: totalDays }, (_, index) => {
     const dayNum = index + 1;
     const forecastDay = forecast[index] || {};
 
-    const sightseeingPool = [...(city.nature || []), ...(city.historic || []), ...(city.culture || [])];
-    const morningSight = sightseeingPool[(index * 2) % sightseeingPool.length] || 'Scenic Viewpoint';
-    const eveningSight = sightseeingPool[(index * 2 + 1) % sightseeingPool.length] || 'Sunset Point';
-    const foodPool = city.food || ['Local Traditional Restaurant', 'Heritage Food Street', 'Riverside Cafe'];
-    const lunchSpot = foodPool[index % foodPool.length] || 'Highway Restaurant';
-    const dinnerSpot = foodPool[(index + 1) % foodPool.length] || 'Hotel Restaurant';
+    let morningSight = '';
+    let lunchSpot = '';
+    let eveningSight = '';
+    let dinnerSpot = '';
 
-    // Supervisor's Exact 4 Daily Blocks:
-    // Morning -> Highway drive + Sightseeing stop.
-    // Afternoon -> Break for lunch.
-    // Evening -> Sunset view + photograph.
-    // Night -> Hotel check-in + dinner.
+    if (dayNum === 1) {
+      morningSight = transitPointName;
+      lunchSpot = `Highway Dining Stop near ${transitPointName}`;
+      eveningSight = `${cityName} Approach Viewpoint`;
+      dinnerSpot = `Local Dining Stop in ${cityName}`;
+    } else if (dayNum === totalDays) {
+      morningSight = attractionPool[index % attractionPool.length] || `${cityName} Final Viewpoint`;
+      lunchSpot = `Transit Lunch Stop near ${midTransitPointName}`;
+      eveningSight = `Return Highway Viewpoint towards ${startLocation}`;
+      dinnerSpot = `Farewell Dinner Stop in ${startLocation}`;
+    } else {
+      morningSight = attractionPool[(index * 2) % attractionPool.length] || `${cityName} Morning Landmark`;
+      eveningSight = attractionPool[(index * 2 + 1) % attractionPool.length] || `${cityName} Sunset Panorama`;
+      lunchSpot = `Local Eatery near ${morningSight}`;
+      dinnerSpot = `Traditional Dining in ${cityName}`;
+    }
+
     const activities = [
       {
-        time: '8:30 AM',
+        time: '08:30 AM',
         timeBlock: 'Morning',
-        place: dayNum === 1 ? `Highway drive from ${startLocation} & ${morningSight}` : `Scenic excursion: ${morningSight}`,
+        place: dayNum === 1 ? `Highway drive from ${startLocation} via ${morningSight}` : `Scenic excursion: ${morningSight}`,
         type: 'historic',
         mealPolicy: 'Breakfast included with hotel room stay',
         description: dayNum === 1
           ? `Departure from ${startLocation} via highway route with scenic morning drive and stop at ${morningSight}.`
-          : `Morning tour to ${morningSight} with guided exploration and scenic stops.`,
+          : `Morning exploration of ${morningSight} with guided sightseeing and photo opportunities.`,
         estimatedCost: 600,
       },
       {
-        time: '1:00 PM',
+        time: '01:00 PM',
         timeBlock: 'Afternoon',
         place: `Lunch Break at ${lunchSpot}`,
         type: 'food',
         mealPolicy: 'Lunch self-paid (highway dhaba / scenic spot)',
-        description: 'Midday relaxation break for lunch featuring local Pakistani cuisine (self-paid).',
+        description: 'Midday relaxation break for lunch featuring regional Pakistani cuisine (self-paid).',
         estimatedCost: 900,
       },
       {
-        time: '5:00 PM',
+        time: '05:00 PM',
         timeBlock: 'Evening',
         place: `Sunset View & Photography at ${eveningSight}`,
         type: 'nature',
@@ -190,12 +119,12 @@ function generateRuleBasedItinerary({ destination, days, budget, interests = [],
         estimatedCost: 400,
       },
       {
-        time: '8:00 PM',
+        time: '08:00 PM',
         timeBlock: 'Night',
         place: `Hotel check-in & Dinner at ${dinnerSpot}`,
         type: 'food',
         mealPolicy: 'Dinner fixed menu included in tour package',
-        description: 'Check-in at hotel, freshen up, followed by a warm dinner (fixed menu included in package).',
+        description: 'Check-in at hotel or campsite, freshen up, followed by dinner (fixed menu included in package).',
         estimatedCost: 1400,
       },
     ];
@@ -203,41 +132,63 @@ function generateRuleBasedItinerary({ destination, days, budget, interests = [],
     return {
       day: dayNum,
       title: dayNum === 1
-        ? `Departure from ${startLocation} ➔ ${city.name}`
+        ? `Departure from ${startLocation} to ${cityName}`
         : dayNum === totalDays
-          ? `Sightseeing & Return Journey`
-          : `Exploring ${city.name} Highlights`,
+          ? `Sightseeing & Return Journey to ${startLocation}`
+          : `Exploring ${cityName} Highlights`,
       weatherNote: forecastDay.advisory || 'Optimal travel conditions expected. Wear comfortable footwear.',
       activities,
     };
   });
 
   return {
-    cityName: city.name,
+    cityName,
     itinerary,
     budgetBreakdown: buildBudgetBreakdown(itinerary, budget),
   };
 }
 
-function buildPrompt({ destination, days, budget, interests = [], weather, forecast = [], attractions = [], startLocation = 'Islamabad' }) {
+function buildPrompt({
+  destination,
+  days,
+  budget,
+  interests = [],
+  weather,
+  forecast = [],
+  attractions = [],
+  startLocation = 'Islamabad',
+  corridor = null,
+}) {
+  const verifiedMapPlaces = (corridor?.destinationCandidateStops || []).concat(
+    (corridor?.corridorWaypoints || []).map((w) => ({
+      name: w.name,
+      type: w.type,
+      latitude: w.latitude,
+      longitude: w.longitude,
+      stage: w.stage,
+      distanceFromStartKm: w.distanceFromStartKm,
+    }))
+  );
+
   return [
     {
       role: 'system',
       content: [
-        'You are an expert Pakistan travel planner designing a professional structured tour itinerary.',
+        'You are an expert Pakistan travel planner designing an authentic, geographically accurate tour itinerary.',
         'Return only valid JSON. Do not include markdown, code fences, or explanations.',
-        'CRITICAL RULE: For every single day, structure the activities into exactly 4 sequential time blocks matching standard commercial tours:',
-        '1. Morning (08:30 AM): Highway drive / scenic transit from departure city + Sightseeing stop.',
-        '2. Afternoon (01:00 PM): Break for lunch (self-paid local dining stop).',
-        '3. Evening (05:00 PM): Sunset view + photography session at a scenic viewpoint.',
-        '4. Night (08:00 PM): Hotel check-in + dinner (fixed menu included in tour package).',
+        'CRITICAL ZERO-HALLUCINATION & FORMATTING RULES:',
+        '1. DO NOT INVENT or hallucinate fictitious places, hotels, guest houses, cafes, or covered structures.',
+        '2. You MUST prioritize and sequence the real physical places provided from the Map API along the highway route and at the destination.',
+        '3. For wilderness areas, plateaus, and mountain passes (such as Deosai, Babusar, Khunjerab, Fairy Meadows): there are NO permanent masonry restaurants, covered cafes, or grand hotels inside the open park. Lunch must be packed/camping meals or roadside dhabas before entering the park. Lodging must be seasonal campsites or base-town hotels with day trips.',
+        '4. DO NOT use emojis anywhere in your response. All text must be clean professional English.',
+        '5. Every day must follow 4 sequential time blocks: Morning (08:30 AM), Afternoon (01:00 PM), Evening (05:00 PM), Night (08:00 PM).',
         'Use realistic local places in Pakistan, accurate timings, and PKR estimated costs.',
       ].join(' '),
     },
     {
       role: 'user',
       content: JSON.stringify({
-        task: 'Generate a structured tour package itinerary.',
+        task: 'Generate a structured tour package itinerary using verified map corridor points.',
         requiredResponseShape: {
           cityName: 'string',
           itinerary: [
@@ -273,7 +224,8 @@ function buildPrompt({ destination, days, budget, interests = [], weather, forec
           departureCity: startLocation,
           destinationCity: destination,
           currency: 'PKR',
-          preferProvidedAttractions: attractions.length > 0,
+          noEmojis: true,
+          preferProvidedAttractions: verifiedMapPlaces.length > 0 || attractions.length > 0,
         },
         userInput: {
           destination,
@@ -283,6 +235,9 @@ function buildPrompt({ destination, days, budget, interests = [], weather, forec
           interests,
           weather,
           forecast,
+          verifiedMapCorridor: verifiedMapPlaces,
+          highwaysTraversed: corridor?.highwaysTraversed || [],
+          totalDistanceKm: corridor?.totalDistanceKm || null,
           liveAttractionsFromWikipedia: attractions.map((attraction) => ({
             title: attraction.title,
             summary: attraction.summary,
@@ -382,17 +337,24 @@ function validateGeneratedItinerary(data, expectedDays) {
   }
 }
 
+function stripEmojis(str) {
+  return String(str || '')
+    .replace(/[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F1E0}-\u{1F1FF}]/gu, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function normalizeGeneratedItinerary(data, requestedDestination = '') {
   const canonicalCity = requestedDestination && requestedDestination.trim()
     ? requestedDestination.trim()
     : String(data.cityName || '').trim();
 
   return {
-    cityName: canonicalCity,
+    cityName: stripEmojis(canonicalCity),
     itinerary: data.itinerary.map((day, dayIndex) => ({
       day: Number(day.day) || dayIndex + 1,
-      title: String(day.title).trim(),
-      weatherNote: String(day.weatherNote || 'Plan is balanced for the expected weather.').trim(),
+      title: stripEmojis(day.title),
+      weatherNote: stripEmojis(day.weatherNote || 'Plan is balanced for the expected weather.'),
       activities: day.activities.map((activity, actIdx) => {
         let defaultBlock = 'Morning';
         let defaultMeal = 'Breakfast included with hotel room stay';
@@ -408,12 +370,14 @@ function normalizeGeneratedItinerary(data, requestedDestination = '') {
         }
 
         return {
-          time: String(activity.time).trim(),
-          timeBlock: activity.timeBlock || defaultBlock,
-          mealPolicy: activity.mealPolicy !== undefined ? activity.mealPolicy : defaultMeal,
-          place: String(activity.place).trim(),
-          type: String(activity.type).trim().toLowerCase(),
-          description: String(activity.description).trim(),
+          time: stripEmojis(activity.time),
+          timeBlock: stripEmojis(activity.timeBlock || defaultBlock),
+          mealPolicy: activity.mealPolicy !== undefined && activity.mealPolicy !== null
+            ? stripEmojis(activity.mealPolicy)
+            : defaultMeal,
+          place: stripEmojis(activity.place),
+          type: stripEmojis(activity.type).toLowerCase(),
+          description: stripEmojis(activity.description),
           estimatedCost: Math.max(0, Math.round(Number(activity.estimatedCost))),
           ...(activity.latitude !== null && activity.latitude !== undefined
             && activity.longitude !== null && activity.longitude !== undefined
@@ -434,27 +398,62 @@ function normalizeGeneratedItinerary(data, requestedDestination = '') {
   };
 }
 
-async function generateAiItinerary(input) {
-  const messages = buildPrompt(input);
-  const content = await createChatCompletion({
-    messages,
-    maxTokens: 4000,
-    responseFormat: { type: 'json_object' },
+async function generateItinerary({
+  destination,
+  days,
+  budget,
+  interests = [],
+  travelType = 'Solo',
+  transportation = 'Private Car',
+  comfortLevel = 'Normal',
+  startLocation = 'Islamabad',
+  weather,
+  forecast = [],
+  attractions = [],
+  corridor = null,
+}) {
+  const normalizedDays = Math.min(Math.max(Number(days) || 1, 1), 14);
+  const promptMessages = buildPrompt({
+    destination,
+    days: normalizedDays,
+    budget,
+    interests,
+    weather,
+    forecast,
+    attractions,
+    startLocation,
+    corridor,
   });
-  const parsed = parseJsonObject(content);
-  const expectedDays = Math.min(Math.max(Number(input.days) || 1, 1), 14);
-  validateGeneratedItinerary(parsed, expectedDays);
-  return normalizeGeneratedItinerary(parsed, input.destination);
-}
 
-async function generateItinerary(input) {
   try {
-    return { ...(await generateAiItinerary(input)), source: 'groq' };
+    const completion = await createChatCompletion({
+      messages: promptMessages,
+      temperature: 0.2,
+      response_format: { type: 'json_object' },
+    });
+
+    const parsed = parseJsonObject(completion?.choices?.[0]?.message?.content);
+    validateGeneratedItinerary(parsed, normalizedDays);
+    return normalizeGeneratedItinerary(parsed, destination);
   } catch (error) {
-    const { model } = groqConfig();
-    console.warn(`[itinerary] Falling back to rule-based generator. Groq model=${model}. Reason: ${error.message}`);
-    return { ...generateRuleBasedItinerary(input), source: 'fallback' };
+    console.warn(`[itineraryService] Groq generation failed (${error.message}). Falling back to map-grounded itinerary.`);
+    const fallback = generateRuleBasedItinerary({
+      destination,
+      days: normalizedDays,
+      budget,
+      interests,
+      forecast,
+      startLocation,
+      corridor,
+    });
+    return normalizeGeneratedItinerary(fallback, destination);
   }
 }
 
-module.exports = { generateItinerary, generateRuleBasedItinerary, generateAiItinerary };
+module.exports = {
+  generateItinerary,
+  generateRuleBasedItinerary,
+  validateGeneratedItinerary,
+  buildPrompt,
+  parseJsonObject,
+};

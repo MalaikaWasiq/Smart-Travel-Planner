@@ -475,7 +475,7 @@ export default function AdminDashboardScreen({ navigation }) {
               <AppIcon name="pie-chart-outline" size={24} color="#15803d" />
               <View>
                 <Text style={styles.formulaCardTitle}>Supervisor's Smart Budget Allocation (100%)</Text>
-                <Text style={styles.formulaBadge}>🔒 Internal Admin & Supervisor Formula • Protected from Public Travelers</Text>
+                <Text style={styles.formulaBadge}> Internal Admin & Supervisor Formula • Protected from Public Travelers</Text>
               </View>
             </View>
           </View>
@@ -554,7 +554,7 @@ export default function AdminDashboardScreen({ navigation }) {
             <View style={styles.formulaAllocCard}>
               <View style={[styles.formulaDot, { backgroundColor: '#2563eb' }]} />
               <View style={{ flex: 1 }}>
-                <Text style={styles.formulaCardHeader}>🚗 Transport (35%)</Text>
+                <Text style={styles.formulaCardHeader}> Transport (35%)</Text>
                 <Text style={styles.formulaCardValue}>PKR {allocTransport.toLocaleString()}</Text>
                 <Text style={styles.formulaCardNote}>Rent, fuel & driver</Text>
               </View>
@@ -563,7 +563,7 @@ export default function AdminDashboardScreen({ navigation }) {
             <View style={styles.formulaAllocCard}>
               <View style={[styles.formulaDot, { backgroundColor: '#059669' }]} />
               <View style={{ flex: 1 }}>
-                <Text style={styles.formulaCardHeader}>🏨 Hotel / Stay (35%)</Text>
+                <Text style={styles.formulaCardHeader}> Hotel / Stay (35%)</Text>
                 <Text style={styles.formulaCardValue}>PKR {allocHotel.toLocaleString()}</Text>
                 <Text style={styles.formulaCardNote}>PKR {Math.round(allocHotel / 3).toLocaleString()} / night (3 nights)</Text>
               </View>
@@ -572,7 +572,7 @@ export default function AdminDashboardScreen({ navigation }) {
             <View style={styles.formulaAllocCard}>
               <View style={[styles.formulaDot, { backgroundColor: '#d97706' }]} />
               <View style={{ flex: 1 }}>
-                <Text style={styles.formulaCardHeader}>🍽️ Food (15%)</Text>
+                <Text style={styles.formulaCardHeader}> Food (15%)</Text>
                 <Text style={styles.formulaCardValue}>PKR {allocFood.toLocaleString()}</Text>
                 <Text style={styles.formulaCardNote}>Dinner & refreshments</Text>
               </View>
@@ -581,7 +581,7 @@ export default function AdminDashboardScreen({ navigation }) {
             <View style={styles.formulaAllocCard}>
               <View style={[styles.formulaDot, { backgroundColor: '#7c3aed' }]} />
               <View style={{ flex: 1 }}>
-                <Text style={styles.formulaCardHeader}>🎯 Activities (10%)</Text>
+                <Text style={styles.formulaCardHeader}> Activities (10%)</Text>
                 <Text style={styles.formulaCardValue}>PKR {allocActivities.toLocaleString()}</Text>
                 <Text style={styles.formulaCardNote}>Sights & entry points</Text>
               </View>
@@ -590,7 +590,7 @@ export default function AdminDashboardScreen({ navigation }) {
             <View style={styles.formulaAllocCard}>
               <View style={[styles.formulaDot, { backgroundColor: '#0284c7' }]} />
               <View style={{ flex: 1 }}>
-                <Text style={styles.formulaCardHeader}>🛡️ Reserve & Buffer (5%)</Text>
+                <Text style={styles.formulaCardHeader}> Reserve & Buffer (5%)</Text>
                 <Text style={styles.formulaCardValue}>PKR {allocReserve.toLocaleString()}</Text>
                 <Text style={styles.formulaCardNote}>Contingency & profit margin</Text>
               </View>
@@ -1171,7 +1171,7 @@ export default function AdminDashboardScreen({ navigation }) {
                   <Text style={[styles.td, { width: 180, fontWeight: 'bold' }]}>{h.name}</Text>
                   <Text style={[styles.td, { width: 120 }]}>{h.city}</Text>
                   <Text style={[styles.td, { width: 100 }]}>{h.category}</Text>
-                  <Text style={[styles.td, { width: 80 }]}>⭐ {h.starRating}</Text>
+                  <Text style={[styles.td, { width: 80 }]}>Rating: {h.starRating}</Text>
                   <Text style={[styles.td, { width: 110, fontWeight: 'bold' }]}>PKR {Number(h.pricePerNight).toLocaleString()}</Text>
                   <TouchableOpacity style={styles.delBtn} onPress={() => handleDeleteHotel(h._id)}>
                     <AppIcon name="trash-outline" size={16} color="#dc2626" />

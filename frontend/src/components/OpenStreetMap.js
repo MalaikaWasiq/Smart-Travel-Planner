@@ -419,13 +419,13 @@ function mapHtml(props) {
 <body>
 <div class="gps-hud">
   <div class="gps-hud-route" id="hud-route">
-    <span id="hud-orig-link" style="cursor: pointer; text-decoration: underline;" title="Tap to zoom to your exact house & streets">📍 <span id="hud-orig">...</span></span>
-    <span style="color:#86efac;">➔</span>
-    <span id="hud-dest-link" style="cursor: pointer; text-decoration: underline;" title="Tap to zoom to destination">🏁 <span id="hud-dest">...</span></span>
+    <span id="hud-orig-link" style="cursor: pointer; text-decoration: underline;" title="Tap to zoom to your exact house & streets"><span id="hud-orig">...</span></span>
+    <span style="color:#86efac; margin: 0 4px;">&rarr;</span>
+    <span id="hud-dest-link" style="cursor: pointer; text-decoration: underline;" title="Tap to zoom to destination"><span id="hud-dest">...</span></span>
   </div>
   <div class="gps-hud-stats" id="hud-stats">
-    <span class="stat-pill stat-pill-active-motorway" id="hud-shortest">⚡ Shortest: Calculating...</span>
-    <span class="stat-pill" id="hud-alt">🚗 Alt GT Road: Calculating...</span>
+    <span class="stat-pill stat-pill-active-motorway" id="hud-shortest">Shortest: Calculating...</span>
+    <span class="stat-pill" id="hud-alt">Alt GT Road: Calculating...</span>
   </div>
 </div>
 
@@ -433,24 +433,24 @@ function mapHtml(props) {
 
 <div class="map-controls-dock">
   <button type="button" class="map-ctrl-btn" id="btn-osm-home" title="Zoom directly to your house and streets">
-    📍 My Location (Streets)
+    My Location
   </button>
   <button type="button" class="map-ctrl-btn map-ctrl-btn-full" id="btn-osm-full" title="View Full Route">
-    🗺️ Full Route
+    Full Route
   </button>
   <button type="button" class="map-ctrl-btn map-ctrl-btn-dest" id="btn-osm-dest" title="Zoom to Destination">
-    🏁 Destination
+    Destination
   </button>
 </div>
 
 <div class="route-legend">
   <div class="legend-item" id="legend-shortest">
     <div class="legend-line-shortest"></div>
-    <span class="legend-text">⚡ Shortest Route (Motorway)</span>
+    <span class="legend-text">Shortest Route (Motorway)</span>
   </div>
   <div class="legend-item" id="legend-alt">
     <div class="legend-line-alt"></div>
-    <span class="legend-text">🚗 Alternative Route (GT Road)</span>
+    <span class="legend-text">Alternative Route (GT Road)</span>
   </div>
 </div>
 
@@ -470,13 +470,13 @@ function mapHtml(props) {
     // 1. START MARKER (Emerald Green Pulsing Pin)
     const startIcon = L.divIcon({
       className: '',
-      html: '<div class="pin-start" title="Tap to zoom to your exact house & streets!">📍</div>',
+      html: '<div class="pin-start" title="Tap to zoom to your exact house & streets!"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3" fill="#ffffff"/></svg></div>',
       iconSize: [32, 32],
       iconAnchor: [16, 16]
     });
     const startMarker = L.marker([data.oLat, data.oLon], { icon: startIcon, zIndexOffset: 1000 })
       .addTo(map)
-      .bindPopup('<div class="popup-title">📍 ' + data.safeOrigin + '</div><div class="popup-subtitle">Departure Origin / Real Live Location (Home)</div><div style="margin-top:4px;font-size:10px;color:#15803d;font-weight:700;">🏠 Exact Location & Streets Active</div>');
+      .bindPopup('<div class="popup-title">' + data.safeOrigin + '</div><div class="popup-subtitle">Departure Origin / Live Location</div><div style="margin-top:4px;font-size:10px;color:#15803d;font-weight:700;">Exact Location & Streets Active</div>');
 
     // Click Start Pin flies straight to user house at street level (zoom 18)
     startMarker.on('click', function() {
@@ -508,13 +508,13 @@ function mapHtml(props) {
       map.setView([data.oLat, data.oLon], 16);
 
       const destSpan = document.getElementById('hud-dest');
-      if (destSpan) destSpan.innerText = 'Search or select destination below ➔';
+      if (destSpan) destSpan.innerText = 'Search or select destination below ->';
       const destLink = document.getElementById('hud-dest-link');
       if (destLink) destLink.style.opacity = '0.7';
 
       const shortestPill = document.getElementById('hud-shortest');
       if (shortestPill) {
-        shortestPill.innerText = '📍 Live GPS Active (Street View)';
+        shortestPill.innerText = 'Live GPS Active (Street View)';
         shortestPill.className = 'stat-pill stat-pill-active-motorway';
       }
       const altPill = document.getElementById('hud-alt');
@@ -545,13 +545,13 @@ function mapHtml(props) {
       // 2. DESTINATION MARKER (Crimson Red Pin)
       const destIcon = L.divIcon({
         className: '',
-        html: '<div class="pin-dest" title="Tap to zoom to destination!">🏁</div>',
+        html: '<div class="pin-dest" title="Tap to zoom to destination!"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>',
         iconSize: [32, 32],
         iconAnchor: [16, 16]
       });
       const destMarker = L.marker([data.dLat, data.dLon], { icon: destIcon })
         .addTo(map)
-        .bindPopup('<div class="popup-title">🏁 ' + data.safeDest + '</div><div class="popup-subtitle">Final Destination</div>');
+        .bindPopup('<div class="popup-title">' + data.safeDest + '</div><div class="popup-subtitle">Final Destination</div>');
 
       destMarker.on('click', function() {
         map.flyTo([data.dLat, data.dLon], 15, { animate: true, duration: 1.2 });
@@ -585,7 +585,7 @@ function mapHtml(props) {
       const rb = data.roadBlock;
       const hazardIcon = L.divIcon({
         className: '',
-        html: '<div class="pin-hazard" title="Road hazard alert: Tap to inspect road block">⚠️</div>',
+        html: '<div class="pin-hazard" title="Road hazard alert: Tap to inspect road block"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>',
         iconSize: [34, 34],
         iconAnchor: [17, 17]
       });
@@ -594,11 +594,11 @@ function mapHtml(props) {
       const constMsg = rb.constructionNotice || 'Sadak ki construction chal rahi hai: Two-way road ab single one-way lane mein convert ho gayi hai aur gariyan aik hi lane se aa jaa rahi hain.';
 
       const hazardPopupContent =
-        '<div class="popup-hazard-title">⚠️ ⛔ SPEED SLOW KAREIN — ROAD BLOCK</div>' +
-        '<div class="popup-hazard-loc">📍 ' + rb.locationName + '</div>' +
-        '<div class="popup-hazard-box-speed">⚠️ <b>Speed Alert:</b> ' + speedMsg + '</div>' +
-        '<div class="popup-hazard-box-const">🚧 <b>Construction Work:</b> ' + constMsg + '</div>' +
-        '<div class="popup-hazard-detour">⏱️ +' + rb.delayMins + ' min delay | 🔄 ' + (rb.detourAdvice || 'Use Motorway') + '</div>';
+        '<div class="popup-hazard-title">ALERT: ROAD BLOCK</div>' +
+        '<div class="popup-hazard-loc">' + rb.locationName + '</div>' +
+        '<div class="popup-hazard-box-speed"><b>Speed Alert:</b> ' + speedMsg + '</div>' +
+        '<div class="popup-hazard-box-const"><b>Construction Notice:</b> ' + constMsg + '</div>' +
+        '<div class="popup-hazard-detour">+' + rb.delayMins + ' min delay | ' + (rb.detourAdvice || 'Use Motorway') + '</div>';
 
       hazardMarker = L.marker(rb.coords, { icon: hazardIcon, zIndexOffset: 1500 })
         .addTo(map)
@@ -621,7 +621,7 @@ function mapHtml(props) {
       // Add Hazard Delay Pill in HUD
       const delaySpan = document.createElement('span');
       delaySpan.className = 'delay-pill';
-      delaySpan.innerText = '⛔ +' + rb.delayMins + 'm Hazard';
+      delaySpan.innerText = '+' + rb.delayMins + 'm Hazard Alert';
       delaySpan.onclick = function() {
         if (hazardMarker) {
           map.setView(hazardMarker.getLatLng(), 13);
@@ -651,7 +651,9 @@ function mapHtml(props) {
     const vLon = Number(data.vehicleCoords?.[1]) || data.oLon;
     const isArrived = data.hasArrived;
 
-    const carHtml = isArrived ? '<div class="pin-vehicle pin-arrived">🎉</div>' : '<div class="pin-vehicle">🚗</div>';
+    const carHtml = isArrived
+      ? '<div class="pin-vehicle pin-arrived"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>'
+      : '<div class="pin-vehicle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><rect x="3" y="11" width="18" height="8" rx="2"/><path d="M7 11V7a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4"/><circle cx="7.5" cy="16.5" r="1.5" fill="#ffffff"/><circle cx="16.5" cy="16.5" r="1.5" fill="#ffffff"/></svg></div>';
     const carIcon = L.divIcon({
       className: '',
       html: carHtml,
@@ -662,13 +664,13 @@ function mapHtml(props) {
 
     if (isArrived) {
       vehicleMarker.bindPopup(
-        '<div class="popup-title" style="color:#15803d; font-size:13px; font-weight:900;">🎉 YOU REACHED THE FINAL DESTINATION!</div>' +
+        '<div class="popup-title" style="color:#15803d; font-size:13px; font-weight:900;">ARRIVED AT FINAL DESTINATION</div>' +
         '<div class="popup-subtitle" style="font-size:11px; font-weight:700;">' + data.safeDest + '</div>' +
         '<div style="margin-top:3px; color:#166534; font-size:10px;">Journey successfully completed!</div>'
       ).openPopup();
     } else {
       vehicleMarker.bindPopup(
-        '<div class="popup-title">🚗 Current Vehicle Location</div>' +
+        '<div class="popup-title">Current Vehicle Location</div>' +
         '<div class="popup-subtitle">' + data.safeLocationLabel + '</div>'
       );
     }
@@ -838,7 +840,7 @@ function mapHtml(props) {
           const midAlt = altCoords[Math.floor(altCoords.length / 2)];
           const altTagIcon = L.divIcon({
             className: '',
-            html: '<div class="highway-tag highway-tag-gt">🚗 Alternative GT Road (' + altMetrics.dist + ' km)</div>',
+            html: '<div class="highway-tag highway-tag-gt">Alternative GT Road (' + altMetrics.dist + ' km)</div>',
             iconSize: [180, 24],
             iconAnchor: [90, 12]
           });
@@ -870,7 +872,7 @@ function mapHtml(props) {
           const midShort = shortestCoords[Math.floor(shortestCoords.length / 2)];
           const shortTagIcon = L.divIcon({
             className: '',
-            html: '<div class="highway-tag">⚡ Shortest Motorway (' + shortestMetrics.dist + ' km)</div>',
+            html: '<div class="highway-tag">Shortest Motorway (' + shortestMetrics.dist + ' km)</div>',
             iconSize: [180, 24],
             iconAnchor: [90, 12]
           });
@@ -880,8 +882,8 @@ function mapHtml(props) {
       }
 
       // Update HUD Stats
-      document.getElementById('hud-shortest').innerText = '⚡ Shortest: ' + shortestMetrics.dist + ' km (~' + shortestMetrics.durStr + ')';
-      document.getElementById('hud-alt').innerText = '🚗 Alt GT Road: ' + altMetrics.dist + ' km (~' + altMetrics.durStr + ')';
+      document.getElementById('hud-shortest').innerText = 'Shortest: ' + shortestMetrics.dist + ' km (~' + shortestMetrics.durStr + ')';
+      document.getElementById('hud-alt').innerText = 'Alt GT Road: ' + altMetrics.dist + ' km (~' + altMetrics.durStr + ')';
 
       highlightActiveRoute(currentSelectedRoute);
 

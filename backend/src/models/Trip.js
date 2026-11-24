@@ -58,6 +58,10 @@ const tripSchema = new mongoose.Schema(
       default: 'Islamabad',
       trim: true,
     },
+    startCoordinates: {
+      type: [Number],
+      default: null,
+    },
     startDate: {
       type: String,
       default: () => new Date().toISOString().split('T')[0],

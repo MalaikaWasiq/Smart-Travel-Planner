@@ -103,7 +103,7 @@ export function AppProvider({ children }) {
             window.localStorage.setItem('stp_user_email', safeUser?.email || '');
           }
           setTrips(savedTrips);
-          setCurrentTrip(savedTrips[0] || null);
+          setCurrentTrip(null);
           refreshFavorites(storedToken).catch(() => {});
         }
       } catch (_) {
@@ -136,7 +136,7 @@ export function AppProvider({ children }) {
     setToken(data.token);
     setUser(safeUser);
     setTrips(savedTrips);
-    setCurrentTrip(savedTrips[0] || null);
+    setCurrentTrip(null);
     refreshFavorites(data.token).catch(() => {});
     return safeUser;
   }
@@ -168,7 +168,7 @@ export function AppProvider({ children }) {
     setToken(data.token);
     setUser(safeUser);
     setTrips(savedTrips);
-    setCurrentTrip(savedTrips[0] || null);
+    setCurrentTrip(null);
     refreshFavorites(data.token).catch(() => {});
     return safeUser;
   }
@@ -266,7 +266,7 @@ export function AppProvider({ children }) {
     await apiRequest(`/trips/${idStr}`, { method: 'DELETE', token });
     setTrips((savedTrips) => {
       const remaining = savedTrips.filter((trip) => String(trip._id) !== idStr);
-      setCurrentTrip((activeTrip) => String(activeTrip?._id) === idStr ? (remaining[0] || null) : activeTrip);
+      setCurrentTrip((activeTrip) => String(activeTrip?._id) === idStr ? null : activeTrip);
       return remaining;
     });
   }
@@ -283,12 +283,9 @@ export function AppProvider({ children }) {
       const savedTrips = data.trips || [];
       setTrips(savedTrips);
       setCurrentTrip((activeTrip) => {
-        if (!savedTrips.length) return null;
-        if (activeTrip?._id) {
-          const match = savedTrips.find((trip) => String(trip._id) === String(activeTrip._id));
-          if (match) return match;
-        }
-        return savedTrips[0];
+        if (!savedTrips.length || !activeTrip?._id) return null;
+        const match = savedTrips.find((trip) => String(trip._id) === String(activeTrip._id));
+        return match || null;
       });
       return savedTrips;
     } finally {

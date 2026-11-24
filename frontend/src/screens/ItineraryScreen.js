@@ -67,22 +67,22 @@ export default function ItineraryScreen({ navigation, route }) {
 
   function getTimeBlockInfo(activity, index) {
     const rawBlock = activity.timeBlock;
-    if (rawBlock === 'Morning') return { icon: '🌅', label: 'Morning Block (Sightseeing)', color: '#b45309', bg: '#fef3c7' };
-    if (rawBlock === 'Afternoon') return { icon: '🥪', label: 'Afternoon Block (Lunch)', color: '#0369a1', bg: '#e0f2fe' };
-    if (rawBlock === 'Evening') return { icon: '📸', label: 'Evening Block (Sunset & Photo)', color: '#c2410c', bg: '#ffedd5' };
-    if (rawBlock === 'Night') return { icon: '🌙', label: 'Night Block (Dinner & Stay)', color: '#4338ca', bg: '#e0e7ff' };
+    if (rawBlock === 'Morning') return { iconName: 'sunny-outline', label: 'Morning Block (Sightseeing)', color: '#b45309', bg: '#fef3c7' };
+    if (rawBlock === 'Afternoon') return { iconName: 'restaurant-outline', label: 'Afternoon Block (Lunch)', color: '#0369a1', bg: '#e0f2fe' };
+    if (rawBlock === 'Evening') return { iconName: 'camera-outline', label: 'Evening Block (Sunset & Photo)', color: '#c2410c', bg: '#ffedd5' };
+    if (rawBlock === 'Night') return { iconName: 'moon-outline', label: 'Night Block (Dinner & Stay)', color: '#4338ca', bg: '#e0e7ff' };
 
     const t = String(activity.time || '').toLowerCase();
     if (t.includes('8:') || t.includes('9:') || t.includes('10:') || index === 0) {
-      return { icon: '🌅', label: 'Morning Block (Sightseeing)', color: '#b45309', bg: '#fef3c7' };
+      return { iconName: 'sunny-outline', label: 'Morning Block (Sightseeing)', color: '#b45309', bg: '#fef3c7' };
     }
     if (t.includes('12:') || t.includes('1:') || t.includes('2:') || index === 1) {
-      return { icon: '🥪', label: 'Afternoon Block (Lunch)', color: '#0369a1', bg: '#e0f2fe' };
+      return { iconName: 'restaurant-outline', label: 'Afternoon Block (Lunch)', color: '#0369a1', bg: '#e0f2fe' };
     }
     if (t.includes('4:') || t.includes('5:') || t.includes('6:') || index === 2) {
-      return { icon: '📸', label: 'Evening Block (Sunset & Photo)', color: '#c2410c', bg: '#ffedd5' };
+      return { iconName: 'camera-outline', label: 'Evening Block (Sunset & Photo)', color: '#c2410c', bg: '#ffedd5' };
     }
-    return { icon: '🌙', label: 'Night Block (Dinner & Stay)', color: '#4338ca', bg: '#e0e7ff' };
+    return { iconName: 'moon-outline', label: 'Night Block (Dinner & Stay)', color: '#4338ca', bg: '#e0e7ff' };
   }
 
   return (
@@ -141,22 +141,22 @@ export default function ItineraryScreen({ navigation, route }) {
           {trip.tripMode ? (
             <View style={[styles.specChip, { backgroundColor: trip.tripMode === 'company' ? '#0369a1' : colors.forest }]}>
               <Text style={[styles.specChipText, { color: '#ffffff', fontWeight: 'bold' }]}>
-                {trip.tripMode === 'company' ? '🏢 Company Services' : '🛠️ Customized Plan'}
+                {trip.tripMode === 'company' ? 'Company Services' : 'Customized Plan'}
               </Text>
             </View>
           ) : null}
           {trip.transportChoice === 'own' ? (
             <View style={[styles.specChip, { backgroundColor: '#15803d' }]}>
-              <Text style={[styles.specChipText, { color: '#ffffff', fontWeight: 'bold' }]}>🚗 Own Car (Rs. 0 rent)</Text>
+              <Text style={[styles.specChipText, { color: '#ffffff', fontWeight: 'bold' }]}>Own Car (Rs. 0 rent)</Text>
             </View>
           ) : trip.transportation ? (
-            <View style={styles.specChip}><Text style={styles.specChipText}>🚗 {trip.transportation}</Text></View>
+            <View style={styles.specChip}><Text style={styles.specChipText}>{trip.transportation}</Text></View>
           ) : null}
           {trip.travelType ? (
-            <View style={styles.specChip}><Text style={styles.specChipText}>👥 {trip.travelType}</Text></View>
+            <View style={styles.specChip}><Text style={styles.specChipText}>{trip.travelType}</Text></View>
           ) : null}
           {trip.comfortLevel ? (
-            <View style={styles.specChip}><Text style={styles.specChipText}>⭐ {trip.comfortLevel}</Text></View>
+            <View style={styles.specChip}><Text style={styles.specChipText}>{trip.comfortLevel}</Text></View>
           ) : null}
         </View>
 
@@ -165,7 +165,7 @@ export default function ItineraryScreen({ navigation, route }) {
           <View style={styles.routeHeaderRow}>
             <AppIcon name="navigate-outline" size={16} color={colors.forest} />
             <Text style={styles.routeHeaderText}>
-              From <Text style={{ fontWeight: '900', color: colors.forest }}>{trip.startLocation || 'Islamabad'}</Text> ➔ <Text style={{ fontWeight: '900', color: colors.forest }}>{trip.destination}</Text>
+              From <Text style={{ fontWeight: '900', color: colors.forest }}>{trip.startLocation || 'Islamabad'}</Text> to <Text style={{ fontWeight: '900', color: colors.forest }}>{trip.destination}</Text>
             </Text>
           </View>
           {trip.preferredRoute ? (
@@ -180,13 +180,13 @@ export default function ItineraryScreen({ navigation, route }) {
             <View style={styles.routeDateRow}>
               <AppIcon name="calendar-outline" size={14} color={colors.muted} />
               <Text style={styles.routeDateText}>
-                {trip.startDate} {trip.endDate ? `➔ ${trip.endDate}` : ''} ({trip.days} Days / {Math.max(1, trip.days - 1)} Nights)
+                {trip.startDate} {trip.endDate ? `to ${trip.endDate}` : ''} ({trip.days} Days / {Math.max(1, trip.days - 1)} Nights)
               </Text>
             </View>
           ) : null}
           {trip.category ? (
             <View style={styles.catBadge}>
-              <Text style={styles.catBadgeText}>🏷️ Category: {trip.category}</Text>
+              <Text style={styles.catBadgeText}>Category: {trip.category}</Text>
             </View>
           ) : null}
         </View>
@@ -231,12 +231,12 @@ export default function ItineraryScreen({ navigation, route }) {
                 {trip.hotelRequired === false ? 'No Hotel Required' : (pkg.roomType || (trip.hotel?.comfortLevel === 'Luxury' ? 'VIP Luxury Suite' : 'Deluxe Room'))}
               </Text>
               <Text style={styles.pillarSubText} numberOfLines={1}>
-                🏨 {trip.hotelRequired === false ? 'Arranged Personally (Rs. 0)' : (trip.hotel?.name || pkg.hotelName || 'Curated Hotel')}
+                {trip.hotelRequired === false ? 'Arranged Personally (Rs. 0)' : (trip.hotel?.name || pkg.hotelName || 'Curated Hotel')}
               </Text>
-              <Text style={styles.pillarDetailText}>📍 {trip.destination}</Text>
+              <Text style={styles.pillarDetailText}>{trip.destination}</Text>
               <View style={[styles.pillarInclusionTag, trip.hotelRequired === false && { backgroundColor: '#dcfce7' }]}>
                 <Text style={[styles.pillarInclusionTagText, trip.hotelRequired === false && { color: '#15803d' }]}>
-                  {trip.hotelRequired === false ? '✓ Lodging Rs. 0' : '✓ Breakfast Included'}
+                  {trip.hotelRequired === false ? 'Lodging Rs. 0' : 'Breakfast Included'}
                 </Text>
               </View>
             </View>
@@ -251,14 +251,14 @@ export default function ItineraryScreen({ navigation, route }) {
                 {trip.transportChoice === 'own' ? 'Own Vehicle (Personal)' : (trip.vehicleDetails?.name || pkg.vehicleName || trip.transportation || 'Dedicated Tour Car')}
               </Text>
               <Text style={styles.pillarSubText} numberOfLines={1}>
-                🚗 {trip.transportChoice === 'own' ? 'Rent Rs. 0 (Not cut)' : (pkg.fuelStatus || 'AC + Fuel + Tolls')}
+                {trip.transportChoice === 'own' ? 'Rent Rs. 0 (Not cut)' : (pkg.fuelStatus || 'AC + Fuel + Tolls')}
               </Text>
               <Text style={styles.pillarDetailText} numberOfLines={1}>
-                👤 {trip.vehicleDetails?.driverIncluded !== false ? 'Driver Included' : 'Self-Drive (Rs. 0)'}
+                {trip.vehicleDetails?.driverIncluded !== false ? 'Driver Included' : 'Self-Drive (Rs. 0)'}
               </Text>
               <View style={[styles.pillarInclusionTag, { backgroundColor: '#e0f2fe' }]}>
                 <Text style={[styles.pillarInclusionTagText, { color: '#0369a1' }]}>
-                  {trip.transportChoice === 'own' ? '✓ Own Vehicle' : '✓ Private Rental'}
+                  {trip.transportChoice === 'own' ? 'Own Vehicle' : 'Private Rental'}
                 </Text>
               </View>
             </View>
@@ -273,42 +273,15 @@ export default function ItineraryScreen({ navigation, route }) {
                 {trip.foodPlan?.foodChoice === 'self' ? 'Self-Arranged' : 'Breakfast + Dinner'}
               </Text>
               <Text style={styles.pillarSubText}>
-                🍳 Breakfast: {trip.foodPlan?.foodChoice === 'self' ? 'Self-paid (Rs. 0)' : 'Hotel Room'}
+                Breakfast: {trip.foodPlan?.foodChoice === 'self' ? 'Self-paid (Rs. 0)' : 'Hotel Room'}
               </Text>
               <Text style={styles.pillarSubText}>
-                🍽️ Dinner: {trip.foodPlan?.foodChoice === 'self' ? 'Self-paid (Rs. 0)' : 'In Package'}
+                Dinner: {trip.foodPlan?.foodChoice === 'self' ? 'Self-paid (Rs. 0)' : 'In Package'}
               </Text>
               <View style={[styles.pillarInclusionTag, { backgroundColor: '#fef3c7' }]}>
                 <Text style={[styles.pillarInclusionTagText, { color: '#b45309' }]}>
-                  {trip.foodPlan?.foodChoice === 'self' ? '🥡 Self-Paid (Rs. 0)' : '🥪 Lunch Self-Paid'}
+                  {trip.foodPlan?.foodChoice === 'self' ? 'Self-Paid (Rs. 0)' : 'Lunch Self-Paid'}
                 </Text>
-              </View>
-            </View>
-          </View>
-
-          {/* 4. CONNECTIVITY / SIM CARD (SUPERVISOR SPEC: Tel. 300, Call 100, Int 30GB) */}
-          <View style={styles.connectivityBanner}>
-            <View style={styles.connectivityHeader}>
-              <View style={styles.connectivityBadge}>
-                <AppIcon name="cellular-outline" size={13} color="#ffffff" />
-                <Text style={styles.connectivityBadgeText}>4. CONNECTIVITY</Text>
-              </View>
-              <Text style={styles.connectivityTitle}>
-                {trip.tripMode === 'company' ? 'Telenor 300 Tourist SIM Included' : 'Tourist SIM & Data Specs'}
-              </Text>
-            </View>
-            <View style={styles.connectivityDetailsRow}>
-              <View style={styles.connectivitySpecChip}>
-                <Text style={styles.connectivitySpecLabel}>📶 4G DATA</Text>
-                <Text style={styles.connectivitySpecValue}>30 GB High-Speed</Text>
-              </View>
-              <View style={styles.connectivitySpecChip}>
-                <Text style={styles.connectivitySpecLabel}>📞 CALLS</Text>
-                <Text style={styles.connectivitySpecValue}>100 All-Net Mins</Text>
-              </View>
-              <View style={styles.connectivitySpecChip}>
-                <Text style={styles.connectivitySpecLabel}>🏷️ SIM PACK</Text>
-                <Text style={styles.connectivitySpecValue}>Telenor 300</Text>
               </View>
             </View>
           </View>
@@ -326,10 +299,10 @@ export default function ItineraryScreen({ navigation, route }) {
                 <View style={[styles.allocSegment, { flex: 15, backgroundColor: '#7c3aed' }]} />
               </View>
               <View style={styles.allocLegendRow}>
-                <Text style={styles.allocLegendText}>🚗 Transport: <Text style={{ fontWeight: 'bold' }}>PKR {(alloc.transport || 0).toLocaleString()}</Text></Text>
-                <Text style={styles.allocLegendText}>🏨 Hotel: <Text style={{ fontWeight: 'bold' }}>PKR {(alloc.hotels || 0).toLocaleString()}</Text></Text>
-                <Text style={styles.allocLegendText}>🍽️ Food: <Text style={{ fontWeight: 'bold' }}>PKR {(alloc.food || 0).toLocaleString()}</Text></Text>
-                <Text style={styles.allocLegendText}>🎯 Sights: <Text style={{ fontWeight: 'bold' }}>PKR {(alloc.activities || 0).toLocaleString()}</Text></Text>
+                <Text style={styles.allocLegendText}>Transport: <Text style={{ fontWeight: 'bold' }}>PKR {(alloc.transport || 0).toLocaleString()}</Text></Text>
+                <Text style={styles.allocLegendText}>Hotel: <Text style={{ fontWeight: 'bold' }}>PKR {(alloc.hotels || 0).toLocaleString()}</Text></Text>
+                <Text style={styles.allocLegendText}>Food: <Text style={{ fontWeight: 'bold' }}>PKR {(alloc.food || 0).toLocaleString()}</Text></Text>
+                <Text style={styles.allocLegendText}>Sights: <Text style={{ fontWeight: 'bold' }}>PKR {(alloc.activities || 0).toLocaleString()}</Text></Text>
               </View>
             </View>
           )}
@@ -344,11 +317,11 @@ export default function ItineraryScreen({ navigation, route }) {
                 ...(trip.hotelRequired !== false && trip.hotel ? [`${nights} Nights Hotel Stay in ${trip.destination}`] : []),
                 ...(trip.foodPlan?.foodChoice !== 'self' ? ['Daily regional meals plan included'] : []),
                 ...(trip.optionalExperiences && trip.optionalExperiences.length > 0
-                  ? trip.optionalExperiences.map((e) => `✨ ${e.name || e.title || 'Special Experience'}`)
+                  ? trip.optionalExperiences.map((e) => e.name || e.title || 'Special Experience')
                   : []),
                 '24/7 Tour coordination & helpline support',
               ]).map((inc, i) => (
-                <Text key={i} style={styles.inclusionItem}>✓ {inc}</Text>
+                <Text key={i} style={styles.inclusionItem}>[Included] {inc}</Text>
               ))}
             </View>
           </View>
@@ -388,7 +361,7 @@ export default function ItineraryScreen({ navigation, route }) {
               {advisory.alerts.map((alt, idx) => (
                 <View key={idx} style={[styles.hazardBadge, alt.severity === 'danger' && styles.hazardBadgeDanger]}>
                   <Text style={[styles.hazardBadgeText, alt.severity === 'danger' && styles.hazardBadgeTextDanger]}>
-                    ⚠️ {String(alt.hazard || 'ALERT').toUpperCase()}: {alt.title}
+                    {String(alt.hazard || 'ALERT').toUpperCase()}: {alt.title}
                   </Text>
                   {alt.message ? <Text style={styles.hazardDetailMsg}>{alt.message}</Text> : null}
                 </View>
@@ -501,9 +474,10 @@ export default function ItineraryScreen({ navigation, route }) {
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap', flex: 1, marginRight: 6 }}>
                     <Text style={styles.time}>{activity.time}</Text>
                     {blockInfo ? (
-                      <View style={[styles.timeBlockBadge, { backgroundColor: blockInfo.bg }]}>
+                      <View style={[styles.timeBlockBadge, { backgroundColor: blockInfo.bg, flexDirection: 'row', alignItems: 'center', gap: 4 }]}>
+                        <AppIcon name={blockInfo.iconName} size={13} color={blockInfo.color} />
                         <Text style={[styles.timeBlockBadgeText, { color: blockInfo.color }]}>
-                          {blockInfo.icon} {blockInfo.label}
+                          {blockInfo.label}
                         </Text>
                       </View>
                     ) : null}
@@ -514,8 +488,9 @@ export default function ItineraryScreen({ navigation, route }) {
                 </View>
 
                 {activity.mealPolicy ? (
-                  <View style={styles.mealPolicyPill}>
-                    <Text style={styles.mealPolicyPillText}>🍽️ {activity.mealPolicy}</Text>
+                  <View style={[styles.mealPolicyPill, { flexDirection: 'row', alignItems: 'center', gap: 4 }]}>
+                    <AppIcon name="restaurant-outline" size={13} color="#047857" />
+                    <Text style={styles.mealPolicyPillText}>{activity.mealPolicy}</Text>
                   </View>
                 ) : null}
 
@@ -706,7 +681,7 @@ const styles = StyleSheet.create({
   timeline: { width: 27, alignItems: 'center' },
   dot: { width: 11, height: 11, borderRadius: 6, backgroundColor: colors.green, marginTop: 18 },
   line: { flex: 1, width: 2, backgroundColor: '#b8d9c5' },
-  card: { ...shadow, flex: 1, backgroundColor: colors.paper, borderRadius: 16, padding: 15, marginBottom: 12 },
+  card: { ...shadow, flex: 1, backgroundColor: '#FFFFFF', borderRadius: 16, padding: 15, marginBottom: 12, borderWidth: 1, borderColor: '#E2E8F0' },
   cardTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   time: { color: colors.green, fontWeight: '900', fontSize: 12 },
   badge: { borderRadius: 12, paddingHorizontal: 8, paddingVertical: 3 },
@@ -726,12 +701,12 @@ const styles = StyleSheet.create({
   cardActionText: { color: colors.forest, fontWeight: '900', fontSize: 10 },
   tourPackageCard: {
     ...shadow,
-    backgroundColor: colors.paper,
+    backgroundColor: '#FFFFFF',
     borderRadius: 16,
     padding: 14,
     marginBottom: 16,
-    borderWidth: 1.5,
-    borderColor: '#c6e8d5',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
     gap: 12,
   },
   tourPackageHeader: {
@@ -799,10 +774,12 @@ const styles = StyleSheet.create({
   },
   threePillarsGrid: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 8,
   },
   pillarCard: {
     flex: 1,
+    minWidth: 145,
     backgroundColor: colors.cream,
     borderRadius: 12,
     padding: 10,
@@ -930,64 +907,5 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '700',
     color: '#92400e',
-  },
-  connectivityBanner: {
-    backgroundColor: '#f0fdf4',
-    borderRadius: 12,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#bbf7d0',
-    gap: 8,
-  },
-  connectivityHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  connectivityBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    backgroundColor: '#15803d',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 6,
-  },
-  connectivityBadgeText: {
-    color: '#ffffff',
-    fontSize: 9,
-    fontWeight: '900',
-    letterSpacing: 0.5,
-  },
-  connectivityTitle: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: '#166534',
-  },
-  connectivityDetailsRow: {
-    flexDirection: 'row',
-    gap: 8,
-    flexWrap: 'wrap',
-  },
-  connectivitySpecChip: {
-    flex: 1,
-    minWidth: 85,
-    backgroundColor: '#ffffff',
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#dcfce7',
-  },
-  connectivitySpecLabel: {
-    fontSize: 8,
-    fontWeight: '900',
-    color: colors.muted,
-  },
-  connectivitySpecValue: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: '#15803d',
-    marginTop: 2,
   },
 });
