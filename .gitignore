@@ -27,3 +27,5 @@ ml/.env
 Thumbs.db
 cloudflared.exe
 scratch/
+*.apk
+*.keystore

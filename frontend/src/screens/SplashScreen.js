@@ -160,13 +160,16 @@ export default function SplashScreen({ navigation }) {
   const planeRotate = Animated.add(
     planeFloat.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '3deg'],
+      outputRange: [0, 3],
     }),
     planeLaunch.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '-8deg'],
+      outputRange: [0, -8],
     })
-  );
+  ).interpolate({
+    inputRange: [-10, 10],
+    outputRange: ['-10deg', '10deg'],
+  });
 
   const planeScale = planeLaunch.interpolate({
     inputRange: [0, 1],

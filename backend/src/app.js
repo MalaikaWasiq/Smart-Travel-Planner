@@ -70,6 +70,11 @@ app.use('/api/alerts', alertRoutes);
 app.use('/api/destinations', destinationRoutes);
 app.use('/api/admin', adminRoutes);
 
+const publicDir = path.resolve(__dirname, '../public');
+if (fs.existsSync(publicDir)) {
+  app.use(express.static(publicDir));
+}
+
 const frontendDist = path.resolve(__dirname, '../../frontend/dist');
 if (fs.existsSync(frontendDist)) {
   app.use(express.static(frontendDist));

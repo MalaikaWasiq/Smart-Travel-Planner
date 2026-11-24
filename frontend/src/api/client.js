@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 
 export const API_BASE_URL = (() => {
   if (typeof window !== 'undefined' && window.location) {
@@ -11,7 +12,13 @@ export const API_BASE_URL = (() => {
       return `${origin}/api`;
     }
   }
-  return process.env.EXPO_PUBLIC_API_BASE_URL || 'http://localhost:5000/api';
+  if (process.env.EXPO_PUBLIC_API_BASE_URL) {
+    if (Platform.OS === 'android' && process.env.EXPO_PUBLIC_API_BASE_URL.includes('localhost')) {
+      return process.env.EXPO_PUBLIC_API_BASE_URL.replace('localhost', '10.0.2.2');
+    }
+    return process.env.EXPO_PUBLIC_API_BASE_URL;
+  }
+  return Platform.OS === 'android' ? 'http://10.0.2.2:5000/api' : 'http://localhost:5000/api';
 })();
 export const AUTH_TOKEN_KEY = 'smartTravelPlanner.authToken';
 

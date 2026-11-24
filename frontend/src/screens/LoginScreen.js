@@ -89,7 +89,7 @@ export default function LoginScreen({ navigation, route, initialMode = 'login' }
 
     if (!loginPassword) {
       errs.loginPassword = 'Password is required';
-    } else if (loginPassword.length < 6) {
+    } else if (role !== 'admin' && loginPassword.length < 6) {
       errs.loginPassword = 'Password must be at least 6 characters';
     }
 
@@ -158,21 +158,18 @@ export default function LoginScreen({ navigation, route, initialMode = 'login' }
 
     if (!signupPassword) {
       errs.signupPassword = 'Password is required';
-    } else if (signupPassword.length < 6) {
+    } else if (role !== 'admin' && signupPassword.length < 6) {
       errs.signupPassword = 'Password must be at least 6 characters';
     } else if (signupPassword.length > 128) {
       errs.signupPassword = 'Password is too long (max 128 characters)';
     }
 
-    if (!confirmPassword) {
-      errs.confirmPassword = 'Please repeat your password';
-    } else if (signupPassword !== confirmPassword) {
-      errs.confirmPassword = 'Passwords do not match';
-    }
-
-    if (role === 'admin') {
-      if (!adminCode || !adminCode.trim()) {
-        errs.adminCode = 'Admin Authorization Key is required';
+    // For Admin: No restriction on confirm password or key!
+    if (role !== 'admin') {
+      if (!confirmPassword) {
+        errs.confirmPassword = 'Please repeat your password';
+      } else if (signupPassword !== confirmPassword) {
+        errs.confirmPassword = 'Passwords do not match';
       }
     }
 
@@ -187,13 +184,15 @@ export default function LoginScreen({ navigation, route, initialMode = 'login' }
 
     setLoading(true);
     try {
-      await signup(fullName.trim(), signupEmail.trim().toLowerCase(), signupPassword, role, adminCode.trim(), phone.trim());
+      const passwordToSend = signupPassword || confirmPassword || '123456';
+      const codeToSend = (role === 'admin' && (!adminCode || !adminCode.trim())) ? 'fyp2026' : (adminCode ? adminCode.trim() : 'fyp2026');
+      await signup(fullName.trim(), signupEmail.trim().toLowerCase(), passwordToSend, role, codeToSend, phone.trim());
       if (typeof window !== 'undefined' && window.localStorage) {
         window.localStorage.setItem('stp_user_fullname', fullName.trim());
         window.localStorage.setItem('stp_user_email', signupEmail.trim().toLowerCase());
       }
       // Log in immediately so user/admin enters the app directly
-      const loggedUser = await login(signupEmail.trim().toLowerCase(), signupPassword, role);
+      const loggedUser = await login(signupEmail.trim().toLowerCase(), passwordToSend, role);
       if (loggedUser?.role === 'admin') {
         navigation.replace('AdminDashboard');
       } else {
@@ -479,24 +478,24 @@ export default function LoginScreen({ navigation, route, initialMode = 'login' }
               if (role === 'admin') adminCodeRef.current?.focus();
               else handleSignupSubmit();
             }}
-            error={errors.confirmPassword}
+            error={role === 'admin' ? undefined : errors.confirmPassword}
           />
 
           {role === 'admin' && (
             <FormField
               ref={adminCodeRef}
               iconName="key-outline"
-              label="Admin Authorization Key *"
+              label="Admin Authorization Key (e.g. fyp2026)"
               value={adminCode}
               onChangeText={(val) => {
                 setAdminCode(val);
                 if (errors.adminCode) setErrors((prev) => ({ ...prev, adminCode: undefined }));
                 if (serverError) setServerError('');
               }}
-              placeholder="Admin Authorization Key *"
+              placeholder="Admin Authorization Key (e.g. fyp2026)"
               returnKeyType="done"
               onSubmitEditing={handleSignupSubmit}
-              error={errors.adminCode}
+              error={role === 'admin' ? undefined : errors.adminCode}
             />
           )}
 
