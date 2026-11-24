@@ -52,6 +52,9 @@ export default function AdminDashboardScreen({ navigation }) {
   const [customerSearch, setCustomerSearch] = useState('');
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [destinationsData, setDestinationsData] = useState([]);
+  const [destinationSearch, setDestinationSearch] = useState('');
+  const [destinationRegion, setDestinationRegion] = useState('All');
+  const [selectedDestination, setSelectedDestination] = useState(null);
   const [vehiclesData, setVehiclesData] = useState([]);
   const [hotelsData, setHotelsData] = useState([]);
   const [selectedCityHotel, setSelectedCityHotel] = useState('All');
@@ -825,6 +828,245 @@ export default function AdminDashboardScreen({ navigation }) {
     );
   }
 
+  // Render Destinations Management
+  function renderDestinations() {
+    const searchLower = (destinationSearch || '').toLowerCase().trim();
+    const filtered = (destinationsData || []).filter((d) => {
+      const matchesSearch =
+        !searchLower ||
+        (d.name && d.name.toLowerCase().includes(searchLower)) ||
+        (d.region && d.region.toLowerCase().includes(searchLower)) ||
+        (d.category && d.category.toLowerCase().includes(searchLower));
+      const matchesRegion =
+        destinationRegion === 'All' ||
+        (d.region && d.region.toLowerCase() === destinationRegion.toLowerCase());
+      return matchesSearch && matchesRegion;
+    });
+
+    const regionsList = ['All', 'Gilgit-Baltistan', 'Khyber Pakhtunkhwa', 'Punjab', 'Sindh', 'Balochistan', 'Azad Kashmir'];
+
+    // Top metrics
+    const totalDestinationsCount = destinationsData.length || 0;
+    const sortedByTrips = [...(destinationsData || [])].sort((a, b) => (b.totalTripsBooked || 0) - (a.totalTripsBooked || 0));
+    const topBooked = sortedByTrips[0] || null;
+    const totalDestRevenue = (destinationsData || []).reduce((sum, d) => sum + (Number(d.totalRevenueGenerated) || 0), 0);
+
+    return (
+      <View style={styles.sectionContainer}>
+        <View style={styles.sectionHeaderRow}>
+          <View>
+            <Text style={styles.sectionTitle}>Destinations Management ({filtered.length})</Text>
+            <Text style={styles.sectionSubtitle}>
+              Catalog of all travel destinations with real-time customer booking performance
+            </Text>
+          </View>
+        </View>
+
+        {/* TOP SUMMARY CARDS */}
+        <View style={styles.kpiRow}>
+          <View style={styles.kpiCard}>
+            <View style={styles.kpiHeader}>
+              <Text style={styles.kpiLabel}>Total Destinations</Text>
+              <View style={[styles.kpiIconWrap, { backgroundColor: '#e0f2fe' }]}>
+                <AppIcon name="location-outline" size={20} color="#0284c7" />
+              </View>
+            </View>
+            <Text style={styles.kpiValue}>{totalDestinationsCount}</Text>
+            <Text style={styles.kpiSub}>Active across Pakistan</Text>
+          </View>
+
+          <View style={styles.kpiCard}>
+            <View style={styles.kpiHeader}>
+              <Text style={styles.kpiLabel}>Most Popular</Text>
+              <View style={[styles.kpiIconWrap, { backgroundColor: '#dcfce7' }]}>
+                <AppIcon name="flame-outline" size={20} color="#16a34a" />
+              </View>
+            </View>
+            <Text style={[styles.kpiValue, { fontSize: 18 }]} numberOfLines={1}>
+              {topBooked?.name || 'Hunza Valley'}
+            </Text>
+            <Text style={styles.kpiSub}>
+              {topBooked?.totalTripsBooked || 0} booked customer trips
+            </Text>
+          </View>
+
+          <View style={styles.kpiCard}>
+            <View style={styles.kpiHeader}>
+              <Text style={styles.kpiLabel}>Destination Revenue</Text>
+              <View style={[styles.kpiIconWrap, { backgroundColor: '#fef3c7' }]}>
+                <AppIcon name="wallet-outline" size={20} color="#d97706" />
+              </View>
+            </View>
+            <Text style={styles.kpiValue}>PKR {totalDestRevenue.toLocaleString()}</Text>
+            <Text style={styles.kpiSub}>Total customer booking value</Text>
+          </View>
+        </View>
+
+        {/* SEARCH & REGION FILTERS */}
+        <View style={{ marginVertical: 12 }}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search destination by name, region or category..."
+            value={destinationSearch}
+            onChangeText={setDestinationSearch}
+          />
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterPills}>
+            {regionsList.map((r) => (
+              <TouchableOpacity
+                key={r}
+                style={[
+                  styles.filterPill,
+                  destinationRegion === r && styles.filterPillActive,
+                ]}
+                onPress={() => setDestinationRegion(r)}
+              >
+                <Text
+                  style={[
+                    styles.filterPillText,
+                    destinationRegion === r && styles.filterPillTextActive,
+                  ]}
+                >
+                  {r}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* DESTINATIONS TABLE */}
+        <View style={styles.tableCard}>
+          <ScrollView horizontal showsHorizontalScrollIndicator>
+            <View>
+              <View style={styles.tableHeaderRow}>
+                <Text style={[styles.th, { width: 170 }]}>Destination</Text>
+                <Text style={[styles.th, { width: 140 }]}>Region</Text>
+                <Text style={[styles.th, { width: 140 }]}>Category</Text>
+                <Text style={[styles.th, { width: 80 }]}>Rating</Text>
+                <Text style={[styles.th, { width: 120 }]}>Best Season</Text>
+                <Text style={[styles.th, { width: 100 }]}>Bookings</Text>
+                <Text style={[styles.th, { width: 130 }]}>Revenue (PKR)</Text>
+                <Text style={[styles.th, { width: 100 }]}>Action</Text>
+              </View>
+
+              {filtered.length === 0 ? (
+                <View style={{ padding: 24, alignItems: 'center' }}>
+                  <Text style={{ color: '#64748b', fontSize: 14 }}>No destinations found matching your filter.</Text>
+                </View>
+              ) : (
+                filtered.map((d, idx) => (
+                  <View key={d.id || d.destinationId || idx} style={styles.tableRow}>
+                    <View style={{ width: 170 }}>
+                      <Text style={{ fontFamily: fonts.bold, fontSize: 13, color: '#1e293b' }}>{d.name}</Text>
+                      <Text style={{ fontSize: 11, color: '#64748b' }} numberOfLines={1}>
+                        {d.popularActivities?.slice(0, 2).join(', ') || 'Sightseeing'}
+                      </Text>
+                    </View>
+                    <View style={{ width: 140 }}>
+                      <View style={[styles.statusBadge, { backgroundColor: '#f1f5f9' }]}>
+                        <Text style={[styles.statusBadgeText, { color: '#334155' }]}>{d.region}</Text>
+                      </View>
+                    </View>
+                    <Text style={[styles.td, { width: 140 }]}>{d.category}</Text>
+                    <View style={{ width: 80, flexDirection: 'row', alignItems: 'center' }}>
+                      <AppIcon name="star" size={13} color="#f59e0b" style={{ marginRight: 3 }} />
+                      <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#1e293b' }}>{d.rating || 4.8}</Text>
+                    </View>
+                    <Text style={[styles.td, { width: 120 }]}>{d.bestSeason || 'All Year'}</Text>
+                    <View style={{ width: 100 }}>
+                      <Text style={{ fontWeight: 'bold', color: '#1e293b' }}>{d.totalTripsBooked || 0} trips</Text>
+                    </View>
+                    <Text style={[styles.td, { width: 130, fontWeight: 'bold', color: '#15803d' }]}>
+                      PKR {Number(d.totalRevenueGenerated || 0).toLocaleString()}
+                    </Text>
+                    <TouchableOpacity
+                      style={styles.actionBtn}
+                      onPress={() => setSelectedDestination(d)}
+                    >
+                      <Text style={styles.actionBtnText}>View Details</Text>
+                    </TouchableOpacity>
+                  </View>
+                ))
+              )}
+            </View>
+          </ScrollView>
+        </View>
+
+        {/* DESTINATION DETAIL MODAL */}
+        {selectedDestination && (
+          <Modal visible transparent animationType="fade">
+            <View style={styles.modalOverlay}>
+              <View style={[styles.modalBox, { maxWidth: 580 }]}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.modalTitle}>{selectedDestination.name}</Text>
+                    <Text style={styles.sectionSubtitle}>
+                      {selectedDestination.category} • {selectedDestination.region}
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#fef3c7', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 }}>
+                    <AppIcon name="star" size={14} color="#f59e0b" style={{ marginRight: 4 }} />
+                    <Text style={{ fontWeight: 'bold', color: '#92400e', fontSize: 13 }}>{selectedDestination.rating || 4.8}</Text>
+                  </View>
+                </View>
+
+                {selectedDestination.imageUrl ? (
+                  <Image
+                    source={{ uri: selectedDestination.imageUrl }}
+                    style={{ width: '100%', height: 160, borderRadius: 8, marginVertical: 12 }}
+                    resizeMode="cover"
+                  />
+                ) : null}
+
+                <Text style={{ fontSize: 13, color: '#475569', lineHeight: 19, marginVertical: 8 }}>
+                  {selectedDestination.description || 'Famous Pakistani travel and tourism destination featuring mountain peaks, lakes, historical heritage, and adventure activities.'}
+                </Text>
+
+                <View style={{ flexDirection: 'row', marginVertical: 10, backgroundColor: '#f8fafc', padding: 10, borderRadius: 8 }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 11, color: '#64748b' }}>Best Season</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 13, color: '#1e293b' }}>{selectedDestination.bestSeason || 'All Seasons'}</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 11, color: '#64748b' }}>Total Bookings</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 13, color: '#0284c7' }}>{selectedDestination.totalTripsBooked || 0} Trips</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 11, color: '#64748b' }}>Revenue Generated</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 13, color: '#15803d' }}>
+                      PKR {Number(selectedDestination.totalRevenueGenerated || 0).toLocaleString()}
+                    </Text>
+                  </View>
+                </View>
+
+                {selectedDestination.popularActivities && selectedDestination.popularActivities.length > 0 && (
+                  <View style={{ marginVertical: 6 }}>
+                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#334155', marginBottom: 6 }}>
+                      Popular Activities & Highlights:
+                    </Text>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
+                      {selectedDestination.popularActivities.map((act, i) => (
+                        <View key={i} style={{ backgroundColor: '#e2e8f0', paddingHorizontal: 8, paddingVertical: 3, borderRadius: 4 }}>
+                          <Text style={{ fontSize: 11, color: '#1e293b' }}>{act}</Text>
+                        </View>
+                      ))}
+                    </View>
+                  </View>
+                )}
+
+                <TouchableOpacity
+                  style={[styles.closeBtn, { marginTop: 14 }]}
+                  onPress={() => setSelectedDestination(null)}
+                >
+                  <Text style={styles.closeBtnText}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        )}
+      </View>
+    );
+  }
+
   // Render Transportation Management
   function renderTransport() {
     return (
@@ -1320,7 +1562,7 @@ export default function AdminDashboardScreen({ navigation }) {
               {activeTab === 'budget' && renderBudgetAllocation()}
               {activeTab === 'trips' && renderTrips()}
               {activeTab === 'customers' && renderCustomers()}
-              {activeTab === 'destinations' && renderOverview()}
+              {activeTab === 'destinations' && renderDestinations()}
               {activeTab === 'transport' && renderTransport()}
               {activeTab === 'hotels' && renderHotels()}
               {activeTab === 'food' && renderFood()}

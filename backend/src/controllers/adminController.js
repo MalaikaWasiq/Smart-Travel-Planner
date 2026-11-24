@@ -450,13 +450,21 @@ async function getDestinationsAnalytics(req, res, next) {
       tripRevenue[dest] = (tripRevenue[dest] || 0) + getTripTotal(t);
     });
 
-    const enriched = (pakDestinations.destinations || []).map((d) => ({
+    const destList = Array.isArray(pakDestinations)
+      ? pakDestinations
+      : (pakDestinations.destinations || []);
+
+    const enriched = destList.map((d) => ({
+      id: d.destinationId || d.id || d.name,
       name: d.name,
-      region: d.region,
-      category: d.category,
-      idealDays: d.idealDays,
-      bestSeason: d.bestSeason,
-      budgetTier: d.budgetTier,
+      region: d.region || 'Pakistan',
+      category: d.category || 'Sightseeing',
+      idealDays: d.idealDays || 4,
+      bestSeason: d.bestTimeToVisit || d.bestSeason || 'All Year',
+      budgetTier: d.budgetTier || 'Moderate',
+      rating: d.rating || 4.8,
+      imageUrl: d.imageUrl || '',
+      popularActivities: d.popularActivities || [],
       totalTripsBooked: tripCounts[d.name] || 0,
       totalRevenueGenerated: Math.round(tripRevenue[d.name] || 0),
     }));
