@@ -3119,10 +3119,10 @@ export default function TripPlanningScreen({ navigation, route }) {
           message: `Your remaining budget is PKR ${currentAvailable.toLocaleString()}, but "${exp.name}" costs PKR ${exp.price.toLocaleString()}. Please choose another experience or keep your budget savings.`,
           availableAmount: currentAvailable,
           serviceAmount: exp.price,
-          primaryText: 'Skip All Extras (Keep Full Savings)',
-          onPrimary: () => setSelectedExtraIds([]),
-          secondaryText: 'Close',
-          onSecondary: () => {},
+          options: [
+            { text: 'Skip All Extras', style: 'cancel', onPress: () => setSelectedExtraIds([]) },
+            { text: 'Back to Itinerary', onPress: () => {} },
+          ],
         });
         return;
       }
@@ -6026,34 +6026,56 @@ export default function TripPlanningScreen({ navigation, route }) {
         >
           <View style={styles.budgetModalOverlay}>
             <View style={styles.budgetModalContent}>
+              {/* Corner Close Button */}
+              <TouchableOpacity
+                style={styles.budgetModalCloseBtn}
+                onPress={() => setBudgetModal({ visible: false, title: '', message: '', options: [] })}
+                accessibilityLabel="Close and return to itinerary"
+                accessibilityRole="button"
+                hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+              >
+                <AppIcon name="close" size={18} color="#64748b" />
+              </TouchableOpacity>
+
               <View style={styles.budgetModalHeader}>
                 <AppIcon name="alert-circle" size={26} color="#b45309" />
                 <AppText style={styles.budgetModalTitle}>{budgetModal.title}</AppText>
               </View>
               <AppText style={styles.budgetModalMessage}>{budgetModal.message}</AppText>
               <View style={styles.budgetModalButtons}>
-                {(budgetModal.options || []).map((opt, idx) => (
-                  <TouchableOpacity
-                    key={idx}
-                    style={[
-                      styles.budgetModalBtn,
-                      opt.style === 'cancel' ? styles.budgetModalBtnSecondary : styles.budgetModalBtnPrimary,
-                    ]}
-                    onPress={() => {
-                      setBudgetModal({ visible: false, title: '', message: '', options: [] });
-                      if (opt.onPress) opt.onPress();
-                    }}
-                  >
-                    <AppText
+                {(budgetModal.options && budgetModal.options.length > 0) ? (
+                  budgetModal.options.map((opt, idx) => (
+                    <TouchableOpacity
+                      key={idx}
                       style={[
-                        styles.budgetModalBtnText,
-                        opt.style === 'cancel' ? styles.budgetModalBtnTextSecondary : styles.budgetModalBtnTextPrimary,
+                        styles.budgetModalBtn,
+                        opt.style === 'cancel' ? styles.budgetModalBtnSecondary : styles.budgetModalBtnPrimary,
                       ]}
+                      onPress={() => {
+                        setBudgetModal({ visible: false, title: '', message: '', options: [] });
+                        if (opt.onPress) opt.onPress();
+                      }}
                     >
-                      {opt.text}
+                      <AppText
+                        style={[
+                          styles.budgetModalBtnText,
+                          opt.style === 'cancel' ? styles.budgetModalBtnTextSecondary : styles.budgetModalBtnTextPrimary,
+                        ]}
+                      >
+                        {opt.text}
+                      </AppText>
+                    </TouchableOpacity>
+                  ))
+                ) : (
+                  <TouchableOpacity
+                    style={[styles.budgetModalBtn, styles.budgetModalBtnPrimary]}
+                    onPress={() => setBudgetModal({ visible: false, title: '', message: '', options: [] })}
+                  >
+                    <AppText style={[styles.budgetModalBtnText, styles.budgetModalBtnTextPrimary]}>
+                      Back to Itinerary
                     </AppText>
                   </TouchableOpacity>
-                ))}
+                )}
               </View>
             </View>
           </View>
@@ -8616,18 +8638,34 @@ const styles = StyleSheet.create({
   budgetModalContent: {
     backgroundColor: '#ffffff',
     borderRadius: radius.xl,
-    padding: 20,
+    padding: 22,
     width: '100%',
     maxWidth: 480,
     ...shadowSoft,
     borderWidth: 1,
     borderColor: '#fed7aa',
+    position: 'relative',
+  },
+  budgetModalCloseBtn: {
+    position: 'absolute',
+    top: 14,
+    right: 14,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#f8fafc',
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
   },
   budgetModalHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
     marginBottom: 10,
+    paddingRight: 36,
   },
   budgetModalTitle: {
     fontSize: 16,
